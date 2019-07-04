@@ -72,6 +72,7 @@ void ResourceManager::Load()
 		string plist_path = document["ANIMATE"][key.c_str()]["plist"].GetString();
 		string path = document["ANIMATE"][key.c_str()]["path"].GetString();
 		int n = document["ANIMATE"][key.c_str()]["size"].GetInt();
+		SpriteFrameCache::getInstance()->destroyInstance();
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_path, path);
 		Vector<SpriteFrame*> aniFrames;
 		for (int j = 0; j < n; j++)
