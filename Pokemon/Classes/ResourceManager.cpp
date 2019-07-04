@@ -88,24 +88,40 @@ void ResourceManager::Load()
 
 Sprite * ResourceManager::GetSpriteById(int id)
 {
-	auto sprite = this->m_sprites.at(id);
-	return sprite;
+	auto sprite = this->m_sprites[id];
+	auto tmp = m_sprites.find(id);
+	while (tmp != m_sprites.end())
+	{
+		return tmp->second;
+	}
 }
 
 Animate * ResourceManager::GetAnimateById(int id)
 {
-	auto animate = this->m_animates.at(id);
-	return animate;
+	auto animate = this->m_animates[id];
+	auto tmp = m_animates.find(id);
+	while (tmp != m_animates.end())
+	{
+		return tmp->second;
+	}
 }
 
 Button * ResourceManager::GetButtonById(int id)
 {
-	auto button = this->m_buttons.at(id);
-	return button;
+	auto button = this->m_buttons[id];
+	auto tmp = m_buttons.find(id);
+	while (tmp != m_buttons.end())
+	{
+		return tmp->second;
+	}
 }
 
 Label * ResourceManager::GetLabelById(int id)
 {
-	auto label = this->m_labels.at(id);
-	return label;
+	auto label = this->m_labels[id];
+	auto tmp = m_labels.find(id);
+	while (tmp != m_labels.end())
+	{
+		return tmp->second;
+	}
 }
