@@ -87,9 +87,16 @@ void ResourceManager::Load()
 	}
 }
 
+Sprite * ResourceManager::DuplicateSprite(Sprite * sprite)
+{
+	auto temp = Sprite::createWithTexture(sprite->getTexture());
+	return temp;
+}
+
 Sprite * ResourceManager::GetSpriteById(int id)
 {
-	auto sprite = this->m_sprites.at(id);
+	auto temp = this->m_sprites.at(id);
+	auto sprite = this->DuplicateSprite(temp);
 	return sprite;
 }
 
