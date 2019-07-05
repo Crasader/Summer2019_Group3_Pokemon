@@ -11,7 +11,12 @@ MyObject::~MyObject()
 {
 }
 
-Sprite * MyObject::GetSprite()
+Sprite * MyObject::GetSpriteBack()
 {
-	return this->m_sprite;
+	return this->m_spriteBack;
+}
+
+Sprite * MyObject::GetSpriteFront()
+{
+	return this->m_spriteFront;
 }
