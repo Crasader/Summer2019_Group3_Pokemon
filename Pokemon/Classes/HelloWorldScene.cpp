@@ -1,5 +1,6 @@
 
 #include "HelloWorldScene.h"
+#include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 
@@ -36,6 +37,7 @@ bool HelloWorld::init()
 	auto animate = ResourceManager::GetInstance()->GetAnimateById(1);
 	sprite->runAction(RepeatForever::create(animate));
 	this->addChild(sprite);
+
     return true;
 }
 
