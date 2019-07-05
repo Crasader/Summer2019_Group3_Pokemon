@@ -98,7 +98,7 @@ Sprite * ResourceManager::GetSpriteById(int id)
 	auto tmp = this->m_sprites.find(id);
 	while (tmp != m_sprites.end())
 	{
-		return tmp->second;
+		return this->DuplicateSprite(tmp->second);
 	}
 }
 

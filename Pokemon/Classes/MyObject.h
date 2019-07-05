@@ -13,4 +13,3 @@ public:
 	virtual void Update(float deltaTime) {};
 	Sprite* GetSprite();
 };
-

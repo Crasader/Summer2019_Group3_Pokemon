@@ -39,4 +39,3 @@ public:
 	int GetMaxExp();
 	void SetMaxExp(int exp);
 };
-
