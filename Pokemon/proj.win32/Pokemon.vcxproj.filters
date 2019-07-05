@@ -24,6 +24,8 @@
     <ClCompile Include="..\Classes\ResourceManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="MyObject.cpp" />
+    <ClCompile Include="Pokemon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -38,6 +40,8 @@
     <ClInclude Include="..\Classes\ResourceManager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="MyObject.h" />
+    <ClInclude Include="Pokemon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

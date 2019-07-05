@@ -12,6 +12,7 @@ class ResourceManager
 private:
 	static ResourceManager* s_instance;
 	ResourceManager();
+	Sprite* DuplicateSprite(Sprite* sprite);
 	map<int, Sprite*> m_sprites;
 	map<int, Animate*> m_animates;
 	map<int, Button*> m_buttons;

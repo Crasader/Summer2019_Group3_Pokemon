@@ -87,6 +87,12 @@ void ResourceManager::Load()
 	}
 }
 
+Sprite * ResourceManager::DuplicateSprite(Sprite * sprite)
+{
+	auto temp = Sprite::createWithTexture(sprite->getTexture());
+	return temp;
+}
+
 Sprite * ResourceManager::GetSpriteById(int id)
 {
 	auto tmp = this->m_sprites.find(id);
@@ -94,7 +100,6 @@ Sprite * ResourceManager::GetSpriteById(int id)
 	{
 		return tmp->second;
 	}
-	
 }
 
 Animate * ResourceManager::GetAnimateById(int id)
