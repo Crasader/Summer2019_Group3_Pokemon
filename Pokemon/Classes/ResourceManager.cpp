@@ -95,25 +95,36 @@ Sprite * ResourceManager::DuplicateSprite(Sprite * sprite)
 
 Sprite * ResourceManager::GetSpriteById(int id)
 {
-	auto temp = this->m_sprites.at(id);
-	auto sprite = this->DuplicateSprite(temp);
-	return sprite;
+	auto tmp = this->m_sprites.find(id);
+	while (tmp != m_sprites.end())
+	{
+		return tmp->second;
+	}
 }
 
 Animate * ResourceManager::GetAnimateById(int id)
 {
-	auto animate = this->m_animates.at(id);
-	return animate;
+	auto tmp = this->m_animates.find(id);
+	while (tmp != m_animates.end())
+	{
+		return tmp->second;
+	}
 }
 
 Button * ResourceManager::GetButtonById(int id)
 {
-	auto button = this->m_buttons.at(id);
-	return button;
+	auto tmp = this->m_buttons.find(id);
+	while (tmp != m_buttons.end())
+	{
+		return tmp->second;
+	}
 }
 
 Label * ResourceManager::GetLabelById(int id)
 {
-	auto label = this->m_labels.at(id);
-	return label;
+	auto tmp = this->m_labels.find(id);
+	while (tmp != m_labels.end())
+	{
+		return tmp->second;
+	}
 }
