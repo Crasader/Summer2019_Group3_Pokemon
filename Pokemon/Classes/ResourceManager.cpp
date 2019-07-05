@@ -72,6 +72,7 @@ void ResourceManager::Load()
 		string plist_path = document["ANIMATE"][key.c_str()]["plist"].GetString();
 		string path = document["ANIMATE"][key.c_str()]["path"].GetString();
 		int n = document["ANIMATE"][key.c_str()]["size"].GetInt();
+		SpriteFrameCache::getInstance()->destroyInstance();
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_path, path);
 		Vector<SpriteFrame*> aniFrames;
 		for (int j = 0; j < n; j++)
@@ -88,18 +89,17 @@ void ResourceManager::Load()
 
 Sprite * ResourceManager::GetSpriteById(int id)
 {
-	auto sprite = this->m_sprites[id];
-	auto tmp = m_sprites.find(id);
+	auto tmp = this->m_sprites.find(id);
 	while (tmp != m_sprites.end())
 	{
 		return tmp->second;
 	}
+	
 }
 
 Animate * ResourceManager::GetAnimateById(int id)
 {
-	auto animate = this->m_animates[id];
-	auto tmp = m_animates.find(id);
+	auto tmp = this->m_animates.find(id);
 	while (tmp != m_animates.end())
 	{
 		return tmp->second;
@@ -108,8 +108,7 @@ Animate * ResourceManager::GetAnimateById(int id)
 
 Button * ResourceManager::GetButtonById(int id)
 {
-	auto button = this->m_buttons[id];
-	auto tmp = m_buttons.find(id);
+	auto tmp = this->m_buttons.find(id);
 	while (tmp != m_buttons.end())
 	{
 		return tmp->second;
@@ -118,8 +117,7 @@ Button * ResourceManager::GetButtonById(int id)
 
 Label * ResourceManager::GetLabelById(int id)
 {
-	auto label = this->m_labels[id];
-	auto tmp = m_labels.find(id);
+	auto tmp = this->m_labels.find(id);
 	while (tmp != m_labels.end())
 	{
 		return tmp->second;
