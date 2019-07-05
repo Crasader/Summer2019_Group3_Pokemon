@@ -2,6 +2,7 @@
 #include "HelloWorldScene.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
+#include "ResourceManager.h"
 
 USING_NS_CC;
 
@@ -30,10 +31,10 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto sprite = ResourceManager::GetInstance()->GetSpriteById(2);
+	auto sprite = ResourceManager::GetInstance()->GetSpriteById(1);
 	sprite->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	sprite->setScale(1.5);
-	auto animate = ResourceManager::GetInstance()->GetAnimateById(2);
+	sprite->setScale(2);
+	auto animate = ResourceManager::GetInstance()->GetAnimateById(1);
 	sprite->runAction(RepeatForever::create(animate));
 	this->addChild(sprite);
 
