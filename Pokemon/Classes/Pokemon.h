@@ -18,8 +18,8 @@ protected:
 public:
 	Pokemon();
 	~Pokemon();
-	void Init() override;
-	void Update(float deltaTime) override;
+	virtual void Init() override;
+	virtual void Update(float deltaTime) override;
 	string GetName();
 	void SetName(string name);
 	int GetType();
