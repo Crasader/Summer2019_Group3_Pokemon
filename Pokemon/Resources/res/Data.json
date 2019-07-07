@@ -1,4 +1,8 @@
 {
+  "TILEDMAP": {
+    "size": 1,
+    "0": "res/Background/battle-background-grass.tmx"
+  },
   "SPRITE": {
     "size": 58,
     "0": "res/Animation/Blastoise/front/0.png",

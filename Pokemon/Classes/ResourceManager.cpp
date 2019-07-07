@@ -80,10 +80,28 @@ void ResourceManager::Load()
 			string frameName = document["ANIMATE"][key.c_str()]["png"][j].GetString();
 			aniFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
 		}
-		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.2);
+		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.5);
 		auto animate = Animate::create(animation);
 		animate->retain();
 		this->m_animates.insert(pair<int, Animate*>(i, animate));
+	}
+	length = document["TILEDMAP"]["size"].GetInt();
+	for (int i = 0; i < length; i++)
+	{
+		string key = to_string(i);
+		string path = document["TILEDMAP"][key.c_str()].GetString();
+		auto tiledmap = TMXTiledMap::create(path);
+		tiledmap->retain();
+		this->m_tiledmaps.insert(pair<int, TMXTiledMap*>(i, tiledmap));
+	}
+}
+
+TMXTiledMap * ResourceManager::GetTiledMapById(int id)
+{
+	auto tmp = this->m_tiledmaps.find(id);
+	while (tmp != m_tiledmaps.end())
+	{
+		return tmp->second;
 	}
 }
 

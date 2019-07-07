@@ -33,7 +33,16 @@
     <ClCompile Include="..\Classes\Pokemon.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Charmander.cpp">
+    <ClCompile Include="..\Classes\Pokemon\Charmander.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Blastoise.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Squirtle.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +65,16 @@
     <ClInclude Include="..\Classes\Pokemon.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Charmander.h">
+    <ClInclude Include="..\Classes\Pokemon\Charmander.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Blastoise.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Squirtle.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
   </ItemGroup>
