@@ -1,12 +1,11 @@
 #pragma once
 #include "Pokemon.h"
+#include "Chikorita.h"
 
 class Bayleef : public Pokemon
 {
 public:
-	Bayleef();
+	Bayleef(Chikorita* it);
 	~Bayleef();
-	void Init() override;
-	void Update(float) override;
-	void LevelUp() override;
+	Pokemon* Evolve() override;
 };

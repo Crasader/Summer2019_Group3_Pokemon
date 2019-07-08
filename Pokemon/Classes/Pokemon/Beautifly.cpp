@@ -1,21 +1,13 @@
 #include "Beautifly.h"
+#define hp 40
+#define atk 52
+#define def 43
+#define speed 65
 
 Beautifly::Beautifly()
 {
 }
 
 Beautifly::~Beautifly()
-{
-}
-
-void Beautifly::Init()
-{
-}
-
-void Beautifly::Update(float)
-{
-}
-
-void Beautifly::LevelUp()
 {
 }

@@ -66,9 +66,6 @@
     <ClCompile Include="..\Classes\Pokemon\Celebi.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Charizard.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Chikorita.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
@@ -79,6 +76,105 @@
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Eevee.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Electrike.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Entei.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Farfetchd.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Feebas.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Flareon.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Garchomp.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Gardevoir.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Greninja.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Jolteon.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Kirlia.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Meganium.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Leafeon.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Manectric.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Meowth.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Milotic.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Pidgeot.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Pidgeotto.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Pidgey.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Ponyta.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Pikachu.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Raikou.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Ralts.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Salamence.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Shaymin.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Skymin.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Snorlax.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Suicune.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Swellow.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Taillow.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Vaporeon.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Voltorb.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Charizard.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,9 +222,6 @@
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Celebi.h">
-      <Filter>src\Pokemon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Charizard.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Charmeleon.h">
@@ -240,6 +333,9 @@
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Charizard.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
   </ItemGroup>

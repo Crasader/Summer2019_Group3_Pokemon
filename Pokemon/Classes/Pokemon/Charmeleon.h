@@ -1,13 +1,12 @@
 #pragma once
 #include "Pokemon.h"
+#include "Charmander.h"
 
 class Charmeleon : public Pokemon
 {
 public:
 	Charmeleon();
+	Charmeleon(Charmander* it);
 	~Charmeleon();
-	void Init() override;
-	void Update(float) override;
-	void LevelUp() override;
 	Pokemon* Evolve() override;
 };

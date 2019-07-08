@@ -1,21 +1,38 @@
 #include "Bayleef.h"
+#include "Meganium.h"
+#define hp 40
+#define atk 52
+#define def 43
+#define speed 65
 
-Bayleef::Bayleef()
+Bayleef::Bayleef(Chikorita* it)
 {
+	this->Init(58, 59);
+	//
+	this->m_name = "Bayleef";
+	this->m_level = it->GetLevel();
+	this->m_maxHealth = it->GetMaxHP() + 15;
+	this->m_currentHealth = this->m_maxHealth;
+	this->m_attack = it->GetAtk() + 5;
+	this->m_defense = it->GetDef() + 5;
+	this->m_attackSpeed = it->GetAtkSpeed() + 2;
+	this->m_currentExp = 0;
+	this->m_maxExp = it->GetMaxExp();
+	delete it;
 }
 
 Bayleef::~Bayleef()
 {
 }
 
-void Bayleef::Init()
+Pokemon * Bayleef::Evolve()
 {
-}
-
-void Bayleef::Update(float)
-{
-}
-
-void Bayleef::LevelUp()
-{
+	if (this->m_level >= 15)
+	{
+		return new Meganium(this);
+	}
+	else
+	{
+		return nullptr;
+	}
 }
