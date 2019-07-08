@@ -10,6 +10,12 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Pokemon">
+      <UniqueIdentifier>{490b3f15-1e26-4505-9de8-bea20586cd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Skill">
+      <UniqueIdentifier>{7600f531-5a88-436d-8d96-2b210e0ad01d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,6 +30,111 @@
     <ClCompile Include="..\Classes\ResourceManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MyObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Charmander.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Blastoise.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Squirtle.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Bite.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\BlastBurn.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\BodySlam.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\DracoMeteor.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\DragonClaw.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\DragonCut.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Ember.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\EnergyBall.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\FireBlast.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\FirePunch.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Fly.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Gust.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\HydroPump.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Peck.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\QuickAttack.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\RazorLeaf.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Scratch.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Spark.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Surf.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Tackle.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Thunder.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Thunderbolt.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\ThunderShock.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\VineWhip.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\WaterGun.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\WaterPulse.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\WingAttack.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\WoodHammer.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Attack.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -36,6 +147,111 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResourceManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MyObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Charmander.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Blastoise.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Squirtle.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Bite.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\BlastBurn.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\BodySlam.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\DracoMeteor.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\DragonClaw.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\DragonCut.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Ember.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\EnergyBall.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\FireBlast.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\FirePunch.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Fly.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Gust.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\HydroPump.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Peck.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\QuickAttack.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\RazorLeaf.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Scratch.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Spark.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Surf.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Tackle.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Thunder.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Thunderbolt.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\ThunderShock.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\VineWhip.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\WaterGun.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\WaterPulse.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\WingAttack.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\WoodHammer.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\attack.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

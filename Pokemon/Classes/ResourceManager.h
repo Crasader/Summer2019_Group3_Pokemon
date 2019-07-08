@@ -12,6 +12,8 @@ class ResourceManager
 private:
 	static ResourceManager* s_instance;
 	ResourceManager();
+	Sprite* DuplicateSprite(Sprite* sprite);
+	map<int, TMXTiledMap*> m_tiledmaps;
 	map<int, Sprite*> m_sprites;
 	map<int, Animate*> m_animates;
 	map<int, Button*> m_buttons;
@@ -21,9 +23,9 @@ public:
 	static ResourceManager* GetInstance();
 	void Init();
 	void Load();
+	TMXTiledMap* GetTiledMapById(int id);
 	Sprite* GetSpriteById(int id);
 	Animate* GetAnimateById(int id);
 	Button* GetButtonById(int id);
 	Label* GetLabelById(int id);
 };
-
