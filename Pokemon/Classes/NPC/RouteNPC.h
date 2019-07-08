@@ -1,5 +1,5 @@
 #pragma once
-#include "MyObject.h"
+#include "Pokemon.h"
 #include <vector>
 #include "NPC.h"
 
@@ -9,10 +9,11 @@ class RouteNPC : public NPC
 {
 private:
 	string name;
-	vector<MyObject*> m_pokemons;
+	vector<Pokemon*> m_pokemons;
 public:
-	RouteNPC(Scene* scene);
+	RouteNPC(Layer* layer);
 	~RouteNPC();
 	void Init() override;
 	void Update(float deltaTime) override;
 };
+

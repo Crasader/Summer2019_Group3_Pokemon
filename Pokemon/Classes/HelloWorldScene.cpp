@@ -6,8 +6,9 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 #include "NPC.h"
-#include "NPC\LakeNPC.h"
-#include "NPC\CityNPC.h"
+#include "NPC\TanNgocNPC.h"
+
+
 
 
 USING_NS_CC;
@@ -60,8 +61,7 @@ bool HelloWorld::init()
 	this->addChild(squirtle->GetSpriteBack(), 10);
 
 	
-	//auto citynpc = new CityNPC(this);
-	auto lakenpc = new LakeNPC(this);
+	auto testnpc = new TanNgocNPC(this);
 
 	return true;
 }

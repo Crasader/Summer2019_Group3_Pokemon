@@ -141,40 +141,31 @@
     <ClCompile Include="..\Classes\NPC.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\CaveNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\ChampionNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\NPC\CityNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\DrSamuelOak.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\Joy.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\KhuongDuyNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\RouteNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\salesman.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\NPC\MinhVuongNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,40 +290,31 @@
     <ClInclude Include="..\Classes\NPC.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\CaveNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\ChampionNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\NPC\CityNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\DrSamuelOak.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\Joy.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\KhuongDuyNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\RouteNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\salesman.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\TanNgocNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\TanTaiNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\NPC\MinhVuongNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\NPC\LakeNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\CaveNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\ChampionNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
   </ItemGroup>
