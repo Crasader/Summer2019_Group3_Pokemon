@@ -61,5 +61,12 @@ void Wartortle::LevelUp()
 
 Pokemon * Wartortle::Evolve()
 {
-	return new Blastoise(this);
+	if (this->m_level >= 15)
+	{
+		return new Blastoise(this);
+	}
+	else
+	{
+		return nullptr;
+	}
 }

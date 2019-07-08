@@ -55,5 +55,12 @@ void Squirtle::LevelUp()
 
 Pokemon * Squirtle::Evolve()
 {
-	return new Wartortle(this);
+	if (this->m_level >= 10)
+	{
+		return new Wartortle(this);
+	}
+	else
+	{
+		return nullptr;
+	}
 }
