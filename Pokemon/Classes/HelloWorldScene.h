@@ -4,8 +4,9 @@
 
 #include "cocos2d.h"
 #include "Pokemon.h"
+using namespace cocos2d;
 
-class HelloWorld : public cocos2d::Layer
+class HelloWorld : public Layer
 {
 public:
     static cocos2d::Scene* createScene();
@@ -17,6 +18,7 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__
