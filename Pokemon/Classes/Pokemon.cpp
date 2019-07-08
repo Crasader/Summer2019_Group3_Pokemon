@@ -54,6 +54,16 @@ void Pokemon::SetHP(int health)
 	this->m_health = health;
 }
 
+int Pokemon::GetMaxHP()
+{
+	return this->m_maxhealth;
+}
+
+void Pokemon::SetMaxHP(int maxhealth)
+{
+	this->m_maxhealth = maxhealth;
+}
+
 int Pokemon::GetLevel()
 {
 	return this->m_level;

@@ -9,6 +9,7 @@ protected:
 	string m_name;
 	int m_type;
 	int m_health;
+	int m_maxhealth;
 	int m_level;
 	int m_attack;
 	int m_defense;
@@ -27,7 +28,9 @@ public:
 	int GetType();
 	void SetType(int type);
 	int GetHP();
-	void SetHP(int health);
+	void SetHP(int maxhealth);
+	int GetMaxHP();
+	void SetMaxHP(int maxhealth);
 	int GetLevel();
 	void SetLevel(int level);
 	int GetAtk();
