@@ -28,5 +28,5 @@ private:
 	string m_name;
 	string m_type;
 	int m_idtype;
-	int m_maxpp
+	int m_maxpp;
 };

@@ -8,7 +8,8 @@ Charmander::Charmander()
 	//
 	this->m_name = "Charmander";
 	this->m_level = 5;
-	this->m_health = 40 + ((this->m_level - 1) * 10);
+	this->m_maxhealth = 40 + ((this->m_level - 1) * 10);
+	this->m_health = this->m_maxhealth;
 	this->m_attack = 52 + ((this->m_level - 1) * 2);
 	this->m_defense = 43 + ((this->m_level - 1) * 4);
 	this->m_attackSpeed = 65 + ((this->m_level - 1) * 1);
@@ -47,10 +48,14 @@ void Charmander::Update(float deltaTime)
 
 void Charmander::LevelUp()
 {
-	this->m_level += 1;
-	this->m_health += 10;
-	this->m_attack += 2;
-	this->m_defense += 4;
-	this->m_currentExp = 0;
-	this->m_maxExp += 2;
+	if (this->m_level<20)
+	{
+		this->m_level += 1;
+		this->m_maxhealth += 10;
+		this->m_health += 10;
+		this->m_attack += 2;
+		this->m_defense += 4;
+		this->m_currentExp = 0;
+		this->m_maxExp += 2;
+	}
 }
