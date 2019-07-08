@@ -19,6 +19,11 @@ void Pokemon::Update(float deltaTime)
 {
 }
 
+Pokemon * Pokemon::Evolve()
+{
+	return nullptr;
+}
+
 string Pokemon::GetName()
 {
 	return this->m_name;

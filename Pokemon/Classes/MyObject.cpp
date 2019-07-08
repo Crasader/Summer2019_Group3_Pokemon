@@ -9,6 +9,8 @@ MyObject::MyObject()
 
 MyObject::~MyObject()
 {
+	this->m_spriteFront->release();
+	this->m_spriteBack->release();
 }
 
 Sprite * MyObject::GetSpriteBack()

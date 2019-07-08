@@ -20,6 +20,8 @@ public:
 	~Pokemon();
 	virtual void Init() override;
 	virtual void Update(float deltaTime) override;
+	virtual void LevelUp() {};
+	virtual Pokemon* Evolve();
 	string GetName();
 	void SetName(string name);
 	int GetType();
