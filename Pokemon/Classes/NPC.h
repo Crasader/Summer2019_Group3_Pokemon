@@ -1,13 +1,14 @@
 #pragma once
 #include "MyObject.h"
 #include <vector>
+#include <Pokemon.h>
 using namespace std;
 
 class NPC : public MyObject
 {
 protected:
 	string m_name;
-	vector<MyObject> m_pokemons;
+	vector<Pokemon*> m_pokemons;
 public:
 	NPC();
 	~NPC();
@@ -15,4 +16,6 @@ public:
 	virtual void Update(float deltaTime) override;
 	string GetName();
 	void SetName(string name);
+	void SetLevel(Pokemon *pokemon,int level);
+	vector<Pokemon*> GetVector();
 };
