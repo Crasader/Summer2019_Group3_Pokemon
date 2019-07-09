@@ -6,4 +6,5 @@ class Dragonair : public Pokemon
 public:
 	Dragonair();
 	~Dragonair();
+	Pokemon* Evolve() override;
 };

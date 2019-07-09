@@ -6,4 +6,5 @@ class Pidgey : public Pokemon
 public:
 	Pidgey();
 	~Pidgey();
+	Pokemon* Evolve() override;
 };
