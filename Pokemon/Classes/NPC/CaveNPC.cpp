@@ -37,7 +37,7 @@ CaveNPC::~CaveNPC()
 
 void CaveNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(46);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(92);
 }
 
 void CaveNPC::Update(float deltaTime)

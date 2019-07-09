@@ -11,6 +11,7 @@
 
 
 
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -64,7 +65,7 @@ bool HelloWorld::init()
 	}
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
 	this->addChild(squirtle->GetSpriteBack(), 10);
-
+	
 	return true;
 }
 

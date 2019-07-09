@@ -5,7 +5,6 @@ LakeNPC::LakeNPC(Layer * layer)
 {
 	this->Init();
 	layer->addChild(this->m_spriteFront);
-
 	auto charmender = new Charmander();
 	charmender->SetLevel(9);
 	this->m_pokemons.push_back(charmender);
@@ -37,7 +36,8 @@ LakeNPC::~LakeNPC()
 
 void LakeNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(46);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(98);
+	this->m_spriteFront->setPosition(300, 300);
 }
 
 void LakeNPC::Update(float deltaTime)

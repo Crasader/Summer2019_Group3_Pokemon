@@ -37,7 +37,7 @@ CityNPC::~CityNPC()
 
 void CityNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(46);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(96);
 }
 
 void CityNPC::Update(float deltaTime)
