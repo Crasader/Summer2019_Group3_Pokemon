@@ -34,3 +34,8 @@ void NPC::SetLevel(Pokemon * pokemon, int level)
 		pokemon->LevelUp();
 	}
 }
+
+vector<Pokemon*> NPC::GetVector()
+{
+	return this->m_pokemons;
+}

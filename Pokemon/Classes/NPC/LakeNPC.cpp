@@ -12,25 +12,23 @@ LakeNPC::LakeNPC(Layer * layer)
 
 	auto charmender2 = new Charmander();
 	charmender2->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	this->m_pokemons.push_back(charmender2);
 
 	auto charmender3 = new Charmander();
 	charmender3->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	this->m_pokemons.push_back(charmender3);
 
 	auto charmender4 = new Charmander();
 	charmender4->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	this->m_pokemons.push_back(charmender4);
 
 	auto charmender5 = new Charmander();
 	charmender5->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	this->m_pokemons.push_back(charmender5);
+
 	auto charmender6 = new Charmander();
 	charmender6->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
-
-	//this->m_spriteFront->setPosition();
-	//this->m_spriteFront->setScale();
+	this->m_pokemons.push_back(charmender6);
 }
 
 LakeNPC::~LakeNPC()
