@@ -6,6 +6,8 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 
+#include "NPC.h"
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -63,8 +65,8 @@ bool HelloWorld::init()
 	}
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
 	this->addChild(squirtle->GetSpriteBack(), 10);
+	return true;
 
-    return true;
 }
 
 
@@ -77,6 +79,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
