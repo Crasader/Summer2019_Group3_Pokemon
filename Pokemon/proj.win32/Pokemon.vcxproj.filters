@@ -19,6 +19,9 @@
     <Filter Include="src\NPC">
       <UniqueIdentifier>{b62ab5f7-bb1e-4399-b5b1-857dade1a9e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{b760467c-69e4-4d27-b541-1809571f964e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,6 +171,9 @@
     <ClCompile Include="..\Classes\NPC\CityNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\Loading.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -316,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\CityNPC.h">
       <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\Loading.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
