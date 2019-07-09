@@ -4,7 +4,7 @@
     "0": "res/Background/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 58,
+    "size": 90,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -62,10 +62,42 @@
     "54": "res/Animation/Vulpix/front/0.png",
     "55": "res/Animation/Vulpix/back/0.png",
     "56": "res/Animation/Wartortle/front/0.png",
-    "57": "res/Animation/Wartortle/back/0.png"
+    "57": "res/Animation/Wartortle/back/0.png",
+    "58": "res/Animation/Bayleef/front/0.png",
+    "59": "res/Animation/Bayleef/back/0.png",
+    "60": "res/Animation/Beautifly/front/0.png",
+    "61": "res/Animation/Beautifly/back/0.png",
+    "62": "res/Animation/Celebi/front/0.png",
+    "63": "res/Animation/Celebi/back/0.png",
+    "64": "res/Animation/Chikorita/front/0.png",
+    "65": "res/Animation/Chikorita/back/0.png",
+    "66": "res/Animation/Farfetchd/front/0.png",
+    "67": "res/Animation/Farfetchd/back/0.png",
+    "68": "res/Animation/Gardevoir/front/0.png",
+    "69": "res/Animation/Gardevoir/back/0.png",
+    "70": "res/Animation/Kirlia/front/0.png",
+    "71": "res/Animation/Kirlia/back/0.png",
+    "72": "res/Animation/Meganium/front/0.png",
+    "73": "res/Animation/Meganium/back/0.png",
+    "74": "res/Animation/Pidgeot/front/0.png",
+    "75": "res/Animation/Pidgeot/back/0.png",
+    "76": "res/Animation/Pidgeotto/front/0.png",
+    "77": "res/Animation/Pidgeotto/back/0.png",
+    "78": "res/Animation/Pidgey/front/0.png",
+    "79": "res/Animation/Pidgey/back/0.png",
+    "80": "res/Animation/Ralts/front/0.png",
+    "81": "res/Animation/Ralts/back/0.png",
+    "82": "res/Animation/Shaymin/front/0.png",
+    "83": "res/Animation/Shaymin/back/0.png",
+    "84": "res/Animation/Skymin/front/0.png",
+    "85": "res/Animation/Skymin/back/0.png",
+    "86": "res/Animation/Swellow/front/0.png",
+    "87": "res/Animation/Swellow/back/0.png",
+    "88": "res/Animation/Taillow/front/0.png",
+    "89": "res/Animation/Taillow/back/0.png"
   },
   "ANIMATE": {
-    "size": 58,
+    "size": 90,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -924,6 +956,486 @@
       "size": 8,
       "plist": "res/Animation/Wartortle/back/back.plist",
       "path": "res/Animation/Wartortle/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "58": {
+      "size": 8,
+      "plist": "res/Animation/Bayleef/front/front.plist",
+      "path": "res/Animation/Bayleef/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "59": {
+      "size": 8,
+      "plist": "res/Animation/Bayleef/back/back.plist",
+      "path": "res/Animation/Bayleef/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "60": {
+      "size": 8,
+      "plist": "res/Animation/Beautifly/front/front.plist",
+      "path": "res/Animation/Beautifly/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "61": {
+      "size": 8,
+      "plist": "res/Animation/Beautifly/back/back.plist",
+      "path": "res/Animation/Beautifly/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "62": {
+      "size": 8,
+      "plist": "res/Animation/Celebi/front/front.plist",
+      "path": "res/Animation/Celebi/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "63": {
+      "size": 8,
+      "plist": "res/Animation/Celebi/back/back.plist",
+      "path": "res/Animation/Celebi/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "64": {
+      "size": 8,
+      "plist": "res/Animation/Chikorita/front/front.plist",
+      "path": "res/Animation/Chikorita/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "65": {
+      "size": 8,
+      "plist": "res/Animation/Chikorita/back/back.plist",
+      "path": "res/Animation/Chikorita/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "66": {
+      "size": 8,
+      "plist": "res/Animation/Farfetchd/front/front.plist",
+      "path": "res/Animation/Farfetchd/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "67": {
+      "size": 8,
+      "plist": "res/Animation/Farfetchd/back/back.plist",
+      "path": "res/Animation/Farfetchd/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "68": {
+      "size": 8,
+      "plist": "res/Animation/Gardevoir/front/front.plist",
+      "path": "res/Animation/Gardevoir/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "69": {
+      "size": 8,
+      "plist": "res/Animation/Gardevoir/back/back.plist",
+      "path": "res/Animation/Gardevoir/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "70": {
+      "size": 8,
+      "plist": "res/Animation/Kirlia/front/front.plist",
+      "path": "res/Animation/Kirlia/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "71": {
+      "size": 8,
+      "plist": "res/Animation/Kirlia/back/back.plist",
+      "path": "res/Animation/Kirlia/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "72": {
+      "size": 8,
+      "plist": "res/Animation/Meganium/front/front.plist",
+      "path": "res/Animation/Meganium/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "73": {
+      "size": 8,
+      "plist": "res/Animation/Meganium/back/back.plist",
+      "path": "res/Animation/Meganium/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "74": {
+      "size": 8,
+      "plist": "res/Animation/Pidgeot/front/front.plist",
+      "path": "res/Animation/Pidgeot/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "75": {
+      "size": 8,
+      "plist": "res/Animation/Pidgeot/back/back.plist",
+      "path": "res/Animation/Pidgeot/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "76": {
+      "size": 8,
+      "plist": "res/Animation/Pidgeotto/front/front.plist",
+      "path": "res/Animation/Pidgeotto/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "77": {
+      "size": 8,
+      "plist": "res/Animation/Pidgeotto/back/back.plist",
+      "path": "res/Animation/Pidgeotto/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "78": {
+      "size": 8,
+      "plist": "res/Animation/Pidgey/front/front.plist",
+      "path": "res/Animation/Pidgey/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "79": {
+      "size": 8,
+      "plist": "res/Animation/Pidgey/back/back.plist",
+      "path": "res/Animation/Pidgey/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "80": {
+      "size": 8,
+      "plist": "res/Animation/Ralts/front/front.plist",
+      "path": "res/Animation/Ralts/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "81": {
+      "size": 8,
+      "plist": "res/Animation/Ralts/back/back.plist",
+      "path": "res/Animation/Ralts/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "82": {
+      "size": 8,
+      "plist": "res/Animation/Shaymin/front/front.plist",
+      "path": "res/Animation/Shaymin/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "83": {
+      "size": 8,
+      "plist": "res/Animation/Shaymin/back/back.plist",
+      "path": "res/Animation/Shaymin/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "84": {
+      "size": 8,
+      "plist": "res/Animation/Skymin/front/front.plist",
+      "path": "res/Animation/Skymin/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "85": {
+      "size": 8,
+      "plist": "res/Animation/Skymin/back/back.plist",
+      "path": "res/Animation/Skymin/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "86": {
+      "size": 8,
+      "plist": "res/Animation/Swellow/front/front.plist",
+      "path": "res/Animation/Swellow/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "87": {
+      "size": 8,
+      "plist": "res/Animation/Swellow/back/back.plist",
+      "path": "res/Animation/Swellow/back/back.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "88": {
+      "size": 8,
+      "plist": "res/Animation/Taillow/front/front.plist",
+      "path": "res/Animation/Taillow/front/front.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png"
+      ]
+    },
+    "89": {
+      "size": 8,
+      "plist": "res/Animation/Taillow/back/back.plist",
+      "path": "res/Animation/Taillow/back/back.png",
       "png": [
         "0.png",
         "1.png",

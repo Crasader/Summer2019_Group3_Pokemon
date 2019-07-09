@@ -37,7 +37,9 @@ RouteNPC::~RouteNPC()
 
 void RouteNPC::Init()
 {
+
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(46);
+
 }
 
 void RouteNPC::Update(float deltaTime)

@@ -57,6 +57,11 @@ bool HelloWorld::init()
 	charmander->GetSpriteFront()->setPosition(Vec2(x, y));
 	this->addChild(charmander->GetSpriteFront(), 10);
 	Pokemon* squirtle = new Squirtle();
+	auto evolve = squirtle->Evolve();
+	if (evolve != nullptr)
+	{
+		squirtle = evolve;
+	}
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
 	this->addChild(squirtle->GetSpriteBack(), 10);
 

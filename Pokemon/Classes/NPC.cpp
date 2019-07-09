@@ -18,12 +18,12 @@ void NPC::Update(float deltaTime)
 
 string NPC::GetName()
 {
-	return this->name;
+	return this->m_name;
 }
 
 void NPC::SetName(string name)
 {
-	this->name = name;
+	this->m_name = name;
 }
 
 void NPC::SetLevel(Pokemon * pokemon, int level)
