@@ -1,17 +1,18 @@
 
-#include "TestMap.h"
+#include "PokemonCenter.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
+#include "Buttons.h"
 
 USING_NS_CC;
 
-Scene* TestMap::createScene()
+Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::create();
-	auto layer = TestMap::create();
+	auto layer = PokemonCenter::create();
 	scene->addChild(layer);
 	return scene;
 }
@@ -24,7 +25,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool TestMap::init()
+bool PokemonCenter::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -36,9 +37,20 @@ bool TestMap::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/route1.tmx");
+	auto map = TMXTiledMap::create("res/Map/pc.tmx");
 	addChild(map);
-
+	Button *up = Buttons::getIntance()->GetButtonUp();
+	up->removeFromParent();
+	Button *right = Buttons::getIntance()->GetButtonRight();
+	right->removeFromParent();
+	Button *left = Buttons::getIntance()->GetButtonLeft();
+	left->removeFromParent();
+	Button *down = Buttons::getIntance()->GetButtonDown();
+	down->removeFromParent();
+	addChild(up, 100);
+	addChild(right, 100);
+	addChild(left, 100);
+	addChild(down, 100);
     return true;
 }
 

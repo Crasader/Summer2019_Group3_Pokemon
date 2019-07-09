@@ -2,7 +2,8 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "ResourceManager.h"
-#include "TestMap.h"
+#include "PokemonCenter.h"
+#include "Lake.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -99,7 +100,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-    auto scene = TestMap::createScene();
+    auto scene = Lake::createScene();
 
     // run
     director->runWithScene(scene);
