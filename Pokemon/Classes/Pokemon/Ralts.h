@@ -6,4 +6,5 @@ class Ralts : public Pokemon
 public:
 	Ralts();
 	~Ralts();
+	Pokemon* Evolve() override;
 };

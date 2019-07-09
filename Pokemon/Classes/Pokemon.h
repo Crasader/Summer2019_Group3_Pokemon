@@ -8,7 +8,6 @@ class Pokemon : public MyObject
 protected:
 	string m_name;
 	int m_type;
-
 	int m_maxHealth;
 	int m_currentHealth;
 	int m_level;
@@ -31,12 +30,10 @@ public:
 	void SetName(string name);
 	int GetType();
 	void SetType(int type);
-
 	int GetMaxHP();
 	void SetMaxHP(int health);
 	int GetCurrentHP();
 	void SetCurrentHP(int health);
-
 	int GetLevel();
 	void SetLevel(int level);
 	int GetAtk();
