@@ -150,9 +150,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
+
     <ClCompile Include="..\Classes\NPC\RouteNPC.cpp" />
     <ClCompile Include="..\Classes\Pokemon.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp" />
@@ -201,14 +203,44 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Skill\Bite.cpp" />
+    <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
+    <ClCompile Include="..\Classes\Skill\BodySlam.cpp" />
+    <ClCompile Include="..\Classes\Skill\DracoMeteor.cpp" />
+    <ClCompile Include="..\Classes\Skill\DragonClaw.cpp" />
+    <ClCompile Include="..\Classes\Skill\DragonCut.cpp" />
+    <ClCompile Include="..\Classes\Skill\Ember.cpp" />
+    <ClCompile Include="..\Classes\Skill\EnergyBall.cpp" />
+    <ClCompile Include="..\Classes\Skill\FireBlast.cpp" />
+    <ClCompile Include="..\Classes\Skill\FirePunch.cpp" />
+    <ClCompile Include="..\Classes\Skill\Fly.cpp" />
+    <ClCompile Include="..\Classes\Skill\Gust.cpp" />
+    <ClCompile Include="..\Classes\Skill\HydroPump.cpp" />
+    <ClCompile Include="..\Classes\Skill\Peck.cpp" />
+    <ClCompile Include="..\Classes\Skill\QuickAttack.cpp" />
+    <ClCompile Include="..\Classes\Skill\RazorLeaf.cpp" />
+    <ClCompile Include="..\Classes\Skill\Scratch.cpp" />
+    <ClCompile Include="..\Classes\Skill\Spark.cpp" />
+    <ClCompile Include="..\Classes\Skill\Surf.cpp" />
+    <ClCompile Include="..\Classes\Skill\Tackle.cpp" />
+    <ClCompile Include="..\Classes\Skill\Thunder.cpp" />
+    <ClCompile Include="..\Classes\Skill\Thunderbolt.cpp" />
+    <ClCompile Include="..\Classes\Skill\ThunderShock.cpp" />
+    <ClCompile Include="..\Classes\Skill\VineWhip.cpp" />
+    <ClCompile Include="..\Classes\Skill\WaterGun.cpp" />
+    <ClCompile Include="..\Classes\Skill\WaterPulse.cpp" />
+    <ClCompile Include="..\Classes\Skill\WingAttack.cpp" />
+    <ClCompile Include="..\Classes\Skill\WoodHammer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\RouteNPC.h" />
+
     <ClInclude Include="..\Classes\Pokemon.h" />
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h" />
     <ClInclude Include="..\Classes\Pokemon\Beautifly.h" />
@@ -256,6 +288,34 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Skill\Bite.h" />
+    <ClInclude Include="..\Classes\Skill\BlastBurn.h" />
+    <ClInclude Include="..\Classes\Skill\BodySlam.h" />
+    <ClInclude Include="..\Classes\Skill\DracoMeteor.h" />
+    <ClInclude Include="..\Classes\Skill\DragonClaw.h" />
+    <ClInclude Include="..\Classes\Skill\DragonCut.h" />
+    <ClInclude Include="..\Classes\Skill\Ember.h" />
+    <ClInclude Include="..\Classes\Skill\EnergyBall.h" />
+    <ClInclude Include="..\Classes\Skill\FireBlast.h" />
+    <ClInclude Include="..\Classes\Skill\FirePunch.h" />
+    <ClInclude Include="..\Classes\Skill\Fly.h" />
+    <ClInclude Include="..\Classes\Skill\Gust.h" />
+    <ClInclude Include="..\Classes\Skill\HydroPump.h" />
+    <ClInclude Include="..\Classes\Skill\Peck.h" />
+    <ClInclude Include="..\Classes\Skill\QuickAttack.h" />
+    <ClInclude Include="..\Classes\Skill\RazorLeaf.h" />
+    <ClInclude Include="..\Classes\Skill\Scratch.h" />
+    <ClInclude Include="..\Classes\Skill\Spark.h" />
+    <ClInclude Include="..\Classes\Skill\Surf.h" />
+    <ClInclude Include="..\Classes\Skill\Tackle.h" />
+    <ClInclude Include="..\Classes\Skill\Thunder.h" />
+    <ClInclude Include="..\Classes\Skill\Thunderbolt.h" />
+    <ClInclude Include="..\Classes\Skill\ThunderShock.h" />
+    <ClInclude Include="..\Classes\Skill\VineWhip.h" />
+    <ClInclude Include="..\Classes\Skill\WaterGun.h" />
+    <ClInclude Include="..\Classes\Skill\WaterPulse.h" />
+    <ClInclude Include="..\Classes\Skill\WingAttack.h" />
+    <ClInclude Include="..\Classes\Skill\WoodHammer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
