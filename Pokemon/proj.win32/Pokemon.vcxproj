@@ -149,20 +149,21 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\NPC\CaveNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\ChampionNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\CityNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\KhuongDuyNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\LakeNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\MinhVuongNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\RouteNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\CityNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\LakeNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\RouteNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\Pokemon.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Beautifly.cpp" />
@@ -243,20 +244,21 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\NPC\CaveNPC.h" />
+    <ClInclude Include="..\..\..\NPC\ChampionNPC.h" />
+    <ClInclude Include="..\..\..\NPC\CityNPC.h" />
+    <ClInclude Include="..\..\..\NPC\KhuongDuyNPC.h" />
+    <ClInclude Include="..\..\..\NPC\LakeNPC.h" />
+    <ClInclude Include="..\..\..\NPC\MinhVuongNPC.h" />
+    <ClInclude Include="..\..\..\NPC\RouteNPC.h" />
+    <ClInclude Include="..\..\..\NPC\TanNgocNPC.h" />
+    <ClInclude Include="..\..\..\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
-    <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
-    <ClInclude Include="..\Classes\NPC\ChampionNPC.h" />
-    <ClInclude Include="..\Classes\NPC\CityNPC.h" />
-    <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h" />
-    <ClInclude Include="..\Classes\NPC\LakeNPC.h" />
-    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h" />
     <ClInclude Include="..\Classes\NPC\RouteNPC.h" />
-    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h" />
-    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\Pokemon.h" />
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h" />
     <ClInclude Include="..\Classes\Pokemon\Beautifly.h" />
