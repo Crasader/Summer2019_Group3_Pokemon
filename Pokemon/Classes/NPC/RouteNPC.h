@@ -1,4 +1,6 @@
 #pragma once
+
+#include "MyObject.h"
 #include "Pokemon.h"
 #include <vector>
 #include "NPC.h"

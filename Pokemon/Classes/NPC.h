@@ -7,7 +7,7 @@ using namespace std;
 class NPC : public MyObject
 {
 protected:
-	string name;
+	string m_name;
 	vector<Pokemon*> m_pokemons;
 public:
 	NPC();

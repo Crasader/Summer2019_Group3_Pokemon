@@ -8,8 +8,9 @@ class Pokemon : public MyObject
 protected:
 	string m_name;
 	int m_type;
-	int m_health;
-	int m_maxhealth;
+
+	int m_maxHealth;
+	int m_currentHealth;
 	int m_level;
 	int m_attack;
 	int m_defense;
@@ -19,18 +20,23 @@ protected:
 public:
 	Pokemon();
 	~Pokemon();
-	virtual void Init() override;
-	virtual void Update(float deltaTime) override;
-	virtual void LevelUp() {};
+	void Init() override;
+	void Init(int id_front, int id_back) override;
+	void Update(float deltaTime) override;
+
 	virtual Pokemon* Evolve();
+
+	void LevelUp();
 	string GetName();
 	void SetName(string name);
 	int GetType();
 	void SetType(int type);
-	int GetHP();
-	void SetHP(int maxhealth);
+
 	int GetMaxHP();
-	void SetMaxHP(int maxhealth);
+	void SetMaxHP(int health);
+	int GetCurrentHP();
+	void SetCurrentHP(int health);
+
 	int GetLevel();
 	void SetLevel(int level);
 	int GetAtk();
