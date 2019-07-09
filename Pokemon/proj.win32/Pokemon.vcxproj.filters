@@ -141,9 +141,6 @@
     <ClCompile Include="..\Classes\NPC.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\CityNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
@@ -166,6 +163,9 @@
       <Filter>src\NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\CityNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
   </ItemGroup>
@@ -290,9 +290,6 @@
     <ClInclude Include="..\Classes\NPC.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\CityNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\NPC\LakeNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
@@ -315,6 +312,9 @@
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\ChampionNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\CityNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
   </ItemGroup>

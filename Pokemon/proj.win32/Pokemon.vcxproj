@@ -149,7 +149,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\NPC\CityNPC.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -157,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\CityNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp" />
@@ -200,7 +200,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\NPC\CityNPC.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
@@ -208,6 +207,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
     <ClInclude Include="..\Classes\NPC\ChampionNPC.h" />
+    <ClInclude Include="..\Classes\NPC\CityNPC.h" />
     <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h" />
     <ClInclude Include="..\Classes\NPC\LakeNPC.h" />
     <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h" />

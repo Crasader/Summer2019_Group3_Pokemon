@@ -6,7 +6,7 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 #include "NPC.h"
-#include "NPC\TanNgocNPC.h"
+#include "NPC\CityNPC.h"
 
 
 
@@ -61,8 +61,8 @@ bool HelloWorld::init()
 	this->addChild(squirtle->GetSpriteBack(), 10);
 
 	
-	auto testnpc = new TanNgocNPC(this);
-
+	NPC* testnpc = new CityNPC(this);
+	int i = testnpc->GetVector().at(0)->GetLevel();
 	return true;
 }
 

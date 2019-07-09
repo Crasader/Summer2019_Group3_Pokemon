@@ -8,7 +8,7 @@ class NPC : public MyObject
 {
 protected:
 	string name;
-	vector<MyObject> m_pokemons;
+	vector<Pokemon*> m_pokemons;
 public:
 	NPC();
 	~NPC();
@@ -17,4 +17,5 @@ public:
 	string GetName();
 	void SetName(string name);
 	void SetLevel(Pokemon *pokemon,int level);
+	vector<Pokemon*> GetVector();
 };
