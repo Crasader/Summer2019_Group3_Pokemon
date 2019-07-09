@@ -53,6 +53,6 @@ void Loading::update(float deltaTime)
 	if (temp > 3.0f) // 3s - 60fps/1s
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MainMenu::createScene()));
+		Director::getInstance()->replaceScene(MainMenu::createScene());
 	}
 }

@@ -21,5 +21,12 @@ bool MainMenu::init()
 	}
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	auto backGround = ResourceManager::GetInstance()->GetSpriteById(101);
+	backGround->removeFromParent();
+	backGround->setAnchorPoint(Vec2(0, 0));
+	backGround->setScale(visibleSize.width / backGround->getContentSize().width, visibleSize.height / backGround->getContentSize().height);
+	addChild(backGround, -99);
+
 	return true;
 }

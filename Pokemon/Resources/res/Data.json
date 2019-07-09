@@ -4,7 +4,7 @@
     "0": "res/Background/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 101,
+    "size": 102,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -105,7 +105,8 @@
     "97": "res/Animation/NPC/9.png",
     "98": "res/Animation/NPC/10.png",
     "99": "res/Animation/LoadingBar/0.png",
-    "100": "res/Animation/LoadingBar/1.png"
+    "100": "res/Animation/LoadingBar/1.png",
+    "101": "res/Animation/Background/1.png"
   },
   "ANIMATE": {
     "size": 90,
