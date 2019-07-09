@@ -43,19 +43,17 @@ void ResourceManager::Load()
 		sprite->retain();
 		this->m_sprites.insert(pair<int, Sprite*>(i, sprite));
 	}
-	/*length = document["BUTTON"]["length"].GetInt();
+	length = document["BUTTON"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
 		string path = document["BUTTON"][key.c_str()]["normal"].GetString();
-		path.replace(0, 2, this->m_dataFolderPath);
 		string path1 = document["BUTTON"][key.c_str()]["pressed"].GetString();
-		path1.replace(0, 2, this->m_dataFolderPath);
 		auto button = Button::create(path, path1);
 		button->retain();
 		this->m_buttons.insert(pair<int, Button*>(i, button));
 	}
-	length = document["FONT"]["length"].GetInt();
+	/*length = document["FONT"]["length"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
