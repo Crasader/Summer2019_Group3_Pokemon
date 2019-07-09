@@ -7,21 +7,6 @@ USING_NS_CC;
 
 class Attack
 {
-public:
-	Attack();
-	~Attack();
-	virtual void SetPower(int x)=0;
-	virtual void SetPP(int y)=0;
-	virtual void SetMaxPP(int m) = 0;
-	virtual void SetIdType(int it) = 0;
-	virtual void SetName(string n)=0;
-	virtual void SetType(string st)=0;
-	int GetMaxPP();
-	int GetPower();
-	int GetPP();
-	int GetIdType();
-	string GetName();
-	string GetType();
 private:
 	int m_power;
 	int m_pp;
@@ -29,4 +14,19 @@ private:
 	string m_type;
 	int m_idtype;
 	int m_maxpp;
+public:
+	Attack();
+	~Attack();
+	void SetPower(int x);
+	void SetPP(int y);
+	void SetMaxPP(int m);
+	void SetIdType(int it);
+	void SetName(string n);
+	void SetType(string st);
+	int GetMaxPP();
+	int GetPower();
+	int GetPP();
+	int GetIdType();
+	string GetName();
+	string GetType();
 };
