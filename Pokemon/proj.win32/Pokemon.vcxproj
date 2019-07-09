@@ -203,6 +203,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
     <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
     <ClCompile Include="..\Classes\Skill\BodySlam.cpp" />
@@ -288,6 +289,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
     <ClInclude Include="..\Classes\Skill\BlastBurn.h" />
     <ClInclude Include="..\Classes\Skill\BodySlam.h" />
