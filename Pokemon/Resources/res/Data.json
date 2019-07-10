@@ -109,7 +109,7 @@
     "101": "res/Animation/Background/1.png"
   },
   "BUTTON": {
-    "size": 5,
+    "size": 10,
     "0": {
       "normal": "res/Button/button_a.png",
       "pressed": "res/Button/button_a_press.png"
@@ -129,6 +129,26 @@
     "4": {
       "normal": "res/Button/button_up.png",
       "pressed": "res/Button/button_up_press.png"
+    },
+    "5": {
+      "normal": "res/Button/ButtonAbout.png",
+      "pressed": "res/Button/ButtonAbout.png"
+    },
+    "6": {
+      "normal": "res/Button/ButtonPlay.png",
+      "pressed": "res/Button/ButtonPlay.png"
+    },
+    "7": {
+      "normal": "res/Button/ButtonResume.png",
+      "pressed": "res/Button/ButtonResume.png"
+    },
+    "8": {
+      "normal": "res/Button/ButtonSetting.png",
+      "pressed": "res/Button/ButtonSetting.png"
+    },
+    "9": {
+      "normal": "res/Button/ButtonExit.png",
+      "pressed": "res/Button/ButtonExit.png"
     }
   },
   "ANIMATE": {
