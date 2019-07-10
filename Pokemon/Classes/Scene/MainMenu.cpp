@@ -1,6 +1,9 @@
 #include "Scene\MainMenu.h"
 #include "ResourceManager.h"
 #include "NPC\LakeNPC.h"
+#include "Scene\About.h"
+#include "Popup.h"
+
 
 using namespace cocos2d;
 using namespace std;
@@ -32,7 +35,7 @@ bool MainMenu::init()
 	buttonPlay->removeFromParent();
 	buttonPlay->setScale(0.2f);
 	buttonPlay->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 9));
-	addChild(buttonPlay, -1);
+	addChild(buttonPlay, -98);
 	buttonPlay->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
@@ -62,7 +65,12 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			// create about
+			UICustom::Popup *popup = UICustom::Popup::createAsConfirmDialogue("About", "This game is created by TNVD team \nSummer internship 2019", [=]() 
+			{
+				log("Ok is pressed");
+			});
+			popup->setScale(0.5);
+			this->addChild(popup);
 		}
 	});
 

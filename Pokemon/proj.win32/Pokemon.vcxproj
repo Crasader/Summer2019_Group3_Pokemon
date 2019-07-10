@@ -210,7 +210,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Voltorb.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
+    <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Scene\About.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
@@ -305,7 +307,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Voltorb.h" />
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
+    <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Scene\About.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Scene\MainMenu.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
