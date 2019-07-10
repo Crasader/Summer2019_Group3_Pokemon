@@ -149,6 +149,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\NPC\CaveNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\ChampionNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\CityNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\KhuongDuyNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\LakeNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\MinhVuongNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\RouteNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp" />
+    <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -203,6 +212,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
+    <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
     <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
     <ClCompile Include="..\Classes\Skill\BodySlam.cpp" />
@@ -234,6 +244,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\NPC\CaveNPC.h" />
+    <ClInclude Include="..\..\..\NPC\ChampionNPC.h" />
+    <ClInclude Include="..\..\..\NPC\CityNPC.h" />
+    <ClInclude Include="..\..\..\NPC\KhuongDuyNPC.h" />
+    <ClInclude Include="..\..\..\NPC\LakeNPC.h" />
+    <ClInclude Include="..\..\..\NPC\MinhVuongNPC.h" />
+    <ClInclude Include="..\..\..\NPC\RouteNPC.h" />
+    <ClInclude Include="..\..\..\NPC\TanNgocNPC.h" />
+    <ClInclude Include="..\..\..\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
@@ -288,6 +307,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
+    <ClInclude Include="..\Classes\Scene\MainMenu.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
     <ClInclude Include="..\Classes\Skill\BlastBurn.h" />
     <ClInclude Include="..\Classes\Skill\BodySlam.h" />

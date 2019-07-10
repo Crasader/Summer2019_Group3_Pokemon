@@ -1,8 +1,7 @@
-#include "RouteNPC.h"
+#include "CaveNPC.h"
 #include "Pokemon.h"
 #include "Pokemon\Charmander.h"
-
-RouteNPC::RouteNPC(Layer * layer)
+CaveNPC::CaveNPC(Layer * layer)
 {
 	this->Init();
 	layer->addChild(this->m_spriteFront);
@@ -32,15 +31,15 @@ RouteNPC::RouteNPC(Layer * layer)
 	this->m_pokemons.push_back(charmender6);
 }
 
-RouteNPC::~RouteNPC()
+CaveNPC::~CaveNPC()
 {
 }
 
-void RouteNPC::Init()
+void CaveNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(92);
 }
 
-void RouteNPC::Update(float deltaTime)
+void CaveNPC::Update(float deltaTime)
 {
 }

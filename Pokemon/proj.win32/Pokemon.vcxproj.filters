@@ -19,6 +19,9 @@
     <Filter Include="src\Skill">
       <UniqueIdentifier>{ff046030-6ef1-4919-8d16-b0636f6a7cd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{7f5fa2fa-3aba-45ce-bf5f-bb40a428ad70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -266,50 +269,39 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Attack.cpp">
       <Filter>src</Filter>
-    <ClCompile Include="..\Classes\Skill\Peck.cpp">
-      <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\HydroPump.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\Classes\Scene\Loading.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\Gust.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\Fly.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\CaveNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\FirePunch.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\ChampionNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\FireBlast.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\CityNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\EnergyBall.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\KhuongDuyNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\Ember.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\LakeNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\DragonCut.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\MinhVuongNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\DragonClaw.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\RouteNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\DracoMeteor.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\BodySlam.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Skill\BlastBurn.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Skill\Bite.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Attack.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp">
+      <Filter>src\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +550,39 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Attack.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\Loading.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MainMenu.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\CaveNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\ChampionNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\CityNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\KhuongDuyNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\LakeNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\MinhVuongNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\RouteNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\TanNgocNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\NPC\TanTaiNPC.h">
+      <Filter>src\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,7 @@
-#include "RouteNPC.h"
+#include "CityNPC.h"
 #include "Pokemon.h"
 #include "Pokemon\Charmander.h"
-
-RouteNPC::RouteNPC(Layer * layer)
+CityNPC::CityNPC(Layer * layer)
 {
 	this->Init();
 	layer->addChild(this->m_spriteFront);
@@ -32,15 +31,15 @@ RouteNPC::RouteNPC(Layer * layer)
 	this->m_pokemons.push_back(charmender6);
 }
 
-RouteNPC::~RouteNPC()
+CityNPC::~CityNPC()
 {
 }
 
-void RouteNPC::Init()
+void CityNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(96);
 }
 
-void RouteNPC::Update(float deltaTime)
+void CityNPC::Update(float deltaTime)
 {
 }

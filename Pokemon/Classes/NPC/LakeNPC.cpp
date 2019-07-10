@@ -1,12 +1,10 @@
-#include "RouteNPC.h"
+#include "LakeNPC.h"
 #include "Pokemon.h"
 #include "Pokemon\Charmander.h"
-
-RouteNPC::RouteNPC(Layer * layer)
+LakeNPC::LakeNPC(Layer * layer)
 {
 	this->Init();
 	layer->addChild(this->m_spriteFront);
-
 	auto charmender = new Charmander();
 	charmender->SetLevel(9);
 	this->m_pokemons.push_back(charmender);
@@ -32,15 +30,16 @@ RouteNPC::RouteNPC(Layer * layer)
 	this->m_pokemons.push_back(charmender6);
 }
 
-RouteNPC::~RouteNPC()
+LakeNPC::~LakeNPC()
 {
 }
 
-void RouteNPC::Init()
+void LakeNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(98);
+	this->m_spriteFront->setPosition(300, 300);
 }
 
-void RouteNPC::Update(float deltaTime)
+void LakeNPC::Update(float deltaTime)
 {
 }
