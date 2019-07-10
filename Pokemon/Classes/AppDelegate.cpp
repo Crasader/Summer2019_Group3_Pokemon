@@ -2,6 +2,8 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "ResourceManager.h"
+#include "PokemonCenter.h"
+#include "Lake.h"
 #include "Scene\Loading.h"
 
 // #define USE_AUDIO_ENGINE 1
@@ -21,7 +23,7 @@ using namespace CocosDenshion;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(720, 360);
+static cocos2d::Size designResolutionSize = cocos2d::Size(650, 360);
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
@@ -99,7 +101,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-    auto scene = Loading::createScene();
+    auto scene = Lake::createScene();
+
 
     // run
     director->runWithScene(scene);

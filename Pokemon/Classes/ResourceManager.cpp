@@ -53,6 +53,7 @@ void ResourceManager::Load()
 		button->retain();
 		this->m_buttons.insert(pair<int, Button*>(i, button));
 	}
+
 	/*length = document["FONT"]["length"].GetInt();
 	for (int i = 0; i < length; i++)
 	{

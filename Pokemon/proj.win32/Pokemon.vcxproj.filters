@@ -54,6 +54,24 @@
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PokemonCenter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Lake.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Route1.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Buttons.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Model.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Trainer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\NPC.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -334,6 +352,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
       <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PokemonCenter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Lake.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Route1.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Buttons.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Model.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Trainer.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC.h">
       <Filter>src</Filter>

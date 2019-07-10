@@ -131,6 +131,29 @@
       "pressed": "res/Button/button_up_press.png"
     }
   },
+  "BUTTON": {
+    "size": 5,
+    "0": {
+      "normal": "res/Button/button_a.png",
+      "pressed": "res/Button/button_a_press.png"
+    },
+    "1": {
+      "normal": "res/Button/button_down.png",
+      "pressed": "res/Button/button_down_press.png"
+    },
+    "2": {
+      "normal": "res/Button/button_left.png",
+      "pressed": "res/Button/button_left_press.png"
+    },
+    "3": {
+      "normal": "res/Button/button_right.png",
+      "pressed": "res/Button/button_right_press.png"
+    },
+    "4": {
+      "normal": "res/Button/button_up.png",
+      "pressed": "res/Button/button_up_press.png"
+    }
+  },
   "ANIMATE": {
     "size": 90,
     "0": {

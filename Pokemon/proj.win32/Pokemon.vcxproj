@@ -159,8 +159,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp" />
     <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Buttons.cpp" />
     <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Lake.cpp" />
+    <ClCompile Include="..\Classes\Model.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\RouteNPC.cpp" />
@@ -211,6 +214,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\PokemonCenter.cpp" />
+    <ClCompile Include="..\Classes\Route1.cpp" />
+    <ClCompile Include="..\Classes\Trainer.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
@@ -254,8 +260,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\..\..\NPC\TanNgocNPC.h" />
     <ClInclude Include="..\..\..\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Buttons.h" />
     <ClInclude Include="..\Classes\Attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Lake.h" />
+    <ClInclude Include="..\Classes\Model.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\RouteNPC.h" />
@@ -306,6 +315,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\PokemonCenter.h" />
+    <ClInclude Include="..\Classes\Route1.h" />
+    <ClInclude Include="..\Classes\Trainer.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Scene\MainMenu.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
