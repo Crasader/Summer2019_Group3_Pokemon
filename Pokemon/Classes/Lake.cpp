@@ -6,7 +6,17 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 #include "Buttons.h"
+
 USING_NS_CC;
+int state_up = 0;
+int state_right = 0;
+int state_left  = 0;
+int state_down = 0;
+
+Button *up;
+Button *down;
+Button *left1;
+Button *right1;
 
 Scene* Lake::createScene()
 {
@@ -39,7 +49,7 @@ bool Lake::init()
 	auto map = TMXTiledMap::create("res/Map/lake.tmx");
 	addChild(map);
 	
-	/*auto m_objectGroup = map->getObjectGroup("Object");
+	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	auto object = objects.at(0);
 	auto properties = object.asValueMap();
@@ -47,35 +57,124 @@ bool Lake::init()
 	int posY = properties.at("y").asInt();
 	int type = object.asValueMap().at("type").asInt();
 	mPlayer = new Trainer(this);
-	*/
+	mPlayer->setPosition(Vec2(posX, posY));
+	mPlayer->setScale(0.1f);
 
-	Button *up = Buttons::getIntance()->GetButtonUp();
+	up = Buttons::getIntance()->GetButtonUp();
 	up->removeFromParent();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	right->removeFromParent();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	left->removeFromParent();
-	Button *down = Buttons::getIntance()->GetButtonDown();
+
+	right1 = Buttons::getIntance()->GetButtonRight();
+	right1->removeFromParent();
+
+	left1 = Buttons::getIntance()->GetButtonLeft();
+	left1->removeFromParent();
+
+	down = Buttons::getIntance()->GetButtonDown();
 	down->removeFromParent();
+
 	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
+	addChild(right1, 100);
+	addChild(left1, 100);
 	addChild(down, 100);
-	/*up->addClickEventListener([&](Ref* event) {
-		object->setPosition(getPosition().x , getPosition().y + 10);
+	up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			state_up = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			state_up = 0;
+			break;
+		}
+		default:
+			break;
+		}
 	});
-	right->addClickEventListener([&](Ref* event) {
-		object->setPosition(getPosition().x + 10, getPosition().y );
 
+
+	right1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			state_right = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			state_right = 0;
+			break;
+		}
+		default:
+		{
+			state_right = 0;
+			break;
+		}
+
+		}
 	});
-	left->addClickEventListener([&](Ref* event) {
-		object->setPosition(getPosition().x - 10, getPosition().y);
+	left1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			state_left = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			state_left = 0;
+			break;
+		}
+		default:
+			break;
+		}
 	});
-	down->addClickEventListener([&](Ref* event) {
-		object->setPosition(getPosition().x , getPosition().y - 10);
+	down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
-	});*/
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			state_down = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			state_down = 0;
+			break;
+		}
+		default:
+			break;
+		}
+	});
+	scheduleUpdate();
     return true;
 }
-
+float total = 0;
+void Lake::update(float dt) {
+	total += dt;
+	if (total = 0.3f) {
+		if (state_up) {
+			mPlayer->walkUp();
+		}
+		if (state_down) {
+			mPlayer->walkDown();
+		}
+		if (state_left) {
+			mPlayer->walkLeft();
+		}
+		if (state_right) {
+			mPlayer->walkRight();
+		}
+		total = 0;
+		auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
+		this->runAction(followTheSprite);
+	}
+}
