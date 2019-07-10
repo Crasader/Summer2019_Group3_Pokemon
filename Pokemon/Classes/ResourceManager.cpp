@@ -53,8 +53,8 @@ void ResourceManager::Load()
 		button->retain();
 		this->m_buttons.insert(pair<int, Button*>(i, button));
 	}
-	/*
-	length = document["FONT"]["length"].GetInt();
+
+	/*length = document["FONT"]["length"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
@@ -79,7 +79,7 @@ void ResourceManager::Load()
 			string frameName = document["ANIMATE"][key.c_str()]["png"][j].GetString();
 			aniFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
 		}
-		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.5);
+		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.3);
 		auto animate = Animate::create(animation);
 		animate->retain();
 		this->m_animates.insert(pair<int, Animate*>(i, animate));

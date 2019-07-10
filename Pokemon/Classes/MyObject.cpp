@@ -9,8 +9,8 @@ MyObject::MyObject()
 
 MyObject::~MyObject()
 {
-	this->m_spriteFront->release();
-	this->m_spriteBack->release();
+	this->m_spriteFront->removeFromParentAndCleanup(true);
+	this->m_spriteBack->removeFromParentAndCleanup(true);
 }
 
 Sprite * MyObject::GetSpriteBack()

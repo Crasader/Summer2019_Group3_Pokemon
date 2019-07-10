@@ -6,6 +6,9 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 
+#include "NPC.h"
+
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -39,23 +42,32 @@ bool HelloWorld::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto tiledmap = ResourceManager::GetInstance()->GetTiledMapById(0);
+	auto scale_x = visibleSize.width / tiledmap->getContentSize().width;
+	auto scale_y = visibleSize.height / tiledmap->getContentSize().height;
+	tiledmap->setScaleX(scale_x);
+	tiledmap->setScaleY(scale_y);
 	this->addChild(tiledmap, -10);
 	auto obj = tiledmap->getObjectGroup("pokemon");
 	auto opp = obj->getObject("opponent");
-	auto x = opp["x"].asFloat();
-	auto y = opp["y"].asFloat();
+	auto x = opp["x"].asFloat() * scale_x;
+	auto y = opp["y"].asFloat() * scale_y;
 	auto player = obj->getObject("player");
-	auto m_x = player["x"].asFloat();
-	auto m_y = player["y"].asFloat();
+	auto m_x = player["x"].asFloat() * scale_x;
+	auto m_y = player["y"].asFloat() * scale_y;
 
 	Pokemon* charmander = new Charmander();
 	charmander->GetSpriteFront()->setPosition(Vec2(x, y));
 	this->addChild(charmander->GetSpriteFront(), 10);
 	Pokemon* squirtle = new Squirtle();
+	auto evolve = squirtle->Evolve();
+	if (evolve != nullptr)
+	{
+		squirtle = evolve;
+	}
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
 	this->addChild(squirtle->GetSpriteBack(), 10);
+	return true;
 
-    return true;
 }
 
 
@@ -68,6 +80,4 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
