@@ -54,11 +54,26 @@
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NPC.cpp">
+    <ClCompile Include="..\Classes\PokemonCenter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
-      <Filter>src\NPC</Filter>
+    <ClCompile Include="..\Classes\Lake.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Route1.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Buttons.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Model.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Trainer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Charmeleon.cpp">
       <Filter>src\Pokemon</Filter>
@@ -276,31 +291,31 @@
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\CaveNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\ChampionNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\CityNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\CityNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\KhuongDuyNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\LakeNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\LakeNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\MinhVuongNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\RouteNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\TanNgocNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp">
+    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Popup.cpp">
@@ -338,11 +353,26 @@
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NPC.h">
+    <ClInclude Include="..\Classes\PokemonCenter.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
-      <Filter>src\NPC</Filter>
+    <ClInclude Include="..\Classes\Lake.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Route1.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Buttons.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Model.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Trainer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h">
       <Filter>src\Pokemon</Filter>
@@ -560,31 +590,31 @@
     <ClInclude Include="..\Classes\Scene\MainMenu.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\CaveNPC.h">
+    <ClInclude Include="..\Classes\NPC\CaveNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\ChampionNPC.h">
+    <ClInclude Include="..\Classes\NPC\ChampionNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\CityNPC.h">
+    <ClInclude Include="..\Classes\NPC\CityNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\KhuongDuyNPC.h">
+    <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\LakeNPC.h">
+    <ClInclude Include="..\Classes\NPC\LakeNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\MinhVuongNPC.h">
+    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\RouteNPC.h">
+    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\TanNgocNPC.h">
+    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\NPC\TanTaiNPC.h">
+    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Popup.h">

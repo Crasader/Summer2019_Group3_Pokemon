@@ -4,7 +4,7 @@
     "0": "res/Background/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 102,
+    "size": 106,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -106,7 +106,11 @@
     "98": "res/Animation/NPC/10.png",
     "99": "res/Animation/LoadingBar/0.png",
     "100": "res/Animation/LoadingBar/1.png",
-    "101": "res/Animation/Background/1.png"
+    "101": "res/Animation/Background/1.png",
+    "102": "res/Trainer/walkup/1.png",
+    "103": "res/Trainer/walkdown/1.png",
+    "104": "res/Trainer/walkleft/1.png",
+    "105": "res/Trainer/walkright/1.png"
   },
   "BUTTON": {
     "size": 10,
@@ -152,7 +156,7 @@
     }
   },
   "ANIMATE": {
-    "size": 90,
+    "size": 94,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -1500,6 +1504,50 @@
         "5.png",
         "6.png",
         "7.png"
+      ]
+    },
+    "90": {
+      "size": 4,
+      "plist": "res/Trainer/walkup/walkup.plist",
+      "path": "res/Trainer/walkup/walkup.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+    "91": {
+      "size": 4,
+      "plist": "res/Trainer/walkdown/walkdown.plist",
+      "path": "res/Trainer/walkdown/walkdown.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+    "92": {
+      "size": 4,
+      "plist": "res/Trainer/walkleft/walkleft.plist",
+      "path": "res/Trainer/walkleft/walkleft.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+     "93": {
+      "size": 4,
+      "plist": "res/Trainer/walkright/walkright.plist",
+      "path": "res/Trainer/walkright/walkright.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
       ]
     }
   }
