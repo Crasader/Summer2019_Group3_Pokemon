@@ -2,6 +2,7 @@
 
 Thunderbolt::Thunderbolt()
 {
+	this->Init();
 }
 
 Thunderbolt::~Thunderbolt()

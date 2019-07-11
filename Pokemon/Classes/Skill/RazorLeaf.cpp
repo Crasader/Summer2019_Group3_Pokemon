@@ -2,6 +2,7 @@
 
 RazorLeaf::RazorLeaf()
 {
+	this->Init();
 }
 
 RazorLeaf::~RazorLeaf()

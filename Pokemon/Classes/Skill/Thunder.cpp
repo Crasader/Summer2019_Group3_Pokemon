@@ -2,6 +2,7 @@
 
 Thunder::Thunder()
 {
+	this->Init();
 }
 
 Thunder::~Thunder()

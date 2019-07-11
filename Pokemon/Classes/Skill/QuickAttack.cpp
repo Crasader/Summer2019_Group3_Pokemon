@@ -2,6 +2,7 @@
 
 QuickAttack::QuickAttack()
 {
+	this->Init();
 }
 
 QuickAttack::~QuickAttack()

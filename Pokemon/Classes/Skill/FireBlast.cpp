@@ -2,6 +2,7 @@
 
 FireBlast::FireBlast()
 {
+	this->Init();
 }
 
 FireBlast::~FireBlast()

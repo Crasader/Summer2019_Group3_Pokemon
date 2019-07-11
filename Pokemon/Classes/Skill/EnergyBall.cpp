@@ -2,6 +2,7 @@
 
 EnergyBall::EnergyBall()
 {
+	this->Init();
 }
 
 EnergyBall::~EnergyBall()

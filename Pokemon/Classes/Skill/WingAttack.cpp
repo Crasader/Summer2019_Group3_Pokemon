@@ -2,6 +2,7 @@
 
 WingAttack::WingAttack()
 {
+	this->Init();
 }
 
 WingAttack::~WingAttack()

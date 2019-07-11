@@ -66,9 +66,6 @@
     <ClCompile Include="..\Classes\Buttons.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Model.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Trainer.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -234,9 +231,6 @@
     <ClCompile Include="..\Classes\Skill\Gust.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\HydroPump.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Skill\Peck.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
@@ -277,9 +271,6 @@
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Skill\WoodHammer.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Attack.cpp">
@@ -360,9 +351,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Buttons.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Model.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Trainer.h">
@@ -530,9 +518,6 @@
     <ClInclude Include="..\Classes\Skill\Gust.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill\HydroPump.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill\Peck.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
@@ -573,9 +558,6 @@
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\WingAttack.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Skill\WoodHammer.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Attack.h">

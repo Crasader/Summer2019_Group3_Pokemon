@@ -2,6 +2,7 @@
 
 VineWhip::VineWhip()
 {
+	this->Init();
 }
 
 VineWhip::~VineWhip()

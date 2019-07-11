@@ -2,6 +2,7 @@
 
 BlastBurn::BlastBurn()
 {
+	this->Init();
 }
 
 BlastBurn::~BlastBurn()

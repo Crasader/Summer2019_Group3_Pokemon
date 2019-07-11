@@ -2,6 +2,7 @@
 
 Tackle::Tackle()
 {
+	this->Init();
 }
 
 Tackle::~Tackle()

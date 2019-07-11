@@ -2,6 +2,7 @@
 
 Gust::Gust()
 {
+	this->Init();
 }
 
 Gust::~Gust()

@@ -2,6 +2,7 @@
 
 Fly::Fly()
 {
+	this->Init();
 }
 
 Fly::~Fly()

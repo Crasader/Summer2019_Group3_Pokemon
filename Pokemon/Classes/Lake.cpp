@@ -6,7 +6,6 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 #include "Buttons.h"
-#include "Model.h"
 
 USING_NS_CC;
 Size visibleSize;

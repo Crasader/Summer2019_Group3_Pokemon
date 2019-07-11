@@ -2,6 +2,7 @@
 
 Surf::Surf()
 {
+	this->Init();
 }
 
 Surf::~Surf()

@@ -2,6 +2,7 @@
 
 DracoMeteor::DracoMeteor()
 {
+	this->Init();
 }
 
 DracoMeteor::~DracoMeteor()

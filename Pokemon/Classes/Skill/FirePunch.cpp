@@ -2,6 +2,7 @@
 
 FirePunch::FirePunch()
 {
+	this->Init();
 }
 
 FirePunch::~FirePunch()

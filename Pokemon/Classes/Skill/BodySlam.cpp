@@ -2,6 +2,7 @@
 
 BodySlam::BodySlam()
 {
+	this->Init();
 }
 
 BodySlam::~BodySlam()

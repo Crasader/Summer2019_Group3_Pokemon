@@ -2,6 +2,7 @@
 
 Peck::Peck()
 {
+	this->Init();
 }
 
 Peck::~Peck()

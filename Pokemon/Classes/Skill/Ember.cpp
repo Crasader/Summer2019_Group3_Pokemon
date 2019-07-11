@@ -2,6 +2,7 @@
 
 Ember::Ember()
 {
+	this->Init();
 }
 
 Ember::~Ember()

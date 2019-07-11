@@ -2,6 +2,7 @@
 
 ThunderShock::ThunderShock()
 {
+	this->Init();
 }
 
 ThunderShock::~ThunderShock()

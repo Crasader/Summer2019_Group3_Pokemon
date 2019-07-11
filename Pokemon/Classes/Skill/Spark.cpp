@@ -2,6 +2,7 @@
 
 Spark::Spark()
 {
+	this->Init();
 }
 
 Spark::~Spark()

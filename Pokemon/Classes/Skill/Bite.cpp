@@ -2,6 +2,7 @@
 
 Bite::Bite()
 {
+	this->Init();
 }
 
 Bite::~Bite()

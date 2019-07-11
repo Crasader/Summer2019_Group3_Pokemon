@@ -2,6 +2,7 @@
 
 DragonClaw::DragonClaw()
 {
+	this->Init();
 }
 
 DragonClaw::~DragonClaw()

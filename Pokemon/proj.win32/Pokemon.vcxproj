@@ -154,7 +154,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Attack.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Lake.cpp" />
-    <ClCompile Include="..\Classes\Model.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
@@ -230,7 +229,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Skill\FirePunch.cpp" />
     <ClCompile Include="..\Classes\Skill\Fly.cpp" />
     <ClCompile Include="..\Classes\Skill\Gust.cpp" />
-    <ClCompile Include="..\Classes\Skill\HydroPump.cpp" />
     <ClCompile Include="..\Classes\Skill\Peck.cpp" />
     <ClCompile Include="..\Classes\Skill\QuickAttack.cpp" />
     <ClCompile Include="..\Classes\Skill\RazorLeaf.cpp" />
@@ -245,7 +243,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Skill\WaterGun.cpp" />
     <ClCompile Include="..\Classes\Skill\WaterPulse.cpp" />
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp" />
-    <ClCompile Include="..\Classes\Skill\WoodHammer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -254,7 +251,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Attack.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Lake.h" />
-    <ClInclude Include="..\Classes\Model.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
@@ -330,7 +326,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\FirePunch.h" />
     <ClInclude Include="..\Classes\Skill\Fly.h" />
     <ClInclude Include="..\Classes\Skill\Gust.h" />
-    <ClInclude Include="..\Classes\Skill\HydroPump.h" />
     <ClInclude Include="..\Classes\Skill\Peck.h" />
     <ClInclude Include="..\Classes\Skill\QuickAttack.h" />
     <ClInclude Include="..\Classes\Skill\RazorLeaf.h" />
@@ -345,7 +340,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\WaterGun.h" />
     <ClInclude Include="..\Classes\Skill\WaterPulse.h" />
     <ClInclude Include="..\Classes\Skill\WingAttack.h" />
-    <ClInclude Include="..\Classes\Skill\WoodHammer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

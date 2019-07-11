@@ -2,6 +2,7 @@
 
 DragonCut::DragonCut()
 {
+	this->Init();
 }
 
 DragonCut::~DragonCut()

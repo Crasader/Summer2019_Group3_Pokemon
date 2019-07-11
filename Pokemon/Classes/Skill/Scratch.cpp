@@ -2,6 +2,7 @@
 
 Scratch::Scratch()
 {
+	this->Init();
 }
 
 Scratch::~Scratch()

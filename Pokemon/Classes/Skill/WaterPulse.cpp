@@ -2,6 +2,7 @@
 
 WaterPulse::WaterPulse()
 {
+	this->Init();
 }
 
 WaterPulse::~WaterPulse()

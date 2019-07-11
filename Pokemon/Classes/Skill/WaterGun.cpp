@@ -2,6 +2,7 @@
 
 WaterGun::WaterGun()
 {
+	this->Init();
 }
 
 WaterGun::~WaterGun()
