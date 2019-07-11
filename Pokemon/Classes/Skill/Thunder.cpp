@@ -10,11 +10,11 @@ Thunder::~Thunder()
 
 void Thunder::Init()
 {
-	Attack::SetName("Thunder");
-	Attack::SetType("Electric");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(5);
-	Attack::SetPP(5);
+	Skill::SetName("Thunder");
+	Skill::SetType("Electric");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(5);
+	Skill::SetPP(5);
 }
 

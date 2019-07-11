@@ -10,11 +10,11 @@ HydroPump::~HydroPump()
 
 void HydroPump::Init()
 {
-	Attack::SetName("HydroPump");
-	Attack::SetType("Water");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(3);
-	Attack::SetPP(5);
+	Skill::SetName("HydroPump");
+	Skill::SetType("Water");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(3);
+	Skill::SetPP(5);
 }
 

@@ -4,7 +4,7 @@
     "0": "res/Background/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 90,
+    "size": 91,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -94,10 +94,12 @@
     "86": "res/Animation/Swellow/front/0.png",
     "87": "res/Animation/Swellow/back/0.png",
     "88": "res/Animation/Taillow/front/0.png",
-    "89": "res/Animation/Taillow/back/0.png"
+    "89": "res/Animation/Taillow/back/0.png",
+
+    "90": "res/Sprite/box_white.png"
   },
   "BUTTON": {
-    "size": 5,
+    "size": 6,
     "0": {
       "normal": "res/Button/button_a.png",
       "pressed": "res/Button/button_a_press.png"
@@ -117,7 +119,16 @@
     "4": {
       "normal": "res/Button/button_up.png",
       "pressed": "res/Button/button_up_press.png"
+    },
+    "5": {
+      "normal": "res/Button/red_button00.png",
+      "pressed": "res/Button/red_button01.png"
     }
+  },
+  "FONT": {
+    "size": 2,
+    "0": "res/Label/arial.ttf",
+    "1": "res/Label/MarkerFelt.ttf"
   },
   "ANIMATE": {
     "size": 90,

@@ -10,11 +10,11 @@ EnergyBall::~EnergyBall()
 
 void EnergyBall::Init()
 {
-	Attack::SetName("Energy Ball");
-	Attack::SetType("Grass");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(4);
-	Attack::SetPP(10);
+	Skill::SetName("Energy Ball");
+	Skill::SetType("Grass");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(4);
+	Skill::SetPP(10);
 }
 

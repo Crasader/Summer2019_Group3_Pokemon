@@ -11,6 +11,7 @@ Charmander::Charmander()
 	this->Init(4, 5);
 	//
 	this->m_name = "Charmander";
+	this->m_type = MyObject::TYPE_FIRE;
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;

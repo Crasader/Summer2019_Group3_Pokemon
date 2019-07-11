@@ -1,12 +1,18 @@
 #pragma once
 #include "MyObject.h"
+#include "Skill.h"
+#include "Skill\Tackle.h"
+#include "Skill\Bite.h"
 #include <vector>
 using namespace std;
 
 class Pokemon : public MyObject
 {
+private:
+	float RandomFloat(float a, float b);
 protected:
 	string m_name;
+	vector<Skill*> m_skills = { new Tackle(),new Bite(),nullptr };
 	int m_type;
 	int m_maxHealth;
 	int m_currentHealth;
@@ -16,6 +22,7 @@ protected:
 	int m_attackSpeed;
 	int m_currentExp;
 	int m_maxExp;
+	bool alive = true;
 public:
 	Pokemon();
 	~Pokemon();
@@ -46,4 +53,8 @@ public:
 	void SetCurrentExp(int exp);
 	int GetMaxExp();
 	void SetMaxExp(int exp);
+	bool IsAlive();
+	Skill* GetSkillById(int id);
+	int GetCountSkills();
+	void Attack(Pokemon* target, Skill* skill);
 };

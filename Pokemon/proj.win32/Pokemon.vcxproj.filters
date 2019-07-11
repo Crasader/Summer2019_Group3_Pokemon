@@ -264,7 +264,10 @@
     <ClCompile Include="..\Classes\Skill\WoodHammer.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Attack.cpp">
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BattleScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -512,7 +515,10 @@
     <ClInclude Include="..\Classes\Skill\WoodHammer.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Attack.h">
+    <ClInclude Include="..\Classes\BattleScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

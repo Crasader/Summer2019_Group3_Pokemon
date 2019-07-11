@@ -53,16 +53,15 @@ void ResourceManager::Load()
 		button->retain();
 		this->m_buttons.insert(pair<int, Button*>(i, button));
 	}
-	/*length = document["FONT"]["length"].GetInt();
+	length = document["FONT"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
 		string path = document["FONT"][key.c_str()].GetString();
-		path.replace(0, 2, this->m_dataFolderPath);
 		auto label = Label::createWithTTF("", path, 15);
 		label->retain();
 		this->m_labels.insert(pair<int, Label*>(i, label));
-	}*/
+	}
 	length = document["ANIMATE"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
@@ -123,7 +122,7 @@ Animate * ResourceManager::GetAnimateById(int id)
 	auto tmp = this->m_animates.find(id);
 	while (tmp != m_animates.end())
 	{
-		return tmp->second;
+		return tmp->second->clone();
 	}
 }
 
@@ -132,7 +131,7 @@ Button * ResourceManager::GetButtonById(int id)
 	auto tmp = this->m_buttons.find(id);
 	while (tmp != m_buttons.end())
 	{
-		return tmp->second;
+		return (Button*)tmp->second->clone();
 	}
 }
 
@@ -141,6 +140,6 @@ Label * ResourceManager::GetLabelById(int id)
 	auto tmp = this->m_labels.find(id);
 	while (tmp != m_labels.end())
 	{
-		return tmp->second;
+		return Label::createWithTTF(tmp->second->getTTFConfig(), "");
 	}
 }

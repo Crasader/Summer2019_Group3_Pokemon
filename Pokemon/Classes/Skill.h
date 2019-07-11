@@ -1,11 +1,12 @@
 #pragma once
-#include"cocos2d.h"
-#include<string>
+#include "cocos2d.h"
+#include "MyObject.h"
+#include <string>
 using namespace std;
 using namespace cocos2d;
 USING_NS_CC;
 
-class Attack
+class Skill : public MyObject
 {
 private:
 	int m_power;
@@ -15,8 +16,10 @@ private:
 	int m_idtype;
 	int m_maxpp;
 public:
-	Attack();
-	~Attack();
+	Skill();
+	~Skill();
+	virtual void Init() override {};
+	virtual void Update(float deltaTime) override {};
 	void SetPower(int x);
 	void SetPP(int y);
 	void SetMaxPP(int m);

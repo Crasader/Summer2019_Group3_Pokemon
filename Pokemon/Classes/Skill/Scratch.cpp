@@ -10,11 +10,11 @@ Scratch::~Scratch()
 
 void Scratch::Init()
 {
-	Attack::SetName("Scratch");
-	Attack::SetType("Normal");
-	Attack::SetPower(60);
-	Attack::SetMaxPP(15);
-	Attack::SetIdType(1);
-	Attack::SetPP(10);
+	Skill::SetName("Scratch");
+	Skill::SetType("Normal");
+	Skill::SetPower(60);
+	Skill::SetMaxPP(15);
+	Skill::SetIdType(1);
+	Skill::SetPP(10);
 }
 

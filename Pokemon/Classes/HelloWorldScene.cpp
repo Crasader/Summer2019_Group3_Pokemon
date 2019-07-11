@@ -64,6 +64,61 @@ bool HelloWorld::init()
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
 	this->addChild(squirtle->GetSpriteBack(), 10);
 
+	auto btn_1 = ResourceManager::GetInstance()->GetButtonById(5);
+	btn_1->setAnchorPoint(Vec2(1, 0.5));
+	btn_1->setPosition(Vec2(visibleSize.width, btn_1->getContentSize().height * 4));
+	auto lb_1 = ResourceManager::GetInstance()->GetLabelById(0);
+	lb_1->setString("Fight");
+	lb_1->setTag(0);
+	lb_1->setPosition(btn_1->getContentSize().width / 2, btn_1->getContentSize().height / 2);
+	btn_1->addChild(lb_1);
+	addChild(btn_1);
+	auto btn_2 = ResourceManager::GetInstance()->GetButtonById(5);
+	btn_2->setAnchorPoint(Vec2(1, 0.5));
+	btn_2->setPosition(Vec2(visibleSize.width, btn_2->getContentSize().height * 2.9));
+	auto lb_2 = ResourceManager::GetInstance()->GetLabelById(0);
+	lb_2->setString("Bag");
+	lb_2->setTag(1);
+	lb_2->setPosition(btn_2->getContentSize().width / 2, btn_2->getContentSize().height / 2);
+	btn_2->addChild(lb_2);
+	addChild(btn_2);
+	auto btn_3 = ResourceManager::GetInstance()->GetButtonById(5);
+	btn_3->setAnchorPoint(Vec2(1, 0.5));
+	btn_3->setPosition(Vec2(visibleSize.width, btn_3->getContentSize().height * 1.8));
+	auto lb_3 = ResourceManager::GetInstance()->GetLabelById(0);
+	lb_3->setString("Pokemon");
+	lb_3->setTag(2);
+	lb_3->setPosition(btn_3->getContentSize().width / 2, btn_3->getContentSize().height / 2);
+	btn_3->addChild(lb_3);
+	addChild(btn_3);
+	auto btn_4 = ResourceManager::GetInstance()->GetButtonById(5);
+	btn_4->setAnchorPoint(Vec2(1, 0.5));
+	btn_4->setPosition(Vec2(visibleSize.width, btn_4->getContentSize().height*0.7));
+	auto lb_4 = ResourceManager::GetInstance()->GetLabelById(0);
+	lb_4->setString("Run");
+	lb_4->setTag(4);
+	lb_4->setPosition(btn_4->getContentSize().width / 2, btn_4->getContentSize().height / 2);
+	btn_4->addChild(lb_4);
+	addChild(btn_4);
+	btn_1->addTouchEventListener([lb_1,lb_2,lb_3,lb_4,squirtle](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			if (lb_1->getString() == "Fight")
+			{
+				//lb_1->setString(squirtle->GetListSkill().at(0)->GetName());
+				//lb_2->setString(squirtle->GetListSkill().at(1)->GetName());
+				lb_3->setString("-");
+				lb_4->setString("Back");
+			}
+			break;
+		default:
+			break;
+		}
+	});
+
     return true;
 }
 

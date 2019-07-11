@@ -10,11 +10,11 @@ Surf::~Surf()
 
 void Surf::Init()
 {
-	Attack::SetName("Surf");
-	Attack::SetType("Water");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(3);
-	Attack::SetPP(10);
+	Skill::SetName("Surf");
+	Skill::SetType("Water");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(3);
+	Skill::SetPP(10);
 }
 

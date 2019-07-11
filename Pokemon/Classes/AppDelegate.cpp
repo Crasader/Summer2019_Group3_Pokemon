@@ -1,6 +1,7 @@
 
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include "BattleScene.h"
 #include "ResourceManager.h"
 
 // #define USE_AUDIO_ENGINE 1
@@ -98,7 +99,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = BattleScene::createScene();
 
     // run
     director->runWithScene(scene);

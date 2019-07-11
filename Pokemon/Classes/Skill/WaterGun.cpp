@@ -10,11 +10,11 @@ WaterGun::~WaterGun()
 
 void WaterGun::Init()
 {
-	Attack::SetName("Water Gun");
-	Attack::SetType("Water");
-	Attack::SetPower(40);
-	Attack::SetMaxPP(35);
-	Attack::SetIdType(3);
-	Attack::SetPP(35);
+	Skill::SetName("Water Gun");
+	Skill::SetType("Water");
+	Skill::SetPower(40);
+	Skill::SetMaxPP(35);
+	Skill::SetIdType(3);
+	Skill::SetPP(35);
 }
 

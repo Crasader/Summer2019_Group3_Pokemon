@@ -10,11 +10,11 @@ DracoMeteor::~DracoMeteor()
 
 void DracoMeteor::Init()
 {
-	Attack::SetName("Draco Meteor");
-	Attack::SetType("Dragon");
-	Attack::SetPower(120);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(7);
-	Attack::SetPP(5);
+	Skill::SetName("Draco Meteor");
+	Skill::SetType("Dragon");
+	Skill::SetPower(120);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(7);
+	Skill::SetPP(5);
 }
 

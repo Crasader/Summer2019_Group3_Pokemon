@@ -10,11 +10,11 @@ WoodHammer::~WoodHammer()
 
 void WoodHammer::Init()
 {
-	Attack::SetName("Wood Hammer");
-	Attack::SetType("Grass");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(4);
-	Attack::SetPP(5);
+	Skill::SetName("Wood Hammer");
+	Skill::SetType("Grass");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(4);
+	Skill::SetPP(5);
 }
 

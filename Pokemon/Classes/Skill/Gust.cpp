@@ -10,11 +10,11 @@ Gust::~Gust()
 
 void Gust::Init()
 {
-	Attack::SetName("Gust");
-	Attack::SetType("Flying");
-	Attack::SetPower(60);
-	Attack::SetMaxPP(20);
-	Attack::SetIdType(6);
-	Attack::SetPP(20);
+	Skill::SetName("Gust");
+	Skill::SetType("Flying");
+	Skill::SetPower(60);
+	Skill::SetMaxPP(20);
+	Skill::SetIdType(6);
+	Skill::SetPP(20);
 }
 
