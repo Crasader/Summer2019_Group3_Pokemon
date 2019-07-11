@@ -18,4 +18,3 @@ void Bite::Init()
 	Skill::SetIdType(1);
 	Skill::SetPP(10);
 }
-

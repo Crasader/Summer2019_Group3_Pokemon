@@ -17,4 +17,3 @@ void BlastBurn::Init()
 	Skill::SetIdType(2);
 	Skill::SetPP(5);
 }
-
