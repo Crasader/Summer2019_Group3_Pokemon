@@ -6,12 +6,14 @@
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
 #include "Buttons.h"
+#include "Model.h"
 
 USING_NS_CC;
-int state_up = 0;
-int state_right = 0;
-int state_left  = 0;
-int state_down = 0;
+Size visibleSize;
+Size tileMapSize;
+
+PhysicsBody* body, *gateWay;
+Camera *camera;
 
 Button *up;
 Button *down;
@@ -20,7 +22,8 @@ Button *right1;
 
 Scene* Lake::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lake::create();
 	scene->addChild(layer);
 	return scene;
@@ -43,22 +46,85 @@ bool Lake::init()
         return false;
     }
 
-    auto visibleSize = Director::getInstance()->getVisibleSize();
+    visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto map = TMXTiledMap::create("res/Map/lake.tmx");
+	tileMapSize = map->getContentSize();
 	addChild(map);
+
+	auto mPhysicsLayer = map->getLayer("physics");
+	Size layerSize = mPhysicsLayer->getLayerSize();
+	for (int i = 0; i < layerSize.width; i++)
+	{
+		for (int j = 0; j < layerSize.height; j++)
+		{
+			auto tileSet = mPhysicsLayer->getTileAt(Vec2(i, j));
+			if (tileSet != NULL)
+			{
+				auto physics = PhysicsBody::createBox(tileSet->getContentSize()*2, PHYSICSBODY_MATERIAL_DEFAULT);
+				physics->setCollisionBitmask(13);
+				physics->setContactTestBitmask(true);
+				physics->setDynamic(false);
+				physics->setGravityEnable(false);
+				physics->setMass(12);
+				tileSet->setPhysicsBody(physics);
+			}
+		}
+	}
+
+	InitObject();
 	
+	camera = Camera::create();
+	camera->setPosition(visibleSize/2);
+	addChild(camera);
+
+	CreateButon();
+	ButtonListener();
+	
+	scheduleUpdate();
+    return true;
+}
+
+void Lake::InitObject()
+{
+	auto map = TMXTiledMap::create("res/Map/lake.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
-	auto object = objects.at(0);
-	auto properties = object.asValueMap();
-	int posX = properties.at("x").asInt();
-	int posY = properties.at("y").asInt();
-	int type = object.asValueMap().at("type").asInt();
-	mPlayer = new Trainer(this);
-	mPlayer->setPosition(Vec2(posX, posY));
+	for (int i = 0; i < objects.size(); i++) {
+		auto object = objects.at(i);
+		auto properties = object.asValueMap();
+		float posX = properties.at("x").asFloat();
+		float posY = properties.at("y").asFloat();
+		int type = object.asValueMap().at("type").asInt();
+		if (type == 1) {
+			mPlayer = new Trainer(this);
+			mPlayer->setPosition(Vec2(posX, posY));
+			body = PhysicsBody::createBox(mPlayer->GetSprite()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			body->setDynamic(true);
+			body->setRotationEnable(false);
+			body->setGravityEnable(false);
+			mPlayer->GetSprite()->setPhysicsBody(body);
+		}
+		else {
+			mGateWay = Sprite::create("res/walkup.png");
+			mGateWay->setPosition(Vec2(posX, posY));
+			gateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			gateWay->setCollisionBitmask(15);
+			gateWay->setMass(14);
+			gateWay->setContactTestBitmask(true);
+			gateWay->setDynamic(false);
+			gateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(gateWay);
+			mGateWay->setVisible(false);
+			this->addChild(mGateWay, 10);
+		}
+	}
 
+}
+
+void Lake::CreateButon()
+{
 	up = Buttons::getIntance()->GetButtonUp();
 	up->removeFromParent();
 
@@ -75,8 +141,12 @@ bool Lake::init()
 	addChild(right1, 100);
 	addChild(left1, 100);
 	addChild(down, 100);
+}
+
+void Lake::ButtonListener()
+{
 	up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-		
+
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
@@ -90,7 +160,10 @@ bool Lake::init()
 			break;
 		}
 		default:
+		{
+			this->mPlayer->GetSprite()->stopActionByTag(0);
 			break;
+		}
 		}
 	});
 
@@ -111,12 +184,14 @@ bool Lake::init()
 		}
 		default:
 		{
+			this->mPlayer->GetSprite()->stopActionByTag(3);
 			break;
 		}
 
 		}
 	});
-	left1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+	left1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
 
 		switch (type)
 		{
@@ -128,10 +203,14 @@ bool Lake::init()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			this->mPlayer->GetSprite()->stopActionByTag(2);
+			//mPlayer->GetSprite()  = ResourceManager::GetInstance()->GetSpriteById(104);
 			break;
 		}
 		default:
+		{
+			this->mPlayer->GetSprite()->stopActionByTag(2);
 			break;
+		}
 		}
 	});
 	down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -149,16 +228,18 @@ bool Lake::init()
 			break;
 		}
 		default:
+		{
+			this->mPlayer->GetSprite()->stopActionByTag(1);
 			break;
 		}
+
+		}
 	});
-	scheduleUpdate();
-    return true;
 }
 
 float total = 0;
 
 void Lake::update(float dt) {
-	auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
-	this->runAction(followTheSprite);
+	//auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
+	//this->runAction(followTheSprite);
 }
