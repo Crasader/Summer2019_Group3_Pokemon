@@ -10,12 +10,16 @@ class Lake: public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
+	Sprite * mGateWay;
 public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
+	void InitObject();
+	void CreateButon();
+	void ButtonListener();
     CREATE_FUNC(Lake);
+	void createPhysics();
 	void update(float);
 };
 
