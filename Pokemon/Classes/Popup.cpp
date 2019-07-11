@@ -171,20 +171,28 @@ namespace UICustom
 			lbl->enableOutline(Color4B::BLACK, FONT::LABEL_STROKE);
 			lbl->setAlignment(cocos2d::TextHAlignment::LEFT, cocos2d::TextVAlignment::CENTER);
 			lbl->enableShadow(Color4B::BLACK, Size(0, -2));
+			auto checkboxMusic = ui::CheckBox::create("res/Checkbox/1.png","res/Checkbox/0.png");
+			checkboxMusic->setScale(0.7f);
+			checkboxMusic->setPosition(Vec2(lbl->getPosition().x + 50,lbl->getPosition().y));
+			node->addChild(checkboxMusic, 5);
+			
 
-			MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender)
+			auto checkboxSound = ui::CheckBox::create("res/Checkbox/1.png", "res/Checkbox/0.png");
+			checkboxSound->setScale(0.7f);
+			checkboxSound->setPosition(Vec2(lbl->getPosition().x + 50, lbl->getPosition().y+40));
+			node->addChild(checkboxSound, 5);
+			/*MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender)
 			{
 				node->dismiss(true);
-			});
-
+			}); */
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender)
 			{
 				node->dismiss(true);
 			});
-			yesButton->setScale(0.2);
+			//yesButton->setScale(0.2);
 			noButton->setScale(0.2);
 
-			Menu *menu = Menu::create(yesButton, noButton, NULL);
+			Menu *menu = Menu::create(noButton, NULL);
 			//Menu *menu = Menu::create(noButton, NULL);
 
 			node->addChild(menu, 2);
