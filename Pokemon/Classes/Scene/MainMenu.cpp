@@ -1,7 +1,7 @@
 #include "Scene\MainMenu.h"
 #include "ResourceManager.h"
 #include "NPC\LakeNPC.h"
-#include "Scene\About.h"
+//#include "Scene\About.h"
 #include "Popup.h"
 
 
@@ -53,7 +53,9 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			// create setting
+			UICustom::Popup *popup = UICustom::Popup::createSetting("Setting","Sound:               \nMusic:              ",NULL);
+			popup->setScale(0.5);
+			this->addChild(popup);
 		}
 	});
 	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(5);

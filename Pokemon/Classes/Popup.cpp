@@ -15,7 +15,7 @@ namespace
 namespace FONT 
 {
 	const float LABEL_OFFSET = 50;
-	const float DESCRIPTION_TEXT_SIZE = 45;
+	const float DESCRIPTION_TEXT_SIZE = 40;
 	const float TITLE_TEXT_SIZE = 70;
 	const char *GAME_FONT = "fonts/arial.ttf";
 	const float LABEL_STROKE = 4;
@@ -116,7 +116,6 @@ namespace UICustom
 		Size winSize = Director::getInstance()->getWinSize();
 		if (node && node->init())
 		{
-
 			if (!lbl)
 			{
 				lbl = Label::createWithTTF(msg, FONT::GAME_FONT, FONT::DESCRIPTION_TEXT_SIZE);
@@ -132,30 +131,74 @@ namespace UICustom
 
 					YesFunc();
 					node->dismiss(true);
-				});
+				});*/
 
 				MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender)
 				{
 					node->dismiss(true);
 				});
-				yesButton->setScale(0.2);
+				//yesButton->setScale(0.2);
 				noButton->setScale(0.2);
 
-				Menu *menu = Menu::create(yesButton, noButton, NULL);
+				//Menu *menu = Menu::create(yesButton, noButton, NULL);
+				Menu *menu = Menu::create(noButton, NULL);
+
 				node->addChild(menu, 2);
 				menu->setPosition(winSize.width / 2, winSize.height / 2 - lbl->getContentSize().height / 2 - 75);
-				menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);*/
-
-				auto buttonClose = ResourceManager::GetInstance()->GetButtonById(9);
-				buttonClose->setPosition(Vec2(lbl->getContentSize()));
+				menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 				lbl->setPosition(winSize / 2);
-				CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 300);
+				CONFIRM_DIALOGUE_SIZE_OFFSET = node->getContentSize();
 			}
 			node->addChild(lbl, 3);
-			node->initBg(lbl->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->initBg(CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 			node->autorelease();
 			return node;
 		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	Popup * Popup::createSetting(const std::string &title, const std::string &msg, cocos2d::Label *lbl)
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			if (!lbl)
+			{
+				lbl = Label::createWithTTF(msg, FONT::GAME_FONT, FONT::DESCRIPTION_TEXT_SIZE);
+			}
+			lbl->setPosition(winSize.width / 2, winSize.height / 2 - FONT::LABEL_OFFSET / 2);
+			lbl->enableOutline(Color4B::BLACK, FONT::LABEL_STROKE);
+			lbl->setAlignment(cocos2d::TextHAlignment::LEFT, cocos2d::TextVAlignment::CENTER);
+			lbl->enableShadow(Color4B::BLACK, Size(0, -2));
+
+			MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender)
+			{
+				node->dismiss(true);
+			});
+
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender)
+			{
+				node->dismiss(true);
+			});
+			yesButton->setScale(0.2);
+			noButton->setScale(0.2);
+
+			Menu *menu = Menu::create(yesButton, noButton, NULL);
+			//Menu *menu = Menu::create(noButton, NULL);
+
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width/2,winSize.height/5);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = node->getContentSize();
+			lbl->setPosition(winSize / 2);
+			node->addChild(lbl, 3);
+			node->initBg(CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->autorelease();
+			return node;
+		}
+		node->addChild(lbl, 3);
+			node->initBg(CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}

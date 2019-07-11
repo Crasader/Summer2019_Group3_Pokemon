@@ -303,9 +303,6 @@
     <ClCompile Include="..\..\..\NPC\TanTaiNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\About.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Popup.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -589,9 +586,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\About.h">
-      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Popup.h">
       <Filter>src</Filter>
