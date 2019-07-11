@@ -1,8 +1,8 @@
-
+#include "Bag.h"
 #include"cocos2d.h"
 USING_NS_CC;
 using namespace cocos2d;
-class Trainer 
+class Trainer : public Object
 {
 public: 
 	Trainer();
@@ -18,5 +18,6 @@ public:
 	Sprite* GetSprite();
 private:
 	Sprite* m_sprite;
+	Bag* bag;
 };
 

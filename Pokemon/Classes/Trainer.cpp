@@ -2,10 +2,6 @@
 #include"ResourceManager.h"
 
 
-
-
-
-
 Trainer::Trainer()
 {
 }
