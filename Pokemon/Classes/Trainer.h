@@ -1,8 +1,8 @@
-
-#include"cocos2d.h"
+#include "MyObject.h"
+#include "cocos2d.h"
 USING_NS_CC;
 using namespace cocos2d;
-class Trainer 
+class Trainer : public MyObject
 {
 public: 
 	Trainer();
@@ -13,10 +13,9 @@ public:
 	void walkRight();
 	void walkUp();
 	void walkDown();
-	void setPosition(cocos2d::Vec2 pos);
-	cocos2d::Vec2 getPosition();
+
 	Sprite* GetSprite();
 private:
-	Sprite* m_sprite;
+	//Sprite* m_sprite;
 };
 

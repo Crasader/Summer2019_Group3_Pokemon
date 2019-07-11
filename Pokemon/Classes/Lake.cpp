@@ -99,12 +99,12 @@ void Lake::InitObject()
 		int type = object.asValueMap().at("type").asInt();
 		if (type == 1) {
 			mPlayer = new Trainer(this);
-			mPlayer->setPosition(Vec2(posX, posY));
-			body = PhysicsBody::createBox(mPlayer->GetSprite()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+			body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			body->setDynamic(true);
 			body->setRotationEnable(false);
 			body->setGravityEnable(false);
-			mPlayer->GetSprite()->setPhysicsBody(body);
+			mPlayer->GetSpriteFront()->setPhysicsBody(body);
 		}
 		else {
 			mGateWay = Sprite::create("res/walkup.png");
@@ -156,12 +156,14 @@ void Lake::ButtonListener()
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(0);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(0);
+			//this->mPlayer->SetSprite(102);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/1.png");
 			break;
 		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(0);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(0);
 			break;
 		}
 		}
@@ -179,12 +181,12 @@ void Lake::ButtonListener()
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(3);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(3);
 			break;
 		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(3);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(3);
 			break;
 		}
 
@@ -202,13 +204,13 @@ void Lake::ButtonListener()
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(2);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(2);
 			//mPlayer->GetSprite()  = ResourceManager::GetInstance()->GetSpriteById(104);
 			break;
 		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(2);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(2);
 			break;
 		}
 		}
@@ -224,12 +226,12 @@ void Lake::ButtonListener()
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(1);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(1);
 			break;
 		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(1);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(1);
 			break;
 		}
 
