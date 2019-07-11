@@ -83,7 +83,64 @@ bool Lake::init()
 	ButtonListener();
 	
 	scheduleUpdate();
+
+	auto listener = EventListenerKeyboard::create();
+	listener->onKeyPressed = CC_CALLBACK_2(Lake::onKeyPressed, this);
+	listener->onKeyReleased = CC_CALLBACK_2(Lake::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	// Implementation of the keyboard event callback function prototype
+	
     return true;
+}
+
+void Lake::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	switch (keyCode) {
+	case EventKeyboard::KeyCode::KEY_UP_ARROW: {
+		this->mPlayer->walkUp();
+		//this->mPlayer->GetSpriteFront()->stopActionByTag(0);
+		//this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW: {
+		this->mPlayer->walkDown();
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW: {
+		this->mPlayer->walkLeft();
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: {
+		this->mPlayer->walkRight();
+		break;
+	}
+	}
+}
+void Lake::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+{
+	switch (keyCode) {
+	case EventKeyboard::KeyCode::KEY_UP_ARROW: {
+		this->mPlayer->GetSpriteFront()->stopActionByTag(0);
+		this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW: {
+		this->mPlayer->GetSpriteFront()->stopActionByTag(1);
+		this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_LEFT_ARROW: {
+		this->mPlayer->GetSpriteFront()->stopActionByTag(2);
+		this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+		break;
+	}
+	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: {
+		this->mPlayer->GetSpriteFront()->stopActionByTag(3);
+		this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+		break;
+	}
+	}
 }
 
 void Lake::InitObject()
@@ -157,9 +214,7 @@ void Lake::ButtonListener()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			this->mPlayer->GetSpriteFront()->stopActionByTag(0);
-			//this->mPlayer->SetSprite(102);
-			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/1.png");
-			break;
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");			break;
 		}
 		default:
 		{
@@ -182,6 +237,8 @@ void Lake::ButtonListener()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			this->mPlayer->GetSpriteFront()->stopActionByTag(3);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");			break;
+
 			break;
 		}
 		default:
@@ -205,7 +262,7 @@ void Lake::ButtonListener()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			this->mPlayer->GetSpriteFront()->stopActionByTag(2);
-			//mPlayer->GetSprite()  = ResourceManager::GetInstance()->GetSpriteById(104);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");			break;
 			break;
 		}
 		default:
@@ -227,6 +284,8 @@ void Lake::ButtonListener()
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			this->mPlayer->GetSpriteFront()->stopActionByTag(1);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");			break;
+
 			break;
 		}
 		default:
@@ -244,4 +303,5 @@ float total = 0;
 void Lake::update(float dt) {
 	//auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
 	//this->runAction(followTheSprite);
+	
 }
