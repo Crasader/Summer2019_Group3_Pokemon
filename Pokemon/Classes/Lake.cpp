@@ -82,8 +82,34 @@ bool Lake::init()
 	CreateButon();
 	ButtonListener();
 	
+	auto contactListener = EventListenerPhysicsContact::create();
+
+	contactListener->onContactBegin =
+		CC_CALLBACK_1(Lake::onContactBegin, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,
+		this);
+
 	scheduleUpdate();
     return true;
+}
+
+bool Lake::onContactBegin(PhysicsContact& contact)
+
+{
+
+	PhysicsBody* a = contact.getShapeA()->getBody();
+	PhysicsBody* b = contact.getShapeB()->getBody();
+
+	if (a->getCollisionBitmask() == 15 || b->getCollisionBitmask() ==15)
+	{
+
+		log("Has collision");
+
+	}
+
+	return true;
+
 }
 
 void Lake::InitObject()
@@ -99,12 +125,12 @@ void Lake::InitObject()
 		int type = object.asValueMap().at("type").asInt();
 		if (type == 1) {
 			mPlayer = new Trainer(this);
-			mPlayer->setPosition(Vec2(posX, posY));
-			body = PhysicsBody::createBox(mPlayer->GetSprite()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+			body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			body->setDynamic(true);
 			body->setRotationEnable(false);
 			body->setGravityEnable(false);
-			mPlayer->GetSprite()->setPhysicsBody(body);
+			mPlayer->GetSpriteFront()->setPhysicsBody(body);
 		}
 		else {
 			mGateWay = Sprite::create("res/walkup.png");
@@ -154,16 +180,13 @@ void Lake::ButtonListener()
 			this->mPlayer->walkUp();
 			break;
 		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			this->mPlayer->GetSprite()->stopActionByTag(0);
-			break;
-		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(0);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(0);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
+		
 		}
 	});
 
@@ -177,14 +200,10 @@ void Lake::ButtonListener()
 			this->mPlayer->walkRight();
 			break;
 		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			this->mPlayer->GetSprite()->stopActionByTag(3);
-			break;
-		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(3);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(3);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
 
@@ -200,17 +219,13 @@ void Lake::ButtonListener()
 			this->mPlayer->walkLeft();
 			break;
 		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			this->mPlayer->GetSprite()->stopActionByTag(2);
-			//mPlayer->GetSprite()  = ResourceManager::GetInstance()->GetSpriteById(104);
-			break;
-		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(2);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(2);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
+
 		}
 	});
 	down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -222,14 +237,10 @@ void Lake::ButtonListener()
 			this->mPlayer->walkDown();
 			break;
 		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			this->mPlayer->GetSprite()->stopActionByTag(1);
-			break;
-		}
 		default:
 		{
-			this->mPlayer->GetSprite()->stopActionByTag(1);
+			this->mPlayer->GetSpriteFront()->stopActionByTag(1);
+			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
 

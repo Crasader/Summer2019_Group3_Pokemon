@@ -15,6 +15,7 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void CreateButon();
 	void ButtonListener();
