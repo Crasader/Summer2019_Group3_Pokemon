@@ -23,7 +23,7 @@ void Trainer::Init(cocos2d::Layer* layer)
 {
 	m_sprite = ResourceManager::GetInstance()->GetSpriteById(102);
 	m_sprite->removeFromParent();
-	m_sprite->setScale(2.5);
+	m_sprite->setScale(2);
 	m_sprite->setAnchorPoint(Vec2(0.5, 0));
 	layer->addChild(m_sprite, 10);
 }
