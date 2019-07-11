@@ -58,7 +58,6 @@ bool Lake::init()
 	int type = object.asValueMap().at("type").asInt();
 	mPlayer = new Trainer(this);
 	mPlayer->setPosition(Vec2(posX, posY));
-	mPlayer->setScale(0.1f);
 
 	up = Buttons::getIntance()->GetButtonUp();
 	up->removeFromParent();
@@ -82,12 +81,12 @@ bool Lake::init()
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			state_up = 1;
+			this->mPlayer->walkUp();
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			state_up = 0;
+			this->mPlayer->GetSprite()->stopActionByTag(0);
 			break;
 		}
 		default:
@@ -102,17 +101,16 @@ bool Lake::init()
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			state_right = 1;
+			this->mPlayer->walkRight();
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			state_right = 0;
+			this->mPlayer->GetSprite()->stopActionByTag(3);
 			break;
 		}
 		default:
 		{
-			state_right = 0;
 			break;
 		}
 
@@ -124,12 +122,12 @@ bool Lake::init()
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			state_left = 1;
+			this->mPlayer->walkLeft();
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			state_left = 0;
+			this->mPlayer->GetSprite()->stopActionByTag(2);
 			break;
 		}
 		default:
@@ -142,12 +140,12 @@ bool Lake::init()
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			state_down = 1;
+			this->mPlayer->walkDown();
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			state_down = 0;
+			this->mPlayer->GetSprite()->stopActionByTag(1);
 			break;
 		}
 		default:
@@ -157,24 +155,10 @@ bool Lake::init()
 	scheduleUpdate();
     return true;
 }
+
 float total = 0;
+
 void Lake::update(float dt) {
-	total += dt;
-	if (total = 0.3f) {
-		if (state_up) {
-			mPlayer->walkUp();
-		}
-		if (state_down) {
-			mPlayer->walkDown();
-		}
-		if (state_left) {
-			mPlayer->walkLeft();
-		}
-		if (state_right) {
-			mPlayer->walkRight();
-		}
-		total = 0;
-		auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
-		this->runAction(followTheSprite);
-	}
+	auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
+	this->runAction(followTheSprite);
 }
