@@ -12,9 +12,9 @@ void WaterGun::Init()
 {
 	Attack::SetName("Water Gun");
 	Attack::SetType("Water");
-	Attack::SetPower(40);
-	Attack::SetMaxPP(35);
+	Attack::SetPower(60);
+	Attack::SetMaxPP(20);
 	Attack::SetIdType(3);
-	Attack::SetPP(35);
+	Attack::SetPP(20);
 }
 

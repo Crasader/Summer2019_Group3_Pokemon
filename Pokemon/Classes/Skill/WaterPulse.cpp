@@ -12,9 +12,9 @@ void WaterPulse::Init()
 {
 	Attack::SetName("Water Pulse");
 	Attack::SetType("Water");
-	Attack::SetPower(60);
-	Attack::SetMaxPP(20);
+	Attack::SetPower(80);
+	Attack::SetMaxPP(10);
 	Attack::SetIdType(3);
-	Attack::SetPP(20);
+	Attack::SetPP(10);
 }
 

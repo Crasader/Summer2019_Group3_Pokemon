@@ -12,9 +12,9 @@ void Surf::Init()
 {
 	Attack::SetName("Surf");
 	Attack::SetType("Water");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
+	Attack::SetPower(100);
+	Attack::SetMaxPP(5);
 	Attack::SetIdType(3);
-	Attack::SetPP(10);
+	Attack::SetPP(5);
 }
 
