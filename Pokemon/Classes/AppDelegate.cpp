@@ -2,6 +2,7 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "ResourceManager.h"
+#include "Scene\MainMenu.h"
 #include "PokemonCenter.h"
 #include "Lake.h"
 #include "Scene\Loading.h"
@@ -101,8 +102,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-    auto scene = Lake::createScene();
-
+    //auto scene = Lake::createScene();
+	auto scene = HelloWorld::createScene();
 
     // run
     director->runWithScene(scene);

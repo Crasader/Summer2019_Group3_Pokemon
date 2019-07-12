@@ -21,6 +21,8 @@ public:
     CREATE_FUNC(Lake);
 	void createPhysics();
 	void update(float);
+	void onKeyPressed(EventKeyboard::KeyCode, Event*);
+	void onKeyReleased(EventKeyboard::KeyCode, Event*);
 };
 
 #endif

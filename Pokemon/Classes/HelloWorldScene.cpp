@@ -5,6 +5,8 @@
 #include "ResourceManager.h"
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Squirtle.h"
+#include "Bag.h"
+#include "Trainer.h"
 
 #include "NPC.h"
 
@@ -55,7 +57,7 @@ bool HelloWorld::init()
 	auto m_x = player["x"].asFloat() * scale_x;
 	auto m_y = player["y"].asFloat() * scale_y;
 
-	Pokemon* charmander = new Charmander();
+	/*Pokemon* charmander = new Charmander();
 	charmander->GetSpriteFront()->setPosition(Vec2(x, y));
 	this->addChild(charmander->GetSpriteFront(), 10);
 	Pokemon* squirtle = new Squirtle();
@@ -65,12 +67,11 @@ bool HelloWorld::init()
 		squirtle = evolve;
 	}
 	squirtle->GetSpriteBack()->setPosition(Vec2(m_x, m_y));
-	this->addChild(squirtle->GetSpriteBack(), 10);
+	this->addChild(squirtle->GetSpriteBack(), 10);*/
+	auto squirtle = new Squirtle();
+	Bag::GetInstance()->AddPokemon(squirtle);
 	return true;
-
 }
-
-
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application

@@ -1,3 +1,4 @@
+#include "Bag.h"
 #include "MyObject.h"
 #include "cocos2d.h"
 USING_NS_CC;
@@ -13,9 +14,8 @@ public:
 	void walkRight();
 	void walkUp();
 	void walkDown();
-
 	Sprite* GetSprite();
 private:
-	//Sprite* m_sprite;
+	Sprite* m_sprite;
 };
 

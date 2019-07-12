@@ -1,10 +1,6 @@
-#include"Trainer.h"
-#include"ResourceManager.h"
-
-
-
-
-
+#include "Trainer.h"
+#include "ResourceManager.h"
+#include "Pokemon\Squirtle.h"
 
 Trainer::Trainer()
 {
