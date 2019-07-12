@@ -35,7 +35,7 @@ void Trainer::walkLeft()
 	auto spawn = Spawn::create(animateLeft, moveLeft, nullptr);
 	auto repeat = RepeatForever::create(spawn);
 	repeat->setTag(2);
-	this->m_spriteFront->runAction(repeat);
+	m_spriteFront->runAction(repeat);
 
 }
 
@@ -57,7 +57,7 @@ void Trainer::walkUp()
 	auto spawn = Spawn::create(animateUp,moveUp, nullptr);
 	auto repeat = RepeatForever::create(spawn);
 	repeat->setTag(0);
-	this->m_spriteFront->runAction(repeat);
+	m_spriteFront->runAction(repeat);
 }
 
 void Trainer::walkDown()

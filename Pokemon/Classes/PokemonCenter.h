@@ -3,9 +3,12 @@
 
 #include "cocos2d.h"
 #include "Pokemon.h"
-
+#include "Trainer.h"
+USING_NS_CC;
 class PokemonCenter : public cocos2d::Layer
 {
+private:
+	Trainer *mPlayer;
 public:
     static cocos2d::Scene* createScene();
 

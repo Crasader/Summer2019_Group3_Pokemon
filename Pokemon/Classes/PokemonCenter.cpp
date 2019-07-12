@@ -38,19 +38,35 @@ bool PokemonCenter::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto map = TMXTiledMap::create("res/Map/pc.tmx");
+
+	mPlayer = new Trainer(this);
+
+
+
 	addChild(map);
 	Button *up = Buttons::getIntance()->GetButtonUp();
-	up->removeFromParent();
 	Button *right = Buttons::getIntance()->GetButtonRight();
-	right->removeFromParent();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
-	left->removeFromParent();
 	Button *down = Buttons::getIntance()->GetButtonDown();
+	up->retain();
+	up->removeFromParent();
+	up->release();
+	right->retain();
+	right->removeFromParent();
+	right->release();
+	left->retain();
+	left->removeFromParent();
+	left->release();
+	down->retain();
 	down->removeFromParent();
+	down->release();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+
+	Buttons::getIntance()->ButtonListener(this->mPlayer);
+
     return true;
 }
 

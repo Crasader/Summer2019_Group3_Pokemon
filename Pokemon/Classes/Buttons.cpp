@@ -19,6 +19,84 @@ Buttons::Buttons()
 	m_right->setScale(0.4f);
 }
 
+void Buttons ::ButtonListener(Trainer *&mPlayer)
+{
+	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			mPlayer->walkUp();
+			break;
+		}
+		default:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
+			break;
+		}
+
+		}
+	});
+
+
+	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			mPlayer->walkRight();
+			break;
+		}
+		default:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(3);
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+			break;
+		}
+
+		}
+	});
+	m_left->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			mPlayer->walkLeft();
+			break;
+		}
+		default:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+			break;
+		}
+
+		}
+	});
+	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+
+		switch (type)
+		{
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			mPlayer->walkDown();
+			break;
+		}
+		default:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(1);
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+			break;
+		}
+
+		}
+	});
+}
 
 Buttons::~Buttons()
 {
@@ -50,4 +128,7 @@ Button * Buttons::GetButtonRight()
 Button * Buttons::GetButtonDown()
 {
 	return m_down;
+}
+void Buttons:: UpdateButton(float x, float y) {
+
 }

@@ -7,6 +7,7 @@
 #include "Pokemon\Squirtle.h"
 #include "Buttons.h"
 #include "Model.h"
+#include "PokemonCenter.h"
 
 USING_NS_CC;
 Size visibleSize;
@@ -15,10 +16,7 @@ Size tileMapSize;
 PhysicsBody* body, *gateWay;
 Camera *camera;
 
-Button *up;
-Button *down;
-Button *left1;
-Button *right1;
+
 
 Scene* Lake::createScene()
 {
@@ -26,6 +24,7 @@ Scene* Lake::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lake::create();
 	scene->addChild(layer);
+	camera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -75,20 +74,34 @@ bool Lake::init()
 
 	InitObject();
 	
-	camera = Camera::create();
-	camera->setPosition(visibleSize/2);
-	addChild(camera);
 
-	CreateButon();
-	ButtonListener();
+	Button *up = Buttons::getIntance()->GetButtonUp();
+	Button *right = Buttons::getIntance()->GetButtonRight();
+	Button *left = Buttons::getIntance()->GetButtonLeft();
+	Button *down = Buttons::getIntance()->GetButtonDown();
+	up->retain();
+	up->removeFromParent();
+	up->release();
+	right->retain();
+	right->removeFromParent();
+	right->release();
+	left->retain();
+	left->removeFromParent();
+	left->release();
+	down->retain();
+	down->removeFromParent();
+	down->release();
+	addChild(up, 100);
+	addChild(right, 100);
+	addChild(left, 100);
+	addChild(down, 100);
+
+
+	Buttons::getIntance()->ButtonListener(this->mPlayer);
 	
 	auto contactListener = EventListenerPhysicsContact::create();
-
-	contactListener->onContactBegin =
-		CC_CALLBACK_1(Lake::onContactBegin, this);
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener,
-		this);
+	contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleUpdate();
     return true;
@@ -101,11 +114,10 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 || b->getCollisionBitmask() ==15)
+	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() ==17 || a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
-
-		log("Has collision");
-
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
 	}
 
 	return true;
@@ -127,6 +139,9 @@ void Lake::InitObject()
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			body->setCollisionBitmask(17);
+			body->setMass(16);
+			body->setContactTestBitmask(true);
 			body->setDynamic(true);
 			body->setRotationEnable(false);
 			body->setGravityEnable(false);
@@ -149,108 +164,29 @@ void Lake::InitObject()
 
 }
 
-void Lake::CreateButon()
-{
-	up = Buttons::getIntance()->GetButtonUp();
-	up->removeFromParent();
-
-	right1 = Buttons::getIntance()->GetButtonRight();
-	right1->removeFromParent();
-
-	left1 = Buttons::getIntance()->GetButtonLeft();
-	left1->removeFromParent();
-
-	down = Buttons::getIntance()->GetButtonDown();
-	down->removeFromParent();
-
-	addChild(up, 100);
-	addChild(right1, 100);
-	addChild(left1, 100);
-	addChild(down, 100);
+void Lake:: updateCamera() {
+	
+	if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width /2)
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)<abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+		camera->setPosition(visibleSize.width/2 , mPlayer->GetSpriteFront()->getPosition().y);
+	}
+	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)<abs(tileMapSize.width / 2 - visibleSize.width / 2)
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+		camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, visibleSize.height / 2);
+	}
+	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2) > abs(tileMapSize.width / 2 - visibleSize.width / 2)
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2) > abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+		camera->setPosition(visibleSize.height / 2, visibleSize.height / 2);
+	}
+	else {
+		camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+	}
+	
 }
 
-void Lake::ButtonListener()
-{
-	up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			this->mPlayer->walkUp();
-			break;
-		}
-		default:
-		{
-			this->mPlayer->GetSpriteFront()->stopActionByTag(0);
-			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
-			break;
-		}
-		
-		}
-	});
-
-
-	right1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			this->mPlayer->walkRight();
-			break;
-		}
-		default:
-		{
-			this->mPlayer->GetSpriteFront()->stopActionByTag(3);
-			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
-			break;
-		}
-
-		}
-	});
-	left1->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			this->mPlayer->walkLeft();
-			break;
-		}
-		default:
-		{
-			this->mPlayer->GetSpriteFront()->stopActionByTag(2);
-			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
-			break;
-		}
-
-		}
-	});
-	down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			this->mPlayer->walkDown();
-			break;
-		}
-		default:
-		{
-			this->mPlayer->GetSpriteFront()->stopActionByTag(1);
-			this->mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
-			break;
-		}
-
-		}
-	});
-}
 
 float total = 0;
 
 void Lake::update(float dt) {
-	//auto followTheSprite = Follow::create(mPlayer->GetSprite(), Rect::ZERO);
-	//this->runAction(followTheSprite);
+	updateCamera();
 }
