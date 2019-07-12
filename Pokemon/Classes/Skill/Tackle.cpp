@@ -11,11 +11,11 @@ Tackle::~Tackle()
 
 void Tackle::Init()
 {
-	Attack::SetName("Tackle");
-	Attack::SetType("Normal");
-	Attack::SetPower(40);
-	Attack::SetMaxPP(35);
-	Attack::SetIdType(1);
-	Attack::SetPP(35);
+	Skill::SetName("Tackle");
+	Skill::SetType("Normal");
+	Skill::SetPower(40);
+	Skill::SetMaxPP(35);
+	Skill::SetIdType(1);
+	Skill::SetPP(35);
 }
 

@@ -11,11 +11,11 @@ WingAttack::~WingAttack()
 
 void WingAttack::Init()
 {
-	Attack::SetName("Wing Attack");
-	Attack::SetType("Flying");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(6);
-	Attack::SetPP(10);
+	Skill::SetName("Wing Attack");
+	Skill::SetType("Flying");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(6);
+	Skill::SetPP(10);
 }
 

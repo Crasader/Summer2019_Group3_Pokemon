@@ -11,11 +11,11 @@ FireBlast::~FireBlast()
 
 void FireBlast::Init()
 {
-	Attack::SetName("Fire Blast");
-	Attack::SetType("Fire");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(2);
-	Attack::SetPP(10);
+	Skill::SetName("Fire Blast");
+	Skill::SetType("Fire");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(2);
+	Skill::SetPP(10);
 }
 

@@ -11,11 +11,11 @@ Bite::~Bite()
 
 void Bite::Init()
 {
-	Attack::SetName("Bite");
-	Attack::SetType("Normal");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(1);
-	Attack::SetPP(10);
+	Skill::SetName("Bite");
+	Skill::SetType("Normal");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(1);
+	Skill::SetPP(10);
 }
 

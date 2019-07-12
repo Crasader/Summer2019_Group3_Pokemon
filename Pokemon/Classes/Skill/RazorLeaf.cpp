@@ -11,11 +11,11 @@ RazorLeaf::~RazorLeaf()
 
 void RazorLeaf::Init()
 {
-	Attack::SetName("Razor Leaf");
-	Attack::SetType("Grass");
-	Attack::SetPower(60);
-	Attack::SetMaxPP(20);
-	Attack::SetIdType(4);
-	Attack::SetPP(20);
+	Skill::SetName("Razor Leaf");
+	Skill::SetType("Grass");
+	Skill::SetPower(60);
+	Skill::SetMaxPP(20);
+	Skill::SetIdType(4);
+	Skill::SetPP(20);
 }
 

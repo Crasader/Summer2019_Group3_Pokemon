@@ -11,11 +11,11 @@ Fly::~Fly()
 
 void Fly::Init()
 {
-	Attack::SetName("Fly");
-	Attack::SetType("Flying");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(6);
-	Attack::SetPP(5);
+	Skill::SetName("Fly");
+	Skill::SetType("Flying");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(6);
+	Skill::SetPP(5);
 }
 

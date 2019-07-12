@@ -11,11 +11,11 @@ BodySlam::~BodySlam()
 
 void BodySlam::Init()
 {
-	Attack::SetName("Body Slam");
-	Attack::SetType("Normal");
-	Attack::SetPower(90);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(1);
-	Attack::SetPP(10);
+	Skill::SetName("Body Slam");
+	Skill::SetType("Normal");
+	Skill::SetPower(90);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(1);
+	Skill::SetPP(10);
 }
 

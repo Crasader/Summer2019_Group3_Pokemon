@@ -11,11 +11,11 @@ Thunderbolt::~Thunderbolt()
 
 void Thunderbolt::Init()
 {
-	Attack::SetName("Thunderbolt");
-	Attack::SetType("Electric");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(5);
-	Attack::SetPP(10);
+	Skill::SetName("Thunderbolt");
+	Skill::SetType("Electric");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(5);
+	Skill::SetPP(10);
 }
 

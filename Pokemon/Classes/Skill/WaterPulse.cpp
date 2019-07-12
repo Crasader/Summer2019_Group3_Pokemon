@@ -11,11 +11,11 @@ WaterPulse::~WaterPulse()
 
 void WaterPulse::Init()
 {
-	Attack::SetName("Water Pulse");
-	Attack::SetType("Water");
-	Attack::SetPower(80);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(3);
-	Attack::SetPP(10);
+	Skill::SetName("Water Pulse");
+	Skill::SetType("Water");
+	Skill::SetPower(80);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(3);
+	Skill::SetPP(10);
 }
 
