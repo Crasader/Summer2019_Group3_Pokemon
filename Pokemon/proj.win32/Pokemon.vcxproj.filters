@@ -351,6 +351,33 @@
     <ClCompile Include="..\Classes\Item\Stone.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Item\HP\Potion.cpp">
+      <Filter>src\Item\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\HP\SuperPotion.cpp">
+      <Filter>src\Item\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\HP\MaxPotion.cpp">
+      <Filter>src\Item\HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Stone\FireStone.cpp">
+      <Filter>src\Item\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Stone\WaterStone.cpp">
+      <Filter>src\Item\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Stone\LeafStone.cpp">
+      <Filter>src\Item\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Stone\ThunderStone.cpp">
+      <Filter>src\Item\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Revival\Revive.cpp">
+      <Filter>src\Item\Revival</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
+      <Filter>src\Item\Revival</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -667,6 +694,33 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item\Stone.h">
       <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\HP\Potion.h">
+      <Filter>src\Item\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\HP\SuperPotion.h">
+      <Filter>src\Item\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\HP\MaxPotion.h">
+      <Filter>src\Item\HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Stone\FireStone.h">
+      <Filter>src\Item\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Stone\WaterStone.h">
+      <Filter>src\Item\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Stone\LeafStone.h">
+      <Filter>src\Item\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Stone\ThunderStone.h">
+      <Filter>src\Item\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Revival\Revive.h">
+      <Filter>src\Item\Revival</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Revival\MaxRevive.h">
+      <Filter>src\Item\Revival</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
