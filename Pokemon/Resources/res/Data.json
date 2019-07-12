@@ -110,7 +110,18 @@
     "102": "res/Trainer/walkup/1.png",
     "103": "res/Trainer/walkdown/1.png",
     "104": "res/Trainer/walkleft/1.png",
-    "105": "res/Trainer/walkright/1.png"
+    "105": "res/Trainer/walkright/1.png",
+    "106": "res/Item/0.png",
+    "107": "res/Item/1.png",
+    "108": "res/Item/2.png",
+    "109": "res/Item/3.png",
+    "110": "res/Item/4.png",
+    "111": "res/Item/5.png",
+    "112": "res/Item/6.png",
+    "113": "res/Item/7.png",
+    "114": "res/Item/8.png",
+    "115": "res/Item/9.png",
+    "116": "res/Item/10.png"
   },
   "BUTTON": {
     "size": 10,
