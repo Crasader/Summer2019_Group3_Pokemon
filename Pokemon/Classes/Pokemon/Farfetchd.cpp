@@ -1,7 +1,7 @@
 #include "Farfetchd.h"
 #define hp 52
-#define atk 90
-#define def 55
+#define atk 74
+#define def 59
 #define speed 60
 
 Farfetchd::Farfetchd()

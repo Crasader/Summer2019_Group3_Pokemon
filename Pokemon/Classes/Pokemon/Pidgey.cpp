@@ -1,8 +1,8 @@
 #include "Pidgey.h"
 #include "Pidgeotto.h"
 #define hp 40
-#define atk 45
-#define def 40
+#define atk 40
+#define def 38
 #define speed 56
 
 Pidgey::Pidgey()

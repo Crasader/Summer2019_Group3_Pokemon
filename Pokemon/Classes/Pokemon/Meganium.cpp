@@ -1,8 +1,8 @@
 #include "Meganium.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 80
+#define atk 82
+#define def 100
+#define speed 80
 
 Meganium::Meganium(Bayleef* it)
 {

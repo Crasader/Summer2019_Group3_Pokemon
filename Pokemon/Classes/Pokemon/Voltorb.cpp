@@ -1,8 +1,8 @@
 #include "Voltorb.h"
 #define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define atk 42
+#define def 53
+#define speed 100
 
 Voltorb::Voltorb()
 {

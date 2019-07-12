@@ -1,7 +1,7 @@
 #include "Pidgeot.h"
 #define hp 83
-#define atk 80
-#define def 75
+#define atk 75
+#define def 73
 #define speed 101
 
 Pidgeot::Pidgeot()

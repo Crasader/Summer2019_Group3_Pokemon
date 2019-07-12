@@ -1,8 +1,8 @@
 #include "Jolteon.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 65
+#define atk 87
+#define def 78
+#define speed 130
 
 Jolteon::Jolteon()
 {

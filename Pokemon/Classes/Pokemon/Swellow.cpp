@@ -1,8 +1,8 @@
 #include "Swellow.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 60
+#define atk 80
+#define def 55
+#define speed 125
 
 Swellow::Swellow()
 {

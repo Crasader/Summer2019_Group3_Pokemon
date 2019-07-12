@@ -1,8 +1,8 @@
 #include "Shaymin.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 100
+#define atk 100
+#define def 100
+#define speed 100
 
 Shaymin::Shaymin()
 {

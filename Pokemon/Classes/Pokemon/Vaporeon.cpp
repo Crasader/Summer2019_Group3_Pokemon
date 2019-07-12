@@ -1,7 +1,7 @@
 #include "Vaporeon.h"
-#define hp 40
-#define atk 52
-#define def 43
+#define hp 130
+#define atk 87
+#define def 78
 #define speed 65
 
 Vaporeon::Vaporeon()

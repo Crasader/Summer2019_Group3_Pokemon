@@ -1,8 +1,8 @@
 #include "Dragonair.h"
 #include "Dragonite.h"
 #define hp 61
-#define atk 84
-#define def 65
+#define atk 72
+#define def	68
 #define speed 70
 
 Dragonair::Dragonair()

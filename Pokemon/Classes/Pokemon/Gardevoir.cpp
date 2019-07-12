@@ -1,8 +1,8 @@
 #include "Gardevoir.h"
 #define hp 68
-#define atk 65
-#define def 65
-#define speed 68
+#define atk 95
+#define def 90
+#define speed 80
 
 Gardevoir::Gardevoir()
 {

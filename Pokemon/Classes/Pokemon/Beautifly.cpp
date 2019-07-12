@@ -1,8 +1,8 @@
 #include "Beautifly.h"
-#define hp 45
-#define atk 45
-#define def 35
-#define speed 20
+#define hp 60
+#define atk 85
+#define def 50
+#define speed 65
 
 Beautifly::Beautifly()
 {

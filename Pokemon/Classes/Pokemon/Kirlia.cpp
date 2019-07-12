@@ -1,9 +1,9 @@
 #include "Kirlia.h"
 #include "Gardevoir.h"
-#define hp 45
+#define hp 38
 #define atk 50
-#define def 50
-#define speed 60
+#define def 45
+#define speed 50
 
 Kirlia::Kirlia()
 {

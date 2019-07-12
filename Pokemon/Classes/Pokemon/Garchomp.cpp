@@ -1,8 +1,8 @@
 #include "Garchomp.h"
-#define hp 58
-#define atk 70
-#define def 45
-#define speed 42
+#define hp 108
+#define atk 105
+#define def	90
+#define speed 102
 
 Garchomp::Garchomp()
 {

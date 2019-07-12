@@ -1,9 +1,9 @@
 #include "Bayleef.h"
 #include "Meganium.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 60
+#define atk 62
+#define def 80
+#define speed 60
 
 Bayleef::Bayleef(Chikorita* it)
 {

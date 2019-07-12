@@ -1,6 +1,6 @@
 #include "Manectric.h"
 #define hp 70
-#define atk 75
+#define atk 90
 #define def 60
 #define speed 105
 

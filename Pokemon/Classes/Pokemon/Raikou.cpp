@@ -1,8 +1,8 @@
 #include "Raikou.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 90
+#define atk 100
+#define def 88
+#define speed 115
 
 Raikou::Raikou()
 {

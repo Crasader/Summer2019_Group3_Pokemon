@@ -1,7 +1,7 @@
 #include "Meowth.h"
 #define hp 40
-#define atk 45
-#define def 35
+#define atk 42
+#define def 38
 #define speed 90
 
 Meowth::Meowth()

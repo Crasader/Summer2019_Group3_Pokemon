@@ -1,8 +1,8 @@
 #include "Feebas.h"
 #include "Milotic.h"
-#define hp 40
-#define atk 35
-#define def 30
+#define hp 20
+#define atk 12
+#define def 38
 #define speed 80
 
 Feebas::Feebas()

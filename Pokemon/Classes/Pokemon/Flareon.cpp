@@ -1,7 +1,7 @@
 #include "Flareon.h"
-#define hp 40
-#define atk 52
-#define def 43
+#define hp 65
+#define atk 112
+#define def 85
 #define speed 65
 
 Flareon::Flareon()

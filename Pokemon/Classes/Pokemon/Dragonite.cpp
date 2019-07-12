@@ -1,7 +1,7 @@
 #include "Dragonite.h"
 #define hp 91
-#define atk 134
-#define def 95
+#define atk 117
+#define def 98
 #define speed 80
 
 Dragonite::Dragonite()

@@ -1,8 +1,8 @@
 #include "Charmander.h"
 #include "Charmeleon.h"
-#define hp 40
-#define atk 52
-#define def 43
+#define hp 39
+#define atk 56
+#define def 46
 #define speed 65
 
 

@@ -1,8 +1,8 @@
 #include "Pikachu.h"
-#define hp 40
+#define hp 35
 #define atk 52
-#define def 43
-#define speed 65
+#define def 45
+#define speed 90
 
 Pikachu::Pikachu()
 {

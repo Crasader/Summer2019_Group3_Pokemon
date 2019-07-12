@@ -273,9 +273,6 @@
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Attack.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scene\Loading.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
@@ -308,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
       <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,9 +560,6 @@
     <ClInclude Include="..\Classes\Skill\WingAttack.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Attack.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\Loading.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
@@ -595,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

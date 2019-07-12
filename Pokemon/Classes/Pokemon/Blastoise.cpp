@@ -1,8 +1,8 @@
 #include "Blastoise.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 79
+#define atk 84
+#define def 103
+#define speed 78
 
 Blastoise::Blastoise()
 {

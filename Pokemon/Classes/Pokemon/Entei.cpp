@@ -1,7 +1,7 @@
 #include "Entei.h"
 #define hp 115
-#define atk 115
-#define def 85
+#define atk 102
+#define def 80
 #define speed 100
 
 Entei::Entei()

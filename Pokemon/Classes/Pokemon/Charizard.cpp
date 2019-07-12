@@ -1,8 +1,8 @@
 #include "Charizard.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 78
+#define atk 96
+#define def 82
+#define speed 100
 
 Charizard::Charizard()
 {

@@ -1,8 +1,8 @@
 #include "Skymin.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 100
+#define atk 111
+#define def 75
+#define speed 127
 
 Skymin::Skymin()
 {

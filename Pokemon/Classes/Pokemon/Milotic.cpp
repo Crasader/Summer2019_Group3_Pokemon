@@ -1,7 +1,7 @@
 #include "Milotic.h"
 #define hp 95
-#define atk 60
-#define def 79
+#define atk 80
+#define def 102
 #define speed 81
 
 Milotic::Milotic()

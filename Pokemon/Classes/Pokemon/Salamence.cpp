@@ -1,8 +1,8 @@
 #include "Salamence.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 95
+#define atk 72
+#define def 80
+#define speed 100
 
 Salamence::Salamence()
 {

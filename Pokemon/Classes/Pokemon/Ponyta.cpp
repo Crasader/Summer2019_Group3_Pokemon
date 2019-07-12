@@ -1,8 +1,8 @@
 #include "Ponyta.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 50
+#define atk 75
+#define def 60
+#define speed 90
 
 Ponyta::Ponyta()
 {

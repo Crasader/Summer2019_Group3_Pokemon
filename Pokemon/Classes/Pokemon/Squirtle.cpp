@@ -1,7 +1,7 @@
 #include "Squirtle.h"
 #include "Wartortle.h"
 #define hp 44
-#define atk 48
+#define atk 49
 #define def 65
 #define speed 43
 

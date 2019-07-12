@@ -1,9 +1,9 @@
 #include "Charmeleon.h"
 #include "Charizard.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 58
+#define atk 72
+#define def 62
+#define speed 80
 
 Charmeleon::Charmeleon()
 {

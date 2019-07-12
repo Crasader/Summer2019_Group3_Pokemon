@@ -1,7 +1,7 @@
 #include "Ralts.h"
 #include "Kirlia.h"
-#define hp 35
-#define atk 30
+#define hp 28
+#define atk 35
 #define def 30
 #define speed 40
 

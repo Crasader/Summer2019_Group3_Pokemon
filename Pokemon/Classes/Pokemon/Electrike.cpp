@@ -1,7 +1,7 @@
 #include "Electrike.h"
 #include "Manectric.h"
 #define hp 40
-#define atk 45
+#define atk 55
 #define def 40
 #define speed 65
 

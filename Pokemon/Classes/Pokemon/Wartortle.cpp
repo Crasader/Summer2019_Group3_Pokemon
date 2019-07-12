@@ -1,9 +1,9 @@
 #include "Wartortle.h"
 #include "Blastoise.h"
-#define hp 40
-#define atk 52
-#define def 43
-#define speed 65
+#define hp 59
+#define atk 64
+#define def 80
+#define speed 58
 
 Wartortle::Wartortle()
 {

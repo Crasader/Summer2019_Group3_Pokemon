@@ -1,8 +1,8 @@
 #include "Greninja.h"
-#define hp 54
-#define atk 63
-#define def 52
-#define speed 97
+#define hp 72
+#define atk 94
+#define def 69
+#define speed 122
 
 Greninja::Greninja()
 {
