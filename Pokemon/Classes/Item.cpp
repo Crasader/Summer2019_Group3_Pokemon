@@ -8,10 +8,37 @@ Item::~Item()
 {
 }
 
-void Item::Init()
+void Item::Init(int id)
 {
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
 }
 
-void Item::Update(float deltaTime)
+int Item::GetGold()
 {
+	return this->gold;
+}
+
+string Item::GetName()
+{
+	return this->name;
+}
+
+int Item::GetType()
+{
+	return this->type;
+}
+
+void Item::SetGold(int gold)
+{
+	this->gold = gold;
+}
+
+void Item::SetName(string name)
+{
+	this->name = name;
+}
+
+void Item::SetType(int type)
+{
+	this->type = type;
 }

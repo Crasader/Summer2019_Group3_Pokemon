@@ -9,9 +9,16 @@ class Item : public MyObject
 public:
 	Item();
 	~Item();
-	virtual void Init() override;
-	virtual void Update(float deltaTime) override;
+	void Init(int id);
+	int GetGold();
+	string GetName();
+	int GetType();
+	void SetGold(int gold);
+	void SetName(string name);
+	void SetType(int type);
 protected:
 	int type;
+	string name;
+	int gold;
 	vector<Item*> m_items;
 };
