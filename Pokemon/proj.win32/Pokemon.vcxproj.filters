@@ -22,6 +22,9 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{7f5fa2fa-3aba-45ce-bf5f-bb40a428ad70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Item">
+      <UniqueIdentifier>{8f3a0f08-393f-4cee-a919-07b70d677673}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -321,6 +324,24 @@
     <ClCompile Include="..\Classes\Popup.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Bag.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\revival.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\PP.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\HP.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Stone.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -619,6 +640,24 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Popup.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bag.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\revival.h">
+      <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\PP.h">
+      <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\HP.h">
+      <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Stone.h">
+      <Filter>src\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

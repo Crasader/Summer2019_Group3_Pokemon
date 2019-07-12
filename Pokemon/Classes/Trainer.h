@@ -16,9 +16,6 @@ public:
 	void walkDown();
 	Sprite* GetSprite();
 private:
-
 	Sprite* m_sprite;
-	Bag* bag;
-
 };
 
