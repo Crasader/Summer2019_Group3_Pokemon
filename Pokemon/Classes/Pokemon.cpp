@@ -101,7 +101,7 @@ void Pokemon::SetCurrentHP(int health)
 {
 	if (health == 0)
 	{
-		this->alive = false;
+		this->m_alive = false;
 	}
 	this->m_currentHealth = health;
 }
@@ -168,7 +168,17 @@ void Pokemon::SetMaxExp(int exp)
 
 bool Pokemon::IsAlive()
 {
-	return this->alive;
+	return this->m_alive;
+}
+
+void Pokemon::SetState(bool state)
+{
+	this->m_state = state;
+}
+
+bool Pokemon::GetState()
+{
+	return this->m_state;
 }
 
 Skill * Pokemon::GetSkillById(int id)
@@ -191,82 +201,95 @@ int Pokemon::GetCountSkills()
 
 void Pokemon::Attack(Pokemon * target, Skill * skill)
 {
-	float type = 1;
-	if (skill->GetIdType() == target->GetType())
-	{
-		type = 0.5;
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_FIRE)
-	{
-		if (target->GetType() == MyObject::TYPE_GRASS || target->GetType() == MyObject::TYPE_ELECTRIC)
+	auto listener = CallFunc::create([this, target, skill]() {
+		if (skill->GetState() == true)
 		{
-			type = 2;
+			float type = 1;
+			if (skill->GetIdType() == target->GetType())
+			{
+				type = 0.5;
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_FIRE)
+			{
+				if (target->GetType() == MyObject::TYPE_GRASS || target->GetType() == MyObject::TYPE_ELECTRIC)
+				{
+					type = 2;
+				}
+				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
+				{
+					type = 0.5;
+				}
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_WATER)
+			{
+				if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
+				{
+					type = 2;
+				}
+				else if (target->GetType() == MyObject::TYPE_ELECTRIC || target->GetType() == MyObject::TYPE_GRASS)
+				{
+					type = 0.5;
+				}
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_GRASS)
+			{
+				if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
+				{
+					type = 2;
+				}
+				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
+				{
+					type = 0.5;
+				}
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_ELECTRIC)
+			{
+				if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
+				{
+					type = 2;
+				}
+				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
+				{
+					type = 0.5;
+				}
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_FLYING)
+			{
+				if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
+				{
+					type = 2;
+				}
+				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
+				{
+					type = 0.5;
+				}
+			}
+			else if (skill->GetIdType() == MyObject::TYPE_DRAGON)
+			{
+				if (target->GetType() == MyObject::TYPE_DRAGON)
+				{
+					type = 2;
+				}
+			}
+			float crit = this->RandomFloat(1.1, 2);
+			float randomm = this->RandomFloat(1, 1.5);
+			int damage = ((2 * skill->GetPower() * this->m_attack / target->GetDef()) / 5 + 2) * type * crit * randomm;
+			if (damage >= target->GetCurrentHP())
+			{
+				target->SetCurrentHP(0);
+			}
+			else
+			{
+				target->SetCurrentHP(target->GetCurrentHP() - damage);
+			}
+			skill->SetVisible(false);
+			skill->SetState(false);
+			this->m_state = true;
+			skill->GetSpriteFront()->stopActionByTag(11);
 		}
-		else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
-		{
-			type = 0.5;
-		}
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_WATER)
-	{
-		if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
-		{
-			type = 2;
-		}
-		else if (target->GetType() == MyObject::TYPE_ELECTRIC || target->GetType() == MyObject::TYPE_GRASS)
-		{
-			type = 0.5;
-		}
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_GRASS)
-	{
-		if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
-		{
-			type = 2;
-		}
-		else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
-		{
-			type = 0.5;
-		}
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_ELECTRIC)
-	{
-		if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
-		{
-			type = 2;
-		}
-		else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
-		{
-			type = 0.5;
-		}
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_FLYING)
-	{
-		if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
-		{
-			type = 2;
-		}
-		else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
-		{
-			type = 0.5;
-		}
-	}
-	else if (skill->GetIdType() == MyObject::TYPE_DRAGON)
-	{
-		if (target->GetType() == MyObject::TYPE_DRAGON)
-		{
-			type = 2;
-		}
-	}
-	float crit = this->RandomFloat(1.1, 2);
-	float randomm = this->RandomFloat(1, 1.5);
-	int damage = ((2 * skill->GetPower() * this->m_attack / target->GetDef()) / 5 + 2) * type * crit * randomm;
-	if (damage >= target->GetCurrentHP())
-	{
-		target->SetCurrentHP(0);
-	}
-	else
-	{
-		target->SetCurrentHP(target->GetCurrentHP() - damage);
-	}
+	});
+	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+	rp->setTag(11);
+	skill->GetSpriteFront()->runAction(rp);
+	skill->RunAnimate();
 }

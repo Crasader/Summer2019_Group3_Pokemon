@@ -22,7 +22,8 @@ protected:
 	int m_attackSpeed;
 	int m_currentExp;
 	int m_maxExp;
-	bool alive = true;
+	bool m_alive = true;
+	bool m_state = false;
 public:
 	Pokemon();
 	~Pokemon();
@@ -54,6 +55,8 @@ public:
 	int GetMaxExp();
 	void SetMaxExp(int exp);
 	bool IsAlive();
+	void SetState(bool state);
+	bool GetState();
 	Skill* GetSkillById(int id);
 	int GetCountSkills();
 	void Attack(Pokemon* target, Skill* skill);

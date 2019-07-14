@@ -52,6 +52,41 @@ string Skill::GetType()
 {
 	return m_type;
 }
+
+void Skill::SetState(bool state)
+{
+	this->m_state = state;
+}
+
+bool Skill::GetState()
+{
+	return this->m_state;
+}
+
+void Skill::AddAnimate(int id)
+{
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
+	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
+	this->m_spriteFront->setVisible(false);
+	this->m_animate = ResourceManager::GetInstance()->GetAnimateById(id);
+}
+
+void Skill::RunAnimate()
+{
+	this->m_spriteFront->setVisible(true);
+	auto finished = CallFunc::create([this]() {
+		this->m_state = true;
+	});
+	auto sequence = Sequence::create(this->m_animate, DelayTime::create(1), finished, nullptr);
+	sequence->setTag(10);
+	this->m_spriteFront->runAction(sequence);
+}
+
+void Skill::SetVisible(bool visible)
+{
+	this->m_spriteFront->setVisible(visible);
+}
+
 int Skill::GetPower()
 {
 	return m_power;
@@ -66,4 +101,3 @@ int Skill::GetIdType()
 {
 	return m_idtype;
 }
-

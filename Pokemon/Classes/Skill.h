@@ -15,6 +15,8 @@ private:
 	string m_type;
 	int m_idtype;
 	int m_maxpp;
+	Animate* m_animate;
+	bool m_state = false;
 public:
 	Skill();
 	~Skill();
@@ -32,4 +34,9 @@ public:
 	int GetIdType();
 	string GetName();
 	string GetType();
+	void SetState(bool state);
+	bool GetState();
+	void AddAnimate(int id);
+	void RunAnimate();
+	void SetVisible(bool visible);
 };

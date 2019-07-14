@@ -77,7 +77,7 @@ void ResourceManager::Load()
 			string frameName = document["ANIMATE"][key.c_str()]["png"][j].GetString();
 			aniFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
 		}
-		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.3);
+		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.2);
 		auto animate = Animate::create(animation);
 		animate->retain();
 		this->m_animates.insert(pair<int, Animate*>(i, animate));
@@ -105,6 +105,7 @@ TMXTiledMap * ResourceManager::GetTiledMapById(int id)
 Sprite * ResourceManager::DuplicateSprite(Sprite * sprite)
 {
 	auto temp = Sprite::createWithTexture(sprite->getTexture());
+	temp->retain();
 	return temp;
 }
 
@@ -122,7 +123,9 @@ Animate * ResourceManager::GetAnimateById(int id)
 	auto tmp = this->m_animates.find(id);
 	while (tmp != m_animates.end())
 	{
-		return tmp->second->clone();
+		auto animate = tmp->second->clone();
+		animate->retain();
+		return animate;
 	}
 }
 
@@ -131,7 +134,9 @@ Button * ResourceManager::GetButtonById(int id)
 	auto tmp = this->m_buttons.find(id);
 	while (tmp != m_buttons.end())
 	{
-		return (Button*)tmp->second->clone();
+		auto button = (Button*)tmp->second->clone();
+		button->retain();
+		return button;
 	}
 }
 
@@ -140,6 +145,8 @@ Label * ResourceManager::GetLabelById(int id)
 	auto tmp = this->m_labels.find(id);
 	while (tmp != m_labels.end())
 	{
-		return Label::createWithTTF(tmp->second->getTTFConfig(), "");
+		auto label = Label::createWithTTF(tmp->second->getTTFConfig(), "");
+		label->retain();
+		return label;
 	}
 }

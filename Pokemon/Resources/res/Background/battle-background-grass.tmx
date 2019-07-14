@@ -22,10 +22,10 @@
 </data>
  </layer>
  <objectgroup id="2" name="pokemon">
-  <object id="1" name="player" x="270.667" y="298.667">
+  <object id="1" name="player" x="271.667" y="300.667">
    <point/>
   </object>
-  <object id="3" name="opponent" x="692" y="202.667">
+  <object id="3" name="opponent" x="695" y="205.667">
    <point/>
   </object>
  </objectgroup>

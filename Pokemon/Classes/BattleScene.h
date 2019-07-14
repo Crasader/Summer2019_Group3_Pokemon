@@ -19,6 +19,8 @@ private:
 	TMXTiledMap* m_tiledmap;
 	Pokemon* player;
 	Pokemon* opponent;
+	int writing = 0;
+	bool m_state = false;
 public:
 	BattleScene();
 	~BattleScene();
@@ -27,12 +29,24 @@ public:
 	virtual bool init();
 
 	void update(float deltaTime) override;
+	void type(float deltaTime);
 
 	void InitTiledMap();
 
 	void InitButton();
 
 	void InitObject();
+
+	void AddEventListener();
+
+	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* e);
+	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* e);
+
+	bool onTouchBegan(Touch* touch, Event* e);
+
+	void BattleLog(string logg);
+
+	void SetVisible(bool visible);
 
 	void DamagePhase(int idSkill);
 

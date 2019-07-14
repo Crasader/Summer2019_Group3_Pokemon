@@ -11,6 +11,7 @@ Tackle::~Tackle()
 
 void Tackle::Init()
 {
+	this->AddAnimate(110);
 	Skill::SetName("Tackle");
 	Skill::SetType("Normal");
 	Skill::SetPower(40);

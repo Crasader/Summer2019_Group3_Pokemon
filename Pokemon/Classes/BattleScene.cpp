@@ -34,12 +34,31 @@ bool BattleScene::init()
 
 	this->InitButton();
 
-	this->scheduleUpdate();
+	this->AddEventListener();
 
 	return true;
 }
 
 void BattleScene::update(float deltaTime)
+{
+	if (writing < this->m_labelBattleLog->getStringLength())
+	{
+		auto letter = this->m_labelBattleLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelBattleLog->setOpacity(255);
+		this->unscheduleUpdate();
+	}
+}
+
+void BattleScene::type(float deltaTime)
 {
 }
 
@@ -111,6 +130,7 @@ void BattleScene::InitButton()
 	//
 	this->m_labelBattleLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelBattleLog->setPosition(visibleSize.width / 4, visibleSize.height / 4);
+	//
 	this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
 	this->addChild(this->m_labelBattleLog);
 	//
@@ -118,7 +138,36 @@ void BattleScene::InitButton()
 	this->m_buttonBag->addChild(this->m_labelSkill2);
 	this->m_buttonPokemon->addChild(this->m_labelSkill3);
 	this->m_buttonRun->addChild(this->m_labelSkill4);
+}
 
+void BattleScene::InitObject()
+{
+	this->player = new Charmander();
+	this->opponent = new Chikorita();
+	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
+	auto x = obj->getObject("player").at("x").asFloat();
+	auto y = obj->getObject("player").at("y").asFloat();
+	player->GetSpriteBack()->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(player->GetSpriteBack(), 10);
+	x = obj->getObject("opponent").at("x").asFloat();
+	y = obj->getObject("opponent").at("y").asFloat();
+	opponent->GetSpriteFront()->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(opponent->GetSpriteFront(), 10);
+	//
+	for (int i = 0; i < player->GetCountSkills(); i++)
+	{
+		this->addChild(player->GetSkillById(i)->GetSpriteFront(), 100);
+		player->GetSkillById(i)->GetSpriteFront()->setPosition(opponent->GetSpriteFront()->getPosition());
+	}
+	for (int i = 0; i < opponent->GetCountSkills(); i++)
+	{
+		this->addChild(opponent->GetSkillById(i)->GetSpriteFront(), 100);
+		opponent->GetSkillById(i)->GetSpriteFront()->setPosition(player->GetSpriteBack()->getPosition());
+	}
+}
+
+void BattleScene::AddEventListener()
+{
 	this->m_buttonFight->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -133,10 +182,7 @@ void BattleScene::InitButton()
 			else if (this->m_labelSkill1->getString() != "-")
 			{
 				int choice = ((Button*)sender)->getTag();
-				this->m_buttonFight->setVisible(false);
-				this->m_buttonBag->setVisible(false);
-				this->m_buttonPokemon->setVisible(false);
-				this->m_buttonRun->setVisible(false);
+				this->SetVisible(false);
 				this->DamagePhase(choice);
 			}
 			break;
@@ -155,10 +201,7 @@ void BattleScene::InitButton()
 			}
 			else
 			{
-				this->m_labelSkill1->setString("Fight");
-				this->m_labelSkill2->setString("Bag");
-				this->m_labelSkill3->setString("Pokemon");
-				this->m_labelSkill4->setString("Run");
+				this->SetVisible(true);
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
@@ -167,75 +210,186 @@ void BattleScene::InitButton()
 			break;
 		}
 	});
+
+	auto keyboardListener = EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(BattleScene::onKeyPressed, this);
+	keyboardListener->onKeyReleased = CC_CALLBACK_2(BattleScene::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->onTouchBegan = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 
-void BattleScene::InitObject()
+void BattleScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event * e)
 {
-	this->player = new Charmander();
-	this->opponent = new Chikorita();
-	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
-	auto x = obj->getObject("player").at("x").asFloat();
-	auto y = obj->getObject("player").at("y").asFloat();
-	player->GetSpriteBack()->setPosition(x*this->m_tiledmap->getScaleX(), y*this->m_tiledmap->getScaleY());
-	this->addChild(player->GetSpriteBack(), 10);
-	x = obj->getObject("opponent").at("x").asFloat();
-	y = obj->getObject("opponent").at("y").asFloat();
-	opponent->GetSpriteFront()->setPosition(x*this->m_tiledmap->getScaleX(), y*this->m_tiledmap->getScaleY());
-	this->addChild(opponent->GetSpriteFront(), 10);
+	switch (keyCode)
+	{
+	case EventKeyboard::KeyCode::KEY_Z:
+		if (this->m_labelBattleLog->getOpacity() == 0)
+		{
+			writing = this->m_labelBattleLog->getStringLength();
+		}
+		else
+		{
+			this->m_state = true;
+		}
+	default:
+		break;
+	}
+}
+
+void BattleScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event * e)
+{
+	switch (keyCode)
+	{
+	default:
+		break;
+	}
+}
+
+bool BattleScene::onTouchBegan(Touch * touch, Event * e)
+{
+	return true;
+}
+
+void BattleScene::BattleLog(string logg)
+{
+	this->m_labelBattleLog->setString(logg);
+	this->m_labelBattleLog->setOpacity(0);
+	this->scheduleUpdate();
+}
+
+void BattleScene::SetVisible(bool visible)
+{
+	this->m_labelSkill1->setString("Fight");
+	this->m_labelSkill2->setString("Bag");
+	this->m_labelSkill3->setString("Pokemon");
+	this->m_labelSkill4->setString("Run");
+	this->m_buttonFight->setVisible(visible);
+	this->m_buttonBag->setVisible(visible);
+	this->m_buttonPokemon->setVisible(visible);
+	this->m_buttonRun->setVisible(visible);
 }
 
 void BattleScene::DamagePhase(int idSkill)
 {
 	if (this->player->GetAtkSpeed() >= this->opponent->GetAtkSpeed())
 	{
-		this->m_labelBattleLog->setString(this->player->GetName() + " used " + this->player->GetSkillById(idSkill)->GetName());
-		this->player->Attack(this->opponent, this->player->GetSkillById(idSkill));
-		auto finished = CallFunc::create([&]() {
-			this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
+		auto playerSkill = this->player->GetSkillById(idSkill);
+		int id = rand() % this->opponent->GetCountSkills();
+		auto oppSkill = this->opponent->GetSkillById(id);
+		auto listener = CallFunc::create([this, playerSkill, oppSkill]() {
 			if (this->opponent->IsAlive())
 			{
-				int id = rand() % this->opponent->GetCountSkills();
-				this->m_labelBattleLog->setString(this->opponent->GetName() + " used " + this->opponent->GetSkillById(id)->GetName());
-				this->opponent->Attack(this->player, this->opponent->GetSkillById(id));
-				auto done = CallFunc::create([&]() {
-					this->m_buttonFight->setVisible(true);
-					this->m_buttonBag->setVisible(true);
-					this->m_buttonPokemon->setVisible(true);
-					this->m_buttonRun->setVisible(true);
-					this->m_labelSkill1->setString("Fight");
-					this->m_labelSkill2->setString("Bag");
-					this->m_labelSkill3->setString("Pokemon");
-					this->m_labelSkill4->setString("Run");
-				});
-				this->runAction(Sequence::create(DelayTime::create(4), done, nullptr));
+				if (this->player->GetState() == true && this->opponent->GetState() == true)
+				{
+					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					this->m_state = false;
+					this->player->SetState(false);
+					this->opponent->SetState(false);
+					this->SetVisible(true);
+					this->stopActionByTag(0);
+				}
+				else
+				{
+					if (this->m_state == true)
+					{
+						if (this->player->GetState() == false)
+						{
+							Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+							this->m_state = false;
+							this->player->Attack(this->opponent, playerSkill);
+						}
+						else
+						{
+							Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+							this->m_state = false;
+							this->opponent->Attack(this->player, oppSkill);
+						}
+					}
+					else
+					{
+						if (this->player->GetState() == true)
+						{
+							this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
+							string logg = this->player->GetName() + " used " + playerSkill->GetName();
+							if (this->m_labelBattleLog->getString() == logg)
+							{
+								Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+								this->BattleLog(this->opponent->GetName() + " used " + oppSkill->GetName());
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				this->stopActionByTag(0);
 			}
 		});
-		this->runAction(Sequence::create(DelayTime::create(4), finished, nullptr));
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(0);
+		this->runAction(rp);
+		this->BattleLog(this->player->GetName() + " used " + playerSkill->GetName());
 	}
 	else
 	{
 		int id = rand() % this->opponent->GetCountSkills();
-		this->m_labelBattleLog->setString(this->opponent->GetName() + " used " + this->opponent->GetSkillById(id)->GetName());
-		this->opponent->Attack(this->player, this->opponent->GetSkillById(id));
-		auto finished = CallFunc::create([&]() {
+		auto oppSkill = this->opponent->GetSkillById(id);
+		auto playerSkill = this->player->GetSkillById(idSkill);
+		auto listener = CallFunc::create([this, playerSkill, oppSkill]() {
 			if (this->player->IsAlive())
 			{
-				this->m_labelBattleLog->setString(this->player->GetName() + " used " + this->player->GetSkillById(idSkill)->GetName());
-				this->player->Attack(this->opponent, this->player->GetSkillById(idSkill));
-				auto done = CallFunc::create([&]() {
+				if (this->player->GetState() == true && this->opponent->GetState() == true)
+				{
 					this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
-					this->m_buttonFight->setVisible(true);
-					this->m_buttonBag->setVisible(true);
-					this->m_buttonPokemon->setVisible(true);
-					this->m_buttonRun->setVisible(true);
-					this->m_labelSkill1->setString("Fight");
-					this->m_labelSkill2->setString("Bag");
-					this->m_labelSkill3->setString("Pokemon");
-					this->m_labelSkill4->setString("Run");
-				});
-				this->runAction(Sequence::create(DelayTime::create(4), done, nullptr));
+					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					this->m_state = false;
+					this->player->SetState(false);
+					this->opponent->SetState(false);
+					this->SetVisible(true);
+					this->stopActionByTag(0);
+				}
+				else
+				{
+					if (this->m_state == true)
+					{
+						if (this->opponent->GetState() == false)
+						{
+							Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+							this->m_state = false;
+							this->opponent->Attack(this->player, oppSkill);
+						}
+						else
+						{
+							Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+							this->m_state = false;
+							this->player->Attack(this->opponent, playerSkill);
+						}
+					}
+					else
+					{
+						if (this->opponent->GetState() == true)
+						{
+							string logg = this->opponent->GetName() + " used " + oppSkill->GetName();
+							if (this->m_labelBattleLog->getString() == logg)
+							{
+								Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+								this->BattleLog(this->player->GetName() + " used " + playerSkill->GetName());
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				this->stopActionByTag(0);
 			}
 		});
-		this->runAction(Sequence::create(DelayTime::create(3), finished, nullptr));
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(0);
+		this->runAction(rp);
+		this->BattleLog(this->opponent->GetName() + " used " + oppSkill->GetName());
 	}
 }
