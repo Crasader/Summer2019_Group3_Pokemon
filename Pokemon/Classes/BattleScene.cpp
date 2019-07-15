@@ -41,6 +41,10 @@ bool BattleScene::init()
 
 void BattleScene::update(float deltaTime)
 {
+}
+
+void BattleScene::TypeWriter(float deltaTime)
+{
 	if (writing < this->m_labelBattleLog->getStringLength())
 	{
 		auto letter = this->m_labelBattleLog->getLetter(writing);
@@ -54,12 +58,8 @@ void BattleScene::update(float deltaTime)
 	{
 		writing = 0;
 		this->m_labelBattleLog->setOpacity(255);
-		this->unscheduleUpdate();
+		this->unschedule(schedule_selector(BattleScene::TypeWriter));
 	}
-}
-
-void BattleScene::type(float deltaTime)
-{
 }
 
 void BattleScene::InitTiledMap()
@@ -192,6 +192,46 @@ void BattleScene::AddEventListener()
 			break;
 		}
 	});
+	this->m_buttonBag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			if (this->m_labelSkill2->getString() == "Bag")
+			{
+			}
+			else if (this->m_labelSkill2->getString() != "-")
+			{
+				int choice = ((Button*)sender)->getTag();
+				this->SetVisible(false);
+				this->DamagePhase(choice);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			break;
+		default:
+			break;
+		}
+	});
+	this->m_buttonPokemon->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
+		switch (type)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			if (this->m_labelSkill3->getString() == "Pokemon")
+			{
+			}
+			else if (this->m_labelSkill3->getString() != "-")
+			{
+				int choice = ((Button*)sender)->getTag();
+				this->SetVisible(false);
+				this->DamagePhase(choice);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			break;
+		default:
+			break;
+		}
+	});
 	this->m_buttonRun->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 		switch (type)
 		{
@@ -250,6 +290,14 @@ void BattleScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event * e)
 
 bool BattleScene::onTouchBegan(Touch * touch, Event * e)
 {
+	if (this->m_labelBattleLog->getOpacity() == 0)
+	{
+		writing = this->m_labelBattleLog->getStringLength();
+	}
+	else
+	{
+		this->m_state = true;
+	}
 	return true;
 }
 
@@ -257,7 +305,7 @@ void BattleScene::BattleLog(string logg)
 {
 	this->m_labelBattleLog->setString(logg);
 	this->m_labelBattleLog->setOpacity(0);
-	this->scheduleUpdate();
+	this->schedule(schedule_selector(BattleScene::TypeWriter), 0.1);
 }
 
 void BattleScene::SetVisible(bool visible)

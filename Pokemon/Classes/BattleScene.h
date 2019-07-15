@@ -29,7 +29,8 @@ public:
 	virtual bool init();
 
 	void update(float deltaTime) override;
-	void type(float deltaTime);
+
+	void TypeWriter(float deltaTime);
 
 	void InitTiledMap();
 

@@ -4,7 +4,7 @@
     "0": "res/Background/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 118,
+    "size": 130,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -123,7 +123,21 @@
     "114": "res/Skill/VineWhip/0.png",
     "115": "res/Skill/WaterGun/0.png",
     "116": "res/Skill/WaterPulse/0.png",
-    "117": "res/Skill/WingAttack/0.png"
+    "117": "res/Skill/WingAttack/0.png",
+
+    "118": "res/Trainer/walkup/1.png",
+    "119": "res/Trainer/walkdown/1.png",
+    "120": "res/Trainer/walkleft/1.png",
+    "121": "res/Trainer/walkright/1.png",
+
+    "122": "res/Animation/NPC/0.png",
+    "123": "res/Animation/NPC/1.png",
+    "124": "res/Animation/NPC/3.png",
+    "125": "res/Animation/NPC/4.png",
+    "126": "res/Animation/NPC/6.png",
+    "127": "res/Animation/NPC/7.png",
+    "128": "res/Animation/NPC/9.png",
+    "129": "res/Animation/NPC/10.png"
   },
   "BUTTON": {
     "size": 6,
@@ -158,7 +172,7 @@
     "1": "res/Label/MarkerFelt.ttf"
   },
   "ANIMATE": {
-    "size": 118,
+    "size": 122,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -1862,6 +1876,52 @@
         "4.png",
         "5.png",
         "6.png"
+      ]
+    },
+
+
+    "118": {
+      "size": 4,
+      "plist": "res/Trainer/walkup/walkup.plist",
+      "path": "res/Trainer/walkup/walkup.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+    "119": {
+      "size": 4,
+      "plist": "res/Trainer/walkdown/walkdown.plist",
+      "path": "res/Trainer/walkdown/walkdown.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+    "120": {
+      "size": 4,
+      "plist": "res/Trainer/walkleft/walkleft.plist",
+      "path": "res/Trainer/walkleft/walkleft.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
+      ]
+    },
+     "121": {
+      "size": 4,
+      "plist": "res/Trainer/walkright/walkright.plist",
+      "path": "res/Trainer/walkright/walkright.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "1.png"
       ]
     }
   }
