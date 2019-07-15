@@ -130,5 +130,8 @@ Button * Buttons::GetButtonDown()
 	return m_down;
 }
 void Buttons:: UpdateButton(float x, float y) {
-
+	m_left->setPosition(Vec2(x - 30, y));
+	m_right->setPosition(Vec2(x + 30, y));
+	m_up->setPosition(Vec2(x , y +30));
+	m_down->setPosition(Vec2(x , y -30));
 }

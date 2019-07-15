@@ -167,18 +167,25 @@ void Lake::InitObject()
 void Lake:: updateCamera() {
 	
 	if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width /2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)<abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)<abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
+	{
+		Buttons::getIntance()->UpdateButton(visibleSize.width / 2 - 200, mPlayer->GetSpriteFront()->getPosition().y - 50);
 		camera->setPosition(visibleSize.width/2 , mPlayer->GetSpriteFront()->getPosition().y);
 	}
 	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)<abs(tileMapSize.width / 2 - visibleSize.width / 2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
+	{
+		Buttons::getIntance()->UpdateButton(mPlayer->GetSpriteFront()->getPosition().x -200, visibleSize.height / 2 -50);
 		camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, visibleSize.height / 2);
 	}
 	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2) > abs(tileMapSize.width / 2 - visibleSize.width / 2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2) > abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
-		camera->setPosition(visibleSize.height / 2, visibleSize.height / 2);
+		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2) > abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
+	{
+		Buttons::getIntance()->UpdateButton((mPlayer->GetSpriteFront()->getPosition().x < visibleSize.width / 2 )?visibleSize.width / 4 -200: visibleSize.width*3 / 4 - 200, (mPlayer->GetSpriteFront()->getPosition().y < visibleSize.height / 2) ? visibleSize.height / 4 - 50 : visibleSize.height * 3 / 4- 50);
+		camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x < visibleSize.width / 2) ? visibleSize.width / 4  : visibleSize.width * 3 / 4 , (mPlayer->GetSpriteFront()->getPosition().y < visibleSize.height / 2) ? visibleSize.height / 4 : visibleSize.height * 3 / 4 );
 	}
 	else {
+		Buttons::getIntance()->UpdateButton(mPlayer->GetSpriteFront()->getPosition().x -200, mPlayer->GetSpriteFront()->getPosition().y -50);
 		camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 	}
 	
