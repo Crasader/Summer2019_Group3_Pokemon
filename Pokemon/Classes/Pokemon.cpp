@@ -29,17 +29,19 @@ void Pokemon::Init(int id_front, int id_back)
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id_front);
 	this->m_spriteFront->setScale(2.5);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
-	auto animateFront = ResourceManager::GetInstance()->GetAnimateById(id_front);
+	this->animationFront = ResourceManager::GetInstance()->GetAnimationById(id_front);
+	this->animationFront->setDelayPerUnit(0.2);
+	auto animateFront = Animate::create(this->animationFront);
 	this->m_spriteFront->runAction(RepeatForever::create(animateFront));
-	//auto bodyFront = PhysicsBody::createBox(this->m_spriteFront->getContentSize());
-	//this->m_spriteFront->setPhysicsBody(bodyFront);
+	//
+	//
 	this->m_spriteBack = ResourceManager::GetInstance()->GetSpriteById(id_back);
 	this->m_spriteBack->setScale(2.5);
 	this->m_spriteBack->setAnchorPoint(Vec2(0.5, 0));
-	auto animateBack = ResourceManager::GetInstance()->GetAnimateById(id_back);
+	this->animationBack = ResourceManager::GetInstance()->GetAnimationById(id_back);
+	this->animationBack->setDelayPerUnit(0.2);
+	auto animateBack = Animate::create(this->animationBack);
 	this->m_spriteBack->runAction(RepeatForever::create(animateBack));
-	//auto bodyBack = PhysicsBody::createBox(this->m_spriteBack->getContentSize());
-	//this->m_spriteBack->setPhysicsBody(bodyBack);
 }
 
 void Pokemon::Update(float deltaTime)

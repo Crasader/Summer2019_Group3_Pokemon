@@ -15,7 +15,7 @@ private:
 	Sprite* DuplicateSprite(Sprite* sprite);
 	map<int, TMXTiledMap*> m_tiledmaps;
 	map<int, Sprite*> m_sprites;
-	map<int, Animate*> m_animates;
+	map<int, Animation*> m_animations;
 	map<int, Button*> m_buttons;
 	map<int, Label*> m_labels;
 public:
@@ -25,7 +25,7 @@ public:
 	void Load();
 	TMXTiledMap* GetTiledMapById(int id);
 	Sprite* GetSpriteById(int id);
-	Animate* GetAnimateById(int id);
+	Animation* GetAnimationById(int id);
 	Button* GetButtonById(int id);
 	Label* GetLabelById(int id);
 };

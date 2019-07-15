@@ -62,25 +62,24 @@ void ResourceManager::Load()
 		label->retain();
 		this->m_labels.insert(pair<int, Label*>(i, label));
 	}
-	length = document["ANIMATE"]["size"].GetInt();
+	length = document["ANIMATION"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
-		string plist_path = document["ANIMATE"][key.c_str()]["plist"].GetString();
-		string path = document["ANIMATE"][key.c_str()]["path"].GetString();
-		int n = document["ANIMATE"][key.c_str()]["size"].GetInt();
+		string plist_path = document["ANIMATION"][key.c_str()]["plist"].GetString();
+		string path = document["ANIMATION"][key.c_str()]["path"].GetString();
+		int n = document["ANIMATION"][key.c_str()]["size"].GetInt();
 		SpriteFrameCache::getInstance()->destroyInstance();
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_path, path);
 		Vector<SpriteFrame*> aniFrames;
 		for (int j = 0; j < n; j++)
 		{
-			string frameName = document["ANIMATE"][key.c_str()]["png"][j].GetString();
+			string frameName = document["ANIMATION"][key.c_str()]["png"][j].GetString();
 			aniFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
 		}
-		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.2);
-		auto animate = Animate::create(animation);
-		animate->retain();
-		this->m_animates.insert(pair<int, Animate*>(i, animate));
+		auto animation = Animation::createWithSpriteFrames(aniFrames);
+		animation->retain();
+		this->m_animations.insert(pair<int, Animation*>(i, animation));
 	}
 	length = document["TILEDMAP"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
@@ -118,14 +117,14 @@ Sprite * ResourceManager::GetSpriteById(int id)
 	}
 }
 
-Animate * ResourceManager::GetAnimateById(int id)
+Animation * ResourceManager::GetAnimationById(int id)
 {
-	auto tmp = this->m_animates.find(id);
-	while (tmp != m_animates.end())
+	auto tmp = this->m_animations.find(id);
+	while (tmp != m_animations.end())
 	{
-		auto animate = tmp->second->clone();
-		animate->retain();
-		return animate;
+		auto animation = tmp->second->clone();
+		animation->retain();
+		return animation;
 	}
 }
 

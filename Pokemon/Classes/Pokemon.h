@@ -12,6 +12,8 @@ private:
 	float RandomFloat(float a, float b);
 protected:
 	string m_name;
+	Animation* animationFront;
+	Animation* animationBack;
 	vector<Skill*> m_skills = { new Tackle(),new Bite(),nullptr };
 	int m_type;
 	int m_maxHealth;

@@ -68,16 +68,18 @@ void Skill::AddAnimate(int id)
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	this->m_spriteFront->setVisible(false);
-	this->m_animate = ResourceManager::GetInstance()->GetAnimateById(id);
+	this->m_animation = ResourceManager::GetInstance()->GetAnimationById(id);
+	this->m_animation->setDelayPerUnit(0.05);
 }
 
 void Skill::RunAnimate()
 {
 	this->m_spriteFront->setVisible(true);
+	auto animate = Animate::create(this->m_animation);
 	auto finished = CallFunc::create([this]() {
 		this->m_state = true;
 	});
-	auto sequence = Sequence::create(this->m_animate, DelayTime::create(1), finished, nullptr);
+	auto sequence = Sequence::create(animate, DelayTime::create(1), finished, nullptr);
 	sequence->setTag(10);
 	this->m_spriteFront->runAction(sequence);
 }

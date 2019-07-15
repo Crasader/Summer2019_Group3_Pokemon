@@ -8,14 +8,14 @@ USING_NS_CC;
 
 class Skill : public MyObject
 {
-private:
+protected:
 	int m_power;
 	int m_pp;
 	string m_name;
 	string m_type;
 	int m_idtype;
 	int m_maxpp;
-	Animate* m_animate;
+	Animation* m_animation;
 	bool m_state = false;
 public:
 	Skill();

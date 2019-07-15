@@ -6,6 +6,7 @@ using namespace cocos2d;
 class BattleScene : public Layer
 {
 private:
+	Sprite* m_messageBox;
 	Button* m_buttonFight;
 	Button* m_buttonBag;
 	Button* m_buttonPokemon;
@@ -16,7 +17,15 @@ private:
 	Label* m_labelSkill4;
 	Label* m_labelOppHealth;
 	Label* m_labelBattleLog;
+
+	Label* m_oppLevel;
+	Label* m_oppName;
+
+	Label* m_playerLevel;
+	Label* m_playerName;
+
 	TMXTiledMap* m_tiledmap;
+
 	Pokemon* player;
 	Pokemon* opponent;
 	int writing = 0;
@@ -32,9 +41,11 @@ public:
 
 	void TypeWriter(float deltaTime);
 
+	void BattleLogSetOpacity(GLubyte opacity);
+
 	void InitTiledMap();
 
-	void InitButton();
+	void InitUI();
 
 	void InitObject();
 
@@ -47,7 +58,7 @@ public:
 
 	void BattleLog(string logg);
 
-	void SetVisible(bool visible);
+	void SetButtonVisible(bool visible);
 
 	void DamagePhase(int idSkill);
 

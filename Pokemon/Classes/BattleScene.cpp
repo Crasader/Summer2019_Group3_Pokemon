@@ -32,7 +32,7 @@ bool BattleScene::init()
 
 	this->InitObject();
 
-	this->InitButton();
+	this->InitUI();
 
 	this->AddEventListener();
 
@@ -62,6 +62,18 @@ void BattleScene::TypeWriter(float deltaTime)
 	}
 }
 
+void BattleScene::BattleLogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelBattleLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelBattleLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
+}
+
 void BattleScene::InitTiledMap()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -73,7 +85,7 @@ void BattleScene::InitTiledMap()
 	this->addChild(this->m_tiledmap, -10);
 }
 
-void BattleScene::InitButton()
+void BattleScene::InitUI()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	this->m_buttonFight = ResourceManager::GetInstance()->GetButtonById(5);
@@ -127,17 +139,66 @@ void BattleScene::InitButton()
 	this->m_labelOppHealth = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelOppHealth->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(this->m_labelOppHealth);
-	//
-	this->m_labelBattleLog = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelBattleLog->setPosition(visibleSize.width / 4, visibleSize.height / 4);
-	//
 	this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
-	this->addChild(this->m_labelBattleLog);
+	//
+	//
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setPosition(visibleSize.width / 1.88, this->m_buttonFight->getContentSize().height * 2);
+	this->addChild(this->m_messageBox, 0);
+	this->m_labelBattleLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelBattleLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelBattleLog->setScale(1.5);
+	this->m_labelBattleLog->setTextColor(Color4B::BLACK);
+	this->m_labelBattleLog->setString("What will you do?");
+	this->m_labelBattleLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelBattleLog);
+	//
 	//
 	this->m_buttonFight->addChild(this->m_labelSkill1);
 	this->m_buttonBag->addChild(this->m_labelSkill2);
 	this->m_buttonPokemon->addChild(this->m_labelSkill3);
 	this->m_buttonRun->addChild(this->m_labelSkill4);
+
+	this->m_oppName = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_oppName->setString(this->opponent->GetName());
+	this->m_oppName->setTextColor(Color4B::BLACK);
+	this->m_oppName->setAnchorPoint(Vec2::ZERO);
+	this->m_oppName->setScale(0.8);
+	this->m_oppLevel = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_oppLevel->setString(to_string(this->opponent->GetLevel()));
+	this->m_oppLevel->setTextColor(Color4B::BLACK);
+	auto obj = this->m_tiledmap->getObjectGroup("opponent");
+	x = obj->getObject("name").at("x").asFloat();
+	y = obj->getObject("name").at("y").asFloat();
+	this->m_oppName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_oppName, 0);
+	x = obj->getObject("level").at("x").asFloat();
+	y = obj->getObject("level").at("y").asFloat();
+	this->m_oppLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_oppLevel, 0);
+	//
+	//
+	this->m_playerName = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_playerName->setString(this->player->GetName());
+	this->m_playerName->setTextColor(Color4B::BLACK);
+	this->m_playerName->setAnchorPoint(Vec2::ZERO);
+	this->m_playerName->setScale(0.8);
+	this->m_playerLevel = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_playerLevel->setString(to_string(this->player->GetLevel()));
+	this->m_playerLevel->setTextColor(Color4B::BLACK);
+	obj = this->m_tiledmap->getObjectGroup("player");
+	x = obj->getObject("name").at("x").asFloat();
+	y = obj->getObject("name").at("y").asFloat();
+	this->m_playerName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_playerName, 0);
+	x = obj->getObject("level").at("x").asFloat();
+	y = obj->getObject("level").at("y").asFloat();
+	this->m_playerLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_playerLevel, 0);
 }
 
 void BattleScene::InitObject()
@@ -153,6 +214,7 @@ void BattleScene::InitObject()
 	y = obj->getObject("opponent").at("y").asFloat();
 	opponent->GetSpriteFront()->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
 	this->addChild(opponent->GetSpriteFront(), 10);
+	//
 	//
 	for (int i = 0; i < player->GetCountSkills(); i++)
 	{
@@ -182,7 +244,7 @@ void BattleScene::AddEventListener()
 			else if (this->m_labelSkill1->getString() != "-")
 			{
 				int choice = ((Button*)sender)->getTag();
-				this->SetVisible(false);
+				this->SetButtonVisible(false);
 				this->DamagePhase(choice);
 			}
 			break;
@@ -202,7 +264,7 @@ void BattleScene::AddEventListener()
 			else if (this->m_labelSkill2->getString() != "-")
 			{
 				int choice = ((Button*)sender)->getTag();
-				this->SetVisible(false);
+				this->SetButtonVisible(false);
 				this->DamagePhase(choice);
 			}
 			break;
@@ -222,7 +284,7 @@ void BattleScene::AddEventListener()
 			else if (this->m_labelSkill3->getString() != "-")
 			{
 				int choice = ((Button*)sender)->getTag();
-				this->SetVisible(false);
+				this->SetButtonVisible(false);
 				this->DamagePhase(choice);
 			}
 			break;
@@ -241,7 +303,7 @@ void BattleScene::AddEventListener()
 			}
 			else
 			{
-				this->SetVisible(true);
+				this->SetButtonVisible(true);
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
@@ -259,6 +321,8 @@ void BattleScene::AddEventListener()
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 }
 
 void BattleScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event * e)
@@ -268,7 +332,9 @@ void BattleScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event * e)
 	case EventKeyboard::KeyCode::KEY_Z:
 		if (this->m_labelBattleLog->getOpacity() == 0)
 		{
-			writing = this->m_labelBattleLog->getStringLength();
+			this->unschedule(schedule_selector(BattleScene::TypeWriter));
+			this->BattleLogSetOpacity(255);
+			this->m_labelBattleLog->setOpacity(255);
 		}
 		else
 		{
@@ -292,7 +358,9 @@ bool BattleScene::onTouchBegan(Touch * touch, Event * e)
 {
 	if (this->m_labelBattleLog->getOpacity() == 0)
 	{
-		writing = this->m_labelBattleLog->getStringLength();
+		this->unschedule(schedule_selector(BattleScene::TypeWriter));
+		this->BattleLogSetOpacity(255);
+		this->m_labelBattleLog->setOpacity(255);
 	}
 	else
 	{
@@ -304,11 +372,13 @@ bool BattleScene::onTouchBegan(Touch * touch, Event * e)
 void BattleScene::BattleLog(string logg)
 {
 	this->m_labelBattleLog->setString(logg);
+	this->BattleLogSetOpacity(0);
 	this->m_labelBattleLog->setOpacity(0);
+	writing = 0;
 	this->schedule(schedule_selector(BattleScene::TypeWriter), 0.1);
 }
 
-void BattleScene::SetVisible(bool visible)
+void BattleScene::SetButtonVisible(bool visible)
 {
 	this->m_labelSkill1->setString("Fight");
 	this->m_labelSkill2->setString("Bag");
@@ -333,11 +403,13 @@ void BattleScene::DamagePhase(int idSkill)
 			{
 				if (this->player->GetState() == true && this->opponent->GetState() == true)
 				{
-					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 					this->m_state = false;
 					this->player->SetState(false);
 					this->opponent->SetState(false);
-					this->SetVisible(true);
+					this->SetButtonVisible(true);
+					this->m_labelBattleLog->setString("What will you do?");
+					this->BattleLogSetOpacity(255);
 					this->stopActionByTag(0);
 				}
 				else
@@ -373,12 +445,14 @@ void BattleScene::DamagePhase(int idSkill)
 			}
 			else
 			{
+				this->m_labelBattleLog->setString("");
 				this->stopActionByTag(0);
 			}
 		});
 		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
 		rp->setTag(0);
 		this->runAction(rp);
+		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleLog(this->player->GetName() + " used " + playerSkill->GetName());
 	}
 	else
@@ -392,11 +466,13 @@ void BattleScene::DamagePhase(int idSkill)
 				if (this->player->GetState() == true && this->opponent->GetState() == true)
 				{
 					this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
-					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 					this->m_state = false;
 					this->player->SetState(false);
 					this->opponent->SetState(false);
-					this->SetVisible(true);
+					this->SetButtonVisible(true);
+					this->m_labelBattleLog->setString("What will you do?");
+					this->BattleLogSetOpacity(255);
 					this->stopActionByTag(0);
 				}
 				else
@@ -432,12 +508,14 @@ void BattleScene::DamagePhase(int idSkill)
 			}
 			else
 			{
+				this->m_labelBattleLog->setString("");
 				this->stopActionByTag(0);
 			}
 		});
 		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
 		rp->setTag(0);
 		this->runAction(rp);
+		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleLog(this->opponent->GetName() + " used " + oppSkill->GetName());
 	}
 }

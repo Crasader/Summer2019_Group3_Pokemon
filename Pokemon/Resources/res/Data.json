@@ -1,10 +1,10 @@
 {
   "TILEDMAP": {
     "size": 1,
-    "0": "res/Background/battle-background-grass.tmx"
+    "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 130,
+    "size": 131,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -137,7 +137,9 @@
     "126": "res/Animation/NPC/6.png",
     "127": "res/Animation/NPC/7.png",
     "128": "res/Animation/NPC/9.png",
-    "129": "res/Animation/NPC/10.png"
+    "129": "res/Animation/NPC/10.png",
+
+    "130": "res/Button/menu3.png"
   },
   "BUTTON": {
     "size": 6,
@@ -171,7 +173,7 @@
     "0": "res/Label/arial.ttf",
     "1": "res/Label/MarkerFelt.ttf"
   },
-  "ANIMATE": {
+  "ANIMATION": {
     "size": 122,
     "0": {
       "size": 8,
