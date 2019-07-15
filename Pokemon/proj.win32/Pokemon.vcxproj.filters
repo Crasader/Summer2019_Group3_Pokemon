@@ -378,6 +378,12 @@
     <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
       <Filter>src\Item\Revival</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -721,6 +727,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item\Revival\MaxRevive.h">
       <Filter>src\Item\Revival</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MyBag.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\BuyItem.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
