@@ -280,6 +280,7 @@ void BattleScene::DamagePhase(int idSkill)
 		int id = rand() % this->opponent->GetCountSkills();
 		auto oppSkill = this->opponent->GetSkillById(id);
 		auto listener = CallFunc::create([this, playerSkill, oppSkill]() {
+			this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
 			if (this->opponent->IsAlive())
 			{
 				if (this->player->GetState() == true && this->opponent->GetState() == true)
@@ -312,7 +313,6 @@ void BattleScene::DamagePhase(int idSkill)
 					{
 						if (this->player->GetState() == true)
 						{
-							this->m_labelOppHealth->setString(to_string(this->opponent->GetCurrentHP()) + "/" + to_string(this->opponent->GetMaxHP()));
 							string logg = this->player->GetName() + " used " + playerSkill->GetName();
 							if (this->m_labelBattleLog->getString() == logg)
 							{
