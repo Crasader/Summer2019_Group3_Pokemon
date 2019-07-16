@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Pokemon.h"
 using namespace cocos2d;
+using namespace std;
 
 class MainMenu : public Layer
 {

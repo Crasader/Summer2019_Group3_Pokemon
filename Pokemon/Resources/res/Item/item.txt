@@ -1,0 +1,11 @@
+0: Potion: hồi 10 máu poke
+1: Super Potion: hồi 50 máu poke
+2: Max Potion: hồi full máu poke
+3: Ether: hồi 10 PP skill
+4: Max Ether: hồi full PP skill
+5: Revive: poke dc hồi sinh nữa thanh máu
+6: Max Revive: poke dc hồi sinh full thanh máu
+7: Fire Stone: tiến hóa poke lửa nếu dùng dc
+8: Leaf Stone: tiến hóa poke lá nếu dùng dc
+9: Thunder Stone: tiến hóa poke điện
+10: Water Stone: tiến hóa poke nước

@@ -1,10 +1,6 @@
-#include"Trainer.h"
-#include"ResourceManager.h"
-
-
-
-
-
+#include "Trainer.h"
+#include "ResourceManager.h"
+#include "Pokemon\Squirtle.h"
 
 Trainer::Trainer()
 {
@@ -36,7 +32,6 @@ void Trainer::walkLeft()
 	auto repeat = RepeatForever::create(spawn);
 	repeat->setTag(2);
 	m_spriteFront->runAction(repeat);
-
 }
 
 void Trainer::walkRight()
@@ -68,10 +63,4 @@ void Trainer::walkDown()
 	auto repeat = RepeatForever::create(spawn);
 	repeat->setTag(1);
 	this->m_spriteFront->runAction(repeat);
-}
-
-
-Sprite * Trainer::GetSprite()
-{
-	return this->m_spriteFront;
 }
