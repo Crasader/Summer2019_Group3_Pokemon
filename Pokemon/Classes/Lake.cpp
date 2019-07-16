@@ -114,7 +114,8 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() ==17 || a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
+		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
@@ -165,28 +166,46 @@ void Lake::InitObject()
 }
 
 void Lake:: updateCamera() {
-	
-	if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width /2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)<abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
-	{
-		Buttons::getIntance()->UpdateButton(visibleSize.width / 2 - 200, mPlayer->GetSpriteFront()->getPosition().y - 50);
-		camera->setPosition(visibleSize.width/2 , mPlayer->GetSpriteFront()->getPosition().y);
-	}
-	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)<abs(tileMapSize.width / 2 - visibleSize.width / 2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
-	{
-		Buttons::getIntance()->UpdateButton(mPlayer->GetSpriteFront()->getPosition().x -200, visibleSize.height / 2 -50);
-		camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, visibleSize.height / 2);
-	}
-	else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2) > abs(tileMapSize.width / 2 - visibleSize.width / 2)
-		&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2) > abs(tileMapSize.height / 2 - visibleSize.height / 2)) 
-	{
-		Buttons::getIntance()->UpdateButton((mPlayer->GetSpriteFront()->getPosition().x < visibleSize.width / 2 )?visibleSize.width / 4 -200: visibleSize.width*3 / 4 - 200, (mPlayer->GetSpriteFront()->getPosition().y < visibleSize.height / 2) ? visibleSize.height / 4 - 50 : visibleSize.height * 3 / 4- 50);
-		camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x < visibleSize.width / 2) ? visibleSize.width / 4  : visibleSize.width * 3 / 4 , (mPlayer->GetSpriteFront()->getPosition().y < visibleSize.height / 2) ? visibleSize.height / 4 : visibleSize.height * 3 / 4 );
+	if (visibleSize.width >= tileMapSize.width) {
+		if (visibleSize.height >= tileMapSize.height) {
+			camera->setPosition(tileMapSize / 2);
+		}
+		else
+		{
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+				camera->setPosition(tileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().y)? (tileMapSize.height - visibleSize.height/2): visibleSize.height / 2);
+			}
+			else {
+				camera->setPosition(tileMapSize.width / 2,mPlayer->GetSpriteFront()->getPosition().y);
+			}
+		}
 	}
 	else {
-		Buttons::getIntance()->UpdateButton(mPlayer->GetSpriteFront()->getPosition().x -200, mPlayer->GetSpriteFront()->getPosition().y -50);
-		camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+		if (visibleSize.height >= tileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width / 2)) {
+				camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().y) ? (tileMapSize.width - visibleSize.width / 2) : visibleSize.width / 2,tileMapSize.height / 2);
+			}
+			else {
+				camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x , tileMapSize.height / 2 );
+			}
+		}
+		else {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+				camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().x) ? (tileMapSize.width - visibleSize.width / 2) : visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().y) ? (tileMapSize.height - visibleSize.height / 2) : visibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)>abs(tileMapSize.width / 2 - visibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)<abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+				camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().x) ? (tileMapSize.width - visibleSize.width / 2) : visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y );
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - tileMapSize.width / 2)<abs(tileMapSize.width / 2 - visibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - tileMapSize.height / 2)>abs(tileMapSize.height / 2 - visibleSize.height / 2)) {
+				camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >camera->getPosition().y) ? (tileMapSize.height - visibleSize.height / 2) : visibleSize.height / 2 );
+			}
+			else {
+				camera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+			}
+		}
 	}
 	
 }
@@ -196,4 +215,5 @@ float total = 0;
 
 void Lake::update(float dt) {
 	updateCamera();
+	Buttons::getIntance()->UpdateButton(camera->getPosition().x - 200, camera->getPosition().y - 100);
 }
