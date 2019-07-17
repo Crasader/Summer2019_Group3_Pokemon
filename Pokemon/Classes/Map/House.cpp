@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include"Map/PokemonCenter.h"
+#include "Town.h"
 USING_NS_CC;
 
 Size HousevisibleSize;
@@ -105,7 +106,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;

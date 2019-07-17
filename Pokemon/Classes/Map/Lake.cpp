@@ -4,7 +4,7 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-#include "House.h"
+#include "Route1.h"
 
 USING_NS_CC;
 Size LakevisibleSize;
@@ -45,7 +45,7 @@ bool Lake::init()
 	LakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/lake.tmx");
+	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
 	LaketileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -115,7 +115,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
 
 	return true;
@@ -124,7 +124,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 
 void Lake::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/lake.tmx");
+	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

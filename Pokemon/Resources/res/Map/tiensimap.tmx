@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="3">
  <tileset firstgid="1" source="silveira_neto_gpl_pixelart_kitchen_home1.tsx"/>
  <tileset firstgid="157" source="tiensyloi.tsx"/>
+ <tileset firstgid="477" source="innenraumx.tsx"/>
  <layer id="1" name="Tile Layer 1" width="24" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -66,4 +67,28 @@
 0,0,0,0,0,0,0,0,0,468,469,470,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="5" name="physics" width="24" height="12">
+  <data encoding="csv">
+524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,
+524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,524,
+524,524,524,524,0,0,0,524,524,524,524,524,0,0,0,0,0,0,0,0,0,0,0,524,
+524,0,524,524,0,0,0,0,524,524,524,524,0,0,0,0,0,0,0,0,0,0,0,524,
+524,0,524,524,0,0,0,0,0,0,0,0,0,0,0,524,524,524,524,524,524,524,524,524,
+524,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,524,
+524,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,524,
+524,524,524,524,0,0,0,0,0,0,0,0,0,0,0,0,0,0,524,524,524,0,0,524,
+524,0,0,0,524,524,0,0,0,0,0,0,0,0,0,0,0,0,524,524,524,0,0,524,
+524,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,524,
+524,524,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,524,524,
+524,524,524,524,524,524,524,524,524,0,0,0,524,524,524,524,524,524,524,524,524,524,524,524
+</data>
+ </layer>
+ <objectgroup id="6" name="Object">
+  <object id="1" type="1" x="336" y="328">
+   <point/>
+  </object>
+  <object id="2" type="2" x="336" y="379">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

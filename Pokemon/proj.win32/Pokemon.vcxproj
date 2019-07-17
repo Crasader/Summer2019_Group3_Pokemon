@@ -178,9 +178,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Item\Stone\ThunderStone.cpp" />
     <ClCompile Include="..\Classes\Item\Stone\WaterStone.cpp" />
     <ClCompile Include="..\Classes\Map\House.cpp" />
+    <ClCompile Include="..\Classes\Map\Lab.cpp" />
     <ClCompile Include="..\Classes\Map\Lake.cpp" />
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp" />
     <ClCompile Include="..\Classes\Map\Route1.cpp" />
+    <ClCompile Include="..\Classes\Map\Town.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
@@ -296,9 +298,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Item\Stone\ThunderStone.h" />
     <ClInclude Include="..\Classes\Item\Stone\WaterStone.h" />
     <ClInclude Include="..\Classes\Map\House.h" />
+    <ClInclude Include="..\Classes\Map\Lab.h" />
     <ClInclude Include="..\Classes\Map\Lake.h" />
     <ClInclude Include="..\Classes\Map\PokemonCenter.h" />
     <ClInclude Include="..\Classes\Map\Route1.h" />
+    <ClInclude Include="..\Classes\Map\Town.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
