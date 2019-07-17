@@ -105,6 +105,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 

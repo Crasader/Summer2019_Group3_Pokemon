@@ -95,6 +95,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 0;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
