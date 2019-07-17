@@ -63,30 +63,50 @@ bool Skill::GetState()
 	return this->m_state;
 }
 
-void Skill::AddAnimate(int id)
+void Skill::SetPosition(float xx, float yy)
+{
+	this->m_spriteFront->setPosition(xx, yy);
+}
+
+void Skill::SetPosition(Vec2 position)
+{
+	this->m_spriteFront->setPosition(position);
+}
+
+Vec2 Skill::GetPosition()
+{
+	return this->m_spriteFront->getPosition();
+}
+
+void Skill::AddAnimation(int id)
 {
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	this->m_spriteFront->setVisible(false);
 	this->m_animation = ResourceManager::GetInstance()->GetAnimationById(id);
 	this->m_animation->setDelayPerUnit(0.05);
+	this->m_animation->setRestoreOriginalFrame(true);
 }
 
-void Skill::RunAnimate()
+void Skill::Run(Vec2 position)
 {
 	this->m_spriteFront->setVisible(true);
+	auto old_position = this->m_spriteFront->getPosition();
+	this->m_spriteFront->setPosition(position);
 	auto animate = Animate::create(this->m_animation);
-	auto finished = CallFunc::create([this]() {
+	auto finished = CallFunc::create([this, old_position]() {
+		this->m_spriteFront->setPosition(old_position);
+		this->m_spriteFront->setVisible(false);
 		this->m_state = true;
 	});
-	auto sequence = Sequence::create(animate, DelayTime::create(1), finished, nullptr);
+	auto sequence = Sequence::create(animate, DelayTime::create(0.5), finished, nullptr);
 	sequence->setTag(10);
 	this->m_spriteFront->runAction(sequence);
 }
 
-void Skill::SetVisible(bool visible)
+void Skill::SetScale(float scale)
 {
-	this->m_spriteFront->setVisible(visible);
+	this->m_spriteFront->setScale(scale);
 }
 
 int Skill::GetPower()

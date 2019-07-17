@@ -36,7 +36,10 @@ public:
 	string GetType();
 	void SetState(bool state);
 	bool GetState();
-	void AddAnimate(int id);
-	void RunAnimate();
-	void SetVisible(bool visible);
+	void SetPosition(float xx, float yy);
+	void SetPosition(Vec2 position);
+	Vec2 GetPosition();
+	void AddAnimation(int id);
+	virtual void Run(Vec2 position);
+	void SetScale(float scale);
 };

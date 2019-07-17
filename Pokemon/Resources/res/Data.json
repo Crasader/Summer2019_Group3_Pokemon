@@ -4,7 +4,7 @@
     "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 131,
+    "size": 133,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -139,39 +139,41 @@
     "128": "res/Animation/NPC/9.png",
     "129": "res/Animation/NPC/10.png",
 
-    "130": "res/Button/menu3.png"
+    "130": "res/UI/Button/menu3.png",
+    "131": "res/Battle/hp.png",
+    "132": "res/Battle/battle_background.png"
   },
   "BUTTON": {
     "size": 6,
     "0": {
-      "normal": "res/Button/button_a.png",
-      "pressed": "res/Button/button_a_press.png"
+      "normal": "res/UI/Button/button_a.png",
+      "pressed": "res/UI/Button/button_a_press.png"
     },
     "1": {
-      "normal": "res/Button/button_down.png",
-      "pressed": "res/Button/button_down_press.png"
+      "normal": "res/UI/Button/button_down.png",
+      "pressed": "res/UI/Button/button_down_press.png"
     },
     "2": {
-      "normal": "res/Button/button_left.png",
-      "pressed": "res/Button/button_left_press.png"
+      "normal": "res/UI/Button/button_left.png",
+      "pressed": "res/UI/Button/button_left_press.png"
     },
     "3": {
-      "normal": "res/Button/button_right.png",
-      "pressed": "res/Button/button_right_press.png"
+      "normal": "res/UI/Button/button_right.png",
+      "pressed": "res/UI/Button/button_right_press.png"
     },
     "4": {
-      "normal": "res/Button/button_up.png",
-      "pressed": "res/Button/button_up_press.png"
+      "normal": "res/UI/Button/button_up.png",
+      "pressed": "res/UI/Button/button_up_press.png"
     },
     "5": {
-      "normal": "res/Button/red_button00.png",
-      "pressed": "res/Button/red_button01.png"
+      "normal": "res/UI/Button/red_button00.png",
+      "pressed": "res/UI/Button/red_button01.png"
     }
   },
   "FONT": {
     "size": 2,
-    "0": "res/Label/arial.ttf",
-    "1": "res/Label/MarkerFelt.ttf"
+    "0": "res/UI/Label/arial.ttf",
+    "1": "res/UI/Label/MarkerFelt.ttf"
   },
   "ANIMATION": {
     "size": 122,

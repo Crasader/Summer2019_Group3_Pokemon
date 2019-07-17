@@ -183,6 +183,23 @@ bool Pokemon::GetState()
 	return this->m_state;
 }
 
+void Pokemon::SetPosition(float xx, float yy)
+{
+	this->m_spriteFront->setPosition(xx, yy);
+	this->m_spriteBack->setPosition(xx, yy);
+}
+
+void Pokemon::SetPosition(Vec2 position)
+{
+	this->m_spriteFront->setPosition(position);
+	this->m_spriteBack->setPosition(position);
+}
+
+Vec2 Pokemon::GetPosition()
+{
+	return this->m_spriteFront->getPosition();
+}
+
 Skill * Pokemon::GetSkillById(int id)
 {
 	return this->m_skills.at(id);
@@ -273,9 +290,9 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 					type = 2;
 				}
 			}
-			float crit = this->RandomFloat(1.1, 2);
-			float randomm = this->RandomFloat(1, 1.5);
-			int damage = ((2 * skill->GetPower() * this->m_attack / target->GetDef()) / 5 + 2) * type * crit * randomm;
+			float crit = this->RandomFloat(1, 1.5);
+			float randomm = this->RandomFloat(1, 1.25);
+			int damage = ((2 * skill->GetPower() * this->m_attack / target->GetDef()) / 7 + 2) * type * crit * randomm;
 			if (damage >= target->GetCurrentHP())
 			{
 				target->SetCurrentHP(0);
@@ -284,7 +301,6 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 			{
 				target->SetCurrentHP(target->GetCurrentHP() - damage);
 			}
-			skill->SetVisible(false);
 			skill->SetState(false);
 			this->m_state = true;
 			skill->GetSpriteFront()->stopActionByTag(11);
@@ -293,5 +309,5 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
 	rp->setTag(11);
 	skill->GetSpriteFront()->runAction(rp);
-	skill->RunAnimate();
+	skill->Run(target->GetPosition());
 }

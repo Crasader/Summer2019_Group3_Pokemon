@@ -46,7 +46,7 @@
   <object id="4" name="level" x="171" y="395">
    <point/>
   </object>
-  <object id="5" name="hp" x="54" y="428">
+  <object id="5" name="hp" x="54" y="433">
    <point/>
   </object>
   <object id="9" name="name" x="11" y="399">
@@ -57,7 +57,7 @@
   <object id="6" name="level" x="555" y="43">
    <point/>
   </object>
-  <object id="7" name="hp" x="438" y="76">
+  <object id="7" name="hp" x="438" y="81">
    <point/>
   </object>
   <object id="8" name="name" x="395" y="48">

@@ -11,7 +11,7 @@ Bite::~Bite()
 
 void Bite::Init()
 {
-	this->AddAnimate(90);
+	this->AddAnimation(90);
 	Skill::SetName("Bite");
 	Skill::SetType("Normal");
 	Skill::SetPower(80);
