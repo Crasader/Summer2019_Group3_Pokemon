@@ -3,7 +3,7 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-#include"PokemonCenter.h"
+#include"Map/PokemonCenter.h"
 USING_NS_CC;
 
 Size HousevisibleSize;

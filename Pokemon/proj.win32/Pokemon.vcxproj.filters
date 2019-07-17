@@ -366,13 +366,11 @@
     <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
       <Filter>src\Item\Revival</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="..\Classes\Scene\MyBag.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
       <Filter>src\Scene</Filter>
-=======
     <ClCompile Include="..\Classes\Map\Lake.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -384,7 +382,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Map\House.cpp">
       <Filter>src</Filter>
->>>>>>> master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
