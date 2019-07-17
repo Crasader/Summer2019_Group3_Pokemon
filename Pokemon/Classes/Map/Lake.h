@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"
+#include <math.h>
 using namespace cocos2d;
 using namespace std;
 class Lake: public cocos2d::Layer
@@ -15,14 +16,13 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
-	void CreateButon();
-	void ButtonListener();
+	void updateCamera();
+	//void CreateButon();
     CREATE_FUNC(Lake);
-	void createPhysics();
+	//void createPhysics();
 	void update(float);
-	void onKeyPressed(EventKeyboard::KeyCode, Event*);
-	void onKeyReleased(EventKeyboard::KeyCode, Event*);
 };
 
 #endif
