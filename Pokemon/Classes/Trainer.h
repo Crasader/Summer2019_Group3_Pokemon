@@ -1,3 +1,4 @@
+#pragma once
 #include "Bag.h"
 #include "MyObject.h"
 #include "cocos2d.h"
@@ -14,8 +15,5 @@ public:
 	void walkRight();
 	void walkUp();
 	void walkDown();
-	Sprite* GetSprite();
-private:
-	Sprite* m_sprite;
 };
 

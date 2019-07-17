@@ -34,6 +34,7 @@ void Item::SetName(string name)
 	this->name = name;
 }
 
+
 int Item::GetNumber()
 {
 	return this->Number;
@@ -43,3 +44,4 @@ void Item::SetNumber(int index)
 {
 	this->Number = index;
 }
+
