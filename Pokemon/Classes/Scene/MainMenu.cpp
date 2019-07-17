@@ -40,7 +40,8 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			// replay scene
+			/*UICustom::Popup *popup = UICustom::Popup::createShop();
+			this->addChild(popup);*/
 		}
 	});
 
@@ -53,9 +54,11 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			UICustom::Popup *popup = UICustom::Popup::createSetting("Setting","Sound:               \nMusic:              ",NULL);
-			popup->setScale(0.5);
-			this->addChild(popup);
+			if (type == Widget::TouchEventType::ENDED)
+			{
+				UICustom::Popup *popup = UICustom::Popup::createSetting();
+				this->addChild(popup);
+			}
 		}
 	});
 	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(5);
@@ -67,11 +70,7 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			UICustom::Popup *popup = UICustom::Popup::createAsConfirmDialogue("About", "This game is created by TNVD team \nSummer internship 2019", [=]() 
-			{
-				log("Ok is pressed");
-			});
-			popup->setScale(0.5);
+			UICustom::Popup *popup = UICustom::Popup::createAbout();
 			this->addChild(popup);
 		}
 	});
