@@ -366,6 +366,13 @@
     <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
       <Filter>src\Item\Revival</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
+=======
     <ClCompile Include="..\Classes\Map\Lake.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -377,6 +384,7 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Map\House.cpp">
       <Filter>src</Filter>
+>>>>>>> master
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -710,6 +718,11 @@
     <ClInclude Include="..\Classes\Item\Revival\MaxRevive.h">
       <Filter>src\Item\Revival</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MyBag.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\BuyItem.h">
+      <Filter>src\Scene</Filter>
     <ClInclude Include="..\Classes\Map\Lake.h">
       <Filter>src</Filter>
     </ClInclude>

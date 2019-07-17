@@ -5,6 +5,7 @@ MaxPotion::MaxPotion()
 	this->Init(107);
 	this->name = "Posion";
 	this->gold = 25;
+	this->Number = 0;
 }
 
 MaxPotion::~MaxPotion()

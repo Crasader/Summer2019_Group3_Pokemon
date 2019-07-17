@@ -5,6 +5,8 @@ Potion::Potion()
 	this->Init(106);
 	this->name = "Posion";
 	this->gold = 5;
+	this->Number = 0;
+
 }
 
 Potion::~Potion()

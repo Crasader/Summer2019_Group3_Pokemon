@@ -35,14 +35,12 @@ namespace UICustom
 	class Popup : public PopupDelegates
 	{
 	public:
-		static Popup* createAsMessage(const std::string &title, const std::string &msg);
-		static Popup* createAsConfirmDialogue(const std::string &title, const std::string &msg, const std::function<void()> &YesFunc);
-		static Popup* create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc);
-		static Popup* createSetting(const std::string &title, const std::string &msg, cocos2d::Label *lbl);
+		static Popup* createAbout();
+		static Popup* createSetting();
+		static Popup* createShop();
 	private:
-		void initBg(const cocos2d::Size size, const std::string &title);
+		void initBg(const cocos2d::Size size);
 	};
-
 }
 
 #endif /* Popup_h */

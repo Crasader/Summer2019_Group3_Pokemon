@@ -15,8 +15,12 @@ public:
 	vector<Pokemon*> GetListPokemonOver();
 	vector<Item*> GetListItem();
 	void AddPokemon(Pokemon* pokemon);
+	void SetGold(int gold);
+	int GetGold();
+	void AddItem(Item* item);
 private:
 	static Bag* s_bag;
 	vector<Pokemon*> m_pokemons, m_pokemons_over;
 	vector<Item*> m_items;
+	int my_gold;
 };

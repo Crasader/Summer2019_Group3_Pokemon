@@ -5,6 +5,7 @@ SuperPotion::SuperPotion()
 	this->Init(107);
 	this->name = "Posion";
 	this->gold = 10;
+	this->Number = 0;
 }
 
 SuperPotion::~SuperPotion()
