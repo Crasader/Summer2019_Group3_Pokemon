@@ -125,6 +125,8 @@ bool Town::init()
 bool Town::onContactBegin(PhysicsContact& contact)
 
 {
+
+
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 

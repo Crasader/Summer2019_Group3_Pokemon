@@ -134,6 +134,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
@@ -246,3 +247,4 @@ void Route1::update(float dt) {
 	updateCamera();
 	Buttons::GetIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
 }
+
