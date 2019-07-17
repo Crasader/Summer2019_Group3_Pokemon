@@ -231,6 +231,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
     <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\PokemonCenter.cpp" />
+    <ClCompile Include="..\Classes\Route1.cpp" />
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp" />
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp" />
     <ClCompile Include="..\Classes\Trainer.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
@@ -347,6 +351,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
     <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\PokemonCenter.h" />
+    <ClInclude Include="..\Classes\Route1.h" />
+    <ClInclude Include="..\Classes\Scene\BuyItem.h" />
+    <ClInclude Include="..\Classes\Scene\MyBag.h" />
     <ClInclude Include="..\Classes\Trainer.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Scene\MainMenu.h" />

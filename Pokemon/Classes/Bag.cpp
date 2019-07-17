@@ -1,9 +1,12 @@
 #include "Bag.h"
 #include "Trainer.h"
-
+#include "Item\HP\Potion.h"
 Bag::Bag()
 {
 	this->Init();
+	this->my_gold = 100;
+	Item* potion = new Potion();
+	this->m_items.push_back(potion);
 }
 Bag::~Bag()
 {
@@ -42,6 +45,7 @@ vector<Item*> Bag::GetListItem()
 	return this->m_items;
 }
 
+
 void Bag::AddPokemon(Pokemon* pokemon)
 {
 	if (this->m_pokemons.size() < 6)
@@ -52,5 +56,20 @@ void Bag::AddPokemon(Pokemon* pokemon)
 	{
 		this->m_pokemons_over.push_back(pokemon);
 	}
+}
+
+void Bag::SetGold(int gold)
+{
+	this->my_gold = gold;
+}
+
+int Bag::GetGold()
+{
+	return this->my_gold;
+}
+
+void Bag::AddItem(Item * item)
+{
+	this->m_items.push_back(item);
 }
 
