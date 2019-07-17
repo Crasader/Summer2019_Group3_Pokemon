@@ -26,7 +26,7 @@ void Trainer::Init(cocos2d::Layer* layer)
 
 void Trainer::walkLeft()
 {
-	auto moveLeft = MoveBy::create(1.125f, Vec2(-100, 0));
+	auto moveLeft = MoveBy::create(1.125f, Vec2(-75, 0));
 	auto animateLeft = ResourceManager::GetInstance()->GetAnimateById(92);
 	auto spawn = Spawn::create(animateLeft, moveLeft, nullptr);
 	auto repeat = RepeatForever::create(spawn);
@@ -36,7 +36,7 @@ void Trainer::walkLeft()
 
 void Trainer::walkRight()
 {
-	auto moveRight = MoveBy::create(1.125f, Vec2(100, 0));
+	auto moveRight = MoveBy::create(1.125f, Vec2(75, 0));
 	auto animateRight = ResourceManager::GetInstance()->GetAnimateById(93);
 	auto spawn = Spawn::create(animateRight, moveRight, nullptr);
 	auto repeat = RepeatForever::create(spawn);
@@ -47,7 +47,7 @@ void Trainer::walkRight()
 void Trainer::walkUp()
 {
 	//this->m_spriteFront->setPosition(Vec2(this->m_spriteFront->getPosition().x, this->m_spriteFront->getPosition().y + 1));
-	auto moveUp = MoveBy::create(1.125f, Vec2(0, 100));
+	auto moveUp = MoveBy::create(1.125f, Vec2(0, 75));
 	auto animateUp = ResourceManager::GetInstance()->GetAnimateById(90);
 	auto spawn = Spawn::create(animateUp,moveUp, nullptr);
 	auto repeat = RepeatForever::create(spawn);
@@ -57,7 +57,7 @@ void Trainer::walkUp()
 
 void Trainer::walkDown()
 {
-	auto moveDown = MoveBy::create(1.125f, Vec2(0, -100));
+	auto moveDown = MoveBy::create(1.125f, Vec2(0, -75));
 	auto animateDown = ResourceManager::GetInstance()->GetAnimateById(91);
 	auto spawn = Spawn::create(animateDown, moveDown, nullptr);
 	auto repeat = RepeatForever::create(spawn);

@@ -1,6 +1,7 @@
 #include "Scene\MainMenu.h"
 #include "ResourceManager.h"
 #include "NPC\LakeNPC.h"
+#include "Map\House.h"
 //#include "Scene\About.h"
 #include "Popup.h"
 
@@ -40,7 +41,8 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			// replay scene
+			Director::getInstance()->getRunningScene()->pause();
+			Director::getInstance()->replaceScene(House::createScene());
 		}
 	});
 
