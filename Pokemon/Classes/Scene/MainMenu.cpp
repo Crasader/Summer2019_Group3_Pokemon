@@ -2,6 +2,7 @@
 #include "MainMenu.h"
 #include "ResourceManager.h"
 #include "Map\House.h"
+#include "NPC\LakeNPC.h"
 #include "Popup.h"
 
 
