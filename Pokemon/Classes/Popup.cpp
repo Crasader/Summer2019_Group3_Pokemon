@@ -71,7 +71,7 @@ namespace UICustom
 	{
 		if (animated)
 		{
-			//this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(), NULL));
+			this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(), NULL));
 		}
 		else
 		{
