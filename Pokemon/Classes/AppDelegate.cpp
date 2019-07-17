@@ -6,6 +6,7 @@
 #include "Map\PokemonCenter.h"
 #include "Map\Lake.h"
 #include "Scene\Loading.h"
+#include "Map\House.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -103,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = Lake::createScene();
-	auto scene = HelloWorld::createScene();
+	auto scene = Lake::createScene();
 
     // run
     director->runWithScene(scene);

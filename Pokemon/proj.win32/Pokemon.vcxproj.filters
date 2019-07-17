@@ -375,6 +375,9 @@
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Map\House.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -714,6 +717,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Map\PokemonCenter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\House.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
