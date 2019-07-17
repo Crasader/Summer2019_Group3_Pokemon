@@ -114,6 +114,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 

@@ -106,6 +106,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 0;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 

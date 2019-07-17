@@ -14,7 +14,7 @@ Size TowntileMapSize;
 
 PhysicsBody* Townbody, *TowngateWay;
 Camera *Towncamera;
-
+int Town::previousScene = 0;
 
 
 Scene* Town::createScene()
@@ -26,6 +26,7 @@ Scene* Town::createScene()
 	Towncamera = scene->getDefaultCamera();
 	return scene;
 }
+
 
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
@@ -148,16 +149,20 @@ void Town::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == 1) {
-			mPlayer = new Trainer(this);
-			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			Townbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Townbody->setCollisionBitmask(15);
-			Townbody->setMass(14);
-			Townbody->setContactTestBitmask(true);
-			Townbody->setDynamic(true);
-			Townbody->setRotationEnable(false);
-			Townbody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(Townbody);
+			int preScene = object.asValueMap().at("pre").asInt();
+			if (preScene == previousScene) {
+				mPlayer = new Trainer(this);
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				Townbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				Townbody->setCollisionBitmask(15);
+				Townbody->setMass(14);
+				Townbody->setContactTestBitmask(true);
+				Townbody->setDynamic(true);
+				Townbody->setRotationEnable(false);
+				Townbody->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(Townbody);
+			}
+			else continue;
 		}
 		else if (type == 2)
 		{

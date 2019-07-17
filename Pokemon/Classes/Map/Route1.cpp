@@ -116,6 +116,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15

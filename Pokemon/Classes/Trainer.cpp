@@ -19,7 +19,7 @@ void Trainer::Init(cocos2d::Layer* layer)
 {
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(102);
 	this->m_spriteFront->removeFromParent();
-	this->m_spriteFront->setScale(2);
+	this->m_spriteFront->setScale(1.5f);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	layer->addChild(this->m_spriteFront, 10);
 }
