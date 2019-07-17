@@ -1,13 +1,10 @@
-#ifndef __ROUTE1_H__
-#define __ROUTE1_H__
-
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"
 #include <math.h>
 using namespace cocos2d;
 using namespace std;
-class Route1 : public cocos2d::Layer
+class Town : public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
@@ -20,9 +17,7 @@ public:
 	void InitObject();
 	void updateCamera();
 	//void CreateButon();
-	CREATE_FUNC(Route1);
+	CREATE_FUNC(Town);
 	//void createPhysics();
 	void update(float);
 };
-
-#endif

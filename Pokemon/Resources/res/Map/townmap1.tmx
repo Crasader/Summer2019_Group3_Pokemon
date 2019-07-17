@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="3">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="8">
  <tileset firstgid="1" source="terrain_atlas.tsx"/>
  <tileset firstgid="1025" source="mapmario.tsx"/>
  <tileset firstgid="2049" source="HelloWorld.tsx"/>
  <tileset firstgid="2901" source="base_out_atlas.tsx"/>
  <tileset firstgid="3925" source="3736.tsx"/>
+ <tileset firstgid="4177" source="innenraumx.tsx"/>
  <layer id="1" name="Tile Layer 1" width="24" height="12">
   <data encoding="csv">
 184,184,184,184,184,184,184,184,184,184,184,184,39,39,184,184,184,184,184,184,184,184,184,184,
@@ -101,4 +102,34 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="9" name="physics" width="24" height="12">
+  <data encoding="csv">
+4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,0,0,4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,
+4224,4224,0,0,0,0,0,0,0,4224,0,0,0,0,0,0,4224,0,0,0,0,4224,0,4224,
+4224,0,4224,4224,4224,0,0,4224,4224,0,0,4224,0,0,0,0,0,4224,4224,4224,4224,0,0,4224,
+4224,0,4224,0,4224,0,0,4224,4224,0,0,0,0,0,4224,0,0,4224,4224,4224,4224,0,0,4224,
+4224,0,4224,0,4224,0,0,4224,4224,0,0,4224,0,0,0,0,0,4224,0,4224,4224,0,0,4224,
+4224,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4224,
+4224,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4224,
+4224,0,0,0,0,0,4224,0,0,0,4224,4224,4224,4224,4224,4224,0,0,0,0,0,0,0,4224,
+4224,0,0,0,0,0,0,0,0,0,4224,0,0,0,4224,0,0,0,4224,4224,4224,4224,0,4224,
+4224,0,0,0,0,0,0,0,0,0,4224,0,0,0,4224,0,4224,0,4224,4224,4224,0,0,4224,
+4224,4224,0,0,0,0,0,0,0,0,4224,0,0,0,4224,0,0,0,0,0,0,0,0,4224,
+4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,4224,0,0,0,4224,4224,4224,4224,4224,4224,4224,4224,4224,4224
+</data>
+ </layer>
+ <objectgroup id="10" name="Object">
+  <object id="3" type="1" x="107" y="223">
+   <point/>
+  </object>
+  <object id="5" type="3" x="592" y="158">
+   <point/>
+  </object>
+  <object id="6" type="2" x="106" y="164">
+   <point/>
+  </object>
+  <object id="7" type="4" x="416" y="22">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
