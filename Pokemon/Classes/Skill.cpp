@@ -99,7 +99,7 @@ void Skill::Run(Vec2 position)
 		this->m_spriteFront->setVisible(false);
 		this->m_state = true;
 	});
-	auto sequence = Sequence::create(animate, DelayTime::create(0.5), finished, nullptr);
+	auto sequence = Sequence::create(animate, finished, nullptr);
 	sequence->setTag(10);
 	this->m_spriteFront->runAction(sequence);
 }

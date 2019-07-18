@@ -33,8 +33,7 @@ void RazorLeaf::Run(Vec2 position)
 		this->m_state = true;
 	});
 	auto spawn = Spawn::create(Repeat::create(animate, 2), moveTo, nullptr);
-	auto sequence = Sequence::create(spawn, DelayTime::create(0.5), finished, nullptr);
+	auto sequence = Sequence::create(spawn, finished, nullptr);
 	sequence->setTag(10);
 	this->m_spriteFront->runAction(sequence);
 }
-

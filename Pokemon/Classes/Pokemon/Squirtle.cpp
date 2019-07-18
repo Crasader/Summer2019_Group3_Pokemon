@@ -11,6 +11,7 @@ Squirtle::Squirtle()
 	//
 	this->m_name = "Squirtle";
 	this->m_type = MyObject::TYPE_WATER;
+	this->m_skills = { new Tackle(), new Surf(), nullptr };
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;

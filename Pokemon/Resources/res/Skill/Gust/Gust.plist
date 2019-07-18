@@ -11,11 +11,71 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{32,64}</string>
+                <string>{43,44}</string>
                 <key>spriteSourceSize</key>
-                <string>{32,64}</string>
+                <string>{43,44}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{32,64}}</string>
+                <string>{{0,0},{43,44}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{47,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{47,46}</string>
+                <key>textureRect</key>
+                <string>{{43,0},{47,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{45,48}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,48}</string>
+                <key>textureRect</key>
+                <string>{{90,0},{45,48}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{48,49}</string>
+                <key>spriteSourceSize</key>
+                <string>{48,49}</string>
+                <key>textureRect</key>
+                <string>{{135,0},{48,49}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>4.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,49}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,49}</string>
+                <key>textureRect</key>
+                <string>{{183,0},{50,49}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -31,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>Gust.png</string>
             <key>size</key>
-            <string>{32,64}</string>
+            <string>{233,49}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f5922a8f081781f26b68a56378b3b560:d11889761e44bf70b85cc80756abe165:56797fdd2b907edf4dc8afc08ae5c065$</string>
+            <string>$TexturePacker:SmartUpdate:e03da18ab07fa40dfebf691f5cc96d8b:4dde49b7fdfd579b6977922f81e2e2f9:56797fdd2b907edf4dc8afc08ae5c065$</string>
             <key>textureFileName</key>
             <string>Gust.png</string>
         </dict>

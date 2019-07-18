@@ -1,6 +1,10 @@
 #include "BattleScene.h"
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Chikorita.h"
+#include "Pokemon\Squirtle.h"
+#include "Pokemon\Pikachu.h"
+#include "Pokemon\Garchomp.h"
+#include "Pokemon\Pidgey.h"
 #define scale_hpBar 0.47
 
 BattleScene::BattleScene()
@@ -396,8 +400,8 @@ void BattleScene::InitUI()
 
 void BattleScene::InitObject()
 {
-	this->m_player = new Charmander();
-	this->m_opponent = new Chikorita();
+	this->m_player = new Garchomp();
+	this->m_opponent = new Squirtle();
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
 	auto x = obj->getObject("player").at("x").asFloat();
 	auto y = obj->getObject("player").at("y").asFloat();

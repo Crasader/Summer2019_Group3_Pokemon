@@ -2,6 +2,7 @@
 
 DragonClaw::DragonClaw()
 {
+	this->Init();
 }
 
 DragonClaw::~DragonClaw()
@@ -10,6 +11,8 @@ DragonClaw::~DragonClaw()
 
 void DragonClaw::Init()
 {
+	this->AddAnimation(95);
+	this->SetScale(1.5);
 	Skill::SetName("DragonClaw");
 	Skill::SetType("Dragon");
 	Skill::SetPower(100);
@@ -17,4 +20,3 @@ void DragonClaw::Init()
 	Skill::SetIdType(7);
 	Skill::SetPP(10);
 }
-

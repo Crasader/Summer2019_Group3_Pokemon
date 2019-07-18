@@ -11,11 +11,26 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{60,76}</string>
+                <string>{16,16}</string>
                 <key>spriteSourceSize</key>
-                <string>{60,76}</string>
+                <string>{16,16}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{60,76}}</string>
+                <string>{{0,0},{16,16}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{48,48}</string>
+                <key>spriteSourceSize</key>
+                <string>{48,48}</string>
+                <key>textureRect</key>
+                <string>{{16,0},{48,48}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -31,9 +46,9 @@
             <key>realTextureFileName</key>
             <string>Scratch.png</string>
             <key>size</key>
-            <string>{60,76}</string>
+            <string>{64,48}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:415a623437c4dac71155b92050d621f4:364d16a3611ca5970e26343cbbfe4f5a:257c98532fd805c683e33618fbdd927b$</string>
+            <string>$TexturePacker:SmartUpdate:4604a986b8d138dfff5aaf6f58f5d1dc:25e6f2bb50454a1fd796d2f472f06914:257c98532fd805c683e33618fbdd927b$</string>
             <key>textureFileName</key>
             <string>Scratch.png</string>
         </dict>

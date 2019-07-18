@@ -1616,11 +1616,14 @@
       ]
     },
     "96": {
-      "size": 1,
+      "size": 4,
       "plist": "res/Skill/DragonCut/DragonCut.plist",
       "path": "res/Skill/DragonCut/DragonCut.png",
       "png": [
-        "0.png"
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
       ]
     },
     "97": {
@@ -1704,11 +1707,15 @@
       ]
     },
     "102": {
-      "size": 1,
+      "size": 5,
       "plist": "res/Skill/Gust/Gust.plist",
       "path": "res/Skill/Gust/Gust.png",
       "png": [
-        "0.png"
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png"
       ]
     },
     "103": {
@@ -1751,11 +1758,12 @@
       ]
     },
     "106": {
-      "size": 1,
+      "size": 2,
       "plist": "res/Skill/Scratch/Scratch.plist",
       "path": "res/Skill/Scratch/Scratch.png",
       "png": [
-        "0.png"
+        "0.png",
+        "1.png"
       ]
     },
     "107": {

@@ -2,6 +2,7 @@
 
 Gust::Gust()
 {
+	this->Init();
 }
 
 Gust::~Gust()
@@ -10,6 +11,8 @@ Gust::~Gust()
 
 void Gust::Init()
 {
+	this->AddAnimation(102);
+	this->SetScale(1.5);
 	Skill::SetName("Gust");
 	Skill::SetType("Flying");
 	Skill::SetPower(60);
@@ -18,3 +21,19 @@ void Gust::Init()
 	Skill::SetPP(20);
 }
 
+void Gust::Run(Vec2 position)
+{
+	this->m_spriteFront->setVisible(true);
+	auto old_position = this->m_spriteFront->getPosition();
+	auto moveTo = MoveTo::create(0.8, position);
+	auto animate = Animate::create(this->m_animation);
+	auto finished = CallFunc::create([this, old_position]() {
+		this->m_spriteFront->setPosition(old_position);
+		this->m_spriteFront->setVisible(false);
+		this->m_state = true;
+	});
+	auto spawn = Spawn::create(Repeat::create(animate, 2), moveTo, nullptr);
+	auto sequence = Sequence::create(spawn, finished, nullptr);
+	sequence->setTag(10);
+	this->m_spriteFront->runAction(sequence);
+}
