@@ -4,12 +4,13 @@
 USING_NS_CC;
 
 using namespace ui;
+vector<ui::Button*> itemEquipBox;
 
 namespace 
 {
 	cocos2d::Size CONFIRM_DIALOGUE_SIZE_OFFSET = Size(100, 150);
 	const float ANIMATION_TIME = 0.15f;
-	const float FADE_RATIO = 200;
+	const float FADE_RATIO = 150;
 }
 
 namespace FONT 
@@ -45,7 +46,7 @@ namespace UICustom
 	}
 	bool PopupDelegates::init()
 	{
-		Size winSize = Director::getInstance()->getWinSize();
+		Size winSize = Director::getInstance()->getVisibleSize();
 
 		if (!LayerRadialGradient::initWithColor(Color4B(0, 0, 0, 0), Color4B(0, 0, 0, FADE_RATIO), winSize.width / 1.7f, winSize / 2, 0.075f))
 		{
@@ -103,9 +104,8 @@ namespace UICustom
 	Popup *Popup::createAbout()
 	{
 		Popup *node = new (std::nothrow)Popup();
-		//node->setContentSize(Size(200, 200));
-		node->setScale(0.5);
-		//node->setScaleY(0.5);
+		//->setAnchorPoint(Vec2(0.5, 0.5));
+		//node->setScale(0.5);
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		if (node && node->init())
 		{
@@ -126,7 +126,7 @@ namespace UICustom
 	Popup * Popup::createSetting()
 	{
 		Popup *node = new (std::nothrow)Popup();
-		node->setScale(0.4);
+		node->setScale(0.5f);
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		if (node && node->init())
 		{
@@ -154,26 +154,13 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
-	Popup * Popup::createShop()
+	Popup *Popup::createBag()
 	{
 		Popup *node = new (std::nothrow)Popup();
 		Size visibleSize = Director::getInstance()->getVisibleSize();
 		if (node && node->init())
 		{
-			auto button = ResourceManager::GetInstance()->GetButtonById(8);
-			button->setPosition(visibleSize / 2);
-			button->removeFromParent();
-			node->addChild(button,5);
-			button->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED)
-				{
-					/*Bag::GetInstance()->GetListItem().at(0)->SetNumber(Bag::GetInstance()->GetListItem().at(0)->GetNumber()+1);						
-					int index = Bag::GetInstance()->GetListItem().at(0)->GetNumber();
-					log("%d", index);*/					
-				}
-			});
-			node->autorelease();
+
 			return node;
 		}
 		CC_SAFE_DELETE(node);

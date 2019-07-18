@@ -37,7 +37,7 @@ namespace UICustom
 	public:
 		static Popup* createAbout();
 		static Popup* createSetting();
-		static Popup* createShop();
+		static Popup* createBag();
 	private:
 		void initBg(const cocos2d::Size size);
 	};

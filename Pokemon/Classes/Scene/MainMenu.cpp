@@ -1,9 +1,8 @@
 #include "Scene\MainMenu.h"
 #include "ResourceManager.h"
 #include "NPC\LakeNPC.h"
-//#include "Scene\About.h"
 #include "Popup.h"
-
+#include "Map\House.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -40,8 +39,8 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			/*UICustom::Popup *popup = UICustom::Popup::createShop();
-			this->addChild(popup);*/
+			Director::getInstance()->getRunningScene()->pause();
+			Director::getInstance()->replaceScene(House::createScene());
 		}
 	});
 

@@ -3,7 +3,9 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-#include"PokemonCenter.h"
+#include "PokemonCenter.h"
+#include "Popup.h"
+
 USING_NS_CC;
 
 Size HousevisibleSize;
@@ -38,11 +40,11 @@ bool House::init()
 	HousevisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
-	HousetileMapSize = map->getContentSize();
-	addChild(map);
+	auto tilemap = TMXTiledMap::create("res/Map/untitled.tmx");
+	HousetileMapSize = tilemap->getContentSize();
+	addChild(tilemap);
 
-	auto mPhysicsLayer = map->getLayer("physics");
+	auto mPhysicsLayer = tilemap->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
 	{
@@ -68,6 +70,7 @@ bool House::init()
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
 	Button *down = Buttons::getIntance()->GetButtonDown();
+	Button *bag = Buttons::getIntance()->GetButtonBag();
 	up->retain();
 	up->removeFromParent();
 	up->release();
@@ -80,14 +83,24 @@ bool House::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+	bag->retain();
+	bag->removeFromParent();
+	bag->release();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	addChild(bag, 100);
 
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
-
+	Buttons::getIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -114,8 +127,8 @@ bool House::onContactBegin(PhysicsContact & contact)
 
 void House::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
-	auto m_objectGroup = map->getObjectGroup("Object");
+	auto tilemap = TMXTiledMap::create("res/Map/untitled.tmx");
+	auto m_objectGroup = tilemap->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
 		auto object = objects.at(i);

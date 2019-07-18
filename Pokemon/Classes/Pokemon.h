@@ -16,6 +16,7 @@ protected:
 	int m_attackSpeed;
 	int m_currentExp;
 	int m_maxExp;
+	int m_id;
 public:
 	Pokemon();
 	~Pokemon();
@@ -25,6 +26,7 @@ public:
 
 	virtual Pokemon* Evolve();
 
+	int GetID();
 	void LevelUp();
 	string GetName();
 	void SetName(string name);

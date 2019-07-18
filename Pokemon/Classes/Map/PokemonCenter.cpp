@@ -87,6 +87,11 @@ bool PokemonCenter::init()
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	Button *bag = Buttons::getIntance()->GetButtonBag();
+	bag->retain();
+	bag->removeFromParent();
+	bag->release();
+	addChild(bag, 100);
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
 

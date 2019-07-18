@@ -34,6 +34,9 @@
     <Filter Include="src\Item\Revival">
       <UniqueIdentifier>{973b7caa-c720-4680-8a3b-a46aade7fce9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Map">
+      <UniqueIdentifier>{5424dd5a-a71d-4f24-b227-f859bd7ac15e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -366,25 +369,17 @@
     <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
       <Filter>src\Item\Revival</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
-      <Filter>src\Scene</Filter>
+    <ClCompile Include="..\Classes\Map\House.cpp">
+      <Filter>src\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
-      <Filter>src\Scene</Filter>
-=======
     <ClCompile Include="..\Classes\Map\Lake.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Route1.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Map</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Map\House.cpp">
-      <Filter>src</Filter>
->>>>>>> master
+    <ClCompile Include="..\Classes\Map\Route1.cpp">
+      <Filter>src\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -718,22 +713,17 @@
     <ClInclude Include="..\Classes\Item\Revival\MaxRevive.h">
       <Filter>src\Item\Revival</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\MyBag.h">
-      <Filter>src\Scene</Filter>
+    <ClInclude Include="..\Classes\Map\House.h">
+      <Filter>src\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BuyItem.h">
-      <Filter>src\Scene</Filter>
     <ClInclude Include="..\Classes\Map\Lake.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Route1.h">
-      <Filter>src</Filter>
+      <Filter>src\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Map\PokemonCenter.h">
-      <Filter>src</Filter>
+      <Filter>src\Map</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Map\House.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\Map\Route1.h">
+      <Filter>src\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

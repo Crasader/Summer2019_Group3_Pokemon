@@ -124,7 +124,7 @@
     "116": "res/Item/10.png"
   },
   "BUTTON": {
-    "size": 10,
+    "size": 11,
     "0": {
       "normal": "res/Button/button_a.png",
       "pressed": "res/Button/button_a_press.png"
@@ -164,6 +164,10 @@
     "9": {
       "normal": "res/Button/ButtonExit.png",
       "pressed": "res/Button/ButtonExit.png"
+    },
+    "10": {
+      "normal": "res/Button/0.png",
+      "pressed": "res/Button/0.png"
     }
   },
   "ANIMATE": {

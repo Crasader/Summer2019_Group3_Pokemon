@@ -13,6 +13,7 @@ Charmeleon::Charmeleon(Charmander * it)
 {
 	this->Init(6, 7);
 	//
+	this->m_id = 3;
 	this->m_name = "Charmeleon";
 	this->m_level = it->GetLevel();
 	this->m_maxHealth = it->GetMaxHP() + 15;

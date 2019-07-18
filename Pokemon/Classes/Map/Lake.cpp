@@ -5,6 +5,10 @@
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include "House.h"
+#include "Popup.h"
+
+
+ui::Layout* equipment;
 
 USING_NS_CC;
 Size LakevisibleSize;
@@ -76,6 +80,7 @@ bool Lake::init()
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
 	Button *down = Buttons::getIntance()->GetButtonDown();
+	Button *bag = Buttons::getIntance()->GetButtonBag();
 	up->retain();
 	up->removeFromParent();
 	up->release();
@@ -88,11 +93,28 @@ bool Lake::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+	bag->retain();
+	bag->removeFromParent();
+	bag->release();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	addChild(bag, 100);
 
+	Buttons::getIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+
+			UICustom::Popup *popup = UICustom::Popup::createBag();
+			popup->setAnchorPoint(Vec2(0.f,0.f));
+			popup->setScale(0.5f);
+			popup->setPosition(Vec2(Lakecamera->getPositionX()-popup->getContentSize().width/4, 
+				Lakecamera->getPositionY() - popup->getContentSize().height / 4));
+			this->addChild(popup);
+		}
+	});
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
 	

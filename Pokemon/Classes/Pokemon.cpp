@@ -44,6 +44,11 @@ Pokemon * Pokemon::Evolve()
 	return nullptr;
 }
 
+int Pokemon::GetID()
+{
+	return this->m_id;
+}
+
 void Pokemon::LevelUp()
 {
 	this->m_level += 1;
@@ -103,7 +108,10 @@ int Pokemon::GetLevel()
 
 void Pokemon::SetLevel(int level)
 {
-	this->m_level = level;
+	for (int i = this->m_level; i < level; i++)
+	{
+		this->LevelUp();
+	}
 }
 
 int Pokemon::GetAtk()
