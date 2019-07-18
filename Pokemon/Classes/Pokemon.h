@@ -16,7 +16,7 @@ using namespace std;
 class Pokemon : public MyObject
 {
 private:
-	float RandomFloat(float a, float b);
+	float RandomFloatNumber(float a, float b);
 protected:
 	string m_name;
 	Animation* animationFront;

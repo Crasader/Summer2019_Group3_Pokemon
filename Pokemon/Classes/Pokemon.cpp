@@ -3,7 +3,7 @@
 #define length 3
 
 
-float Pokemon::RandomFloat(float a, float b)
+float Pokemon::RandomFloatNumber(float a, float b)
 {
 	float random = ((float)rand()) / (float)RAND_MAX;
 	float diff = b - a;
@@ -290,8 +290,8 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 					type = 2;
 				}
 			}
-			float crit = this->RandomFloat(1, 1.5);
-			float randomm = this->RandomFloat(1, 1.25);
+			float crit = this->RandomFloatNumber(1, 1.5);
+			float randomm = this->RandomFloatNumber(1, 1.25);
 			int damage = ((2 * skill->GetPower() * this->m_attack / target->GetDef()) / 7 + 2) * type * crit * randomm;
 			if (damage >= target->GetCurrentHP())
 			{

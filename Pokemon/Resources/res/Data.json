@@ -4,7 +4,7 @@
     "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 133,
+    "size": 148,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -141,10 +141,27 @@
 
     "130": "res/UI/Button/menu3.png",
     "131": "res/Battle/hp.png",
-    "132": "res/Battle/battle_background.png"
+    "132": "res/Battle/battle_background.png",
+
+    "133": "res/Background/0.jpg",
+    "134": "res/Background/1.png",
+    "135": "res/UI/LoadingBar/0.png",
+    "136": "res/UI/LoadingBar/1.png",
+
+    "137": "res/Item/0.png",
+    "138": "res/Item/1.png",
+    "139": "res/Item/2.png",
+    "140": "res/Item/3.png",
+    "141": "res/Item/4.png",
+    "142": "res/Item/5.png",
+    "143": "res/Item/6.png",
+    "144": "res/Item/7.png",
+    "145": "res/Item/8.png",
+    "146": "res/Item/9.png",
+    "147": "res/Item/10.png"
   },
   "BUTTON": {
-    "size": 6,
+    "size": 11,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -168,6 +185,26 @@
     "5": {
       "normal": "res/UI/Button/red_button00.png",
       "pressed": "res/UI/Button/red_button01.png"
+    },
+    "6": {
+      "normal": "res/UI/Button/ButtonAbout.png",
+      "pressed": "res/UI/Button/ButtonAbout.png"
+    },
+    "7": {
+      "normal": "res/UI/Button/ButtonPlay.png",
+      "pressed": "res/UI/Button/ButtonPlay.png"
+    },
+    "8": {
+      "normal": "res/UI/Button/ButtonResume.png",
+      "pressed": "res/UI/Button/ButtonResume.png"
+    },
+    "9": {
+      "normal": "res/UI/Button/ButtonSetting.png",
+      "pressed": "res/UI/Button/ButtonSetting.png"
+    },
+    "10": {
+      "normal": "res/UI/Button/ButtonExit.png",
+      "pressed": "res/UI/Button/ButtonExit.png"
     }
   },
   "FONT": {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,11 +150,27 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\BattleScene.cpp" />
+    <ClCompile Include="..\Classes\Bag.cpp" />
+    <ClCompile Include="..\Classes\Buttons.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Item.cpp" />
+    <ClCompile Include="..\Classes\Map\House.cpp" />
+    <ClCompile Include="..\Classes\Map\Lab.cpp" />
+    <ClCompile Include="..\Classes\Map\Lake.cpp" />
+    <ClCompile Include="..\Classes\Map\PokemonCenter.cpp" />
+    <ClCompile Include="..\Classes\Map\Route1.cpp" />
+    <ClCompile Include="..\Classes\Map\Town.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\ChampionNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\CityNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\LakeNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\RouteNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\Pokemon.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Beautifly.cpp" />
@@ -201,7 +217,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Voltorb.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
+    <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
+    <ClCompile Include="..\Classes\Scene\BattleScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp" />
+    <ClCompile Include="..\Classes\Scene\Loading.cpp" />
+    <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
     <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
@@ -231,15 +253,32 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Skill\WaterGun.cpp" />
     <ClCompile Include="..\Classes\Skill\WaterPulse.cpp" />
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp" />
+    <ClCompile Include="..\Classes\Trainer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\BattleScene.h" />
+    <ClInclude Include="..\Classes\Bag.h" />
+    <ClInclude Include="..\Classes\Buttons.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Item.h" />
+    <ClInclude Include="..\Classes\Map\House.h" />
+    <ClInclude Include="..\Classes\Map\Lab.h" />
+    <ClInclude Include="..\Classes\Map\Lake.h" />
+    <ClInclude Include="..\Classes\Map\PokemonCenter.h" />
+    <ClInclude Include="..\Classes\Map\Route1.h" />
+    <ClInclude Include="..\Classes\Map\Town.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
+    <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
+    <ClInclude Include="..\Classes\NPC\ChampionNPC.h" />
+    <ClInclude Include="..\Classes\NPC\CityNPC.h" />
+    <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h" />
+    <ClInclude Include="..\Classes\NPC\LakeNPC.h" />
+    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h" />
     <ClInclude Include="..\Classes\NPC\RouteNPC.h" />
+    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h" />
+    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\Pokemon.h" />
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h" />
     <ClInclude Include="..\Classes\Pokemon\Beautifly.h" />
@@ -286,7 +325,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Voltorb.h" />
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
+    <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
+    <ClInclude Include="..\Classes\Scene\BattleScene.h" />
+    <ClInclude Include="..\Classes\Scene\BuyItem.h" />
+    <ClInclude Include="..\Classes\Scene\Loading.h" />
+    <ClInclude Include="..\Classes\Scene\MainMenu.h" />
+    <ClInclude Include="..\Classes\Scene\MyBag.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
     <ClInclude Include="..\Classes\Skill\BlastBurn.h" />
@@ -316,6 +361,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\WaterGun.h" />
     <ClInclude Include="..\Classes\Skill\WaterPulse.h" />
     <ClInclude Include="..\Classes\Skill\WingAttack.h" />
+    <ClInclude Include="..\Classes\Trainer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
