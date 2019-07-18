@@ -72,6 +72,32 @@ bool Town::init()
 		}
 	}
 
+	auto grass = map->getLayer("grass");
+	int count = 0;
+	Size layerSize2 = grass->getLayerSize();
+	for (int i = 0; i < layerSize.width; i++)
+	{
+		for (int j = 0; j < layerSize2.height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				if (count < 3) {
+					int rand = random()%4;
+					if (!rand) {
+						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+						pokemon->setCollisionBitmask(12);
+						pokemon->setContactTestBitmask(true);
+						pokemon->setDynamic(false);
+						pokemon->setGravityEnable(false);
+						tilePokemon->setPhysicsBody(pokemon);
+						count++;
+					}
+				}
+			}
+		}
+	}
+
 	InitObject();
 
 
@@ -110,7 +136,6 @@ bool Town::init()
 bool Town::onContactBegin(PhysicsContact& contact)
 
 {
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
@@ -131,6 +156,15 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	{
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+	}
+	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
+		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
+	{
+		int idPokemon = random();	
+		//new Pokemon with id
+		//chuyen scene chien dau
+		CCLOG("Has Pokemon");
+
 	}
 
 	return true;

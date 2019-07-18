@@ -5,6 +5,7 @@
 #include "Scene\MainMenu.h"
 #include "Map\PokemonCenter.h"
 #include "Map\Lake.h"
+#include "Map\Town.h"
 #include "Scene\Loading.h"
 #include "Scene\MyBag.h"
 #include "Map\House.h"
@@ -105,7 +106,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = Lake::createScene();
-	auto scene = Loading::createScene();
+	auto scene = Town::createScene();
 
     // run
     director->runWithScene(scene);

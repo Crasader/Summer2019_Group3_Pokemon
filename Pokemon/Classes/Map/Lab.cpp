@@ -47,6 +47,8 @@ bool Lab::init()
 	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
 	LabtileMapSize = map->getContentSize();
 	addChild(map);
+	auto homeTS = TMXTiledMap::create("res/Map/TienSiHome.tmx");
+	addChild(homeTS, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();

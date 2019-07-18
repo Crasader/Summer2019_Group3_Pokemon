@@ -70,6 +70,32 @@ bool Route1::init()
 		}
 	}
 
+	auto grass = map->getLayer("co");
+	int count = 0;
+	Size layerSize2 = grass->getLayerSize();
+	for (int i = 0; i < layerSize.width; i++)
+	{
+		for (int j = 0; j < layerSize2.height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				if (count < 5) {
+					int rand = random() % 4;
+					if (!rand) {
+						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+						pokemon->setCollisionBitmask(12);
+						pokemon->setContactTestBitmask(true);
+						pokemon->setDynamic(false);
+						pokemon->setGravityEnable(false);
+						tilePokemon->setPhysicsBody(pokemon);
+						count++;
+					}
+				}
+			}
+		}
+	}
+
 	InitObject();
 
 

@@ -18,6 +18,7 @@ private:
 
 public:
 	~Buttons();
+	static int state;
 	static Buttons* getIntance();
 	void ButtonListener(Trainer *&mPlayer);
 	Button *GetButtonUp();
@@ -26,4 +27,3 @@ public:
 	Button *GetButtonDown();
 	void UpdateButton(float x, float y);
 };
-
