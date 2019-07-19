@@ -1,7 +1,5 @@
 #include "House.h"
 #include "ResourceManager.h"
-#include "SimpleAudioEngine.h"
-#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Map/PokemonCenter.h"
 #include "Town.h"
@@ -97,6 +95,9 @@ bool House::onContactBegin(PhysicsContact & contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 0;
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;
@@ -190,13 +191,6 @@ void House::updateCamera()
 
 void House::update(float dt)
 {
-	if (mGateWay->getBoundingBox().intersectsRect(mPlayer->GetSpriteFront()->getBoundingBox()) && Buttons::state == 0)
-	{
-		this->unscheduleUpdate();
-		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 0;
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
-	}
 	updateCamera();
 	Buttons::GetIntance()->UpdateButton(Housecamera->getPosition().x - 200, Housecamera->getPosition().y - 100);
 }

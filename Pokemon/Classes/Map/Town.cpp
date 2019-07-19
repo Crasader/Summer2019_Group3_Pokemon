@@ -1,12 +1,11 @@
 
 #include "Town.h"
 #include "ResourceManager.h"
-#include "SimpleAudioEngine.h"
-#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Lab.h"
 #include "Route1.h"
 #include "House.h"
+#include <stdlib.h>
 
 USING_NS_CC;
 Size TownvisibleSize;
@@ -83,8 +82,8 @@ bool Town::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 3) {
-					int rand = random()%4;
-					if (!rand) {
+					int random = rand()%4;
+					if (!random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -152,7 +151,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		int idPokemon = random();	
+		//int idPokemon = rand();	
 		//new Pokemon with id
 		//chuyen scene chien dau
 		CCLOG("Has Pokemon");
