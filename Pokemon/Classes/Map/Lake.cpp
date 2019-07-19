@@ -107,12 +107,21 @@ bool Lake::init()
 		if (type == Widget::TouchEventType::ENDED)
 		{
 
-			UICustom::Popup *popup = UICustom::Popup::createBag();
+			/*UICustom::Popup *popup = UICustom::Popup::createBag();
 			popup->setAnchorPoint(Vec2(0.f,0.f));
 			popup->setScale(0.5f);
 			popup->setPosition(Vec2(Lakecamera->getPositionX()-popup->getContentSize().width/4, 
 				Lakecamera->getPositionY() - popup->getContentSize().height / 4));
-			this->addChild(popup);
+			this->addChild(popup);*/
+			equipment = ui::Layout::create();
+			equipment->setAnchorPoint(Vec2(0.5, 0.5));
+
+			equipment->setContentSize(Size(194, 128));
+			equipment->setPosition(Lakecamera->getPosition());
+			equipment->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+			equipment->setBackGroundColor(Color3B::GREEN);
+			equipment->setVisible(true);
+			addChild(equipment, 101);
 		}
 	});
 
