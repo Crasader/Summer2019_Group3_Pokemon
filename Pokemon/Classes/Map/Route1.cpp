@@ -4,6 +4,7 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
+
 #include "Town.h"
 
 USING_NS_CC;
@@ -152,7 +153,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;

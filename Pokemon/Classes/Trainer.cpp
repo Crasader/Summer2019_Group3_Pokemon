@@ -2,6 +2,8 @@
 #include "ResourceManager.h"
 #include "Pokemon\Squirtle.h"
 
+list<Pokemon*> Trainer::m_Pokemons;
+
 Trainer::Trainer()
 {
 }
@@ -22,6 +24,11 @@ void Trainer::Init(cocos2d::Layer* layer)
 	this->m_spriteFront->setScale(1.5f);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	layer->addChild(this->m_spriteFront, 10);
+}
+
+void Trainer::AddPokemon(Pokemon *pokemon)
+{
+	Trainer::m_Pokemons.push_back(pokemon);
 }
 
 void Trainer::walkLeft()

@@ -100,7 +100,6 @@ bool Town::init()
 
 	InitObject();
 
-
 	Button *up = Buttons::getIntance()->GetButtonUp();
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
@@ -121,7 +120,6 @@ bool Town::init()
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
 
@@ -160,8 +158,11 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		int idPokemon = random();	
-		//new Pokemon with id
+		if (Trainer::m_Pokemons.size() == 0) {
+			CCLOG("No Pokemon in the bag");
+		}
+		int idPokemon = random()%3;	
+		
 		//chuyen scene chien dau
 		CCLOG("Has Pokemon");
 
