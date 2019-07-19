@@ -5,7 +5,6 @@
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include "Town.h"
-#include "Lake.h"
 
 USING_NS_CC;
 Size Route1visibleSize;
@@ -153,7 +152,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
 
 	return true;

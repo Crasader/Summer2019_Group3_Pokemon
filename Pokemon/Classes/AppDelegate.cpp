@@ -106,11 +106,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = Lake::createScene();
-<<<<<<< HEAD
-	auto scene = Lake::createScene();
-=======
-	auto scene = Town::createScene();
->>>>>>> Vuong
+
+	auto scene = House::createScene();
 
     // run
     director->runWithScene(scene);
