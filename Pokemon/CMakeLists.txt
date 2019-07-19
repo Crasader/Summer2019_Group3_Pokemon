@@ -157,8 +157,8 @@ list(APPEND GAME_SOURCE
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
      Classes/HelloWorldScene.h
-     Classes/Bag.h 
-    Classes/Buttons.h
+     Classes/Bag.h
+     Classes/Buttons.h
     Classes/Item.h 
     Classes/Map/House.h 
     Classes/Map/Lab.h 
@@ -259,7 +259,7 @@ list(APPEND GAME_HEADER
     Classes/Skill/WaterGun.h 
     Classes/Skill/WaterPulse.h 
     Classes/Skill/WingAttack.h 
-    Classes/Trainer.h 
+    Classes/Trainer.h
      )
 
 if(ANDROID)
