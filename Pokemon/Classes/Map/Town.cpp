@@ -106,6 +106,7 @@ bool Town::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
+
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);

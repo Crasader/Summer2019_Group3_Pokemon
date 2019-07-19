@@ -3,8 +3,8 @@
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
+
 #include "Town.h"
-#include "Lake.h"
 
 USING_NS_CC;
 Size Route1visibleSize;
@@ -138,7 +138,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;

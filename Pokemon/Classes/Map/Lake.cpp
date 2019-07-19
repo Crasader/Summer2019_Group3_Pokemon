@@ -45,7 +45,7 @@ bool Lake::init()
 	LakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
+	auto map = TMXTiledMap::create("res/Map/lake.tmx");
 	LaketileMapSize = map->getContentSize();
 	addChild(map);
 
