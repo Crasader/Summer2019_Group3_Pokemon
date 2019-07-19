@@ -1,6 +1,8 @@
 
 #include "PokemonCenter.h"
 #include "ResourceManager.h"
+#include "SimpleAudioEngine.h"
+#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Lake.h"
 

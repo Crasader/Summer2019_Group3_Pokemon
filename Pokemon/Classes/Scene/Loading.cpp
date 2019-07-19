@@ -1,5 +1,5 @@
-#include "Scene\Loading.h"
-#include "Scene\MainMenu.h"
+#include "Loading.h"
+#include "MainMenu.h"
 #include "ResourceManager.h"
 
 using namespace cocos2d;

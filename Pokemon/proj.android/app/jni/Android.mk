@@ -111,7 +111,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
     $(LOCAL_PATH)/../../../Classes/Skill/WaterGun.cpp \
     $(LOCAL_PATH)/../../../Classes/Skill/WaterPulse.cpp \
     $(LOCAL_PATH)/../../../Classes/Skill/WingAttack.cpp \
-    $(LOCAL_PATH)/../../../Classes/Trainer.cpp
+    $(LOCAL_PATH)/../../../Classes/Trainer.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes
 

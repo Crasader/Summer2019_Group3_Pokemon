@@ -1,4 +1,5 @@
 #include "BattleScene.h"
+#include "Map\Town.h"
 #include "Pokemon\Charmander.h"
 #include "Pokemon\Chikorita.h"
 #include "Pokemon\Squirtle.h"
@@ -118,6 +119,8 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 	{
 		this->m_labelBattleLog->setString("");
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst));
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(Town::createScene());
 	}
 }
 
@@ -171,6 +174,8 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 	{
 		this->m_labelBattleLog->setString("");
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst));
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(Town::createScene());
 	}
 }
 
@@ -400,8 +405,17 @@ void BattleScene::InitUI()
 
 void BattleScene::InitObject()
 {
-	this->m_player = new Garchomp();
-	this->m_opponent = new Squirtle();
+	int _random = rand() % 2 + 1;
+	if (_random == 1)
+	{
+		this->m_player = new Pikachu();
+		this->m_opponent = new Squirtle();
+	}
+	else
+	{
+		this->m_player = new Charmander();
+		this->m_opponent = new Chikorita();
+	}
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
 	auto x = obj->getObject("player").at("x").asFloat();
 	auto y = obj->getObject("player").at("y").asFloat();

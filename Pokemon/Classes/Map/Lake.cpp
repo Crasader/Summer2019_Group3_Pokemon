@@ -1,6 +1,8 @@
 
 #include "Lake.h"
 #include "ResourceManager.h"
+#include "SimpleAudioEngine.h"
+#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Route1.h"
 

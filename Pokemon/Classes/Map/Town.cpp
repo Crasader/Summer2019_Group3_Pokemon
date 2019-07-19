@@ -1,11 +1,13 @@
 
 #include "Town.h"
 #include "ResourceManager.h"
+#include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Lab.h"
 #include "Route1.h"
 #include "House.h"
-#include <stdlib.h>
+#include "Scene\BattleScene.h"
+#include <cstdlib>
 
 USING_NS_CC;
 Size TownvisibleSize;
@@ -47,7 +49,7 @@ bool Town::init()
 	TownvisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
 	TowntileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -82,8 +84,8 @@ bool Town::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 3) {
-					int random = rand()%4;
-					if (!random) {
+					int _random = rand() % 4;
+					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -133,38 +135,40 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Town::previousScene = 0;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+		Town::previousScene = 1;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 21 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 21)
 	{
+		Town::previousScene = 2;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		//int idPokemon = rand();	
+		//int idPokemon = random();	
 		//new Pokemon with id
 		//chuyen scene chien dau
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
-
 	}
-
 	return true;
-
 }
 
 void Town::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -177,7 +181,7 @@ void Town::InitObject()
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
-				mPlayer->GetSpriteFront()->setPosition(Vec2(posX + posX, posY));
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				Townbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				Townbody->setCollisionBitmask(15);
 				Townbody->setMass(14);

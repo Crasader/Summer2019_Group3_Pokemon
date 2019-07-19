@@ -1,9 +1,10 @@
 
 #include "Route1.h"
 #include "ResourceManager.h"
+#include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Town.h"
-//#include "Lake.h"
+#include "Lake.h"
 
 USING_NS_CC;
 Size Route1visibleSize;
@@ -79,8 +80,8 @@ bool Route1::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 5) {
-					int random = rand() % 4;
-					if (!random) {
+					int _random = rand() % 4;
+					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -132,14 +133,13 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
 	}
 
 	return true;

@@ -1,4 +1,4 @@
-#include "Scene\MainMenu.h"
+#include "MainMenu.h"
 #include "ResourceManager.h"
 #include "Map\House.h"
 //#include "Scene\About.h"

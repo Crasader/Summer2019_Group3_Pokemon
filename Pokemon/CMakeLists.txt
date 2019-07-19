@@ -58,7 +58,7 @@ list(APPEND GAME_SOURCE
     Classes/Map/Lake.cpp 
     Classes/Map/PokemonCenter.cpp
     Classes/Map/Route1.cpp
-    Classes/Map/Town.cpp 
+    Classes/Map/Town.cpp
     Classes/MyObject.cpp 
     Classes/NPC.cpp 
     Classes/NPC/CaveNPC.cpp 

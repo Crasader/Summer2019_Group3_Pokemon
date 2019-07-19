@@ -1,7 +1,8 @@
 #include "House.h"
 #include "ResourceManager.h"
+#include "SimpleAudioEngine.h"
 #include "Buttons.h"
-#include "Map/PokemonCenter.h"
+#include "PokemonCenter.h"
 #include "Town.h"
 USING_NS_CC;
 
@@ -92,12 +93,11 @@ bool House::onContactBegin(PhysicsContact & contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17)
+		|| (a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15))
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 0;
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		Director::getInstance()->replaceScene(Town::createScene());
 	}
 
 	return true;
