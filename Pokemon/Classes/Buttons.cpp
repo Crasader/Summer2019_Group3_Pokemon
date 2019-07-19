@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include "Popup.h"
 Buttons* Buttons::m_button = NULL;
-
+int Buttons::state = 0;
 Buttons::Buttons()
 {
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
@@ -30,11 +30,20 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		case ui::Widget::TouchEventType::BEGAN:
 		{
 			mPlayer->walkUp();
+			state = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			state = 0;
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
 		default:
 		{
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
@@ -50,11 +59,20 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		case ui::Widget::TouchEventType::BEGAN:
 		{
 			mPlayer->walkRight();
+			state = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(3);
+			state = 0;
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
 		default:
 		{
 			mPlayer->GetSpriteFront()->stopActionByTag(3);
+			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
@@ -69,11 +87,20 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		case ui::Widget::TouchEventType::BEGAN:
 		{
 			mPlayer->walkLeft();
+			state = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			state = 0;
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
 		default:
 		{
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
@@ -87,11 +114,20 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		case ui::Widget::TouchEventType::BEGAN:
 		{
 			mPlayer->walkDown();
+			state = 1;
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		{
+			mPlayer->GetSpriteFront()->stopActionByTag(1);
+			state = 0;
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
 		default:
 		{
 			mPlayer->GetSpriteFront()->stopActionByTag(1);
+			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}

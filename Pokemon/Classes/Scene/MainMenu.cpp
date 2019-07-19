@@ -1,6 +1,8 @@
 #include "Scene\MainMenu.h"
 #include "ResourceManager.h"
 #include "NPC\LakeNPC.h"
+#include "Map\House.h"
+//#include "Scene\About.h"
 #include "Popup.h"
 #include "Map\House.h"
 

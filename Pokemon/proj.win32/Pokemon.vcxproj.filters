@@ -369,17 +369,36 @@
     <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
       <Filter>src\Item\Revival</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\Map\House.cpp">
       <Filter>src\Map</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
+>>>>>>> Vuong
     <ClCompile Include="..\Classes\Map\Lake.cpp">
       <Filter>src\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
       <Filter>src\Map</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\Map\Route1.cpp">
       <Filter>src\Map</Filter>
+=======
+    <ClCompile Include="..\Classes\Map\House.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Lab.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Town.cpp">
+      <Filter>src</Filter>
+>>>>>>> Vuong
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -724,6 +743,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Map\Route1.h">
       <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Lab.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Town.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
