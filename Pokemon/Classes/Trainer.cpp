@@ -1,6 +1,6 @@
 #include "Trainer.h"
 #include "ResourceManager.h"
-#include "Pokemon\Squirtle.h"
+#include "Pokemon/Squirtle.h"
 
 list<Pokemon*> Trainer::m_Pokemons;
 
