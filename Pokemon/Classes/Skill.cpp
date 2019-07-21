@@ -13,7 +13,7 @@ void Skill::SetPower(int x)
 	m_power = x;
 }
 
-void Skill::SetPP(int y)
+void Skill::SetCurrentPP(int y)
 {
 	m_pp = y;
 }
@@ -28,7 +28,7 @@ void Skill::SetName(string n)
 	m_name = n;
 }
 
-void Skill::SetType(string st)
+void Skill::SetTypeName(string st)
 {
 	m_type = st;
 }
@@ -78,14 +78,19 @@ Vec2 Skill::GetPosition()
 	return this->m_spriteFront->getPosition();
 }
 
-void Skill::AddAnimation(int id)
+void Skill::SetAnimation(int id)
 {
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	this->m_spriteFront->setVisible(false);
 	this->m_animation = ResourceManager::GetInstance()->GetAnimationById(id);
-	this->m_animation->setDelayPerUnit(0.05);
+	this->m_animation->setDelayPerUnit(0.06);
 	this->m_animation->setRestoreOriginalFrame(true);
+}
+
+Animation * Skill::GetAnimation()
+{
+	return this->m_animation;
 }
 
 void Skill::Run(Vec2 position)

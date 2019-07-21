@@ -11,10 +11,10 @@ Peck::~Peck()
 void Peck::Init()
 {
 	Skill::SetName("Peck");
-	Skill::SetType("Flying");
+	Skill::SetTypeName("Flying");
 	Skill::SetPower(40);
 	Skill::SetMaxPP(35);
 	Skill::SetIdType(6);
-	Skill::SetPP(35);
+	Skill::SetCurrentPP(35);
 }
 

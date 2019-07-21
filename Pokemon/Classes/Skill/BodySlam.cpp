@@ -11,10 +11,10 @@ BodySlam::~BodySlam()
 void BodySlam::Init()
 {
 	Skill::SetName("Body Slam");
-	Skill::SetType("Normal");
+	Skill::SetTypeName("Normal");
 	Skill::SetPower(90);
 	Skill::SetMaxPP(10);
 	Skill::SetIdType(1);
-	Skill::SetPP(10);
+	Skill::SetCurrentPP(10);
 }
 

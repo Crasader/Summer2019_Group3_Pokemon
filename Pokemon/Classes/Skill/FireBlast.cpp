@@ -11,14 +11,14 @@ FireBlast::~FireBlast()
 
 void FireBlast::Init()
 {
-	this->AddAnimation(99);
+	this->SetAnimation(99);
 	this->SetScale(1.5);
 	Skill::SetName("Fire Blast");
-	Skill::SetType("Fire");
+	Skill::SetTypeName("Fire");
 	Skill::SetPower(80);
 	Skill::SetMaxPP(10);
 	Skill::SetIdType(2);
-	Skill::SetPP(10);
+	Skill::SetCurrentPP(10);
 }
 
 void FireBlast::Run(Vec2 position)

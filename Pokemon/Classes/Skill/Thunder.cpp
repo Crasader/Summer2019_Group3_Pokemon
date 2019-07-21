@@ -11,14 +11,14 @@ Thunder::~Thunder()
 
 void Thunder::Init()
 {
-	this->AddAnimation(111);
+	this->SetAnimation(111);
 	this->SetScale(1.5);
 	Skill::SetName("Thunder");
-	Skill::SetType("Electric");
+	Skill::SetTypeName("Electric");
 	Skill::SetPower(100);
 	Skill::SetMaxPP(5);
 	Skill::SetIdType(5);
-	Skill::SetPP(5);
+	Skill::SetCurrentPP(5);
 }
 
 void Thunder::Run(Vec2 position)

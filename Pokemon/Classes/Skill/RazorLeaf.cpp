@@ -11,14 +11,14 @@ RazorLeaf::~RazorLeaf()
 
 void RazorLeaf::Init()
 {
-	this->AddAnimation(105);
+	this->SetAnimation(105);
 	this->SetScale(3.5);
 	Skill::SetName("Razor Leaf");
-	Skill::SetType("Grass");
+	Skill::SetTypeName("Grass");
 	Skill::SetPower(60);
 	Skill::SetMaxPP(20);
 	Skill::SetIdType(4);
-	Skill::SetPP(20);
+	Skill::SetCurrentPP(20);
 }
 
 void RazorLeaf::Run(Vec2 position)

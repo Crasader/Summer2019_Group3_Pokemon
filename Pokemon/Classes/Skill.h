@@ -23,11 +23,11 @@ public:
 	virtual void Init() override {};
 	virtual void Update(float deltaTime) override {};
 	void SetPower(int x);
-	void SetPP(int y);
+	void SetCurrentPP(int y);
 	void SetMaxPP(int m);
 	void SetIdType(int it);
 	void SetName(string n);
-	void SetType(string st);
+	void SetTypeName(string st);
 	int GetMaxPP();
 	int GetPower();
 	int GetPP();
@@ -39,7 +39,8 @@ public:
 	void SetPosition(float xx, float yy);
 	void SetPosition(Vec2 position);
 	Vec2 GetPosition();
-	void AddAnimation(int id);
+	void SetAnimation(int id);
+	Animation* GetAnimation();
 	virtual void Run(Vec2 position);
 	void SetScale(float scale);
 };

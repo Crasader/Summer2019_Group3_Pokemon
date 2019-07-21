@@ -2,6 +2,7 @@
 #include "AppDelegate.h"
 #include "ResourceManager.h"
 #include "Scene\Loading.h"
+#include "Scene\BattleScene.h"
 #include "HelloWorldScene.h"
 
 // #define USE_AUDIO_ENGINE 1

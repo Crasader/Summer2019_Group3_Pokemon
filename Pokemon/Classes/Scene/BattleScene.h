@@ -18,12 +18,12 @@ private:
 	Label* m_labelSkill4;
 	Label* m_labelBattleLog;
 
-	Label* m_oppLevel;
-	Label* m_oppName;
+	Label* m_labelOppLevel;
+	Label* m_labelOppName;
 	Sprite* m_hpPlayer;
 
-	Label* m_playerLevel;
-	Label* m_playerName;
+	Label* m_labelPlayerLevel;
+	Label* m_labelPlayerName;
 	Sprite* m_hpOpponent;
 
 	TMXTiledMap* m_tiledmap;
@@ -75,6 +75,8 @@ public:
 	void SetButtonVisible(bool visible);
 
 	void BattlePhase(int idSkill);
+
+	void EndBattle();
 
 	CREATE_FUNC(BattleScene);
 };

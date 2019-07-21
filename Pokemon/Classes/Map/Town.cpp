@@ -106,10 +106,6 @@ bool Town::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
-	up->removeFromParent();
-	right->removeFromParent();
-	left->removeFromParent();
-	down->removeFromParent();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
@@ -135,6 +131,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
 		Town::previousScene = 0;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
@@ -142,6 +139,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+		Buttons::GetIntance()->Remove();
 		Town::previousScene = 1;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
@@ -149,6 +147,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 21 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 21)
 	{
+		Buttons::GetIntance()->Remove();
 		Town::previousScene = 2;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));

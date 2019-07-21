@@ -68,10 +68,6 @@ bool House::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
-	up->removeFromParent();
-	right->removeFromParent();
-	left->removeFromParent();
-	down->removeFromParent();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
@@ -96,8 +92,9 @@ bool House::onContactBegin(PhysicsContact & contact)
 	if ((a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17)
 		|| (a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15))
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(Town::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;

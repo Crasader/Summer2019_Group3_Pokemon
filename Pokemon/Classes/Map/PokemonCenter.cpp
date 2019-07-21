@@ -98,6 +98,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
 	}

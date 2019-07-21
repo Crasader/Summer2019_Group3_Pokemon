@@ -25,5 +25,6 @@ public:
 	Button *GetButtonLeft();
 	Button *GetButtonRight();
 	Button *GetButtonDown();
+	void Remove();
 	void UpdateButton(float x, float y);
 };

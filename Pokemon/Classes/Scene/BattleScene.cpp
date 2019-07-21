@@ -64,7 +64,6 @@ void BattleScene::TypeWriter(float deltaTime)
 	{
 		writing = 0;
 		this->m_labelBattleLog->setOpacity(255);
-		this->m_stateBattleLog = true;
 		this->unschedule(schedule_selector(BattleScene::TypeWriter));
 	}
 }
@@ -110,17 +109,15 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 				{
 					this->m_player->SetState(false);
 					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-					this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName());
+					this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
 				}
 			}
 		}
 	}
 	else
 	{
-		this->m_labelBattleLog->setString("");
+		this->EndBattle();
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst));
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(Town::createScene());
 	}
 }
 
@@ -165,17 +162,15 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 				{
 					this->m_opponent->SetState(false);
 					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-					this->BattleLog(this->m_player->GetName() + " used " + this->playerSkill->GetName());
+					this->BattleLog(this->m_player->GetName() + " used " + this->playerSkill->GetName() + ".");
 				}
 			}
 		}
 	}
 	else
 	{
-		this->m_labelBattleLog->setString("");
+		this->EndBattle();
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst));
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(Town::createScene());
 	}
 }
 
@@ -185,8 +180,8 @@ void BattleScene::ReduceHpPlayer(float deltaTime)
 	{
 		auto fadeOut = FadeOut::create(0.1);
 		auto fadeIn = FadeIn::create(0.1);
-		auto out_in = Sequence::create(fadeOut, fadeIn, fadeOut->clone(), fadeIn->clone(), nullptr);
-		this->m_player->GetSpriteBack()->runAction(out_in);
+		auto fadeOut_In = Sequence::create(fadeOut, fadeIn, fadeOut->clone(), fadeIn->clone(), nullptr);
+		this->m_player->GetSpriteBack()->runAction(fadeOut_In);
 		//
 		//
 		auto finished = CallFunc::create([this]() {
@@ -213,8 +208,8 @@ void BattleScene::ReduceHpOpponent(float deltaTime)
 	{
 		auto fadeOut = FadeOut::create(0.1);
 		auto fadeIn = FadeIn::create(0.1);
-		auto out_in = Sequence::create(fadeOut, fadeIn, fadeOut->clone(), fadeIn->clone(), nullptr);
-		this->m_opponent->GetSpriteFront()->runAction(out_in);
+		auto fadeOut_In = Sequence::create(fadeOut, fadeIn, fadeOut->clone(), fadeIn->clone(), nullptr);
+		this->m_opponent->GetSpriteFront()->runAction(fadeOut_In);
 		//
 		//
 		auto finished = CallFunc::create([this]() {
@@ -341,14 +336,14 @@ void BattleScene::InitUI()
 	this->m_buttonRun->addChild(this->m_labelSkill4);
 	//
 	//
-	this->m_oppName = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_oppName->setString(this->m_opponent->GetName());
-	this->m_oppName->setTextColor(Color4B::BLACK);
-	this->m_oppName->setAnchorPoint(Vec2::ZERO);
-	this->m_oppName->setScale(0.8);
-	this->m_oppLevel = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_oppLevel->setString(to_string(this->m_opponent->GetLevel()));
-	this->m_oppLevel->setTextColor(Color4B::BLACK);
+	this->m_labelOppName = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelOppName->setString(this->m_opponent->GetName());
+	this->m_labelOppName->setTextColor(Color4B::BLACK);
+	this->m_labelOppName->setAnchorPoint(Vec2::ZERO);
+	this->m_labelOppName->setScale(0.8);
+	this->m_labelOppLevel = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelOppLevel->setString(to_string(this->m_opponent->GetLevel()));
+	this->m_labelOppLevel->setTextColor(Color4B::BLACK);
 	this->m_hpOpponent = ResourceManager::GetInstance()->GetSpriteById(131);
 	this->m_hpOpponent->setAnchorPoint(Vec2::ZERO);
 	this->m_hpOpponent->setScaleX(scale_hpBar);
@@ -356,26 +351,26 @@ void BattleScene::InitUI()
 	auto obj = this->m_tiledmap->getObjectGroup("opponent");
 	x = obj->getObject("name").at("x").asFloat();
 	y = obj->getObject("name").at("y").asFloat();
-	this->m_oppName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
-	this->addChild(this->m_oppName, 0);
+	this->m_labelOppName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_labelOppName, 0);
 	x = obj->getObject("level").at("x").asFloat();
 	y = obj->getObject("level").at("y").asFloat();
-	this->m_oppLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
-	this->addChild(this->m_oppLevel, 0);
+	this->m_labelOppLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_labelOppLevel, 0);
 	x = obj->getObject("hp").at("x").asFloat();
 	y = obj->getObject("hp").at("y").asFloat();
 	this->m_hpOpponent->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
 	this->addChild(this->m_hpOpponent, 0);
 	//
 	//
-	this->m_playerName = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_playerName->setString(this->m_player->GetName());
-	this->m_playerName->setTextColor(Color4B::BLACK);
-	this->m_playerName->setAnchorPoint(Vec2::ZERO);
-	this->m_playerName->setScale(0.8);
-	this->m_playerLevel = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_playerLevel->setString(to_string(this->m_player->GetLevel()));
-	this->m_playerLevel->setTextColor(Color4B::BLACK);
+	this->m_labelPlayerName = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelPlayerName->setString(this->m_player->GetName());
+	this->m_labelPlayerName->setTextColor(Color4B::BLACK);
+	this->m_labelPlayerName->setAnchorPoint(Vec2::ZERO);
+	this->m_labelPlayerName->setScale(0.8);
+	this->m_labelPlayerLevel = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelPlayerLevel->setString(to_string(this->m_player->GetLevel()));
+	this->m_labelPlayerLevel->setTextColor(Color4B::BLACK);
 	this->m_hpPlayer = ResourceManager::GetInstance()->GetSpriteById(131);
 	this->m_hpPlayer->setAnchorPoint(Vec2::ZERO);
 	if (this->m_player->GetCurrentHP() == this->m_player->GetMaxHP())
@@ -391,12 +386,12 @@ void BattleScene::InitUI()
 	obj = this->m_tiledmap->getObjectGroup("player");
 	x = obj->getObject("name").at("x").asFloat();
 	y = obj->getObject("name").at("y").asFloat();
-	this->m_playerName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
-	this->addChild(this->m_playerName, 0);
+	this->m_labelPlayerName->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_labelPlayerName, 0);
 	x = obj->getObject("level").at("x").asFloat();
 	y = obj->getObject("level").at("y").asFloat();
-	this->m_playerLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
-	this->addChild(this->m_playerLevel, 0);
+	this->m_labelPlayerLevel->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_labelPlayerLevel, 0);
 	x = obj->getObject("hp").at("x").asFloat();
 	y = obj->getObject("hp").at("y").asFloat();
 	this->m_hpPlayer->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
@@ -546,6 +541,9 @@ void BattleScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event * e)
 			this->unschedule(schedule_selector(BattleScene::TypeWriter));
 			this->BattleLogSetOpacity(255);
 			this->m_labelBattleLog->setOpacity(255);
+		}
+		else
+		{
 			this->m_stateBattleLog = true;
 		}
 	default:
@@ -569,6 +567,9 @@ bool BattleScene::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(BattleScene::TypeWriter));
 		this->BattleLogSetOpacity(255);
 		this->m_labelBattleLog->setOpacity(255);
+	}
+	else
+	{
 		this->m_stateBattleLog = true;
 	}
 	return true;
@@ -603,7 +604,7 @@ void BattleScene::BattlePhase(int idSkill)
 		int id = rand() % this->m_opponent->GetCountSkills();
 		this->oppSkill = this->m_opponent->GetSkillById(id);
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-		this->BattleLog(this->m_player->GetName() + " used " + this->playerSkill->GetName());
+		this->BattleLog(this->m_player->GetName() + " used " + this->playerSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst), 0.1);
 	}
 	else
@@ -612,7 +613,29 @@ void BattleScene::BattlePhase(int idSkill)
 		this->oppSkill = this->m_opponent->GetSkillById(id);
 		this->playerSkill = this->m_player->GetSkillById(idSkill);
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-		this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName());
+		this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst), 0.1);
+	}
+}
+
+void BattleScene::EndBattle()
+{
+	this->m_stateBattleLog = false;
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+	auto listener = CallFunc::create([this]() {
+		if (this->m_stateBattleLog == true)
+		{
+			Director::getInstance()->getRunningScene()->pause();
+		}
+	});
+	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+	this->runAction(rp);
+	if (this->m_player->IsAlive() == false)
+	{
+		this->BattleLog(this->m_player->GetName() + " fainted. You lose!");
+	}
+	else
+	{
+		this->BattleLog(this->m_opponent->GetName() + " fainted. You win!");
 	}
 }
