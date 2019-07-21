@@ -14,15 +14,15 @@ ResourceManager::~ResourceManager()
 {
 }
 
-ResourceManager* ResourceManager::s_instance = nullptr;
+ResourceManager* ResourceManager::m_instance = nullptr;
 
 ResourceManager * ResourceManager::GetInstance()
 {
-	if (s_instance == nullptr)
+	if (m_instance == nullptr)
 	{
-		s_instance = new ResourceManager();
+		m_instance = new ResourceManager();
 	}
-	return s_instance;
+	return m_instance;
 }
 
 void ResourceManager::Init()

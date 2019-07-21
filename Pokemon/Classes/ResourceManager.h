@@ -10,7 +10,7 @@ using namespace std;
 class ResourceManager
 {
 private:
-	static ResourceManager* s_instance;
+	static ResourceManager* m_instance;
 	ResourceManager();
 	Sprite* DuplicateSprite(Sprite* sprite);
 	map<int, TMXTiledMap*> m_tiledmaps;

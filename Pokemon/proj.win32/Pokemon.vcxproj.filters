@@ -11,19 +11,19 @@
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Pokemon">
-      <UniqueIdentifier>{8a0c6940-2d4f-4b95-84c7-b5e3de95e597}</UniqueIdentifier>
+      <UniqueIdentifier>{1eea2772-d188-4ee5-be65-00885fe72253}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Skill">
-      <UniqueIdentifier>{85539357-0aa0-453c-8afb-13df5a5f3e44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\NPC">
-      <UniqueIdentifier>{ebd5c96d-e2bc-4c67-aaf5-91ae216ea2b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Scene">
-      <UniqueIdentifier>{b749852b-5a25-44ef-a101-fda49e163aec}</UniqueIdentifier>
+      <UniqueIdentifier>{0488f6ee-2841-4154-93ef-85b613d03094}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Map">
-      <UniqueIdentifier>{5c4c1dc7-762a-4a87-8321-638e455246bf}</UniqueIdentifier>
+      <UniqueIdentifier>{c6cb7899-70a3-49ee-8845-0436c4b94f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{5b7db51d-00fa-48b1-b218-b7514b323bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\NPC">
+      <UniqueIdentifier>{4199e900-0a1d-48a3-a4d3-9a56b5b79061}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,21 +34,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MyObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\ResourceManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp">
@@ -270,8 +255,8 @@
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
-      <Filter>src\NPC</Filter>
+    <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
       <Filter>src\Scene</Filter>
@@ -301,6 +286,9 @@
       <Filter>src\NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
@@ -336,14 +324,26 @@
     <ClCompile Include="..\Classes\Item.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MyObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Popup.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResourceManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Trainer.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
-      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,21 +354,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MyObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\ResourceManager.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Skill.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h">
@@ -590,8 +575,8 @@
     <ClInclude Include="..\Classes\Skill\WingAttack.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
-      <Filter>src\NPC</Filter>
+    <ClInclude Include="..\Classes\Scene\BattleScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\BuyItem.h">
       <Filter>src\Scene</Filter>
@@ -621,6 +606,9 @@
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">
@@ -656,14 +644,26 @@
     <ClInclude Include="..\Classes\Item.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\MyObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Popup.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResourceManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Trainer.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BattleScene.h">
-      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
