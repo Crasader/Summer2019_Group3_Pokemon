@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
 #include "json\rapidjson.h"
 #include "json\document.h"
+
 using namespace rapidjson;
 
 ResourceManager::ResourceManager()

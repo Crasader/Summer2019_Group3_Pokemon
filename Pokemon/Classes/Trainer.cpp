@@ -58,7 +58,6 @@ void Trainer::walkRight()
 
 void Trainer::walkUp()
 {
-	//this->m_spriteFront->setPosition(Vec2(this->m_spriteFront->getPosition().x, this->m_spriteFront->getPosition().y + 1));
 	auto moveUp = MoveBy::create(1.125f, Vec2(0, 75));
 	auto animateUp = Animate::create(up);
 	auto spawn = Spawn::create(animateUp,moveUp, nullptr);

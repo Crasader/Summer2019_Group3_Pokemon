@@ -3,6 +3,7 @@
 
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
+
 Buttons::Buttons()
 {
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac

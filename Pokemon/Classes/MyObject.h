@@ -24,4 +24,5 @@ public:
 	virtual void Update(float deltaTime) {};
 	Sprite* GetSpriteFront();
 	Sprite* GetSpriteBack();
+	void SetSprite(int id);
 };

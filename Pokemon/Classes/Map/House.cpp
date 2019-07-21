@@ -4,6 +4,7 @@
 #include "Buttons.h"
 #include "PokemonCenter.h"
 #include "Town.h"
+
 USING_NS_CC;
 
 Size HousevisibleSize;

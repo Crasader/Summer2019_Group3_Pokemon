@@ -1,5 +1,6 @@
 #include "Bag.h"
 #include "Trainer.h"
+
 Bag::Bag()
 {
 	this->Init();
@@ -69,3 +70,4 @@ void Bag::AddItem(Item * item)
 {
 	this->m_items.push_back(item);
 }
+

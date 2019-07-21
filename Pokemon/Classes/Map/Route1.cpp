@@ -107,7 +107,6 @@ bool Route1::init()
 	addChild(left, 100);
 	addChild(down, 100);
 
-
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();

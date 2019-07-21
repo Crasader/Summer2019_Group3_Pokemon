@@ -67,6 +67,7 @@ bool PokemonCenter::init()
 	}
 
 	InitObject();
+	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();

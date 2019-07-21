@@ -100,6 +100,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
+	
     auto scene = Loading::createScene();
 
     // run

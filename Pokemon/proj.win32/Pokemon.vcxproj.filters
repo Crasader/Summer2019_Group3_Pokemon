@@ -25,6 +25,21 @@
     <Filter Include="src\Map">
       <UniqueIdentifier>{5c4c1dc7-762a-4a87-8321-638e455246bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{7f5fa2fa-3aba-45ce-bf5f-bb40a428ad70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Item">
+      <UniqueIdentifier>{8f3a0f08-393f-4cee-a919-07b70d677673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Item\HP">
+      <UniqueIdentifier>{541111bc-2e70-4cd7-bfde-e5a224119549}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Item\Stone">
+      <UniqueIdentifier>{b32b90ee-6d7b-4243-b70a-3339f5410828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Item\Revival">
+      <UniqueIdentifier>{973b7caa-c720-4680-8a3b-a46aade7fce9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -345,6 +360,11 @@
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
