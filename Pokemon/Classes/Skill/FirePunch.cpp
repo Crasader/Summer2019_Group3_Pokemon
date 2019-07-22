@@ -14,7 +14,7 @@ void FirePunch::Init()
 	Skill::SetTypeName("Fire");
 	Skill::SetPower(60);
 	Skill::SetMaxPP(20);
-	Skill::SetIdType(2);
+	Skill::SetIdType(MyObject::TYPE_FIRE);
 	Skill::SetCurrentPP(20);
 }
 

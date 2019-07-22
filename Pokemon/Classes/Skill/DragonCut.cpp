@@ -11,12 +11,12 @@ DragonCut::~DragonCut()
 
 void DragonCut::Init()
 {
-	this->SetAnimation(96);
+	this->AddAnimation(96);
 	this->SetScale(2);
 	Skill::SetName("Dragon Cut");
 	Skill::SetTypeName("Dragon");
 	Skill::SetPower(50);
 	Skill::SetMaxPP(30);
-	Skill::SetIdType(7);
+	Skill::SetIdType(MyObject::TYPE_DRAGON);
 	Skill::SetCurrentPP(30);
 }

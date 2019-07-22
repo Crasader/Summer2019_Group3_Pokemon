@@ -11,13 +11,13 @@ Gust::~Gust()
 
 void Gust::Init()
 {
-	this->SetAnimation(102);
+	this->AddAnimation(102);
 	this->SetScale(1.5);
 	Skill::SetName("Gust");
 	Skill::SetTypeName("Flying");
 	Skill::SetPower(60);
 	Skill::SetMaxPP(20);
-	Skill::SetIdType(6);
+	Skill::SetIdType(MyObject::TYPE_FLYING);
 	Skill::SetCurrentPP(20);
 }
 

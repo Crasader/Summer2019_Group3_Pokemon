@@ -14,7 +14,7 @@ void Peck::Init()
 	Skill::SetTypeName("Flying");
 	Skill::SetPower(40);
 	Skill::SetMaxPP(35);
-	Skill::SetIdType(6);
+	Skill::SetIdType(MyObject::TYPE_FLYING);
 	Skill::SetCurrentPP(35);
 }
 

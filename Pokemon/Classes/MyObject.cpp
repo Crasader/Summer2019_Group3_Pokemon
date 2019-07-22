@@ -20,12 +20,6 @@ Sprite * MyObject::GetSpriteBack()
 	return this->m_spriteBack;
 }
 
-void MyObject::SetSprite(int id)
-{
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
-}
-
-
 Sprite * MyObject::GetSpriteFront()
 {
 	return this->m_spriteFront;

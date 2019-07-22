@@ -113,7 +113,7 @@
     "104": "res/Skill/QuickAttack/0.png",
     "105": "res/Skill/RazorLeaf/0.png",
     "106": "res/Skill/Scratch/0.png",
-    "107": "res/Skill/SolarBeam/0.png",
+    "107": "res/Skill/LeafStorm/0.png",
     "108": "res/Skill/Spark/0.png",
     "109": "res/Skill/Surf/0.png",
     "110": "res/Skill/Tackle/0.png",
@@ -1804,17 +1804,14 @@
       ]
     },
     "107": {
-      "size": 7,
-      "plist": "res/Skill/SolarBeam/SolarBeam.plist",
-      "path": "res/Skill/SolarBeam/SolarBeam.png",
+      "size": 4,
+      "plist": "res/Skill/LeafStorm/LeafStorm.plist",
+      "path": "res/Skill/LeafStorm/LeafStorm.png",
       "png": [
         "0.png",
         "1.png",
         "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png"
+        "3.png"
       ]
     },
     "108": {

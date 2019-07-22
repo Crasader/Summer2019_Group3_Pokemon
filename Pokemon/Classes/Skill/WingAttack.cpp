@@ -14,7 +14,6 @@ void WingAttack::Init()
 	Skill::SetTypeName("Flying");
 	Skill::SetPower(80);
 	Skill::SetMaxPP(10);
-	Skill::SetIdType(6);
+	Skill::SetIdType(MyObject::TYPE_FLYING);
 	Skill::SetCurrentPP(10);
 }
-

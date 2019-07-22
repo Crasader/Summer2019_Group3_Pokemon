@@ -204,9 +204,6 @@
     <ClCompile Include="..\Classes\Skill\FirePunch.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\Fly.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Skill\Gust.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
@@ -220,9 +217,6 @@
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\Scratch.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Skill\SolarBeam.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\Spark.cpp">
@@ -344,6 +338,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Trainer.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Fly.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\LeafStorm.cpp">
+      <Filter>src\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -524,9 +524,6 @@
     <ClInclude Include="..\Classes\Skill\FirePunch.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill\Fly.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill\Gust.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
@@ -540,9 +537,6 @@
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\Scratch.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Skill\SolarBeam.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\Spark.h">
@@ -664,6 +658,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Trainer.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Fly.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include_skill.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include_pokemon.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\LeafStorm.h">
+      <Filter>src\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

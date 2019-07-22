@@ -14,6 +14,6 @@ void BlastBurn::Init()
 	Skill::SetTypeName("Fire");
 	Skill::SetPower(100);
 	Skill::SetMaxPP(5);
-	Skill::SetIdType(2);
+	Skill::SetIdType(MyObject::TYPE_FIRE);
 	Skill::SetCurrentPP(5);
 }

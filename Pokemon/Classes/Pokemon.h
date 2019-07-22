@@ -1,15 +1,7 @@
 #pragma once
 #include "MyObject.h"
 #include "Skill.h"
-#include "Skill\Bite.h"
-#include "Skill\DragonCut.h"
-#include "Skill\DragonClaw.h"
-#include "Skill\Gust.h"
-#include "Skill\Surf.h"
-#include "Skill\Tackle.h"
-#include "Skill\Thunder.h"
-#include "Skill\RazorLeaf.h"
-#include "Skill\FireBlast.h"
+#include "include_skill.h"
 #include <vector>
 using namespace std;
 

@@ -11,11 +11,11 @@ Bite::~Bite()
 
 void Bite::Init()
 {
-	this->SetAnimation(90);
+	this->AddAnimation(90);
 	Skill::SetName("Bite");
 	Skill::SetTypeName("Normal");
 	Skill::SetPower(80);
 	Skill::SetMaxPP(10);
-	Skill::SetIdType(1);
+	Skill::SetIdType(MyObject::TYPE_NORMAL);
 	Skill::SetCurrentPP(10);
 }

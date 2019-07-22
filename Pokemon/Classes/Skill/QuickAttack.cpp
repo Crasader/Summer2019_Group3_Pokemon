@@ -14,7 +14,7 @@ void QuickAttack::Init()
 	Skill::SetTypeName("Normal");
 	Skill::SetPower(50);
 	Skill::SetMaxPP(20);
-	Skill::SetIdType(1);
+	Skill::SetIdType(MyObject::TYPE_NORMAL);
 	Skill::SetCurrentPP(20);
 }
 

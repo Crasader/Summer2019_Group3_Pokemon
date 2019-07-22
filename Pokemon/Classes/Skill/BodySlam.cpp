@@ -14,7 +14,7 @@ void BodySlam::Init()
 	Skill::SetTypeName("Normal");
 	Skill::SetPower(90);
 	Skill::SetMaxPP(10);
-	Skill::SetIdType(1);
+	Skill::SetIdType(MyObject::TYPE_NORMAL);
 	Skill::SetCurrentPP(10);
 }
 

@@ -1,27 +1,27 @@
-#include"Ember.h"
+#include "LeafStorm.h"
 
-Ember::Ember()
+LeafStorm::LeafStorm()
 {
 	this->Init();
 }
 
-Ember::~Ember()
+LeafStorm::~LeafStorm()
 {
 }
 
-void Ember::Init()
+void LeafStorm::Init()
 {
-	this->AddAnimation(97);
-	this->SetScale(3);
-	Skill::SetName("Ember");
-	Skill::SetTypeName("Fire");
-	Skill::SetPower(40);
-	Skill::SetMaxPP(35);
-	Skill::SetIdType(MyObject::TYPE_FIRE);
-	Skill::SetCurrentPP(35);
+	this->AddAnimation(107);
+	this->SetScale(1.5);
+	Skill::SetName("Leaf Storm");
+	Skill::SetTypeName("Grass");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(MyObject::TYPE_GRASS);
+	Skill::SetCurrentPP(5);
 }
 
-void Ember::Run(Vec2 position)
+void LeafStorm::Run(Vec2 position)
 {
 	this->m_spriteFront->setVisible(true);
 	auto old_position = this->m_spriteFront->getPosition();

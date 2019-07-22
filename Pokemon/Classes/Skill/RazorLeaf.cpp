@@ -11,13 +11,13 @@ RazorLeaf::~RazorLeaf()
 
 void RazorLeaf::Init()
 {
-	this->SetAnimation(105);
+	this->AddAnimation(105);
 	this->SetScale(3.5);
 	Skill::SetName("Razor Leaf");
 	Skill::SetTypeName("Grass");
 	Skill::SetPower(60);
 	Skill::SetMaxPP(20);
-	Skill::SetIdType(4);
+	Skill::SetIdType(MyObject::TYPE_GRASS);
 	Skill::SetCurrentPP(20);
 }
 
