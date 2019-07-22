@@ -2,6 +2,7 @@
 
 DragonClaw::DragonClaw()
 {
+	this->Init();
 }
 
 DragonClaw::~DragonClaw()
@@ -10,11 +11,12 @@ DragonClaw::~DragonClaw()
 
 void DragonClaw::Init()
 {
-	Attack::SetName("DragonClaw");
-	Attack::SetType("Dragon");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(10);
-	Attack::SetIdType(7);
-	Attack::SetPP(10);
+	this->SetAnimation(95);
+	this->SetScale(1.5);
+	Skill::SetName("DragonClaw");
+	Skill::SetTypeName("Dragon");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(10);
+	Skill::SetIdType(7);
+	Skill::SetCurrentPP(10);
 }
-

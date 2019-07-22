@@ -1,11 +1,12 @@
 #pragma once
 #include"cocos2d.h"
-#include "Attack.h"
+#include "Skill.h"
 
-class FireBlast : public Attack
+class FireBlast : public Skill
 {
 public:
 	FireBlast();
 	~FireBlast();
 	void Init();
+	void Run(Vec2 position) override;
 };

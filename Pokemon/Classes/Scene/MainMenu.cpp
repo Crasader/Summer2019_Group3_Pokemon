@@ -1,7 +1,7 @@
-#include "Scene\MainMenu.h"
+
+#include "MainMenu.h"
 #include "ResourceManager.h"
-#include "NPC\LakeNPC.h"
-//#include "Scene\About.h"
+#include "Map\House.h"
 #include "Popup.h"
 
 
@@ -10,7 +10,7 @@ using namespace std;
 
 Scene* MainMenu::createScene()
 {
-	auto scene = Scene::createWithPhysics();
+	auto scene = Scene::create();
 	auto layer = MainMenu::create();
 	scene->addChild(layer);
 	return scene;
@@ -25,13 +25,13 @@ bool MainMenu::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backGround = ResourceManager::GetInstance()->GetSpriteById(101);
+	auto backGround = ResourceManager::GetInstance()->GetSpriteById(134);
 	backGround->removeFromParent();
 	backGround->setAnchorPoint(Vec2(0, 0));
 	backGround->setScale(visibleSize.width / backGround->getContentSize().width, visibleSize.height / backGround->getContentSize().height);
 	addChild(backGround, -99);
 
-	auto buttonPlay = ResourceManager::GetInstance()->GetButtonById(6);
+	auto buttonPlay = ResourceManager::GetInstance()->GetButtonById(7);
 	buttonPlay->removeFromParent();
 	buttonPlay->setScale(0.2f);
 	buttonPlay->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 9));
@@ -40,12 +40,12 @@ bool MainMenu::init()
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			/*UICustom::Popup *popup = UICustom::Popup::createShop();
-			this->addChild(popup);*/
+			Director::getInstance()->getRunningScene()->pause();
+			Director::getInstance()->replaceScene(House::createScene());
 		}
 	});
 
-	auto buttonSetting = ResourceManager::GetInstance()->GetButtonById(8);
+	auto buttonSetting = ResourceManager::GetInstance()->GetButtonById(9);
 	buttonSetting->removeFromParent();
 	buttonSetting->setScale(0.1f);
 	buttonSetting->setPosition(Vec2(visibleSize.width / 20, visibleSize.height / 10));
@@ -61,7 +61,7 @@ bool MainMenu::init()
 			}
 		}
 	});
-	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(5);
+	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(6);
 	buttonAbout->removeFromParent();
 	buttonAbout->setScale(0.25f);
 	buttonAbout->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height / 10));
@@ -76,7 +76,7 @@ bool MainMenu::init()
 	});
 
 
-	auto buttonExit = ResourceManager::GetInstance()->GetButtonById(9);
+	auto buttonExit = ResourceManager::GetInstance()->GetButtonById(10);
 	buttonExit->removeFromParent();
 	buttonExit->setScale(0.1f);
 	buttonExit->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height * 9 / 10));

@@ -1,3 +1,5 @@
+
+#pragma once
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"

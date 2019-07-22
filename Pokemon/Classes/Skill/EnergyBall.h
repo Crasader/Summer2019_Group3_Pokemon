@@ -1,12 +1,12 @@
 #pragma once
 #include"cocos2d.h"
-#include "Attack.h"
+#include "Skill.h"
 
-class EnergyBall : public Attack
+class EnergyBall : public Skill
 {
 public:
 	EnergyBall();
 	~EnergyBall();
 	void Init();
+	void Run(Vec2 position) override;
 };
-#pragma once

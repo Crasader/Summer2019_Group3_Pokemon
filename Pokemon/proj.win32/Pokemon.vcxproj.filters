@@ -11,28 +11,19 @@
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Pokemon">
-      <UniqueIdentifier>{490b3f15-1e26-4505-9de8-bea20586cd44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\NPC">
-      <UniqueIdentifier>{7e677e0d-b094-4332-a1c6-914a73b71460}</UniqueIdentifier>
+      <UniqueIdentifier>{1eea2772-d188-4ee5-be65-00885fe72253}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Skill">
-      <UniqueIdentifier>{ff046030-6ef1-4919-8d16-b0636f6a7cd6}</UniqueIdentifier>
+      <UniqueIdentifier>{0488f6ee-2841-4154-93ef-85b613d03094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Map">
+      <UniqueIdentifier>{c6cb7899-70a3-49ee-8845-0436c4b94f1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Scene">
-      <UniqueIdentifier>{7f5fa2fa-3aba-45ce-bf5f-bb40a428ad70}</UniqueIdentifier>
+      <UniqueIdentifier>{5b7db51d-00fa-48b1-b218-b7514b323bd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Item">
-      <UniqueIdentifier>{8f3a0f08-393f-4cee-a919-07b70d677673}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Item\HP">
-      <UniqueIdentifier>{541111bc-2e70-4cd7-bfde-e5a224119549}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Item\Stone">
-      <UniqueIdentifier>{b32b90ee-6d7b-4243-b70a-3339f5410828}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Item\Revival">
-      <UniqueIdentifier>{973b7caa-c720-4680-8a3b-a46aade7fce9}</UniqueIdentifier>
+    <Filter Include="src\NPC">
+      <UniqueIdentifier>{4199e900-0a1d-48a3-a4d3-9a56b5b79061}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,46 +36,25 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\ResourceManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MyObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Charmander.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Blastoise.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Squirtle.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Buttons.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Trainer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Charmeleon.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Beautifly.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Blastoise.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Celebi.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Charizard.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Charmander.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Charmeleon.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Chikorita.cpp">
@@ -129,13 +99,13 @@
     <ClCompile Include="..\Classes\Pokemon\Kirlia.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Meganium.cpp">
-      <Filter>src\Pokemon</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Leafeon.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Manectric.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Meganium.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Meowth.cpp">
@@ -153,10 +123,10 @@
     <ClCompile Include="..\Classes\Pokemon\Pidgey.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Ponyta.cpp">
+    <ClCompile Include="..\Classes\Pokemon\Pikachu.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Pikachu.cpp">
+    <ClCompile Include="..\Classes\Pokemon\Ponyta.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Raikou.cpp">
@@ -177,6 +147,9 @@
     <ClCompile Include="..\Classes\Pokemon\Snorlax.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Pokemon\Squirtle.cpp">
+      <Filter>src\Pokemon</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Pokemon\Suicune.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
@@ -195,7 +168,7 @@
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Pokemon\Charizard.cpp">
+    <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp">
       <Filter>src\Pokemon</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\Bite.cpp">
@@ -205,6 +178,9 @@
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\BodySlam.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\Bubble.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\DracoMeteor.cpp">
@@ -234,9 +210,6 @@
     <ClCompile Include="..\Classes\Skill\Gust.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\HydroPump.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Skill\Peck.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
@@ -247,6 +220,9 @@
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\Scratch.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\SolarBeam.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\Spark.cpp">
@@ -279,16 +255,19 @@
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\WoodHammer.cpp">
-      <Filter>src\Skill</Filter>
+    <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Attack.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\Loading.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
@@ -318,73 +297,53 @@
     <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Popup.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\Map\House.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Lab.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Lake.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Route1.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Town.cpp">
+      <Filter>src\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Bag.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Buttons.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Item.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Item\revival.cpp">
-      <Filter>src\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\PP.cpp">
-      <Filter>src\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\HP.cpp">
-      <Filter>src\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Stone.cpp">
-      <Filter>src\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\HP\Potion.cpp">
-      <Filter>src\Item\HP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\HP\SuperPotion.cpp">
-      <Filter>src\Item\HP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\HP\MaxPotion.cpp">
-      <Filter>src\Item\HP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Stone\FireStone.cpp">
-      <Filter>src\Item\Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Stone\WaterStone.cpp">
-      <Filter>src\Item\Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Stone\LeafStone.cpp">
-      <Filter>src\Item\Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Stone\ThunderStone.cpp">
-      <Filter>src\Item\Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Revival\Revive.cpp">
-      <Filter>src\Item\Revival</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Revival\MaxRevive.cpp">
-      <Filter>src\Item\Revival</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
-      <Filter>src\Scene</Filter>
-=======
-    <ClCompile Include="..\Classes\Map\Lake.cpp">
+    <ClCompile Include="..\Classes\MyObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Map\Route1.cpp">
+    <ClCompile Include="..\Classes\NPC.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
+    <ClCompile Include="..\Classes\Pokemon.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Map\House.cpp">
+    <ClCompile Include="..\Classes\Popup.cpp">
       <Filter>src</Filter>
->>>>>>> master
+    </ClCompile>
+    <ClCompile Include="..\Classes\ResourceManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Trainer.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,43 +356,22 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ResourceManager.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MyObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Charmander.h">
-      <Filter>src\Pokemon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Blastoise.h">
-      <Filter>src\Pokemon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Squirtle.h">
-      <Filter>src\Pokemon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
-      <Filter>src\Pokemon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Buttons.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Trainer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Beautifly.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Blastoise.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Celebi.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Charizard.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Charmander.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Charmeleon.h">
@@ -529,6 +467,9 @@
     <ClInclude Include="..\Classes\Pokemon\Snorlax.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Pokemon\Squirtle.h">
+      <Filter>src\Pokemon</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Pokemon\Suicune.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
@@ -547,7 +488,7 @@
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Pokemon\Charizard.h">
+    <ClInclude Include="..\Classes\Pokemon\Wartortle.h">
       <Filter>src\Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\Bite.h">
@@ -557,6 +498,9 @@
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\BodySlam.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\Bubble.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\DracoMeteor.h">
@@ -586,9 +530,6 @@
     <ClInclude Include="..\Classes\Skill\Gust.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill\HydroPump.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill\Peck.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
@@ -599,6 +540,9 @@
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\Scratch.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\SolarBeam.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\Spark.h">
@@ -631,16 +575,19 @@
     <ClInclude Include="..\Classes\Skill\WingAttack.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill\WoodHammer.h">
-      <Filter>src\Skill</Filter>
+    <ClInclude Include="..\Classes\Scene\BattleScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Attack.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\Scene\BuyItem.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\Loading.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\MainMenu.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MyBag.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\CaveNPC.h">
@@ -670,69 +617,52 @@
     <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Popup.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\Map\House.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Lab.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Lake.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\PokemonCenter.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Route1.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Town.h">
+      <Filter>src\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bag.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Buttons.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Item.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Item\revival.h">
-      <Filter>src\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\PP.h">
-      <Filter>src\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\HP.h">
-      <Filter>src\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Stone.h">
-      <Filter>src\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\HP\Potion.h">
-      <Filter>src\Item\HP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\HP\SuperPotion.h">
-      <Filter>src\Item\HP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\HP\MaxPotion.h">
-      <Filter>src\Item\HP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Stone\FireStone.h">
-      <Filter>src\Item\Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Stone\WaterStone.h">
-      <Filter>src\Item\Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Stone\LeafStone.h">
-      <Filter>src\Item\Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Stone\ThunderStone.h">
-      <Filter>src\Item\Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Revival\Revive.h">
-      <Filter>src\Item\Revival</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Revival\MaxRevive.h">
-      <Filter>src\Item\Revival</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\MyBag.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BuyItem.h">
-      <Filter>src\Scene</Filter>
-    <ClInclude Include="..\Classes\Map\Lake.h">
+    <ClInclude Include="..\Classes\MyObject.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Map\Route1.h">
+    <ClInclude Include="..\Classes\NPC.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Map\PokemonCenter.h">
+    <ClInclude Include="..\Classes\Pokemon.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Map\House.h">
+    <ClInclude Include="..\Classes\Popup.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResourceManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Trainer.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

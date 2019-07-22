@@ -10,11 +10,11 @@ ThunderShock::~ThunderShock()
 
 void ThunderShock::Init()
 {
-	Attack::SetName("Thunder Shock");
-	Attack::SetType("Electric");
-	Attack::SetPower(40);
-	Attack::SetMaxPP(35);
-	Attack::SetIdType(5);
-	Attack::SetPP(35);
+	Skill::SetName("Thunder Shock");
+	Skill::SetTypeName("Electric");
+	Skill::SetPower(40);
+	Skill::SetMaxPP(35);
+	Skill::SetIdType(5);
+	Skill::SetCurrentPP(35);
 }
 

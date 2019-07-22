@@ -10,11 +10,11 @@ FirePunch::~FirePunch()
 
 void FirePunch::Init()
 {
-	Attack::SetName("Fire Punch");
-	Attack::SetType("Fire");
-	Attack::SetPower(60);
-	Attack::SetMaxPP(20);
-	Attack::SetIdType(2);
-	Attack::SetPP(20);
+	Skill::SetName("Fire Punch");
+	Skill::SetTypeName("Fire");
+	Skill::SetPower(60);
+	Skill::SetMaxPP(20);
+	Skill::SetIdType(2);
+	Skill::SetCurrentPP(20);
 }
 

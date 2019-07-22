@@ -10,6 +10,8 @@ Pidgey::Pidgey()
 	this->Init(78, 79);
 	//
 	this->m_name = "Pidgey";
+	this->m_type = MyObject::TYPE_FLYING;
+	this->m_skills = { new Tackle(), new Gust(), nullptr };
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
