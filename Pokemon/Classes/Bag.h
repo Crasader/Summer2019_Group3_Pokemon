@@ -18,6 +18,8 @@ public:
 	void SetGold(int gold);
 	int GetGold();
 	void AddItem(Item* item);
+	void AddPokemonIntoMyList(int index);
+	void RemovePokemonFormMyListIntoListOver(int index);
 private:
 	static Bag* s_bag;
 	vector<Pokemon*> m_pokemons, m_pokemons_over;

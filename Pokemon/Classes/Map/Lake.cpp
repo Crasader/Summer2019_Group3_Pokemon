@@ -4,11 +4,8 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-#include "House.h"
-#include "Popup.h"
 #include "Route1.h"
 
-ui::Layout* equipment;
 USING_NS_CC;
 Size LakevisibleSize;
 Size LaketileMapSize;
@@ -79,7 +76,6 @@ bool Lake::init()
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
 	Button *down = Buttons::getIntance()->GetButtonDown();
-	Button *bag = Buttons::getIntance()->GetButtonBag();
 	up->retain();
 	up->removeFromParent();
 	up->release();
@@ -92,37 +88,11 @@ bool Lake::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
-	bag->retain();
-	bag->removeFromParent();
-	bag->release();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-	addChild(bag, 100);
 
-	Buttons::getIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
-	{
-		if (type == Widget::TouchEventType::ENDED)
-		{
-
-			/*UICustom::Popup *popup = UICustom::Popup::createBag();
-			popup->setAnchorPoint(Vec2(0.f,0.f));
-			popup->setScale(0.5f);
-			popup->setPosition(Vec2(Lakecamera->getPositionX()-popup->getContentSize().width/4, 
-				Lakecamera->getPositionY() - popup->getContentSize().height / 4));
-			this->addChild(popup);*/
-			equipment = ui::Layout::create();
-			equipment->setAnchorPoint(Vec2(0.5, 0.5));
-
-			equipment->setContentSize(Size(194, 128));
-			equipment->setPosition(Lakecamera->getPosition());
-			equipment->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-			equipment->setBackGroundColor(Color3B::GREEN);
-			equipment->setVisible(true);
-			addChild(equipment, 101);
-		}
-	});
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
 	
@@ -154,7 +124,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 
 void Lake::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/lake.tmx");
+	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

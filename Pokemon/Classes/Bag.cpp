@@ -73,3 +73,29 @@ void Bag::AddItem(Item * item)
 	this->m_items.push_back(item);
 }
 
+void Bag::AddPokemonIntoMyList(int index)
+{
+	if (this->m_pokemons.size() > 6)
+	{
+		CCLOG("My list pokemon full 6 slot");
+	}
+	else
+	{
+		this->m_pokemons.push_back(this->m_pokemons_over.at(index));
+		this->m_pokemons_over.erase.at(index);
+	}
+}
+
+void Bag::RemovePokemonFormMyListIntoListOver(int index)
+{
+	if (this->m_pokemons.size() > 10)
+	{
+		CCLOG("List pokemon over full 10 slot");
+	}
+	else
+	{
+		this->m_pokemons_over.push_back(this->m_pokemons.at(index));
+		this->m_pokemons.erase.at(index);
+	}
+}
+

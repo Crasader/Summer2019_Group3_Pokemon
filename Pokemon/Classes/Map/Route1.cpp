@@ -4,7 +4,6 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-
 #include "Town.h"
 
 USING_NS_CC;
@@ -119,12 +118,8 @@ bool Route1::init()
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-	Button *bag = Buttons::getIntance()->GetButtonBag();
-	bag->retain();
-	bag->removeFromParent();
-	bag->release();
-	addChild(bag, 100);
-    return true;
+
+
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -212,6 +207,7 @@ void Route1::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 	}
+
 }
 
 void Route1::updateCamera() {

@@ -48,7 +48,7 @@ bool Town::init()
 	TownvisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
 	TowntileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -141,19 +141,19 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
+		Director::getInstance()->replaceScene( House::createScene());
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
+		Director::getInstance()->replaceScene(Lab::createScene());
 	}
 	else if (a->getCollisionBitmask() == 21 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 21)
 	{
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+		Director::getInstance()->replaceScene(Route1::createScene());
 	}
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
