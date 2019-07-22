@@ -10,7 +10,7 @@ Buttons::Buttons()
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_left = ResourceManager::GetInstance()->GetButtonById(2);
 	m_right = ResourceManager::GetInstance()->GetButtonById(3);
-	m_bag = ResourceManager::GetInstance()->GetButtonById(10);
+	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
 	m_down->setPosition(Vec2(100, 70));
 	m_up->setPosition(Vec2(100, 130));
 	m_left->setPosition(Vec2(70, 100));
@@ -143,7 +143,8 @@ void Buttons::ButtonBag(Layer* layer,Vec2 vec)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			
+			// tabcontrol - My pokemon - Pokemon Over - My Item
+			TabControl TabBag = TabControl::create();
 		}
 	});
 }
@@ -190,22 +191,27 @@ void Buttons::Remove()
 	m_down->removeFromParentAndCleanup(true);
 	m_left->removeFromParentAndCleanup(true);
 	m_right->removeFromParentAndCleanup(true);
+	m_bag->removeFromParentAndCleanup(true);
 	m_up->release();
 	m_down->release();
 	m_left->release();
 	m_right->release();
+	m_bag->release();
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_left = ResourceManager::GetInstance()->GetButtonById(2);
 	m_right = ResourceManager::GetInstance()->GetButtonById(3);
+	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
 	m_down->setPosition(Vec2(100, 70));
 	m_up->setPosition(Vec2(100, 130));
 	m_left->setPosition(Vec2(70, 100));
 	m_right->setPosition(Vec2(130, 100));
+	m_bag->setPosition(Vec2(100, 600));
 	m_down->setScale(0.4f);
 	m_up->setScale(0.4f);
 	m_left->setScale(0.4f);
 	m_right->setScale(0.4f);
+	//m_bag->setScale();
 }
 void Buttons:: UpdateButton(float x, float y) {
 	m_left->setPosition(Vec2(x - 30, y));

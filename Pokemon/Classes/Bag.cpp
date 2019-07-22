@@ -80,7 +80,7 @@ void Bag::AddPokemonIntoMyList(int index)
 	else
 	{
 		this->m_pokemons.push_back(this->m_pokemons_over.at(index));
-		this->m_pokemons_over.erase.at(index);
+		//this->m_pokemons_over.erase.at(index);
 	}
 }
 
@@ -93,7 +93,7 @@ void Bag::RemovePokemonFormMyListIntoListOver(int index)
 	else
 	{
 		this->m_pokemons_over.push_back(this->m_pokemons.at(index));
-		this->m_pokemons.erase.at(index);
+		//this->m_pokemons.erase.at(index);
 	}
 }
 

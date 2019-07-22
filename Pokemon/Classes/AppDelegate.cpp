@@ -1,13 +1,10 @@
 
 #include "AppDelegate.h"
 #include "ResourceManager.h"
-<<<<<<< HEAD
 #include "Scene\MainMenu.h"
 #include "Map\PokemonCenter.h"
 #include "Map\Lake.h"
 #include "Map\Town.h"
-=======
->>>>>>> master
 #include "Scene\Loading.h"
 #include "Scene\BattleScene.h"
 #include "HelloWorldScene.h"

@@ -25,9 +25,6 @@
     <Filter Include="src\NPC">
       <UniqueIdentifier>{4199e900-0a1d-48a3-a4d3-9a56b5b79061}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Map">
-      <UniqueIdentifier>{5424dd5a-a71d-4f24-b227-f859bd7ac15e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -261,16 +258,10 @@
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scene\Loading.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
@@ -333,27 +324,7 @@
     <ClCompile Include="..\Classes\NPC.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Map\House.cpp">
-      <Filter>src\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Lake.cpp">
-      <Filter>src\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\PokemonCenter.cpp">
-      <Filter>src\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Route1.cpp">
-      <Filter>src\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Lab.cpp">
-      <Filter>src\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Town.cpp">
-      <Filter>src\Map</Filter>
     <ClCompile Include="..\Classes\Pokemon.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Popup.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResourceManager.cpp">
@@ -363,6 +334,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Trainer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Popup\Popup\Classes\Popup.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -598,16 +572,10 @@
     <ClInclude Include="..\Classes\Scene\BattleScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BuyItem.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\Loading.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\MainMenu.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\MyBag.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\CaveNPC.h">
@@ -670,27 +638,7 @@
     <ClInclude Include="..\Classes\NPC.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Map\House.h">
-      <Filter>src\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Lake.h">
-      <Filter>src\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\PokemonCenter.h">
-      <Filter>src\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Route1.h">
-      <Filter>src\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Lab.h">
-      <Filter>src\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Town.h">
-      <Filter>src\Map</Filter>
     <ClInclude Include="..\Classes\Pokemon.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Popup.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResourceManager.h">
@@ -700,6 +648,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Trainer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Popup\Popup\Classes\Popup.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
