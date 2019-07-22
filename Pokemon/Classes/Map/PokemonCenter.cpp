@@ -67,28 +67,21 @@ bool PokemonCenter::init()
 	}
 
 	InitObject();
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
+	
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	up->removeFromParent();
-	up->release();
-	right->retain();
 	right->removeFromParent();
-	right->release();
-	left->retain();
 	left->removeFromParent();
-	left->release();
-	down->retain();
 	down->removeFromParent();
-	down->release();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PokemonCenter::onContactBegin, this);
@@ -106,6 +99,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
 	}
@@ -202,6 +196,6 @@ void PokemonCenter::updateCamera()
 void PokemonCenter::update(float dt)
 {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
 }
 

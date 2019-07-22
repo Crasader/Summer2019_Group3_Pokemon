@@ -1,10 +1,10 @@
 #include "House.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
-#include "ResourceManager.h"
 #include "Buttons.h"
-#include"Map/PokemonCenter.h"
+#include "PokemonCenter.h"
 #include "Town.h"
+
 USING_NS_CC;
 
 Size HousevisibleSize;
@@ -67,29 +67,17 @@ bool House::init()
 
 	InitObject();
 
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
-	up->removeFromParent();
-	up->release();
-	right->retain();
-	right->removeFromParent();
-	right->release();
-	left->retain();
-	left->removeFromParent();
-	left->release();
-	down->retain();
-	down->removeFromParent();
-	down->release();
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
 
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
@@ -104,12 +92,12 @@ bool House::onContactBegin(PhysicsContact & contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17)
+		|| (a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15))
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 0;
-		Director::getInstance()->replaceScene(Town::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
 	return true;
@@ -204,5 +192,5 @@ void House::updateCamera()
 void House::update(float dt)
 {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Housecamera->getPosition().x - 200, Housecamera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Housecamera->getPosition().x - 200, Housecamera->getPosition().y - 100);
 }

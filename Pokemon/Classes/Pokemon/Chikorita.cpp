@@ -10,6 +10,8 @@ Chikorita::Chikorita()
 	this->Init(64, 65);
 	//
 	this->m_name = "Chikorita";
+	this->m_type = MyObject::TYPE_GRASS;
+	this->m_skills = { new Tackle(), new RazorLeaf(), nullptr };
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;

@@ -10,11 +10,11 @@ VineWhip::~VineWhip()
 
 void VineWhip::Init()
 {
-	Attack::SetName("Vine Whip");
-	Attack::SetType("Grass");
-	Attack::SetPower(40);
-	Attack::SetMaxPP(35);
-	Attack::SetIdType(4);
-	Attack::SetPP(35);
+	Skill::SetName("Vine Whip");
+	Skill::SetTypeName("Grass");
+	Skill::SetPower(40);
+	Skill::SetMaxPP(35);
+	Skill::SetIdType(4);
+	Skill::SetCurrentPP(35);
 }
 

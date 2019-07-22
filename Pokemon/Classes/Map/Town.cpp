@@ -7,6 +7,8 @@
 #include "Lab.h"
 #include "Route1.h"
 #include "House.h"
+#include "Scene\BattleScene.h"
+#include <cstdlib>
 
 USING_NS_CC;
 Size TownvisibleSize;
@@ -83,8 +85,8 @@ bool Town::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 3) {
-					int rand = random()%4;
-					if (!rand) {
+					int _random = rand() % 4;
+					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -100,29 +102,15 @@ bool Town::init()
 
 	InitObject();
 
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
-	up->removeFromParent();
-	up->release();
-	right->retain();
-	right->removeFromParent();
-	right->release();
-	left->retain();
-	left->removeFromParent();
-	left->release();
-	down->retain();
-	down->removeFromParent();
-	down->release();
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
-
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Town::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -140,41 +128,43 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 0;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene( House::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 1;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(Lab::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 21 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 21)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 2;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(Route1::createScene());
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		if (Trainer::m_Pokemons.size() == 0) {
-			CCLOG("No Pokemon in the bag");
-		}
-		int idPokemon = random()%3;	
-		
+		//int idPokemon = random();	
+		//new Pokemon with id
 		//chuyen scene chien dau
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
-
 	}
-
 	return true;
-
 }
 
 void Town::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -291,5 +281,5 @@ void Town::updateCamera() {
 }
 void Town::update(float dt) {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Towncamera->getPosition().x - 200, Towncamera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Towncamera->getPosition().x - 200, Towncamera->getPosition().y - 100);
 }

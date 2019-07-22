@@ -2,9 +2,9 @@
 #include "Route1.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
-#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "Lake.h"
 
 USING_NS_CC;
 Size Route1visibleSize;
@@ -80,8 +80,8 @@ bool Route1::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 5) {
-					int rand = random() % 4;
-					if (!rand) {
+					int _random = rand() % 4;
+					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -96,31 +96,15 @@ bool Route1::init()
 	}
 
 	InitObject();
-
-
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
-	up->removeFromParent();
-	up->release();
-	right->retain();
-	right->removeFromParent();
-	right->release();
-	left->retain();
-	left->removeFromParent();
-	left->release();
-	down->retain();
-	down->removeFromParent();
-	down->release();
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-
-
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
@@ -140,15 +124,16 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
 	}
 
 	return true;
@@ -256,5 +241,5 @@ void Route1::updateCamera() {
 }
 void Route1::update(float dt) {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
 }

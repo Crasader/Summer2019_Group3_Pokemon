@@ -14,15 +14,15 @@ ResourceManager::~ResourceManager()
 {
 }
 
-ResourceManager* ResourceManager::s_instance = nullptr;
+ResourceManager* ResourceManager::m_instance = nullptr;
 
 ResourceManager * ResourceManager::GetInstance()
 {
-	if (s_instance == nullptr)
+	if (m_instance == nullptr)
 	{
-		s_instance = new ResourceManager();
+		m_instance = new ResourceManager();
 	}
-	return s_instance;
+	return m_instance;
 }
 
 void ResourceManager::Init()
@@ -54,36 +54,33 @@ void ResourceManager::Load()
 		button->retain();
 		this->m_buttons.insert(pair<int, Button*>(i, button));
 	}
-
-	/*length = document["FONT"]["length"].GetInt();
+	length = document["FONT"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
 		string path = document["FONT"][key.c_str()].GetString();
-		path.replace(0, 2, this->m_dataFolderPath);
 		auto label = Label::createWithTTF("", path, 15);
 		label->retain();
 		this->m_labels.insert(pair<int, Label*>(i, label));
-	}*/
-	length = document["ANIMATE"]["size"].GetInt();
+	}
+	length = document["ANIMATION"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
 	{
 		string key = to_string(i);
-		string plist_path = document["ANIMATE"][key.c_str()]["plist"].GetString();
-		string path = document["ANIMATE"][key.c_str()]["path"].GetString();
-		int n = document["ANIMATE"][key.c_str()]["size"].GetInt();
+		string plist_path = document["ANIMATION"][key.c_str()]["plist"].GetString();
+		string path = document["ANIMATION"][key.c_str()]["path"].GetString();
+		int n = document["ANIMATION"][key.c_str()]["size"].GetInt();
 		SpriteFrameCache::getInstance()->destroyInstance();
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(plist_path, path);
 		Vector<SpriteFrame*> aniFrames;
 		for (int j = 0; j < n; j++)
 		{
-			string frameName = document["ANIMATE"][key.c_str()]["png"][j].GetString();
+			string frameName = document["ANIMATION"][key.c_str()]["png"][j].GetString();
 			aniFrames.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName));
 		}
-		auto animation = Animation::createWithSpriteFrames(aniFrames, 0.3);
-		auto animate = Animate::create(animation);
-		animate->retain();
-		this->m_animates.insert(pair<int, Animate*>(i, animate));
+		auto animation = Animation::createWithSpriteFrames(aniFrames);
+		animation->retain();
+		this->m_animations.insert(pair<int, Animation*>(i, animation));
 	}
 	length = document["TILEDMAP"]["size"].GetInt();
 	for (int i = 0; i < length; i++)
@@ -108,6 +105,7 @@ TMXTiledMap * ResourceManager::GetTiledMapById(int id)
 Sprite * ResourceManager::DuplicateSprite(Sprite * sprite)
 {
 	auto temp = Sprite::createWithTexture(sprite->getTexture());
+	temp->retain();
 	return temp;
 }
 
@@ -120,12 +118,14 @@ Sprite * ResourceManager::GetSpriteById(int id)
 	}
 }
 
-Animate * ResourceManager::GetAnimateById(int id)
+Animation * ResourceManager::GetAnimationById(int id)
 {
-	auto tmp = this->m_animates.find(id);
-	while (tmp != m_animates.end())
+	auto tmp = this->m_animations.find(id);
+	while (tmp != m_animations.end())
 	{
-		return tmp->second;
+		auto animation = tmp->second->clone();
+		animation->retain();
+		return animation;
 	}
 }
 
@@ -134,7 +134,9 @@ Button * ResourceManager::GetButtonById(int id)
 	auto tmp = this->m_buttons.find(id);
 	while (tmp != m_buttons.end())
 	{
-		return tmp->second;
+		auto button = (Button*)tmp->second->clone();
+		button->retain();
+		return button;
 	}
 }
 
@@ -143,6 +145,8 @@ Label * ResourceManager::GetLabelById(int id)
 	auto tmp = this->m_labels.find(id);
 	while (tmp != m_labels.end())
 	{
-		return tmp->second;
+		auto label = Label::createWithTTF(tmp->second->getTTFConfig(), "");
+		label->retain();
+		return label;
 	}
 }

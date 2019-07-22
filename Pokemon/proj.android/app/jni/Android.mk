@@ -124,7 +124,6 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
     $(LOCAL_PATH)/../../../Classes/Skill/WingAttack.cpp" \
     $(LOCAL_PATH)/../../../Classes/Skill/WoodHammer.cpp" \
     $(LOCAL_PATH)/../../../Classes/Trainer.cpp" 
-
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes
 
 # _COCOS_HEADER_ANDROID_BEGIN

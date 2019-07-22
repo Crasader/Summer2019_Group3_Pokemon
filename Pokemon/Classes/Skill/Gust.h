@@ -1,11 +1,12 @@
 #pragma once
 #include"cocos2d.h"
-#include "Attack.h"
+#include "Skill.h"
 
-class Gust : public Attack
+class Gust : public Skill
 {
 public:
 	Gust();
 	~Gust();
 	void Init();
+	void Run(Vec2 position) override;
 };

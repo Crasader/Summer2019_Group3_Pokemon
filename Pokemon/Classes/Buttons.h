@@ -20,7 +20,7 @@ private:
 public:
 	~Buttons();
 	static int state;
-	static Buttons* getIntance();
+	static Buttons* GetIntance();
 	void ButtonListener(Trainer *&mPlayer);
 	void ButtonBag(Layer * layer, Vec2 vec);
 	//void ButtonBag(Layer* layer);
@@ -29,5 +29,6 @@ public:
 	Button *GetButtonRight();
 	Button *GetButtonDown();
 	Button *GetButtonBag();
+	void Remove();
 	void UpdateButton(float x, float y);
 };

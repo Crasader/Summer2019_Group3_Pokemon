@@ -10,11 +10,11 @@ QuickAttack::~QuickAttack()
 
 void QuickAttack::Init()
 {
-	Attack::SetName("Quick Attack");
-	Attack::SetType("Normal");
-	Attack::SetPower(50);
-	Attack::SetMaxPP(20);
-	Attack::SetIdType(1);
-	Attack::SetPP(20);
+	Skill::SetName("Quick Attack");
+	Skill::SetTypeName("Normal");
+	Skill::SetPower(50);
+	Skill::SetMaxPP(20);
+	Skill::SetIdType(1);
+	Skill::SetCurrentPP(20);
 }
 

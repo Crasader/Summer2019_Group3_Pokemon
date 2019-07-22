@@ -8,6 +8,11 @@ USING_NS_CC;
 using namespace std;
 class Trainer : public MyObject
 {
+private:
+	Animation* up;
+	Animation* down;
+	Animation* left;
+	Animation* right;
 public: 
 	Trainer();
 	Trainer(cocos2d::Layer* layer);

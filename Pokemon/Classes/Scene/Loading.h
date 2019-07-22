@@ -7,6 +7,10 @@ using namespace cocos2d;
 
 class Loading : public Layer
 {
+private:
+	Sprite* backGround;
+	Sprite* loadingBar;
+	Sprite* progress;
 public:
 	static cocos2d::Scene* createScene();
 	bool init() override;

@@ -1,5 +1,5 @@
 #include "MyBag.h"
-#include "ui/UITabControl.h"
+#include "ui\UITabControl.h"
 
 cocos2d::Scene * MyBag::createScene()
 {

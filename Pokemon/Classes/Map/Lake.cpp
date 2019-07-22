@@ -72,29 +72,17 @@ bool Lake::init()
 	InitObject();
 	
 
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
-	up->removeFromParent();
-	up->release();
-	right->retain();
-	right->removeFromParent();
-	right->release();
-	left->retain();
-	left->removeFromParent();
-	left->release();
-	down->retain();
-	down->removeFromParent();
-	down->release();
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
 
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
@@ -114,6 +102,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
@@ -208,5 +197,5 @@ void Lake:: updateCamera() {
 }
 void Lake::update(float dt) {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Lakecamera->getPosition().x - 200, Lakecamera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Lakecamera->getPosition().x - 200, Lakecamera->getPosition().y - 100);
 }

@@ -1,12 +1,10 @@
 #include "Bag.h"
 #include "Trainer.h"
-#include "Item\HP\Potion.h"
+
 Bag::Bag()
 {
 	this->Init();
 	this->my_gold = 100;
-	Item* potion = new Potion();
-	this->m_items.push_back(potion);
 }
 Bag::~Bag()
 {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="11">
+
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="24" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="13">
+
  <tileset firstgid="1" source="terrain_atlas.tsx"/>
  <tileset firstgid="1025" source="mapmario.tsx"/>
  <tileset firstgid="2049" source="HelloWorld.tsx"/>
@@ -143,6 +145,7 @@
   <object id="9" type="1" x="590" y="222">
    <properties>
     <property name="pre" type="int" value="1"/>
+
    </properties>
    <point/>
   </object>

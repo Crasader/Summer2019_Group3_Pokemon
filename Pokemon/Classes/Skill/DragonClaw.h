@@ -1,8 +1,8 @@
 #pragma once
 #include"cocos2d.h"
-#include "Attack.h"
+#include "Skill.h"
 
-class DragonClaw : public Attack
+class DragonClaw : public Skill
 {
 public:
 	DragonClaw();

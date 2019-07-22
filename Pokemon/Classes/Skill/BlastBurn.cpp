@@ -10,11 +10,10 @@ BlastBurn::~BlastBurn()
 
 void BlastBurn::Init()
 {
-	Attack::SetName("BlastBurn");
-	Attack::SetType("Fire");
-	Attack::SetPower(100);
-	Attack::SetMaxPP(5);
-	Attack::SetIdType(2);
-	Attack::SetPP(5);
+	Skill::SetName("BlastBurn");
+	Skill::SetTypeName("Fire");
+	Skill::SetPower(100);
+	Skill::SetMaxPP(5);
+	Skill::SetIdType(2);
+	Skill::SetCurrentPP(5);
 }
-
