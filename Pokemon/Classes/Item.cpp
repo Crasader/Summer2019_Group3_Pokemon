@@ -15,33 +15,33 @@ void Item::Init(int id)
 
 int Item::GetGold()
 {
-	return this->gold;
+	return this->m_gold;
 }
 
 string Item::GetName()
 {
-	return this->name;
+	return this->m_name;
 }
 
 
 void Item::SetGold(int gold)
 {
-	this->gold = gold;
+	this->m_gold = gold;
 }
 
 void Item::SetName(string name)
 {
-	this->name = name;
+	this->m_name = name;
 }
 
 
 int Item::GetNumber()
 {
-	return this->Number;
+	return this->m_number;
 }
 
 void Item::SetNumber(int index)
 {
-	this->Number = index;
+	this->m_number = index;
 }
 

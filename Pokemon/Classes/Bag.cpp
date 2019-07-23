@@ -22,6 +22,11 @@ Bag * Bag::GetInstance()
 }
 void Bag::Init()
 {
+	for (int i = 0; i < 9; i++)
+	{
+
+		m_items.push_back();
+	}
 }
 
 void Bag::Update(float deltaTime)

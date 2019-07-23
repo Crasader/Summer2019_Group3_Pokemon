@@ -5,6 +5,7 @@
 #include "Pokemon\Charizard.h"
 #include "Pokemon\Charmeleon.h"
 #include "Pokemon.h"
+#include "Buttons.h"
 USING_NS_CC;
 
 using namespace ui;
@@ -90,13 +91,15 @@ namespace UICustom
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = [=](Touch* touch, Event* event) {
-			if (_bg) {
+			if (_bg)
+			{
 				if (!_bg->getBoundingBox().containsPoint(this->convertToNodeSpace(touch->getLocation())))
 				{
 					this->dismiss(true);
 				}
 			}
-			else {
+			else
+			{
 				this->dismiss(true);
 			}
 			return true;
@@ -173,7 +176,8 @@ namespace UICustom
 			headerPO->setTitleText("Pokemon Over");
 			auto headerMI = TabHeader::create();
 			headerMI->setTitleText("My Item");
-			auto containerMP = Layout::create();		
+			auto containerMP = Layout::create();
+#pragma region Tab1
 			auto listView = ui::ListView::create();
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
@@ -181,13 +185,9 @@ namespace UICustom
 			listView->setScale(0.8);
 			CCLOG("%f", listView->getContentSize().width);
 			listView->setGlobalZOrder(200);
-			listView->setPosition(Vec2(tab->getContentSize().width/2,0));
+			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
 			containerMP->addChild(listView);
-			Charizard *charizard = new Charizard();
-			//Charmeleon *charmeleon = new Charmeleon();
-			Bag::GetInstance()->AddPokemon(charizard);
-			//Bag::GetInstance()->AddPokemon(charmeleon);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
 			auto list = Bag::GetInstance()->GetListPokemon();
 			for (int i = 0; i < 6; i++)
@@ -199,13 +199,51 @@ namespace UICustom
 					string name = list.at(i)->GetName();
 					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
 					sprite->setTag(i);
-					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i*2+1) / 4,
-						button->getPosition().y + listView->getContentSize().height / 2);	
+					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listView->getContentSize().height / 2);
 					listView->addChild(sprite, 202);
-				}		
+				}
 				listView->pushBackCustomItem(button);
 			}
+			listView->addEventListener([node](Ref* sender, ui::ListView::EventType type)
+			{
+				if (type == ui::ListView::EventType::ON_SELECTED_ITEM_END) 
+				{
+					//
+				}
+			});
+
+#pragma endregion
 			auto containerPO = Layout::create();
+#pragma region Tab2
+			auto listViewPO = ui::ListView::create();
+			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewPO->setContentSize(Size(280, 140));
+			listViewPO->setScale(0.8);
+			CCLOG("%f", listViewPO->getContentSize().width);
+			listViewPO->setGlobalZOrder(200);
+			listViewPO->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listViewPO->setClippingEnabled(true);
+			containerPO->addChild(listViewPO);
+			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
+			auto listOver = Bag::GetInstance()->GetListPokemonOver();
+			for (int i = 0; i < 10; i++)
+			{
+				ui::Button *buttonOver = ResourceManager::GetInstance()->GetButtonById(12);
+				buttonOver->setTag(i);
+				if (i < sizeOfPokemonOver)
+				{
+					string name = listOver.at(i)->GetName();
+					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					sprite->setTag(i);
+					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
+					listViewPO->addChild(sprite, 202);
+				}
+				listViewPO->pushBackCustomItem(buttonOver);
+			}
+#pragma endregion
 			auto containerMI = Layout::create();
 			tab->insertTab(0, headerMP, containerMP);
 			tab->insertTab(1, headerPO, containerPO);
@@ -218,8 +256,8 @@ namespace UICustom
 
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
-
 
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
@@ -233,8 +271,13 @@ namespace UICustom
 			return node;
 		}
 	}
-	void Popup::selectedItemEvent(cocos2d::Ref * sender, cocos2d::ui::ListView::EventType type)
+	void Popup::SelectedItemMPEvent(Ref * sender, ListView::EventType type)
 	{
+		ListView *listview = static_cast<ListView*>(sender);
+		if (type == ListView::EventType::ON_SELECTED_ITEM_END)
+		{
+			CCLOG("&d", listview->getCurSelectedIndex());
+		}
 	}
     Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void ()> &YesFunc)
     {

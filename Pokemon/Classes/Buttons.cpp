@@ -147,7 +147,6 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
-
 		}
 	});
 }
