@@ -7,10 +7,10 @@
 #include "Town.h"
 
 USING_NS_CC;
-Size LabvisibleSize;
-Size LabtileMapSize;
-PhysicsBody* Labbody, *LabgateWay;
-Camera *Labcamera;
+Size labVisibleSize;
+Size labTileMapSize;
+PhysicsBody* labBody, *labGateWay, *doctorBody;
+Camera *labCamera;
 
 
 
@@ -20,7 +20,7 @@ Scene* Lab::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lab::create();
 	scene->addChild(layer);
-	Labcamera = scene->getDefaultCamera();
+	labCamera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -41,14 +41,12 @@ bool Lab::init()
 		return false;
 	}
 
-	LabvisibleSize = Director::getInstance()->getVisibleSize();
+	labVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
-	LabtileMapSize = map->getContentSize();
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
+	labTileMapSize = map->getContentSize();
 	addChild(map);
-	auto homeTS = TMXTiledMap::create("res/Map/TienSiHome.tmx");
-	addChild(homeTS, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -105,6 +103,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = 1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
@@ -114,7 +113,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 
 void Lab::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -126,77 +125,86 @@ void Lab::InitObject()
 		if (type == 1) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			Labbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Labbody->setCollisionBitmask(17);
-			Labbody->setMass(16);
-			Labbody->setContactTestBitmask(true);
-			Labbody->setDynamic(true);
-			Labbody->setRotationEnable(false);
-			Labbody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(Labbody);
+			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			labBody->setCollisionBitmask(17);
+			labBody->setMass(16);
+			labBody->setContactTestBitmask(true);
+			labBody->setDynamic(true);
+			labBody->setRotationEnable(false);
+			labBody->setGravityEnable(false);
+			mPlayer->GetSpriteFront()->setPhysicsBody(labBody);
 		}
-		else {
+		else if(type == 2) {
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			LabgateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			LabgateWay->setCollisionBitmask(15);
-			LabgateWay->setMass(14);
-			LabgateWay->setContactTestBitmask(true);
-			LabgateWay->setDynamic(false);
-			LabgateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(LabgateWay);
-			mGateWay->setVisible(false);
+			labGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			labGateWay->setCollisionBitmask(15);
+			labGateWay->setContactTestBitmask(true);
+			labGateWay->setDynamic(false);
+			labGateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(labGateWay);
 			this->addChild(mGateWay, 10);
+		}
+		else {
+			doctor = Sprite::create("res/oak_down.png");
+			doctor->setPosition(Vec2(posX, posY));
+			doctorBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			doctorBody->setCollisionBitmask(26);
+			doctorBody->setContactTestBitmask(true);
+			doctorBody->setDynamic(false);
+			doctorBody->setGravityEnable(false);
+			doctor->setPhysicsBody(doctorBody);
+			this->addChild(doctor, 10);
 		}
 	}
 
 }
 
-void Lab::updateCamera() {
-	if (LabvisibleSize.width >= LabtileMapSize.width) {
-		if (LabvisibleSize.height >= LabtileMapSize.height) {
-			Labcamera->setPosition(LabtileMapSize / 2);
+void Lab::UpdateCamera() {
+	if (labVisibleSize.width >= labTileMapSize.width) {
+		if (labVisibleSize.height >= labTileMapSize.height) {
+			labCamera->setPosition(labTileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition(LabtileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition(labTileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(LabtileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				labCamera->setPosition(labTileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 		}
 	}
 	else {
-		if (LabvisibleSize.height >= LabtileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, LabtileMapSize.height / 2);
+		if (labVisibleSize.height >= labTileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, labTileMapSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, LabtileMapSize.height / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, labTileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)<abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)<abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)<abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)<abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
 			}
 		}
 	}
 
 }
 void Lab::update(float dt) {
-	updateCamera();
-	Buttons::GetIntance()->UpdateButton(Labcamera->getPosition().x - 200, Labcamera->getPosition().y - 100);
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(labCamera->getPosition().x - 200, labCamera->getPosition().y - 100);
 }

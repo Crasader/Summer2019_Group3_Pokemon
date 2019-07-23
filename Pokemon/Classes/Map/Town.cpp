@@ -10,11 +10,11 @@
 #include <cstdlib>
 
 USING_NS_CC;
-Size TownvisibleSize;
-Size TowntileMapSize;
+Size townVisibleSize;
+Size townTileMapSize;
 
-PhysicsBody* Townbody, *TowngateWay;
-Camera *Towncamera;
+PhysicsBody* townBody, *townGateWay;
+Camera *townCamera;
 int Town::previousScene = 0;
 
 
@@ -24,7 +24,7 @@ Scene* Town::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
-	Towncamera = scene->getDefaultCamera();
+	townCamera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -46,13 +46,14 @@ bool Town::init()
 		return false;
 	}
 
-	TownvisibleSize = Director::getInstance()->getVisibleSize();
+	townVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
-	TowntileMapSize = map->getContentSize();
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
+	townTileMapSize = map->getContentSize();
 	addChild(map);
-
+	auto mapHouse = ResourceManager::GetInstance()->GetTiledMapById(3);
+	addChild(mapHouse, 15);
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -106,6 +107,7 @@ bool Town::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
+
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
@@ -125,6 +127,8 @@ bool Town::init()
 bool Town::onContactBegin(PhysicsContact& contact)
 
 {
+
+
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
@@ -162,12 +166,38 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
 	}
+	if ((a->getCollisionBitmask() == 13 && b->getCollisionBitmask() == 15)
+		|| (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 13))
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
+
 	return true;
 }
 
 void Town::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -181,14 +211,14 @@ void Town::InitObject()
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
 				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-				Townbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				Townbody->setCollisionBitmask(15);
-				Townbody->setMass(14);
-				Townbody->setContactTestBitmask(true);
-				Townbody->setDynamic(true);
-				Townbody->setRotationEnable(false);
-				Townbody->setGravityEnable(false);
-				mPlayer->GetSpriteFront()->setPhysicsBody(Townbody);
+				townBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				townBody->setCollisionBitmask(15);
+				townBody->setMass(14);
+				townBody->setContactTestBitmask(true);
+				townBody->setDynamic(true);
+				townBody->setRotationEnable(false);
+				townBody->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(townBody);
 			}
 			else continue;
 		}
@@ -196,13 +226,13 @@ void Town::InitObject()
 		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			TowngateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			TowngateWay->setCollisionBitmask(17);
-			TowngateWay->setMass(16);
-			TowngateWay->setContactTestBitmask(true);
-			TowngateWay->setDynamic(false);
-			TowngateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(TowngateWay);
+			townGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			townGateWay->setCollisionBitmask(17);
+			townGateWay->setMass(16);
+			townGateWay->setContactTestBitmask(true);
+			townGateWay->setDynamic(false);
+			townGateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(townGateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
@@ -210,13 +240,13 @@ void Town::InitObject()
 		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			TowngateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			TowngateWay->setCollisionBitmask(19);
-			TowngateWay->setMass(18);
-			TowngateWay->setContactTestBitmask(true);
-			TowngateWay->setDynamic(false);
-			TowngateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(TowngateWay);
+			townGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			townGateWay->setCollisionBitmask(19);
+			townGateWay->setMass(18);
+			townGateWay->setContactTestBitmask(true);
+			townGateWay->setDynamic(false);
+			townGateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(townGateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
@@ -224,13 +254,13 @@ void Town::InitObject()
 		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			TowngateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			TowngateWay->setCollisionBitmask(21);
-			TowngateWay->setMass(20);
-			TowngateWay->setContactTestBitmask(true);
-			TowngateWay->setDynamic(false);
-			TowngateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(TowngateWay);
+			townGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			townGateWay->setCollisionBitmask(21);
+			townGateWay->setMass(20);
+			townGateWay->setContactTestBitmask(true);
+			townGateWay->setDynamic(false);
+			townGateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(townGateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
@@ -238,51 +268,51 @@ void Town::InitObject()
 
 }
 
-void Town::updateCamera() {
-	if (TownvisibleSize.width >= TowntileMapSize.width) {
-		if (TownvisibleSize.height >= TowntileMapSize.height) {
-			Towncamera->setPosition(TowntileMapSize / 2);
+void Town::UpdateCamera() {
+	if (townVisibleSize.width >= townTileMapSize.width) {
+		if (townVisibleSize.height >= townTileMapSize.height) {
+			townCamera->setPosition(townTileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)>abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition(TowntileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)>abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
+				townCamera->setPosition(townTileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
 			}
 			else {
-				Towncamera->setPosition(TowntileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				townCamera->setPosition(townTileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 		}
 	}
 	else {
-		if (TownvisibleSize.height >= TowntileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)>abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)) {
-				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, TowntileMapSize.height / 2);
+		if (townVisibleSize.height >= townTileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)>abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)) {
+				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, townTileMapSize.height / 2);
 			}
 			else {
-				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, TowntileMapSize.height / 2);
+				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, townTileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)>abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)>abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)>abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)>abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
+				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)>abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)<abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)>abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)<abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
+				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)<abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)>abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)<abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)>abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
+				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
 			}
 			else {
-				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
 			}
 		}
 	}
 
 }
 void Town::update(float dt) {
-	updateCamera();
-	Buttons::GetIntance()->UpdateButton(Towncamera->getPosition().x - 200, Towncamera->getPosition().y - 100);
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
 }
