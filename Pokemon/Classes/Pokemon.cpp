@@ -84,7 +84,6 @@ void Pokemon::SetType(int type)
 	this->m_type = type;
 }
 
-
 int Pokemon::GetCurrentHP()
 {
 	return this->m_currentHealth;
@@ -99,7 +98,6 @@ void Pokemon::SetCurrentHP(int health)
 	this->m_currentHealth = health;
 }
 
-
 int Pokemon::GetMaxHP()
 {
 	return this->m_maxHealth;
@@ -109,6 +107,7 @@ void Pokemon::SetMaxHP(int maxhealth)
 {
 	this->m_maxHealth = maxhealth;
 }
+
 int Pokemon::GetLevel()
 {
 	return this->m_level;

@@ -237,9 +237,6 @@
     <ClCompile Include="..\Classes\Skill\ThunderShock.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Skill\VineWhip.cpp">
-      <Filter>src\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Skill\WaterGun.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
@@ -343,6 +340,9 @@
       <Filter>src\Skill</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Skill\LeafStorm.cpp">
+      <Filter>src\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill\LeechSeed.cpp">
       <Filter>src\Skill</Filter>
     </ClCompile>
   </ItemGroup>
@@ -557,9 +557,6 @@
     <ClInclude Include="..\Classes\Skill\ThunderShock.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Skill\VineWhip.h">
-      <Filter>src\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Skill\WaterGun.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
@@ -669,6 +666,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Skill\LeafStorm.h">
+      <Filter>src\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Skill\LeechSeed.h">
       <Filter>src\Skill</Filter>
     </ClInclude>
   </ItemGroup>

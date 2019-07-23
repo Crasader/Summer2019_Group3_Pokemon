@@ -249,7 +249,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Skill\Thunder.cpp" />
     <ClCompile Include="..\Classes\Skill\Thunderbolt.cpp" />
     <ClCompile Include="..\Classes\Skill\ThunderShock.cpp" />
-    <ClCompile Include="..\Classes\Skill\VineWhip.cpp" />
+    <ClCompile Include="..\Classes\Skill\LeechSeed.cpp" />
     <ClCompile Include="..\Classes\Skill\WaterGun.cpp" />
     <ClCompile Include="..\Classes\Skill\WaterPulse.cpp" />
     <ClCompile Include="..\Classes\Skill\WingAttack.cpp" />
@@ -359,7 +359,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\Thunder.h" />
     <ClInclude Include="..\Classes\Skill\Thunderbolt.h" />
     <ClInclude Include="..\Classes\Skill\ThunderShock.h" />
-    <ClInclude Include="..\Classes\Skill\VineWhip.h" />
+    <ClInclude Include="..\Classes\Skill\LeechSeed.h" />
     <ClInclude Include="..\Classes\Skill\WaterGun.h" />
     <ClInclude Include="..\Classes\Skill\WaterPulse.h" />
     <ClInclude Include="..\Classes\Skill\WingAttack.h" />

@@ -395,8 +395,8 @@ void BattleScene::InitUI()
 
 void BattleScene::InitObject()
 {
-	this->m_player = new Chikorita();
-	this->m_opponent = new Squirtle();
+	this->m_player = new Charmander();
+	this->m_opponent = new Chikorita();
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
 	auto x = obj->getObject("player").at("x").asFloat();
 	auto y = obj->getObject("player").at("y").asFloat();

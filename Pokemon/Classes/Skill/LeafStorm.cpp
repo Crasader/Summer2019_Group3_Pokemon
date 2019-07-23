@@ -12,6 +12,7 @@ LeafStorm::~LeafStorm()
 void LeafStorm::Init()
 {
 	this->AddAnimation(107);
+	this->GetAnimation()->setDelayPerUnit(0.08);
 	this->SetScale(1.5);
 	Skill::SetName("Leaf Storm");
 	Skill::SetTypeName("Grass");

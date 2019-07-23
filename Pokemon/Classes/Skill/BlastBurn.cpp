@@ -1,7 +1,8 @@
-#include"BlastBurn.h"
+#include "BlastBurn.h"
 
 BlastBurn::BlastBurn()
 {
+	this->Init();
 }
 
 BlastBurn::~BlastBurn()
@@ -10,7 +11,10 @@ BlastBurn::~BlastBurn()
 
 void BlastBurn::Init()
 {
-	Skill::SetName("BlastBurn");
+	this->AddAnimation(91);
+	this->GetAnimation()->setDelayPerUnit(0.1);
+	this->SetScale(1.5);
+	Skill::SetName("Blast Burn");
 	Skill::SetTypeName("Fire");
 	Skill::SetPower(100);
 	Skill::SetMaxPP(5);

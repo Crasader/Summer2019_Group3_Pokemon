@@ -23,7 +23,7 @@
 #include "Skill\Thunder.h"
 #include "Skill\Thunderbolt.h"
 #include "Skill\ThunderShock.h"
-#include "Skill\VineWhip.h"
+#include "Skill\LeechSeed.h"
 #include "Skill\WaterGun.h"
 #include "Skill\WaterPulse.h"
 #include "Skill\WingAttack.h"
