@@ -1,5 +1,10 @@
 #include "ui\UITabControl.h"
 #include "Popup.h"
+#include "ResourceManager.h"
+#include "Bag.h"
+#include "Pokemon\Charizard.h"
+#include "Pokemon\Charmeleon.h"
+#include "Pokemon.h"
 USING_NS_CC;
 
 using namespace ui;
@@ -54,7 +59,7 @@ namespace UICustom
 		}
 		this->setOpacity(0);
 		show(true);
-		this->setUpTouches();
+		//this->setUpTouches();
 
 
 		return true;
@@ -156,7 +161,7 @@ namespace UICustom
 		if (node && node->init())
 		{
 			auto tab = TabControl::create();
-			tab->setContentSize(Size(300,100));
+			tab->setContentSize(Size(300, 100));
 			tab->setHeaderHeight(20);
 			tab->setHeaderWidth(100);
 			tab->setHeaderDockPlace(TabControl::Dock::TOP);
@@ -168,22 +173,40 @@ namespace UICustom
 			headerPO->setTitleText("Pokemon Over");
 			auto headerMI = TabHeader::create();
 			headerMI->setTitleText("My Item");
-			auto containerMP = Layout::create();
-			containerMP->setOpacity(255);
-			containerMP->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			containerMP->setBackGroundColor(Color3B::GRAY);
-			containerMP->setBackGroundColorOpacity(255);
+			auto containerMP = Layout::create();		
+			auto listView = ui::ListView::create();
+			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listView->setAnchorPoint(Vec2(0.5, 0.5));
+			listView->setContentSize(Size(280, 140));
+			listView->setScale(0.8);
+			CCLOG("%f", listView->getContentSize().width);
+			listView->setGlobalZOrder(200);
+			listView->setPosition(Vec2(tab->getContentSize().width/2,0));
+			listView->setClippingEnabled(true);
+			containerMP->addChild(listView);
+			Charizard *charizard = new Charizard();
+			//Charmeleon *charmeleon = new Charmeleon();
+			Bag::GetInstance()->AddPokemon(charizard);
+			//Bag::GetInstance()->AddPokemon(charmeleon);
+			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
+			auto list = Bag::GetInstance()->GetListPokemon();
+			for (int i = 0; i < 6; i++)
+			{
+				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
+				button->setTag(i);
+				if (i < sizeofpokemon)
+				{
+					string name = list.at(i)->GetName();
+					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					sprite->setTag(i);
+					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i*2+1) / 4,
+						button->getPosition().y + listView->getContentSize().height / 2);	
+					listView->addChild(sprite, 202);
+				}		
+				listView->pushBackCustomItem(button);
+			}
 			auto containerPO = Layout::create();
-			containerPO->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			containerPO->setOpacity(255);
-			containerPO->setBackGroundColor(Color3B::BLUE);
-			containerPO->setBackGroundColorOpacity(255);
 			auto containerMI = Layout::create();
-			containerMI->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			containerMI->setOpacity(255);
-			containerMI->setBackGroundColor(Color3B::RED);
-			containerMI->setBackGroundColorOpacity(255);
-
 			tab->insertTab(0, headerMP, containerMP);
 			tab->insertTab(1, headerPO, containerPO);
 			tab->insertTab(2, headerMI, containerMI);
@@ -193,63 +216,14 @@ namespace UICustom
 			CC_SAFE_RETAIN(headerPO);
 			CC_SAFE_RETAIN(headerMI);
 
-			/*auto tab = TabControl::create();
-			tab->setContentSize(Size(200.f, 200.f));
-			tab->setHeaderHeight(20.f);
-			tab->setHeaderWidth(70.f);
-			tab->setHeaderSelectedZoom(.1f);
-			tab->setHeaderDockPlace(TabControl::Dock::TOP);
-
-			auto header1 = TabHeader::create();
-			header1->setTitleText("background");
-			header1->loadTextureBackGround("cocosui/check_box_normal_disable.png");
-			auto header2 = TabHeader::create("cross", "cocosui/check_box_normal_disable.png", "cocosui/check_box_active.png");
-			auto header3 = TabHeader::create("press&cross", "cocosui/check_box_normal.png",
-				"cocosui/check_box_normal_press.png",
-				"cocosui/check_box_active.png",
-				"cocosui/check_box_normal_disable.png",
-				"cocosui/check_box_active_disable.png");
-
-			auto container1 = Layout::create();
-			container1->setOpacity(255);
-			container1->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			container1->setBackGroundColor(Color3B::GRAY);
-			container1->setBackGroundColorOpacity(255);
-			auto container2 = Layout::create();
-			container2->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			container2->setOpacity(255);
-			container2->setBackGroundColor(Color3B::BLUE);
-			container2->setBackGroundColorOpacity(255);
-			auto container3 = Layout::create();
-			container3->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-			container3->setOpacity(255);
-			container3->setBackGroundColor(Color3B::RED);
-			container3->setBackGroundColorOpacity(255);
-
-			tab->insertTab(0, header1, container1);
-			tab->insertTab(1, header2, container2);
-			tab->insertTab(2, header3, container3);
-
-			tab->setSelectTab(2);
-			CC_SAFE_RETAIN(tab);
-			CC_SAFE_RETAIN(header1);
-			CC_SAFE_RETAIN(header2);
-			CC_SAFE_RETAIN(header3);
-			node->addChild(tab,999);
-			tab->setPosition(winSize / 2);*/
-
-			MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
-				node->dismiss(true);
-			});
-
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
 			});
 
 
-			Menu *menu = Menu::create(yesButton, noButton, NULL);
+			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 75);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 100);
 			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			menu->removeFromParent();
@@ -258,6 +232,9 @@ namespace UICustom
 			node->autorelease();
 			return node;
 		}
+	}
+	void Popup::selectedItemEvent(cocos2d::Ref * sender, cocos2d::ui::ListView::EventType type)
+	{
 	}
     Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void ()> &YesFunc)
     {
@@ -345,8 +322,6 @@ namespace UICustom
         _bg->addChild(heading);
         heading->enableOutline(Color4B::BLACK,FONT::LABEL_STROKE);
         heading->enableShadow(Color4B::BLACK, Size(0, -3));
-    }
-    
-    
+    }  
 }
 

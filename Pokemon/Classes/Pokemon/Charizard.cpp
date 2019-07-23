@@ -6,13 +6,13 @@
 
 Charizard::Charizard()
 {
+	this->Init(2, 3);
+	this->m_name = "Charizard";
 }
 
 Charizard::Charizard(Charmeleon * it)
 {
-	this->Init(2, 3);
 	//
-	this->m_name = "Charizard";
 	this->m_level = it->GetLevel();
 	this->m_maxHealth = it->GetMaxHP() + 15;
 	this->m_currentHealth = this->m_maxHealth;

@@ -161,7 +161,7 @@
     "147": "res/Item/10.png"
   },
   "BUTTON": {
-    "size": 12,
+    "size": 13,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -209,6 +209,10 @@
     "11": {
       "normal": "res/UI/Button/Bag.png",
       "pressed": "res/UI/Button/Bag.png"
+    },
+    "12": {
+      "normal": "res/UI/Button/popUpBase.png",
+      "pressed": "res/UI/Button/popUpBase.png"
     }
   },
   "FONT": {

@@ -22,7 +22,7 @@ public:
 	static int state;
 	static Buttons* GetIntance();
 	void ButtonListener(Trainer *&mPlayer);
-	//void ButtonBag(Layer * layer);
+	void ButtonBagListener(Layer * layer, Camera* camera);
 	Button *GetButtonUp();
 	Button *GetButtonLeft();
 	Button *GetButtonRight();

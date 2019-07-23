@@ -53,6 +53,7 @@ namespace UICustom {
         static Popup* create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void ()> &YesFunc);
 		static Popup * createSetting(const std::string & title);
 		static Popup * createBag(const std::string &title);
+		void selectedItemEvent(cocos2d::Ref* sender, cocos2d::ui::ListView::EventType type);
     private:
         void initBg(const cocos2d::Size size,const std::string &title);
     };

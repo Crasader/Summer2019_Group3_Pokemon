@@ -81,10 +81,12 @@ bool House::init()
 
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+	//Buttons::GetIntance()->ButtonBagListener(this, Housecamera);
 	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
 			UICustom::Popup *popup = UICustom::Popup::createBag("Bag");
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
