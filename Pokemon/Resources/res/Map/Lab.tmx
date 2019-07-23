@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="3">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="4">
  <tileset firstgid="1" source="silveira_neto_gpl_pixelart_kitchen_home1.tsx"/>
  <tileset firstgid="157" source="tiensyloi.tsx"/>
  <tileset firstgid="477" source="terrain_atlas.tsx"/>
@@ -26,8 +26,8 @@
  <layer id="2" name="Tile Layer 2" width="32" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,174,178,178,175,176,178,178,178,177,178,178,178,178,178,178,178,179,180,181,182,183,184,185,185,185,185,185,186,187,188,0,
-0,190,194,194,191,192,194,194,194,193,194,194,194,194,194,194,194,195,196,197,198,199,200,201,201,201,201,201,202,203,204,0,
+0,174,178,178,175,176,178,178,178,178,178,177,178,178,178,178,178,179,180,181,182,183,184,185,185,185,185,185,186,187,188,0,
+0,190,194,194,191,192,194,194,194,194,194,193,194,194,194,194,194,195,196,197,198,199,200,201,201,201,201,201,202,203,204,0,
 0,206,0,0,207,208,0,0,0,0,0,0,0,0,0,0,0,211,212,213,214,0,0,0,0,0,0,0,218,219,220,0,
 0,0,0,0,223,224,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -84,10 +84,13 @@
 </data>
  </layer>
  <objectgroup id="5" name="Object">
-  <object id="1" type="2" x="296" y="504">
+  <object id="1" type="2" x="303" y="499">
    <point/>
   </object>
-  <object id="2" type="1" x="294" y="406">
+  <object id="2" type="1" x="304" y="408">
+   <point/>
+  </object>
+  <object id="3" type="3" x="302" y="116">
    <point/>
   </object>
  </objectgroup>
