@@ -45,9 +45,13 @@ bool Route1::init()
 	Route1visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/route1.tmx");
+	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
 	Route1tileMapSize = map->getContentSize();
+	auto mapTree = TMXTiledMap::create("res/Map/Route1MapTree.tmx");
+	auto mapTree1 = TMXTiledMap::create("res/Map/Route1MapTree1.tmx");
 	addChild(map);
+	addChild(mapTree, 20);
+	addChild(mapTree1, 5);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -69,7 +73,7 @@ bool Route1::init()
 		}
 	}
 
-	auto grass = map->getLayer("co");
+	auto grass = map->getLayer("grass");
 	int count = 0;
 	Size layerSize2 = grass->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -79,8 +83,8 @@ bool Route1::init()
 			auto tilePokemon = grass->getTileAt(Vec2(i, j));
 			if (tilePokemon != NULL)
 			{
-				if (count < 5) {
-					int _random = rand() % 4;
+				if (count < 10) {
+					int _random = rand() % 15;
 					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
@@ -147,7 +151,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 
 void Route1::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/route1.tmx");
+	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -227,18 +231,18 @@ void Route1::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
+				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)<abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)<abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
 				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
 			}
 			else {
-				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}

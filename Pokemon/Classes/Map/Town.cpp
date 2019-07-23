@@ -49,10 +49,11 @@ bool Town::init()
 	TownvisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/TownMap.tmx");
 	TowntileMapSize = map->getContentSize();
 	addChild(map);
-
+	auto mapHouse= TMXTiledMap::create("res/Map/TownMapHouse.tmx");
+	addChild(mapHouse,15);
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -170,7 +171,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 
 void Town::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/townmap1.tmx");
+	auto map = TMXTiledMap::create("res/Map/TownMap.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

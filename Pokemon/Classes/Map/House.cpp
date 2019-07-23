@@ -39,7 +39,7 @@ bool House::init()
 	HousevisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
+	auto map = TMXTiledMap::create("res/Map/HouseMap.tmx");
 	HousetileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -105,7 +105,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 
 void House::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/untitled.tmx");
+	auto map = TMXTiledMap::create("res/Map/HouseMap.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

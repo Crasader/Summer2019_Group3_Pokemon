@@ -45,29 +45,29 @@ bool Lake::init()
 	LakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/LakeMap.tmx");
+	auto map = TMXTiledMap::create("res/Map/HouseMap.tmx");
 	LaketileMapSize = map->getContentSize();
 	addChild(map);
 
-	////auto mPhysicsLayer = map->getLayer("physics");
-	////Size layerSize = mPhysicsLayer->getLayerSize();
-	//for (int i = 0; i < layerSize.width; i++)
-	//{
-	//	for (int j = 0; j < layerSize.height; j++)
-	//	{
-	//		auto tileSet = mPhysicsLayer->getTileAt(Vec2(i, j));
-	//		if (tileSet != NULL)
-	//		{
-	//			auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-	//			physics->setCollisionBitmask(13);
-	//			physics->setContactTestBitmask(true);
-	//			physics->setDynamic(false);
-	//			physics->setGravityEnable(false);
-	//			physics->setMass(12);
-	//			tileSet->setPhysicsBody(physics);
-	//		}
-	//	}
-	//}
+	auto mPhysicsLayer = map->getLayer("physics");
+	Size layerSize = mPhysicsLayer->getLayerSize();
+	for (int i = 0; i < layerSize.width; i++)
+	{
+		for (int j = 0; j < layerSize.height; j++)
+		{
+			auto tileSet = mPhysicsLayer->getTileAt(Vec2(i, j));
+			if (tileSet != NULL)
+			{
+				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				physics->setCollisionBitmask(13);
+				physics->setContactTestBitmask(true);
+				physics->setDynamic(false);
+				physics->setGravityEnable(false);
+				physics->setMass(12);
+				tileSet->setPhysicsBody(physics);
+			}
+		}
+	}
 
 	//InitObject();
 	

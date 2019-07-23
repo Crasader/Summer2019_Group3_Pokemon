@@ -11,6 +11,7 @@ class House : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
+	Sprite * mNpc;
 
 public:
 	static cocos2d::Scene* createScene();

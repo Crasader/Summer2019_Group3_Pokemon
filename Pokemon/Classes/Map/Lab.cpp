@@ -44,11 +44,9 @@ bool Lab::init()
 	LabvisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
+	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
 	LabtileMapSize = map->getContentSize();
 	addChild(map);
-	auto homeTS = TMXTiledMap::create("res/Map/TienSiHome.tmx");
-	addChild(homeTS, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -115,7 +113,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 
 void Lab::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
+	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
