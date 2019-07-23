@@ -8,4 +8,5 @@ public:
 	Gust();
 	~Gust();
 	void Init();
+	void Run(Vec2 position) override;
 };

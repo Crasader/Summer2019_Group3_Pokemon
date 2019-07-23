@@ -1,10 +1,10 @@
 {
   "TILEDMAP": {
     "size": 1,
-    "0": "res/Background/battle-background-grass.tmx"
+    "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 117,
+    "size": 148,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -95,59 +95,124 @@
     "87": "res/Animation/Swellow/back/0.png",
     "88": "res/Animation/Taillow/front/0.png",
     "89": "res/Animation/Taillow/back/0.png",
-    "90": "res/Animation/Background/0.jpg",
-    "91": "res/Animation/NPC/0.png",
-    "92": "res/Animation/NPC/1.png",
-    "93": "res/Animation/NPC/3.png",
-    "94": "res/Animation/NPC/4.png",
-    "95": "res/Animation/NPC/6.png",
-    "96": "res/Animation/NPC/7.png",
-    "97": "res/Animation/NPC/9.png",
-    "98": "res/Animation/NPC/10.png",
-    "99": "res/Animation/LoadingBar/0.png",
-    "100": "res/Animation/LoadingBar/1.png",
-    "101": "res/Animation/Background/1.png",
-    "102": "res/Trainer/walkup/1.png",
-    "103": "res/Trainer/walkdown/1.png",
-    "104": "res/Trainer/walkleft/1.png",
-    "105": "res/Trainer/walkright/1.png",
-    "106": "res/Item/0.png",
-    "107": "res/Item/1.png",
-    "108": "res/Item/2.png",
-    "109": "res/Item/3.png",
-    "110": "res/Item/4.png",
-    "111": "res/Item/5.png",
-    "112": "res/Item/6.png",
-    "113": "res/Item/7.png",
-    "114": "res/Item/8.png",
-    "115": "res/Item/9.png",
-    "116": "res/Item/10.png"
+    "90": "res/Skill/Bite/0.png",
+    "91": "res/Skill/BlastBurn/0.png",
+    "92": "res/Skill/BodySlam/0.png",
+    "93": "res/Skill/Bubble/0.png",
+    "94": "res/Skill/DracoMeteor/0.png",
+    "95": "res/Skill/DragonClaw/0.png",
+    "96": "res/Skill/DragonCut/0.png",
+    "97": "res/Skill/Ember/0.png",
+    "98": "res/Skill/EnergyBall/0.png",
+    "99": "res/Skill/FireBlast/0.png",
+    "100": "res/Skill/FirePunch/0.png",
+    "101": "res/Skill/Fly/0.png",
+    "102": "res/Skill/Gust/0.png",
+    "103": "res/Skill/Peck/0.png",
+    "104": "res/Skill/QuickAttack/0.png",
+    "105": "res/Skill/RazorLeaf/0.png",
+    "106": "res/Skill/Scratch/0.png",
+    "107": "res/Skill/SolarBeam/0.png",
+    "108": "res/Skill/Spark/0.png",
+    "109": "res/Skill/Surf/0.png",
+    "110": "res/Skill/Tackle/0.png",
+    "111": "res/Skill/Thunder/0.png",
+    "112": "res/Skill/Thunderbolt/0.png",
+    "113": "res/Skill/ThunderShock/0.png",
+    "114": "res/Skill/VineWhip/0.png",
+    "115": "res/Skill/WaterGun/0.png",
+    "116": "res/Skill/WaterPulse/0.png",
+    "117": "res/Skill/WingAttack/0.png",
+
+    "118": "res/Trainer/walkup/1.png",
+    "119": "res/Trainer/walkdown/1.png",
+    "120": "res/Trainer/walkleft/1.png",
+    "121": "res/Trainer/walkright/1.png",
+
+    "122": "res/NPC/0.png",
+    "123": "res/NPC/1.png",
+    "124": "res/NPC/3.png",
+    "125": "res/NPC/4.png",
+    "126": "res/NPC/6.png",
+    "127": "res/NPC/7.png",
+    "128": "res/NPC/9.png",
+    "129": "res/NPC/10.png",
+
+    "130": "res/UI/Button/menu3.png",
+    "131": "res/Battle/hp.png",
+    "132": "res/Battle/battle_background.png",
+
+    "133": "res/Background/0.jpg",
+    "134": "res/Background/1.png",
+    "135": "res/UI/LoadingBar/0.png",
+    "136": "res/UI/LoadingBar/1.png",
+
+    "137": "res/Item/0.png",
+    "138": "res/Item/1.png",
+    "139": "res/Item/2.png",
+    "140": "res/Item/3.png",
+    "141": "res/Item/4.png",
+    "142": "res/Item/5.png",
+    "143": "res/Item/6.png",
+    "144": "res/Item/7.png",
+    "145": "res/Item/8.png",
+    "146": "res/Item/9.png",
+    "147": "res/Item/10.png"
   },
   "BUTTON": {
-    "size": 5,
+    "size": 11,
     "0": {
-      "normal": "res/Button/button_a.png",
-      "pressed": "res/Button/button_a_press.png"
+      "normal": "res/UI/Button/button_a.png",
+      "pressed": "res/UI/Button/button_a_press.png"
     },
     "1": {
-      "normal": "res/Button/button_down.png",
-      "pressed": "res/Button/button_down_press.png"
+      "normal": "res/UI/Button/button_down.png",
+      "pressed": "res/UI/Button/button_down_press.png"
     },
     "2": {
-      "normal": "res/Button/button_left.png",
-      "pressed": "res/Button/button_left_press.png"
+      "normal": "res/UI/Button/button_left.png",
+      "pressed": "res/UI/Button/button_left_press.png"
     },
     "3": {
-      "normal": "res/Button/button_right.png",
-      "pressed": "res/Button/button_right_press.png"
+      "normal": "res/UI/Button/button_right.png",
+      "pressed": "res/UI/Button/button_right_press.png"
     },
     "4": {
-      "normal": "res/Button/button_up.png",
-      "pressed": "res/Button/button_up_press.png"
+      "normal": "res/UI/Button/button_up.png",
+      "pressed": "res/UI/Button/button_up_press.png"
+    },
+    "5": {
+      "normal": "res/UI/Button/red_button00.png",
+      "pressed": "res/UI/Button/red_button01.png"
+    },
+    "6": {
+      "normal": "res/UI/Button/ButtonAbout.png",
+      "pressed": "res/UI/Button/ButtonAbout.png"
+    },
+    "7": {
+      "normal": "res/UI/Button/ButtonPlay.png",
+      "pressed": "res/UI/Button/ButtonPlay.png"
+    },
+    "8": {
+      "normal": "res/UI/Button/ButtonResume.png",
+      "pressed": "res/UI/Button/ButtonResume.png"
+    },
+    "9": {
+      "normal": "res/UI/Button/ButtonSetting.png",
+      "pressed": "res/UI/Button/ButtonSetting.png"
+    },
+    "10": {
+      "normal": "res/UI/Button/ButtonExit.png",
+      "pressed": "res/UI/Button/ButtonExit.png"
     }
   },
-  "ANIMATE": {
-    "size": 94,
+  "FONT": {
+    "size": 2,
+    "0": "res/UI/Label/arial.ttf",
+    "1": "res/UI/Label/MarkerFelt.ttf"
+  },
+  "ANIMATION": {
+    "size": 122,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -1497,7 +1562,373 @@
         "7.png"
       ]
     },
+
+
     "90": {
+      "size": 6,
+      "plist": "res/Skill/Bite/Bite.plist",
+      "path": "res/Skill/Bite/Bite.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png"
+      ]
+    },
+    "91": {
+      "size": 7,
+      "plist": "res/Skill/BlastBurn/BlastBurn.plist",
+      "path": "res/Skill/BlastBurn/BlastBurn.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png"
+      ]
+    },
+    "92": {
+      "size": 9,
+      "plist": "res/Skill/BodySlam/BodySlam.plist",
+      "path": "res/Skill/BodySlam/BodySlam.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png"
+      ]
+    },
+    "93": {
+      "size": 4,
+      "plist": "res/Skill/Bubble/Bubble.plist",
+      "path": "res/Skill/Bubble/Bubble.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "94": {
+      "size": 9,
+      "plist": "res/Skill/DracoMeteor/DracoMeteor.plist",
+      "path": "res/Skill/DracoMeteor/DracoMeteor.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png"
+      ]
+    },
+    "95": {
+      "size": 10,
+      "plist": "res/Skill/DragonClaw/DragonClaw.plist",
+      "path": "res/Skill/DragonClaw/DragonClaw.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png"
+      ]
+    },
+    "96": {
+      "size": 4,
+      "plist": "res/Skill/DragonCut/DragonCut.plist",
+      "path": "res/Skill/DragonCut/DragonCut.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "97": {
+      "size": 5,
+      "plist": "res/Skill/Ember/Ember.plist",
+      "path": "res/Skill/Ember/Ember.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png"
+      ]
+    },
+    "98": {
+      "size": 11,
+      "plist": "res/Skill/EnergyBall/EnergyBall.plist",
+      "path": "res/Skill/EnergyBall/EnergyBall.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png"
+      ]
+    },
+    "99": {
+      "size": 9,
+      "plist": "res/Skill/FireBlast/FireBlast.plist",
+      "path": "res/Skill/FireBlast/FireBlast.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png"
+      ]
+    },
+    "100": {
+      "size": 14,
+      "plist": "res/Skill/FirePunch/FirePunch.plist",
+      "path": "res/Skill/FirePunch/FirePunch.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+        "11.png",
+        "12.png",
+        "13.png"
+      ]
+    },
+    "101": {
+      "size": 6,
+      "plist": "res/Skill/Fly/Fly.plist",
+      "path": "res/Skill/Fly/Fly.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png"
+      ]
+    },
+    "102": {
+      "size": 5,
+      "plist": "res/Skill/Gust/Gust.plist",
+      "path": "res/Skill/Gust/Gust.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png"
+      ]
+    },
+    "103": {
+      "size": 4,
+      "plist": "res/Skill/Peck/Peck.plist",
+      "path": "res/Skill/Peck/Peck.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "104": {
+      "size": 5,
+      "plist": "res/Skill/QuickAttack/QuickAttack.plist",
+      "path": "res/Skill/QuickAttack/QuickAttack.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png"
+      ]
+    },
+    "105": {
+      "size": 9,
+      "plist": "res/Skill/RazorLeaf/RazorLeaf.plist",
+      "path": "res/Skill/RazorLeaf/RazorLeaf.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png"
+      ]
+    },
+    "106": {
+      "size": 2,
+      "plist": "res/Skill/Scratch/Scratch.plist",
+      "path": "res/Skill/Scratch/Scratch.png",
+      "png": [
+        "0.png",
+        "1.png"
+      ]
+    },
+    "107": {
+      "size": 7,
+      "plist": "res/Skill/SolarBeam/SolarBeam.plist",
+      "path": "res/Skill/SolarBeam/SolarBeam.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png"
+      ]
+    },
+    "108": {
+      "size": 4,
+      "plist": "res/Skill/Spark/Spark.plist",
+      "path": "res/Skill/Spark/Spark.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "109": {
+      "size": 7,
+      "plist": "res/Skill/Surf/Surf.plist",
+      "path": "res/Skill/Surf/Surf.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png"
+      ]
+    },
+    "110": {
+      "size": 2,
+      "plist": "res/Skill/Tackle/Tackle.plist",
+      "path": "res/Skill/Tackle/Tackle.png",
+      "png": [
+        "0.png",
+        "1.png"
+      ]
+    },
+    "111": {
+      "size": 3,
+      "plist": "res/Skill/Thunder/Thunder.plist",
+      "path": "res/Skill/Thunder/Thunder.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png"
+      ]
+    },
+    "112": {
+      "size": 4,
+      "plist": "res/Skill/Thunderbolt/Thunderbolt.plist",
+      "path": "res/Skill/Thunderbolt/Thunderbolt.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "113": {
+      "size": 4,
+      "plist": "res/Skill/ThunderShock/ThunderShock.plist",
+      "path": "res/Skill/ThunderShock/ThunderShock.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "114": {
+      "size": 4,
+      "plist": "res/Skill/VineWhip/VineWhip.plist",
+      "path": "res/Skill/VineWhip/VineWhip.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "115": {
+      "size": 4,
+      "plist": "res/Skill/WaterGun/WaterGun.plist",
+      "path": "res/Skill/WaterGun/WaterGun.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
+      ]
+    },
+    "116": {
+      "size": 1,
+      "plist": "res/Skill/WaterPulse/WaterPulse.plist",
+      "path": "res/Skill/WaterPulse/WaterPulse.png",
+      "png": [
+        "0.png"
+      ]
+    },
+    "117": {
+      "size": 7,
+      "plist": "res/Skill/WingAttack/WingAttack.plist",
+      "path": "res/Skill/WingAttack/WingAttack.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png"
+      ]
+    },
+
+
+    "118": {
       "size": 4,
       "plist": "res/Trainer/walkup/walkup.plist",
       "path": "res/Trainer/walkup/walkup.png",
@@ -1508,7 +1939,7 @@
         "1.png"
       ]
     },
-    "91": {
+    "119": {
       "size": 4,
       "plist": "res/Trainer/walkdown/walkdown.plist",
       "path": "res/Trainer/walkdown/walkdown.png",
@@ -1519,7 +1950,7 @@
         "1.png"
       ]
     },
-    "92": {
+    "120": {
       "size": 4,
       "plist": "res/Trainer/walkleft/walkleft.plist",
       "path": "res/Trainer/walkleft/walkleft.png",
@@ -1530,7 +1961,7 @@
         "1.png"
       ]
     },
-     "93": {
+     "121": {
       "size": 4,
       "plist": "res/Trainer/walkright/walkright.plist",
       "path": "res/Trainer/walkright/walkright.png",

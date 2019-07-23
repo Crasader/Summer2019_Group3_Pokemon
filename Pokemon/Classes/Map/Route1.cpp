@@ -3,8 +3,13 @@
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
+<<<<<<< HEAD
 #include"City.h"
 #include "Town.h"
+=======
+#include "Town.h"
+#include "Lake.h"
+>>>>>>> master
 
 USING_NS_CC;
 Size Route1visibleSize;
@@ -12,7 +17,11 @@ Size Route1tileMapSize;
 
 PhysicsBody* Route1body, *Route1gateWay;
 Camera *Route1camera;
+<<<<<<< HEAD
 int Route1::previousScene = 0;
+=======
+
+>>>>>>> master
 
 
 Scene* Route1::createScene()
@@ -69,7 +78,11 @@ bool Route1::init()
 		}
 	}
 
+<<<<<<< HEAD
 	auto grass = map->getLayer("grass");
+=======
+	auto grass = map->getLayer("co");
+>>>>>>> master
 	int count = 0;
 	Size layerSize2 = grass->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -80,8 +93,13 @@ bool Route1::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 5) {
+<<<<<<< HEAD
 					int rand = random() % 4;
 					if (!rand) {
+=======
+					int _random = rand() % 4;
+					if (!_random) {
+>>>>>>> master
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -98,6 +116,7 @@ bool Route1::init()
 	InitObject();
 
 
+<<<<<<< HEAD
 	Button *up = Buttons::getIntance()->GetButtonUp();
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
@@ -114,13 +133,23 @@ bool Route1::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+=======
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
+>>>>>>> master
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
+<<<<<<< HEAD
 
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
+=======
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+>>>>>>> master
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
@@ -140,16 +169,27 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+<<<<<<< HEAD
 		Director::getInstance()->getRunningScene()->pause();
 		Town::previousScene = 2;
+=======
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+>>>>>>> master
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+<<<<<<< HEAD
 		Director::getInstance()->getRunningScene()->pause();
 		City::previousScene = 0;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+=======
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
+>>>>>>> master
 	}
 
 	return true;
@@ -168,6 +208,7 @@ void Route1::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == 1) {
+<<<<<<< HEAD
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
@@ -190,6 +231,18 @@ void Route1::InitObject()
 				mPlayer->GetSpriteFront()->setPhysicsBody(Route1body);
 			}
 			else continue;
+=======
+			mPlayer = new Trainer(this);
+			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+			Route1body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			Route1body->setCollisionBitmask(15);
+			Route1body->setMass(14);
+			Route1body->setContactTestBitmask(true);
+			Route1body->setDynamic(true);
+			Route1body->setRotationEnable(false);
+			Route1body->setGravityEnable(false);
+			mPlayer->GetSpriteFront()->setPhysicsBody(Route1body);
+>>>>>>> master
 		}
 		else if (type ==2)
 			{
@@ -250,18 +303,30 @@ void Route1::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
+<<<<<<< HEAD
 				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)<abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
 				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+=======
+				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)<abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
+				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+>>>>>>> master
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)<abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
 				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
 			}
 			else {
+<<<<<<< HEAD
 				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+=======
+				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+>>>>>>> master
 			}
 		}
 	}
@@ -269,5 +334,10 @@ void Route1::updateCamera() {
 }
 void Route1::update(float dt) {
 	updateCamera();
+<<<<<<< HEAD
 	Buttons::getIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
 }
+=======
+	Buttons::GetIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
+}
+>>>>>>> master

@@ -2,8 +2,14 @@
 #include "Lake.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
+<<<<<<< HEAD
 #include "Buttons.h"
 #include "City.h"
+=======
+#include "ResourceManager.h"
+#include "Buttons.h"
+#include "Route1.h"
+>>>>>>> master
 
 USING_NS_CC;
 Size LakevisibleSize;
@@ -68,6 +74,7 @@ bool Lake::init()
 		}
 	}
 
+<<<<<<< HEAD
 	auto grass = map->getLayer("grass");
 	int count = 0;
 	Size layerSize2 = grass->getLayerSize();
@@ -113,13 +120,26 @@ bool Lake::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+=======
+	InitObject();
+	
+
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
+>>>>>>> master
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
 
+<<<<<<< HEAD
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
+=======
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+>>>>>>> master
 	
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
@@ -139,9 +159,15 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+<<<<<<< HEAD
 		Director::getInstance()->getRunningScene()->pause();
 		City::previousScene = 3;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+=======
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+>>>>>>> master
 	}
 
 	return true;
@@ -188,7 +214,11 @@ void Lake::InitObject()
 
 }
 
+<<<<<<< HEAD
 void Lake::updateCamera() {
+=======
+void Lake:: updateCamera() {
+>>>>>>> master
 	if (LakevisibleSize.width >= LaketileMapSize.width) {
 		if (LakevisibleSize.height >= LaketileMapSize.height) {
 			Lakecamera->setPosition(LaketileMapSize / 2);
@@ -196,10 +226,17 @@ void Lake::updateCamera() {
 		else
 		{
 			if (abs(mPlayer->GetSpriteFront()->getPosition().y - LaketileMapSize.height / 2)>abs(LaketileMapSize.height / 2 - LakevisibleSize.height / 2)) {
+<<<<<<< HEAD
 				Lakecamera->setPosition(LaketileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y) ? (LaketileMapSize.height - LakevisibleSize.height / 2) : LakevisibleSize.height / 2);
 			}
 			else {
 				Lakecamera->setPosition(LaketileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+=======
+				Lakecamera->setPosition(LaketileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y)? (LaketileMapSize.height - LakevisibleSize.height/2): LakevisibleSize.height / 2);
+			}
+			else {
+				Lakecamera->setPosition(LaketileMapSize.width / 2,mPlayer->GetSpriteFront()->getPosition().y);
+>>>>>>> master
 			}
 		}
 	}
@@ -209,12 +246,17 @@ void Lake::updateCamera() {
 				Lakecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y) ? (LaketileMapSize.width - LakevisibleSize.width / 2) : LakevisibleSize.width / 2, LaketileMapSize.height / 2);
 			}
 			else {
+<<<<<<< HEAD
 				Lakecamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, LaketileMapSize.height / 2);
+=======
+				Lakecamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x , LaketileMapSize.height / 2 );
+>>>>>>> master
 			}
 		}
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LaketileMapSize.width / 2)>abs(LaketileMapSize.width / 2 - LakevisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LaketileMapSize.height / 2)>abs(LaketileMapSize.height / 2 - LakevisibleSize.height / 2)) {
+<<<<<<< HEAD
 				Lakecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Lakecamera->getPosition().x) ? (LaketileMapSize.width - LakevisibleSize.width / 2) : LakevisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y) ? (LaketileMapSize.height - LakevisibleSize.height / 2) : LakevisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LaketileMapSize.width / 2)>abs(LaketileMapSize.width / 2 - LakevisibleSize.width / 2)
@@ -235,4 +277,26 @@ void Lake::updateCamera() {
 void Lake::update(float dt) {
 	updateCamera();
 	Buttons::getIntance()->UpdateButton(Lakecamera->getPosition().x - 200, Lakecamera->getPosition().y - 100);
+=======
+				Lakecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().x) ? (LaketileMapSize.width - LakevisibleSize.width / 2) : LakevisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y) ? (LaketileMapSize.height - LakevisibleSize.height / 2) : LakevisibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LaketileMapSize.width / 2)>abs(LaketileMapSize.width / 2 - LakevisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LaketileMapSize.height / 2)<abs(LaketileMapSize.height / 2 - LakevisibleSize.height / 2)) {
+				Lakecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().x) ? (LaketileMapSize.width - LakevisibleSize.width / 2) : LakevisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y );
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LaketileMapSize.width / 2)<abs(LaketileMapSize.width / 2 - LakevisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LaketileMapSize.height / 2)>abs(LaketileMapSize.height / 2 - LakevisibleSize.height / 2)) {
+				Lakecamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Lakecamera->getPosition().y) ? (LaketileMapSize.height - LakevisibleSize.height / 2) : LakevisibleSize.height / 2 );
+			}
+			else {
+				Lakecamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+			}
+		}
+	}
+	
+}
+void Lake::update(float dt) {
+	updateCamera();
+	Buttons::GetIntance()->UpdateButton(Lakecamera->getPosition().x - 200, Lakecamera->getPosition().y - 100);
+>>>>>>> master
 }

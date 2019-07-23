@@ -8,5 +8,5 @@ public:
 	EnergyBall();
 	~EnergyBall();
 	void Init();
+	void Run(Vec2 position) override;
 };
-#pragma once

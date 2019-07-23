@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+#pragma once
+>>>>>>> master
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"

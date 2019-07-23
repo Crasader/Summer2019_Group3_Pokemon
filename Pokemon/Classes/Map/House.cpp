@@ -2,7 +2,13 @@
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
+<<<<<<< HEAD
 #include "Town.h"
+=======
+#include "PokemonCenter.h"
+#include "Town.h"
+
+>>>>>>> master
 USING_NS_CC;
 
 Size HousevisibleSize;
@@ -63,6 +69,7 @@ bool House::init()
 
 	InitObject();
 
+<<<<<<< HEAD
 	Button *up = Buttons::getIntance()->GetButtonUp();
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
@@ -79,13 +86,23 @@ bool House::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+=======
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
+>>>>>>> master
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
 
+<<<<<<< HEAD
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
+=======
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+>>>>>>> master
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
@@ -100,11 +117,19 @@ bool House::onContactBegin(PhysicsContact & contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
+<<<<<<< HEAD
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
 		Director::getInstance()->getRunningScene()->pause();
 		Town::previousScene = 0;
+=======
+	if ((a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17)
+		|| (a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15))
+	{
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+>>>>>>> master
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
@@ -152,7 +177,12 @@ void House::InitObject()
 
 }
 
+<<<<<<< HEAD
 void House::updateCamera() {
+=======
+void House::updateCamera()
+{
+>>>>>>> master
 	if (HousevisibleSize.width >= HousetileMapSize.width) {
 		if (HousevisibleSize.height >= HousetileMapSize.height) {
 			Housecamera->setPosition(HousetileMapSize / 2);
@@ -179,26 +209,45 @@ void House::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - HousetileMapSize.width / 2)>abs(HousetileMapSize.width / 2 - HousevisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - HousetileMapSize.height / 2)>abs(HousetileMapSize.height / 2 - HousevisibleSize.height / 2)) {
+<<<<<<< HEAD
 				Housecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Housecamera->getPosition().x) ? (HousetileMapSize.width - HousevisibleSize.width / 2) : HousevisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Housecamera->getPosition().y) ? (HousetileMapSize.height - HousevisibleSize.height / 2) : HousevisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - HousetileMapSize.width / 2)>abs(HousetileMapSize.width / 2 - HousevisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - HousetileMapSize.height / 2)<abs(HousetileMapSize.height / 2 - HousevisibleSize.height / 2)) {
 				Housecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Housecamera->getPosition().x) ? (HousetileMapSize.width - HousevisibleSize.width / 2) : HousevisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+=======
+				Housecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Housecamera->getPosition().x) ? (HousetileMapSize.width - HousevisibleSize.width / 2) : HousevisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Housecamera->getPosition().y) ? (HousetileMapSize.height - HousevisibleSize.height / 2) : HousevisibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - HousetileMapSize.width / 2)>abs(HousetileMapSize.width / 2 - HousevisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - HousetileMapSize.height / 2)<abs(HousetileMapSize.height / 2 - HousevisibleSize.height / 2)) {
+				Housecamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Housecamera->getPosition().x) ? (HousetileMapSize.width - HousevisibleSize.width / 2) : HousevisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+>>>>>>> master
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - HousetileMapSize.width / 2)<abs(HousetileMapSize.width / 2 - HousevisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - HousetileMapSize.height / 2)>abs(HousetileMapSize.height / 2 - HousevisibleSize.height / 2)) {
 				Housecamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Housecamera->getPosition().y) ? (HousetileMapSize.height - HousevisibleSize.height / 2) : HousevisibleSize.height / 2);
 			}
 			else {
+<<<<<<< HEAD
 				Housecamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
 
+=======
+				Housecamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+			}
+		}
+	}
+>>>>>>> master
 }
 
 void House::update(float dt)
 {
 	updateCamera();
+<<<<<<< HEAD
 	Buttons::getIntance()->UpdateButton(Housecamera->getPosition().x - 200, Housecamera->getPosition().y - 100);
+=======
+	Buttons::GetIntance()->UpdateButton(Housecamera->getPosition().x - 200, Housecamera->getPosition().y - 100);
+>>>>>>> master
 }

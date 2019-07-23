@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "Trainer.h"
 #include <ui\CocosGUI.h>
 using namespace cocos2d;
 using namespace ui;
@@ -17,10 +18,13 @@ private:
 
 public:
 	~Buttons();
-	static Buttons* getIntance();
+	static int state;
+	static Buttons* GetIntance();
+	void ButtonListener(Trainer *&mPlayer);
 	Button *GetButtonUp();
 	Button *GetButtonLeft();
 	Button *GetButtonRight();
 	Button *GetButtonDown();
+	void Remove();
+	void UpdateButton(float x, float y);
 };
-

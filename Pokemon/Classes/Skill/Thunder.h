@@ -8,4 +8,5 @@ public:
 	Thunder();
 	~Thunder();
 	void Init();
+	void Run(Vec2 position) override;
 };

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="3">
  <tileset firstgid="1" source="3736.tsx"/>
  <tileset firstgid="253" source="lakes.tsx"/>

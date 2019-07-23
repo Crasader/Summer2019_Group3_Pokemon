@@ -2,6 +2,10 @@
 #include "Lab.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
+<<<<<<< HEAD
+=======
+#include "ResourceManager.h"
+>>>>>>> master
 #include "Buttons.h"
 #include "Town.h"
 
@@ -72,6 +76,7 @@ bool Lab::init()
 	InitObject();
 
 
+<<<<<<< HEAD
 	Button *up = Buttons::getIntance()->GetButtonUp();
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
@@ -88,13 +93,23 @@ bool Lab::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+=======
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
+>>>>>>> master
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
 
+<<<<<<< HEAD
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
+=======
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+>>>>>>> master
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Lab::onContactBegin, this);
@@ -114,8 +129,13 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+<<<<<<< HEAD
 		Director::getInstance()->getRunningScene()->pause();
 		Town::previousScene = 1;
+=======
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+>>>>>>> master
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
@@ -190,18 +210,30 @@ void Lab::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
+<<<<<<< HEAD
 				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)<abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
 				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+=======
+				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)<abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
+				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+>>>>>>> master
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)<abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
 				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
 			}
 			else {
+<<<<<<< HEAD
 				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+=======
+				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+>>>>>>> master
 			}
 		}
 	}
@@ -209,5 +241,9 @@ void Lab::updateCamera() {
 }
 void Lab::update(float dt) {
 	updateCamera();
+<<<<<<< HEAD
 	Buttons::getIntance()->UpdateButton(Labcamera->getPosition().x - 200, Labcamera->getPosition().y - 100);
+=======
+	Buttons::GetIntance()->UpdateButton(Labcamera->getPosition().x - 200, Labcamera->getPosition().y - 100);
+>>>>>>> master
 }

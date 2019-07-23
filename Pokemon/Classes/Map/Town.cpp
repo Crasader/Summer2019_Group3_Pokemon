@@ -2,11 +2,12 @@
 #include "Town.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
-#include "ResourceManager.h"
 #include "Buttons.h"
 #include "Lab.h"
 #include "Route1.h"
-#include "Town.h"
+#include "House.h"
+#include "Scene\BattleScene.h"
+#include <cstdlib>
 
 USING_NS_CC;
 Size TownvisibleSize;
@@ -83,8 +84,8 @@ bool Town::init()
 			if (tilePokemon != NULL)
 			{
 				if (count < 3) {
-					int rand = random()%4;
-					if (!rand) {
+					int _random = rand() % 4;
+					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(12);
 						pokemon->setContactTestBitmask(true);
@@ -100,28 +101,18 @@ bool Town::init()
 
 	InitObject();
 
-	Button *up = Buttons::getIntance()->GetButtonUp();
-	Button *right = Buttons::getIntance()->GetButtonRight();
-	Button *left = Buttons::getIntance()->GetButtonLeft();
-	Button *down = Buttons::getIntance()->GetButtonDown();
-	up->retain();
-	up->removeFromParent();
-	up->release();
-	right->retain();
-	right->removeFromParent();
-	right->release();
-	left->retain();
-	left->removeFromParent();
-	left->release();
-	down->retain();
-	down->removeFromParent();
-	down->release();
+
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
-	Buttons::getIntance()->ButtonListener(this->mPlayer);
+
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Town::onContactBegin, this);
@@ -140,37 +131,38 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 0;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 1;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 21 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 21)
 	{
+		Buttons::GetIntance()->Remove();
+		Town::previousScene = 2;
 		Director::getInstance()->getRunningScene()->pause();
-		Route1::previousScene = 0;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 	}
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		if (Trainer::m_Pokemons.size() == 0) {
-			CCLOG("No Pokemon in the bag");
-		}
-		int idPokemon = random()%3;	
-		
+		//int idPokemon = random();	
+		//new Pokemon with id
 		//chuyen scene chien dau
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
-
 	}
-
 	return true;
-
 }
 
 void Town::InitObject()
@@ -188,7 +180,6 @@ void Town::InitObject()
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
-				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				Townbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				Townbody->setCollisionBitmask(15);
@@ -274,18 +265,18 @@ void Town::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)>abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)>abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
+				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)>abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)<abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
-				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				Towncamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().x) ? (TowntileMapSize.width - TownvisibleSize.width / 2) : TownvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - TowntileMapSize.width / 2)<abs(TowntileMapSize.width / 2 - TownvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - TowntileMapSize.height / 2)>abs(TowntileMapSize.height / 2 - TownvisibleSize.height / 2)) {
 				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Towncamera->getPosition().y) ? (TowntileMapSize.height - TownvisibleSize.height / 2) : TownvisibleSize.height / 2);
 			}
 			else {
-				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+				Towncamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
 			}
 		}
 	}
@@ -293,5 +284,5 @@ void Town::updateCamera() {
 }
 void Town::update(float dt) {
 	updateCamera();
-	Buttons::getIntance()->UpdateButton(Towncamera->getPosition().x - 200, Towncamera->getPosition().y - 100);
+	Buttons::GetIntance()->UpdateButton(Towncamera->getPosition().x - 200, Towncamera->getPosition().y - 100);
 }

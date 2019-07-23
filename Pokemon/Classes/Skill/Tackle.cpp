@@ -11,11 +11,11 @@ Tackle::~Tackle()
 
 void Tackle::Init()
 {
+	this->SetAnimation(110);
 	Skill::SetName("Tackle");
-	Skill::SetType("Normal");
+	Skill::SetTypeName("Normal");
 	Skill::SetPower(40);
 	Skill::SetMaxPP(35);
 	Skill::SetIdType(1);
-	Skill::SetPP(35);
+	Skill::SetCurrentPP(35);
 }
-

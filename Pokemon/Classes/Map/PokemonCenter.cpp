@@ -2,8 +2,14 @@
 #include "PokemonCenter.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
+<<<<<<< HEAD
 #include "Buttons.h"
 #include "City.h"
+=======
+#include "ResourceManager.h"
+#include "Buttons.h"
+#include "Lake.h"
+>>>>>>> master
 
 USING_NS_CC;
 Size PcvisibleSize;
@@ -66,6 +72,7 @@ bool PokemonCenter::init()
 	}
 
 	InitObject();
+<<<<<<< HEAD
 	Button *up = Buttons::getIntance()->GetButtonUp();
 	Button *right = Buttons::getIntance()->GetButtonRight();
 	Button *left = Buttons::getIntance()->GetButtonLeft();
@@ -82,12 +89,27 @@ bool PokemonCenter::init()
 	down->retain();
 	down->removeFromParent();
 	down->release();
+=======
+	
+	Button *up = Buttons::GetIntance()->GetButtonUp();
+	Button *right = Buttons::GetIntance()->GetButtonRight();
+	Button *left = Buttons::GetIntance()->GetButtonLeft();
+	Button *down = Buttons::GetIntance()->GetButtonDown();
+	up->removeFromParent();
+	right->removeFromParent();
+	left->removeFromParent();
+	down->removeFromParent();
+>>>>>>> master
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
 
+<<<<<<< HEAD
 	Buttons::getIntance()->ButtonListener(this->mPlayer);
+=======
+	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+>>>>>>> master
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(PokemonCenter::onContactBegin, this);
@@ -105,9 +127,15 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
 		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
 	{
+<<<<<<< HEAD
 		Director::getInstance()->getRunningScene()->pause();
 		City::previousScene = 1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+=======
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
+>>>>>>> master
 	}
 
 	return true;
@@ -154,7 +182,12 @@ void PokemonCenter::InitObject()
 
 }
 
+<<<<<<< HEAD
 void PokemonCenter::updateCamera() {
+=======
+void PokemonCenter::updateCamera()
+{
+>>>>>>> master
 	if (PcvisibleSize.width >= PctileMapSize.width) {
 		if (PcvisibleSize.height >= PctileMapSize.height) {
 			Pccamera->setPosition(PctileMapSize / 2);
@@ -181,18 +214,30 @@ void PokemonCenter::updateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)>abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
+<<<<<<< HEAD
 				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)<abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
 				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+=======
+				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
+			}
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)<abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
+				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+>>>>>>> master
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)<abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)>abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
 				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
 			}
 			else {
+<<<<<<< HEAD
 				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+=======
+				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+>>>>>>> master
 			}
 		}
 	}
@@ -201,6 +246,10 @@ void PokemonCenter::updateCamera() {
 void PokemonCenter::update(float dt)
 {
 	updateCamera();
+<<<<<<< HEAD
 	Buttons::getIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
+=======
+	Buttons::GetIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
+>>>>>>> master
 }
 
