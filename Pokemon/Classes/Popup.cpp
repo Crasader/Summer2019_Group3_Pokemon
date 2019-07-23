@@ -1,8 +1,5 @@
-
-
+#include "ui\UITabControl.h"
 #include "Popup.h"
-#include "..\..\..\Summer2019_Group3\Pokemon\Classes\Popup.h"
-
 USING_NS_CC;
 
 using namespace ui;
@@ -28,6 +25,10 @@ namespace IMAGEPATH {
     const char *CANCEL_BUTTON_PRESSED = "res/UI/Button/CancelPressed.png";
     const char *CLOSE_BUTTON = "res/UI/Button/close.png";
     const char *BACKGROUND_IMAGE = "res/Background/popUpBase.png";
+	const char *SOUND_BUTTON = "res/UI/Checkbox/1.png";
+	const char *SOUND_BUTTON_CHECK = "res/UI/Checkbox/2.png";
+	const char *MUSIC_BUTTON = "res/UI/Checkbox/3.png";
+	const char *MUSIC_BUTTON_CHECK = "res/UI/Checkbox/4.png";
 }
 namespace UICustom
 {
@@ -112,16 +113,20 @@ namespace UICustom
 		Size winSize = Director::getInstance()->getWinSize();
 		if (node && node->init())
 		{
-
-			/*CheckBox *Sound = CheckBox::create(IMAGEPATH::SOUND_BUTTON, IMAGEPATH::SOUND_BUTTON_PRESSED, [=](Ref *sender) {
-				node->dismiss(true);
-			});
-			CheckBox *Music = CheckBox::create(IMAGEPATH::MUSIC_BUTTON, IMAGEPATH::MUSIC_BUTTON_PRESSED, [=](Ref *sender) {
-				node->dismiss(true);
-			});
-			Menu *menuSetting = Menu::create(Sound, Music, NULL);
-			menuSetting->setPosition(winSize/2);
-			menuSetting->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);*/
+			Layout *layoutsetting = Layout::create();
+			layoutsetting->setAnchorPoint(Vec2(0.5, 0.5));
+			layoutsetting->setContentSize(Size(300, 100));
+			layoutsetting->setPosition(winSize / 2);
+			layoutsetting->removeFromParent();
+			node->addChild(layoutsetting,3);
+			CheckBox *checkboxSound = CheckBox::create(IMAGEPATH::SOUND_BUTTON, IMAGEPATH::SOUND_BUTTON_CHECK);
+			checkboxSound->setPosition(Vec2(layoutsetting->getContentSize().width / 4, layoutsetting->getContentSize().height / 2));
+			checkboxSound->setScale(2);
+			CheckBox *checkboxMusic = CheckBox::create(IMAGEPATH::MUSIC_BUTTON, IMAGEPATH::MUSIC_BUTTON_CHECK);
+			checkboxMusic->setPosition((Vec2(layoutsetting->getContentSize().width * 3 / 4, layoutsetting->getContentSize().height / 2)));
+			checkboxMusic->setScale(2);
+			layoutsetting->addChild(checkboxMusic, 5);
+			layoutsetting->addChild(checkboxSound, 5);
 			MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
 				node->dismiss(true);
 			});
@@ -133,12 +138,123 @@ namespace UICustom
 
 			Menu *menu = Menu::create(yesButton, noButton, NULL);
 			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2); // -menuSetting->getContentSize().height / 2 - 75);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - layoutsetting->getContentSize().height / 2 - 75);
 			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			//node->addChild(menuSetting, 2);
+			menu->removeFromParent();
 			node->addChild(menu, 2);
-			node->initBg(/*menuSetting->getContentSize() + */ CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->initBg(layoutsetting->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->autorelease();
+			return node;
+		}
+	}
+	Popup *Popup::createBag(const std::string &title)
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			auto tab = TabControl::create();
+			tab->setContentSize(Size(300,100));
+			tab->setHeaderHeight(20);
+			tab->setHeaderWidth(100);
+			tab->setHeaderDockPlace(TabControl::Dock::TOP);
+			tab->setPosition(winSize / 2);
+			node->addChild(tab, 101);
+			auto headerMP = TabHeader::create();
+			headerMP->setTitleText("My Pokemon");
+			auto headerPO = TabHeader::create();
+			headerPO->setTitleText("Pokemon Over");
+			auto headerMI = TabHeader::create();
+			headerMI->setTitleText("My Item");
+			auto containerMP = Layout::create();
+			containerMP->setOpacity(255);
+			containerMP->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			containerMP->setBackGroundColor(Color3B::GRAY);
+			containerMP->setBackGroundColorOpacity(255);
+			auto containerPO = Layout::create();
+			containerPO->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			containerPO->setOpacity(255);
+			containerPO->setBackGroundColor(Color3B::BLUE);
+			containerPO->setBackGroundColorOpacity(255);
+			auto containerMI = Layout::create();
+			containerMI->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			containerMI->setOpacity(255);
+			containerMI->setBackGroundColor(Color3B::RED);
+			containerMI->setBackGroundColorOpacity(255);
+
+			tab->insertTab(0, headerMP, containerMP);
+			tab->insertTab(1, headerPO, containerPO);
+			tab->insertTab(2, headerMI, containerMI);
+			tab->setSelectTab(0);
+			CC_SAFE_RETAIN(tab);
+			CC_SAFE_RETAIN(headerMP);
+			CC_SAFE_RETAIN(headerPO);
+			CC_SAFE_RETAIN(headerMI);
+
+			/*auto tab = TabControl::create();
+			tab->setContentSize(Size(200.f, 200.f));
+			tab->setHeaderHeight(20.f);
+			tab->setHeaderWidth(70.f);
+			tab->setHeaderSelectedZoom(.1f);
+			tab->setHeaderDockPlace(TabControl::Dock::TOP);
+
+			auto header1 = TabHeader::create();
+			header1->setTitleText("background");
+			header1->loadTextureBackGround("cocosui/check_box_normal_disable.png");
+			auto header2 = TabHeader::create("cross", "cocosui/check_box_normal_disable.png", "cocosui/check_box_active.png");
+			auto header3 = TabHeader::create("press&cross", "cocosui/check_box_normal.png",
+				"cocosui/check_box_normal_press.png",
+				"cocosui/check_box_active.png",
+				"cocosui/check_box_normal_disable.png",
+				"cocosui/check_box_active_disable.png");
+
+			auto container1 = Layout::create();
+			container1->setOpacity(255);
+			container1->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			container1->setBackGroundColor(Color3B::GRAY);
+			container1->setBackGroundColorOpacity(255);
+			auto container2 = Layout::create();
+			container2->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			container2->setOpacity(255);
+			container2->setBackGroundColor(Color3B::BLUE);
+			container2->setBackGroundColorOpacity(255);
+			auto container3 = Layout::create();
+			container3->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
+			container3->setOpacity(255);
+			container3->setBackGroundColor(Color3B::RED);
+			container3->setBackGroundColorOpacity(255);
+
+			tab->insertTab(0, header1, container1);
+			tab->insertTab(1, header2, container2);
+			tab->insertTab(2, header3, container3);
+
+			tab->setSelectTab(2);
+			CC_SAFE_RETAIN(tab);
+			CC_SAFE_RETAIN(header1);
+			CC_SAFE_RETAIN(header2);
+			CC_SAFE_RETAIN(header3);
+			node->addChild(tab,999);
+			tab->setPosition(winSize / 2);*/
+
+			MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
+				node->dismiss(true);
+			});
+
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+			});
+
+
+			Menu *menu = Menu::create(yesButton, noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 75);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
+			menu->removeFromParent();
+			node->addChild(menu, 2);
+			node->initBg(tab->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 			node->autorelease();
 			return node;
 		}
@@ -158,8 +274,6 @@ namespace UICustom
             lbl->enableOutline(Color4B::BLACK,FONT::LABEL_STROKE);
             lbl->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
             lbl->enableShadow(Color4B::BLACK, Size(0, -2));
-
-            
             if(YesFunc){
                 MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON,IMAGEPATH::OK_BUTTON_PRESSED,[=](Ref *sender){
                     

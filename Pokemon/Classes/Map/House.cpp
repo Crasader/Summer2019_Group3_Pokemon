@@ -4,6 +4,7 @@
 #include "Buttons.h"
 #include "PokemonCenter.h"
 #include "Town.h"
+#include "Popup.h"
 
 USING_NS_CC;
 
@@ -16,7 +17,7 @@ Camera *Housecamera;
 Scene * House::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = House::create();
 	scene->addChild(layer);
 	Housecamera = scene->getDefaultCamera();
@@ -80,7 +81,18 @@ bool House::init()
 
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			UICustom::Popup *popup = UICustom::Popup::createBag("Bag");
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(Housecamera->getPosition().x - popup->getContentSize().width/2,
+				Housecamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup,101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);

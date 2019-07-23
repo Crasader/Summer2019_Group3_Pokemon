@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "Scene\MainMenu.h"
 #include "Map\PokemonCenter.h"
-#include "Map\Lake.h"
+#include "Map\House.h"
 #include "Map\Town.h"
 #include "Scene\Loading.h"
 #include "Scene\BattleScene.h"
@@ -104,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-    auto scene = Loading::createScene();
+    auto scene = House::createScene();
 
     // run
     director->runWithScene(scene);

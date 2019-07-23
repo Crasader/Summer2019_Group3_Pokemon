@@ -1,9 +1,9 @@
 #include "Buttons.h"
 #include "ResourceManager.h"
 #include "Popup.h"
+
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
-
 Buttons::Buttons()
 {
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
@@ -137,17 +137,6 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 	});
 }
 
-void Buttons::ButtonBag(Layer* layer,Vec2 vec)
-{
-	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		if (type == Widget::TouchEventType::ENDED)
-		{
-			// tabcontrol - My pokemon - Pokemon Over - My Item
-			TabControl TabBag = TabControl::create();
-		}
-	});
-}
 
 Buttons::~Buttons()
 {

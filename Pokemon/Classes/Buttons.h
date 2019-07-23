@@ -22,8 +22,7 @@ public:
 	static int state;
 	static Buttons* GetIntance();
 	void ButtonListener(Trainer *&mPlayer);
-	void ButtonBag(Layer * layer, Vec2 vec);
-	//void ButtonBag(Layer* layer);
+	//void ButtonBag(Layer * layer);
 	Button *GetButtonUp();
 	Button *GetButtonLeft();
 	Button *GetButtonRight();

@@ -149,7 +149,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Popup\Popup\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Bag.cpp" />
     <ClCompile Include="..\Classes\Buttons.cpp" />
@@ -218,6 +217,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Pokemon\Voltorb.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Vulpix.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Wartortle.cpp" />
+    <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
@@ -255,7 +255,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Popup\Popup\Classes\Popup.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Bag.h" />
     <ClInclude Include="..\Classes\Buttons.h" />
@@ -324,6 +323,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Pokemon\Voltorb.h" />
     <ClInclude Include="..\Classes\Pokemon\Vulpix.h" />
     <ClInclude Include="..\Classes\Pokemon\Wartortle.h" />
+    <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Scene\BattleScene.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
