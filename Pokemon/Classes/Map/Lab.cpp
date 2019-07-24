@@ -17,7 +17,7 @@ Camera *labCamera;
 Scene* Lab::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lab::create();
 	scene->addChild(layer);
 	labCamera = scene->getDefaultCamera();

@@ -17,7 +17,7 @@ Camera *pccamera;
 Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = PokemonCenter::create();
 	scene->addChild(layer);
 	pccamera = scene->getDefaultCamera();
