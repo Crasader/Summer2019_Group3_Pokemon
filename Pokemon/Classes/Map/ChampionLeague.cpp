@@ -102,6 +102,7 @@ void League::InitObject()
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
+			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			leagueBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			leagueBody->setCollisionBitmask(Model::BITMASK_PLAYER);
