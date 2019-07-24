@@ -299,9 +299,9 @@ namespace UICustom
 				string id = to_string(listItem.at(i)->GetId());
 				string name = listItem.at(i)->GetName();
 				string amount = "x" + to_string(listItem.at(i)->GetNumber());
-				Sprite *sprite = Sprite::create("res/Item/" + id + ".png");
+				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137+i);
 				sprite->setTag(i);
-				sprite->setScale(2);
+				sprite->setScale(2.5);
 				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
 					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
 				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
