@@ -16,7 +16,7 @@ Camera *leagueCamera;
 Scene * League::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = League::create();
 	scene->addChild(layer);
 	leagueCamera = scene->getDefaultCamera();

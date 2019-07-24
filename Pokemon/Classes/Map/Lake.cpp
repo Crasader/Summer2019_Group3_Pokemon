@@ -18,7 +18,7 @@ Camera *lakecamera;
 Scene* Lake::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lake::create();
 	scene->addChild(layer);
 	lakecamera = scene->getDefaultCamera();

@@ -17,7 +17,7 @@ Camera *caveCamera;
 Scene * Cave::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Cave::create();
 	scene->addChild(layer);
 	caveCamera = scene->getDefaultCamera();
