@@ -1,28 +1,25 @@
-#ifndef __LAKE_H__
-#define __LAKE_H__
-
+#pragma once
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"
 #include <math.h>
 using namespace cocos2d;
 using namespace std;
-class Lake: public cocos2d::Layer
+class Road : public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
-public:
-    static cocos2d::Scene* createScene();
+	Sprite * mNpc;
 
-    virtual bool init();
+public:
+	static cocos2d::Scene* createScene();
+	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
 	//void CreateButon();
-    CREATE_FUNC(Lake);
+	CREATE_FUNC(Road);
 	//void createPhysics();
 	void update(float);
 };
-
-#endif

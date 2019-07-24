@@ -199,10 +199,7 @@
 </data>
  </layer>
  <objectgroup id="8" name="Object">
-  <object id="1" type="3" x="560" y="8">
-   <point/>
-  </object>
-  <object id="2" type="4" x="564" y="82">
+  <object id="1" type="3" x="563" y="31">
    <point/>
   </object>
   <object id="3" type="2" x="560" y="754">

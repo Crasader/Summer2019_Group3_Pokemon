@@ -4,6 +4,7 @@
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "City.h"
 #include "Model.h"
 
 Size route1VisibleSize;
@@ -11,6 +12,7 @@ Size route1TileMapSize;
 
 PhysicsBody* route1Body, *route1GateWay;
 Camera *route1Camera;
+int Route1::previousScene = 0;
 
 Scene* Route1::createScene()
 {
@@ -127,15 +129,16 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
+		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
+		Route1::previousScene = Model::PRESCENE_CITY_TO_ROUTE1;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 	}
 	return true;
 

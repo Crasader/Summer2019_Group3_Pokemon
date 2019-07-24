@@ -187,22 +187,21 @@ void Lab::UpdateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
-				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)<abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
-				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)<abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
 				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
-
 }
 void Lab::update(float dt) {
 	UpdateCamera();
