@@ -205,13 +205,23 @@ namespace UICustom
 				}
 				listView->pushBackCustomItem(button);
 			}
-			listView->addEventListener([node](Ref* sender, ui::ListView::EventType type)
+			/*listView->addEventListener([containerMP](Ref* sender, ui::ListView::EventType type)
 			{
+				ListView *listView = static_cast<ui::ListView*>(sender);
 				if (type == ui::ListView::EventType::ON_SELECTED_ITEM_END) 
 				{
-					//
+					MenuItemImage *Button1 = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
+						node->dismiss(true);
+					});
+
+					MenuItemImage *Button2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+						node->dismiss(true);
+					});
+					Menu *menu = Menu::create(Button1, Button2, NULL);
+					menu->setPosition(listView->getContentSize());
+					listView->addChild(menu,222);
 				}
-			});
+			});*/
 
 #pragma endregion
 			auto containerPO = Layout::create();
@@ -269,14 +279,6 @@ namespace UICustom
 			node->initBg(tab->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 			node->autorelease();
 			return node;
-		}
-	}
-	void Popup::SelectedItemMPEvent(Ref * sender, ListView::EventType type)
-	{
-		ListView *listview = static_cast<ListView*>(sender);
-		if (type == ListView::EventType::ON_SELECTED_ITEM_END)
-		{
-			CCLOG("&d", listview->getCurSelectedIndex());
 		}
 	}
     Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void ()> &YesFunc)
