@@ -56,7 +56,6 @@ namespace UICustom {
 	private:
         void initBg(const cocos2d::Size size,const std::string &title);
     };
-    
 }
 
 #endif /* Popup_h */

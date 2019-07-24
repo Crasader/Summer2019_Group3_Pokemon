@@ -188,6 +188,8 @@ namespace UICustom
 			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
 			containerMP->addChild(listView);
+			Charizard *charizard = new Charizard();
+			Bag::GetInstance()->AddPokemon(charizard);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
 			auto list = Bag::GetInstance()->GetListPokemon();
 			for (int i = 0; i < 6; i++)
@@ -197,31 +199,28 @@ namespace UICustom
 				if (i < sizeofpokemon)
 				{
 					string name = list.at(i)->GetName();
+					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
 					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
 						button->getPosition().y + listView->getContentSize().height / 2);
+					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+					labelName->setString(name);
+					labelName->setColor(Color3B(0,0,0));
+					labelName->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listView->getContentSize().height*4/5);
+					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+					labelLv->setString(level);
+					labelLv->setColor(Color3B(0, 0, 0));
+					labelLv->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listView->getContentSize().height * 1 / 5);
 					listView->addChild(sprite, 202);
+					listView->addChild(labelName, 202);
+					listView->addChild(labelLv, 202);
+
 				}
 				listView->pushBackCustomItem(button);
 			}
-			/*listView->addEventListener([containerMP](Ref* sender, ui::ListView::EventType type)
-			{
-				ListView *listView = static_cast<ui::ListView*>(sender);
-				if (type == ui::ListView::EventType::ON_SELECTED_ITEM_END) 
-				{
-					MenuItemImage *Button1 = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
-						node->dismiss(true);
-					});
-
-					MenuItemImage *Button2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-						node->dismiss(true);
-					});
-					Menu *menu = Menu::create(Button1, Button2, NULL);
-					menu->setPosition(listView->getContentSize());
-					listView->addChild(menu,222);
-				}
-			});*/
 
 #pragma endregion
 			auto containerPO = Layout::create();
@@ -367,6 +366,7 @@ namespace UICustom
         _bg->addChild(heading);
         heading->enableOutline(Color4B::BLACK,FONT::LABEL_STROKE);
         heading->enableShadow(Color4B::BLACK, Size(0, -3));
-    }  
+    }
 }
+
 
