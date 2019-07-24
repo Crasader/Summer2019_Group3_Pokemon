@@ -15,16 +15,19 @@ private:
 	Button *m_right;
 	Button *m_left;
 	Button *m_down;
+	Button *m_bag;
 
 public:
 	~Buttons();
 	static int state;
 	static Buttons* GetIntance();
 	void ButtonListener(Trainer *&mPlayer);
+	void ButtonBagListener(Layer * layer, Camera* camera);
 	Button *GetButtonUp();
 	Button *GetButtonLeft();
 	Button *GetButtonRight();
 	Button *GetButtonDown();
+	Button *GetButtonBag();
 	void Remove();
 	void UpdateButton(float x, float y);
 };

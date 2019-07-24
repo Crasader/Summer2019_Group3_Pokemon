@@ -31,6 +31,7 @@ protected:
 	int m_attackSpeed;
 	int m_currentExp;
 	int m_maxExp;
+	int m_id;
 	bool m_alive = true;
 	bool m_state = false;
 public:
@@ -42,6 +43,7 @@ public:
 
 	virtual Pokemon* Evolve();
 
+	int GetID();
 	void LevelUp();
 	string GetName();
 	void SetName(string name);

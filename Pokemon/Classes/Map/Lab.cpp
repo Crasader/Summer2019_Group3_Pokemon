@@ -1,16 +1,15 @@
-
 #include "Lab.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "Model.h"
 
-USING_NS_CC;
-Size LabvisibleSize;
-Size LabtileMapSize;
-PhysicsBody* Labbody, *LabgateWay;
-Camera *Labcamera;
+Size labVisibleSize;
+Size labTileMapSize;
+PhysicsBody* labBody, *labGateWay, *doctorBody;
+Camera *labCamera;
 
 
 
@@ -20,7 +19,7 @@ Scene* Lab::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lab::create();
 	scene->addChild(layer);
-	Labcamera = scene->getDefaultCamera();
+	labCamera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -41,14 +40,12 @@ bool Lab::init()
 		return false;
 	}
 
-	LabvisibleSize = Director::getInstance()->getVisibleSize();
+	labVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
-	LabtileMapSize = map->getContentSize();
+	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
+	labTileMapSize = map->getContentSize();
 	addChild(map);
-	auto homeTS = TMXTiledMap::create("res/Map/TienSiHome.tmx");
-	addChild(homeTS, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -60,19 +57,16 @@ bool Lab::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
 	}
 
 	InitObject();
-
-
 	Button *up = Buttons::GetIntance()->GetButtonUp();
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
@@ -81,7 +75,6 @@ bool Lab::init()
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -100,11 +93,12 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_TOWN)
+		|| a->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_TOWN && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
@@ -114,7 +108,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 
 void Lab::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/tiensimap.tmx");
+	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -123,80 +117,90 @@ void Lab::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			Labbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Labbody->setCollisionBitmask(17);
-			Labbody->setMass(16);
-			Labbody->setContactTestBitmask(true);
-			Labbody->setDynamic(true);
-			Labbody->setRotationEnable(false);
-			Labbody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(Labbody);
+			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			labBody->setCollisionBitmask(17);
+			labBody->setMass(16);
+			labBody->setContactTestBitmask(true);
+			labBody->setDynamic(true);
+			labBody->setRotationEnable(false);
+			labBody->setGravityEnable(false);
+			mPlayer->GetSpriteFront()->setPhysicsBody(labBody);
 		}
-		else {
+		else if(type == Model::MODLE_TYPE_GATEWAY_LAB) {
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			LabgateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			LabgateWay->setCollisionBitmask(15);
-			LabgateWay->setMass(14);
-			LabgateWay->setContactTestBitmask(true);
-			LabgateWay->setDynamic(false);
-			LabgateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(LabgateWay);
+			labGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			labGateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_TOWN);
+			labGateWay->setContactTestBitmask(true);
+			labGateWay->setDynamic(false);
+			labGateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(labGateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
+		}
+		else {
+			doctor = Sprite::create("res/oak_down.png");
+			doctor->setPosition(Vec2(posX, posY));
+			doctorBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			doctorBody->setCollisionBitmask(Model::BITMASK_DOCTOR);
+			doctorBody->setContactTestBitmask(true);
+			doctorBody->setDynamic(false);
+			doctorBody->setGravityEnable(false);
+			doctor->setPhysicsBody(doctorBody);
+			this->addChild(doctor, 10);
 		}
 	}
 
 }
 
-void Lab::updateCamera() {
-	if (LabvisibleSize.width >= LabtileMapSize.width) {
-		if (LabvisibleSize.height >= LabtileMapSize.height) {
-			Labcamera->setPosition(LabtileMapSize / 2);
+void Lab::UpdateCamera() {
+	if (labVisibleSize.width >= labTileMapSize.width) {
+		if (labVisibleSize.height >= labTileMapSize.height) {
+			labCamera->setPosition(labTileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition(LabtileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition(labTileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(LabtileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				labCamera->setPosition(labTileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 		}
 	}
 	else {
-		if (LabvisibleSize.height >= LabtileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, LabtileMapSize.height / 2);
+		if (labVisibleSize.height >= labTileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, labTileMapSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, LabtileMapSize.height / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, labTileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)>abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)<abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().x) ? (LabtileMapSize.width - LabvisibleSize.width / 2) : LabvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)<abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - LabtileMapSize.width / 2)<abs(LabtileMapSize.width / 2 - LabvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - LabtileMapSize.height / 2)>abs(LabtileMapSize.height / 2 - LabvisibleSize.height / 2)) {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Labcamera->getPosition().y) ? (LabtileMapSize.height - LabvisibleSize.height / 2) : LabvisibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)<abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				Labcamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
 			}
 		}
 	}
 
 }
 void Lab::update(float dt) {
-	updateCamera();
-	Buttons::GetIntance()->UpdateButton(Labcamera->getPosition().x - 200, Labcamera->getPosition().y - 100);
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(labCamera->getPosition().x - 200, labCamera->getPosition().y - 100);
 }

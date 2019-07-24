@@ -4,24 +4,21 @@
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Town.h"
-#include "Lake.h"
+#include "Model.h"
 
-USING_NS_CC;
-Size Route1visibleSize;
-Size Route1tileMapSize;
+Size route1VisibleSize;
+Size route1TileMapSize;
 
-PhysicsBody* Route1body, *Route1gateWay;
-Camera *Route1camera;
-
-
+PhysicsBody* route1Body, *route1GateWay;
+Camera *route1Camera;
 
 Scene* Route1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route1::create();
 	scene->addChild(layer);
-	Route1camera = scene->getDefaultCamera();
+	route1Camera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -42,12 +39,16 @@ bool Route1::init()
 		return false;
 	}
 
-	Route1visibleSize = Director::getInstance()->getVisibleSize();
+	route1VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/route1.tmx");
-	Route1tileMapSize = map->getContentSize();
+	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
+	route1TileMapSize = map->getContentSize();
+	auto mapTree = TMXTiledMap::create("res/Map/Route1MapTree.tmx");
+	auto mapTree1 = TMXTiledMap::create("res/Map/Route1MapTree1.tmx");
 	addChild(map);
+	addChild(mapTree, 20);
+	addChild(mapTree1, 5);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -59,17 +60,16 @@ bool Route1::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
 	}
 
-	auto grass = map->getLayer("co");
+	auto grass = map->getLayer("grass");
 	int count = 0;
 	Size layerSize2 = grass->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -79,11 +79,11 @@ bool Route1::init()
 			auto tilePokemon = grass->getTileAt(Vec2(i, j));
 			if (tilePokemon != NULL)
 			{
-				if (count < 5) {
-					int _random = rand() % 4;
+				if (count < 10) {
+					int _random = rand() % 15;
 					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(12);
+						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
 						pokemon->setContactTestBitmask(true);
 						pokemon->setDynamic(false);
 						pokemon->setGravityEnable(false);
@@ -96,8 +96,6 @@ bool Route1::init()
 	}
 
 	InitObject();
-
-
 	Button *up = Buttons::GetIntance()->GetButtonUp();
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
@@ -106,7 +104,6 @@ bool Route1::init()
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
-
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -120,32 +117,31 @@ bool Route1::init()
 bool Route1::onContactBegin(PhysicsContact& contact)
 
 {
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_TOWN)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_TOWN && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		Buttons::GetIntance()->Remove();
+		Director::getInstance()->getRunningScene()->pause();
+		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
-	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
-		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
-	{
-		Buttons::GetIntance()->Remove();
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
-	}
-
 	return true;
 
 }
 
 void Route1::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/route1.tmx");
+	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -154,95 +150,92 @@ void Route1::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			Route1body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Route1body->setCollisionBitmask(15);
-			Route1body->setMass(14);
-			Route1body->setContactTestBitmask(true);
-			Route1body->setDynamic(true);
-			Route1body->setRotationEnable(false);
-			Route1body->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(Route1body);
+			route1Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			route1Body->setCollisionBitmask(Model::BITMASK_PLAYER);
+			route1Body->setContactTestBitmask(true);
+			route1Body->setDynamic(true);
+			route1Body->setRotationEnable(false);
+			route1Body->setGravityEnable(false);
+			mPlayer->GetSpriteFront()->setPhysicsBody(route1Body);
 		}
-		else if (type ==2)
+		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_TOWN)
 			{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			Route1gateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Route1gateWay->setCollisionBitmask(17);
-			Route1gateWay->setMass(16);
-			Route1gateWay->setContactTestBitmask(true);
-			Route1gateWay->setDynamic(false);
-			Route1gateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(Route1gateWay);
+			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_TOWN);
+			route1GateWay->setContactTestBitmask(true);
+			route1GateWay->setDynamic(false);
+			route1GateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(route1GateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		else if (type==3)
+		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_CITY)
 		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			Route1gateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Route1gateWay->setCollisionBitmask(19);
-			Route1gateWay->setMass(18);
-			Route1gateWay->setContactTestBitmask(true);
-			Route1gateWay->setDynamic(false);
-			Route1gateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(Route1gateWay);
+			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_CITY);
+			route1GateWay->setContactTestBitmask(true);
+			route1GateWay->setDynamic(false);
+			route1GateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(route1GateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
-void Route1::updateCamera() {
-	if (Route1visibleSize.width >= Route1tileMapSize.width) {
-		if (Route1visibleSize.height >= Route1tileMapSize.height) {
-			Route1camera->setPosition(Route1tileMapSize / 2);
+void Route1::UpdateCamera() {
+	if (route1VisibleSize.width >= route1TileMapSize.width) {
+		if (route1VisibleSize.height >= route1TileMapSize.height) {
+			route1Camera->setPosition(route1TileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition(Route1tileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - route1TileMapSize.height / 2)>abs(route1TileMapSize.height / 2 - route1VisibleSize.height / 2)) {
+				route1Camera->setPosition(route1TileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >route1Camera->getPosition().y) ? (route1TileMapSize.height - route1VisibleSize.height / 2) : route1VisibleSize.height / 2);
 			}
 			else {
-				Route1camera->setPosition(Route1tileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				route1Camera->setPosition(route1TileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 		}
 	}
 	else {
-		if (Route1visibleSize.height >= Route1tileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)) {
-				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, Route1tileMapSize.height / 2);
+		if (route1VisibleSize.height >= route1TileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - route1TileMapSize.width / 2)>abs(route1TileMapSize.width / 2 - route1VisibleSize.width / 2)) {
+				route1Camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >route1Camera->getPosition().y) ? (route1TileMapSize.width - route1VisibleSize.width / 2) : route1VisibleSize.width / 2, route1TileMapSize.height / 2);
 			}
 			else {
-				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, Route1tileMapSize.height / 2);
+				route1Camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, route1TileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - route1TileMapSize.width / 2)>abs(route1TileMapSize.width / 2 - route1VisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - route1TileMapSize.height / 2)>abs(route1TileMapSize.height / 2 - route1VisibleSize.height / 2)) {
+				route1Camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >route1Camera->getPosition().x) ? (route1TileMapSize.width - route1VisibleSize.width / 2) : route1VisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >route1Camera->getPosition().y) ? (route1TileMapSize.height - route1VisibleSize.height / 2) : route1VisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)>abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)<abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().x) ? (Route1tileMapSize.width - Route1visibleSize.width / 2) : Route1visibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - route1TileMapSize.width / 2)>abs(route1TileMapSize.width / 2 - route1VisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - route1TileMapSize.height / 2)<abs(route1TileMapSize.height / 2 - route1VisibleSize.height / 2)) {
+				route1Camera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >route1Camera->getPosition().x) ? (route1TileMapSize.width - route1VisibleSize.width / 2) : route1VisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - Route1tileMapSize.width / 2)<abs(Route1tileMapSize.width / 2 - Route1visibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - Route1tileMapSize.height / 2)>abs(Route1tileMapSize.height / 2 - Route1visibleSize.height / 2)) {
-				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Route1camera->getPosition().y) ? (Route1tileMapSize.height - Route1visibleSize.height / 2) : Route1visibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - route1TileMapSize.width / 2)<abs(route1TileMapSize.width / 2 - route1VisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - route1TileMapSize.height / 2)>abs(route1TileMapSize.height / 2 - route1VisibleSize.height / 2)) {
+				route1Camera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >route1Camera->getPosition().y) ? (route1TileMapSize.height - route1VisibleSize.height / 2) : route1VisibleSize.height / 2);
 			}
 			else {
-				Route1camera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				route1Camera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
+}
 
-}
 void Route1::update(float dt) {
-	updateCamera();
-	Buttons::GetIntance()->UpdateButton(Route1camera->getPosition().x - 200, Route1camera->getPosition().y - 100);
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
 }
+

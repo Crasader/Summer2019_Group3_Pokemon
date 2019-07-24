@@ -16,9 +16,10 @@ public:
 	void SetName(string name);
 	int GetNumber();
 	void SetNumber(int index);
+	int GetId();
 protected:
-	string name;
-	int gold;
-	vector<Item*> m_items;
-	int Number;
+	int m_id;
+	string m_name;
+	int m_gold;
+	int m_number;
 };

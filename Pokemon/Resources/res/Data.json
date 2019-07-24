@@ -4,7 +4,7 @@
     "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 148,
+    "size": 147,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -157,11 +157,10 @@
     "143": "res/Item/6.png",
     "144": "res/Item/7.png",
     "145": "res/Item/8.png",
-    "146": "res/Item/9.png",
-    "147": "res/Item/10.png"
+    "146": "res/Item/9.png"
   },
   "BUTTON": {
-    "size": 11,
+    "size": 13,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -187,24 +186,32 @@
       "pressed": "res/UI/Button/red_button01.png"
     },
     "6": {
-      "normal": "res/UI/Button/ButtonAbout.png",
-      "pressed": "res/UI/Button/ButtonAbout.png"
+      "normal": "res/UI/Button/00.png",
+      "pressed": "res/UI/Button/00.png"
     },
     "7": {
-      "normal": "res/UI/Button/ButtonPlay.png",
-      "pressed": "res/UI/Button/ButtonPlay.png"
+      "normal": "res/UI/Button/33.png",
+      "pressed": "res/UI/Button/33.png"
     },
     "8": {
       "normal": "res/UI/Button/ButtonResume.png",
       "pressed": "res/UI/Button/ButtonResume.png"
     },
     "9": {
-      "normal": "res/UI/Button/ButtonSetting.png",
-      "pressed": "res/UI/Button/ButtonSetting.png"
+      "normal": "res/UI/Button/22.png",
+      "pressed": "res/UI/Button/22.png"
     },
     "10": {
-      "normal": "res/UI/Button/ButtonExit.png",
-      "pressed": "res/UI/Button/ButtonExit.png"
+      "normal": "res/UI/Button/11.png",
+      "pressed": "res/UI/Button/11.png"
+    },
+    "11": {
+      "normal": "res/UI/Button/Bag.png",
+      "pressed": "res/UI/Button/Bag.png"
+    },
+    "12": {
+      "normal": "res/UI/Button/popUpBase.png",
+      "pressed": "res/UI/Button/popUpBase.png"
     }
   },
   "FONT": {
