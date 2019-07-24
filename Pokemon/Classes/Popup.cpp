@@ -20,7 +20,7 @@ namespace FONT {
     const float LABEL_OFFSET = 50;
     const float DESCRIPTION_TEXT_SIZE = 20;
     const float TITLE_TEXT_SIZE = 30;
-    const char *GAME_FONT = "fonts/Marker Felt.ttf";
+    const char *GAME_FONT = "res/UI/Label/MarkerFelt.ttf";
     const float LABEL_STROKE = 4;
 }
 
@@ -172,10 +172,23 @@ namespace UICustom
 			node->addChild(tab, 101);
 			auto headerMP = TabHeader::create();
 			headerMP->setTitleText("My Pokemon");
+			headerMP->setTitleColor(Color4B(0, 0, 0, 255));
+			headerMP->loadTextureBackGround("res/Background/2.png");
+			headerMP->setTitleFontName(FONT::GAME_FONT);
+
 			auto headerPO = TabHeader::create();
+			headerPO->loadTextureBackGround("res/Background/2.png");
 			headerPO->setTitleText("Pokemon Over");
+			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
+			headerPO->setTitleFontName(FONT::GAME_FONT);
+
 			auto headerMI = TabHeader::create();
+			headerMI->loadTextureBackGround("res/Background/2.png");
 			headerMI->setTitleText("My Item");
+			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
+			headerMI->setTitleFontName(FONT::GAME_FONT);
+
+
 			auto containerMP = Layout::create();
 #pragma region Tab1
 			auto listView = ui::ListView::create();
@@ -217,7 +230,6 @@ namespace UICustom
 					listView->addChild(sprite, 202);
 					listView->addChild(labelName, 202);
 					listView->addChild(labelLv, 202);
-
 				}
 				listView->pushBackCustomItem(button);
 			}
@@ -244,10 +256,23 @@ namespace UICustom
 				if (i < sizeOfPokemonOver)
 				{
 					string name = listOver.at(i)->GetName();
+					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
 					sprite->setTag(i);
 					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
 						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
+					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+					labelName->setString(name);
+					labelName->setColor(Color3B(0, 0, 0));
+					labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
+					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+					labelLv->setString(level);
+					labelLv->setColor(Color3B(0, 0, 0));
+					labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
+					listViewPO->addChild(labelName, 202);
+					listViewPO->addChild(labelLv, 202);
 					listViewPO->addChild(sprite, 202);
 				}
 				listViewPO->pushBackCustomItem(buttonOver);
@@ -341,10 +366,8 @@ namespace UICustom
 
     
     void Popup::initBg(Size size,const std::string &title)
-    {
-        
-        Size winSize = Director::getInstance()->getWinSize();
-
+    {  
+		Size winSize = Director::getInstance()->getWinSize();
         _bg = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
         this->addChild(_bg);
         
