@@ -1,27 +1,39 @@
 #include "Bag.h"
 #include "Trainer.h"
+#include "Item\Potion.h"
+#include "Item\MaxPotion.h"
+#include "Item\SuperPotion.h"
+#include "Item\Revive.h"
+#include "Item\MaxRevive.h"
+#include "Item\Ether.h"
+#include "Item\LeafStone.h"
+#include "Item\FireStone.h"
+#include "Item\ThunderStone.h"
+#include "Item\WaterStone.h"
 
 Bag::Bag()
 {
 	this->Init();
 	this->my_gold = 100;
+	this->CreateListItem();
 }
 Bag::~Bag()
 {
 }
 
-Bag * Bag::s_bag = nullptr;
+Bag * Bag::m_instance = nullptr;
 
 Bag * Bag::GetInstance()
 {
-	if (s_bag == nullptr)
+	if (m_instance == nullptr)
 	{
-		s_bag = new Bag();
+		m_instance = new Bag();
 	}
-	return s_bag;
+	return m_instance;
 }
 void Bag::Init()
 {
+
 }
 
 void Bag::Update(float deltaTime)
@@ -69,5 +81,55 @@ int Bag::GetGold()
 void Bag::AddItem(Item * item)
 {
 	this->m_items.push_back(item);
+}
+
+void Bag::AddPokemonIntoMyList(int index)
+{
+	if (this->m_pokemons.size() > 6)
+	{
+		CCLOG("My list pokemon full 6 slot");
+	}
+	else
+	{
+		this->m_pokemons.push_back(this->m_pokemons_over.at(index));
+		//this->m_pokemons_over.erase.at(index);
+	}
+}
+
+void Bag::RemovePokemonFormMyListIntoListOver(int index)
+{
+	if (this->m_pokemons.size() > 10)
+	{
+		CCLOG("List pokemon over full 10 slot");
+	}
+	else
+	{
+		this->m_pokemons_over.push_back(this->m_pokemons.at(index));
+		//this->m_pokemons.erase.at(index);
+	}
+}
+
+void Bag::CreateListItem()
+{
+	Potion *potion = new Potion();
+	this->m_items.push_back(potion);
+	SuperPotion *superPotion = new SuperPotion();
+	this->m_items.push_back(superPotion);
+	MaxPotion *maxPotion = new MaxPotion();
+	this->m_items.push_back(maxPotion);
+	Ether *ether = new Ether();
+	this->m_items.push_back(ether);
+	Revive *revive = new Revive();
+	this->m_items.push_back(revive);
+	MaxRevive *maxRevive = new MaxRevive();
+	this->m_items.push_back(maxRevive);
+	FireStone *fireStone = new FireStone();
+	this->m_items.push_back(fireStone);
+	LeafStone *leafStone = new LeafStone();
+	this->m_items.push_back(leafStone);
+	ThunderStone *thunderStone = new ThunderStone();
+	this->m_items.push_back(thunderStone);
+	WaterStone *waterStone = new WaterStone();
+	this->m_items.push_back(waterStone);
 }
 

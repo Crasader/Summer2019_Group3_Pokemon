@@ -2,8 +2,10 @@
 #include "Bag.h"
 #include "MyObject.h"
 #include "cocos2d.h"
+#include <list>
+#include "Pokemon.h"
 USING_NS_CC;
-using namespace cocos2d;
+using namespace std;
 class Trainer : public MyObject
 {
 private:

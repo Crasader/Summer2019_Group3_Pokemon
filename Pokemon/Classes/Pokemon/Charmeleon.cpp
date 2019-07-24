@@ -7,6 +7,10 @@
 
 Charmeleon::Charmeleon()
 {
+	this->Init(6, 7);
+	//
+	this->m_id = 3;
+	this->m_name = "Charmeleon";
 }
 
 Charmeleon::Charmeleon(Charmander * it)

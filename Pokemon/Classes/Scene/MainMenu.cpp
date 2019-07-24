@@ -2,8 +2,9 @@
 #include "MainMenu.h"
 #include "ResourceManager.h"
 #include "Map\House.h"
+#include "Map\House.h"
+#include "NPC\LakeNPC.h"
 #include "Popup.h"
-
 
 using namespace cocos2d;
 using namespace std;
@@ -30,10 +31,9 @@ bool MainMenu::init()
 	backGround->setAnchorPoint(Vec2(0, 0));
 	backGround->setScale(visibleSize.width / backGround->getContentSize().width, visibleSize.height / backGround->getContentSize().height);
 	addChild(backGround, -99);
-
 	auto buttonPlay = ResourceManager::GetInstance()->GetButtonById(7);
 	buttonPlay->removeFromParent();
-	buttonPlay->setScale(0.2f);
+	buttonPlay->setScale(1.2);
 	buttonPlay->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 9));
 	addChild(buttonPlay, -98);
 	buttonPlay->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
@@ -47,30 +47,31 @@ bool MainMenu::init()
 
 	auto buttonSetting = ResourceManager::GetInstance()->GetButtonById(9);
 	buttonSetting->removeFromParent();
-	buttonSetting->setScale(0.1f);
+	//buttonSetting->setScale();
 	buttonSetting->setPosition(Vec2(visibleSize.width / 20, visibleSize.height / 10));
 	addChild(buttonSetting, -1);
 	buttonSetting->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			if (type == Widget::TouchEventType::ENDED)
-			{
-				UICustom::Popup *popup = UICustom::Popup::createSetting();
-				this->addChild(popup);
-			}
+			UICustom::Popup *popup = UICustom::Popup::createSetting("Setting");
+			popup->removeFromParent();
+			this->addChild(popup);
 		}
 	});
 	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(6);
 	buttonAbout->removeFromParent();
-	buttonAbout->setScale(0.25f);
+	//buttonAbout->setScale(0.25f);
 	buttonAbout->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height / 10));
 	addChild(buttonAbout, -1);
 	buttonAbout->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			UICustom::Popup *popup = UICustom::Popup::createAbout();
+			//Label *lbl = Label::createWithTTF("This game is created by TNVD team   Summer Internship 2019", "fonts/Marker Felt.ttf", 25);
+			//lbl->setWidth(350);
+			string index = "This game is created by TNVD team   Summer Internship 2019";
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("About", index);
 			this->addChild(popup);
 		}
 	});
@@ -78,7 +79,7 @@ bool MainMenu::init()
 
 	auto buttonExit = ResourceManager::GetInstance()->GetButtonById(10);
 	buttonExit->removeFromParent();
-	buttonExit->setScale(0.1f);
+	//buttonExit->setScale(0.1f);
 	buttonExit->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height * 9 / 10));
 	addChild(buttonExit, -1);
 	buttonExit->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
