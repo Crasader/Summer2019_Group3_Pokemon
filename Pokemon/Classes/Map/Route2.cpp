@@ -152,15 +152,23 @@ void Route2::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
-			mPlayer = new Trainer(this);
-			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			route2Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route2Body->setCollisionBitmask(Model::BITMASK_PLAYER);
-			route2Body->setContactTestBitmask(true);
-			route2Body->setDynamic(true);
-			route2Body->setRotationEnable(false);
-			route2Body->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(route2Body);
+			int preScene = object.asValueMap().at("pre").asInt();
+			if (preScene == previousScene) {
+				mPlayer = new Trainer(this);
+				if (preScene == 1)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+				}
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				route2Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				route2Body->setCollisionBitmask(Model::BITMASK_PLAYER);
+				route2Body->setContactTestBitmask(true);
+				route2Body->setDynamic(true);
+				route2Body->setRotationEnable(false);
+				route2Body->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(route2Body);
+			}
+			else continue;
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE2_GATE_TO_CITY)
 		{
