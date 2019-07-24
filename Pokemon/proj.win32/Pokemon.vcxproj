@@ -149,6 +149,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
+      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Bag.cpp" />
     <ClCompile Include="..\Classes\Buttons.cpp" />
@@ -169,6 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp" />
     <ClCompile Include="..\Classes\Map\Route1.cpp" />
     <ClCompile Include="..\Classes\Map\Town.cpp" />
+    <ClCompile Include="..\Classes\Model.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
@@ -284,6 +294,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Map\PokemonCenter.h" />
     <ClInclude Include="..\Classes\Map\Route1.h" />
     <ClInclude Include="..\Classes\Map\Town.h" />
+    <ClInclude Include="..\Classes\Model.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
@@ -377,15 +388,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\WingAttack.h" />
     <ClInclude Include="..\Classes\Trainer.h" />
     <ClInclude Include="main.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
-      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
-      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

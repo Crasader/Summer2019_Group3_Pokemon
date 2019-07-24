@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "Map\House.h"
 #include "Map\House.h"
+#include "NPC\LakeNPC.h"
 #include "Popup.h"
 
 using namespace cocos2d;

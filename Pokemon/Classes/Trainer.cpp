@@ -1,6 +1,8 @@
 #include "Trainer.h"
 #include "ResourceManager.h"
-#include "Pokemon\Squirtle.h"
+#include "Pokemon/Squirtle.h"
+
+list<Pokemon*> Trainer::m_Pokemons;
 
 list<Pokemon*> Trainer::m_Pokemons;
 
@@ -21,7 +23,7 @@ void Trainer::Init(cocos2d::Layer* layer)
 {
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(118);
 	this->m_spriteFront->removeFromParent();
-	this->m_spriteFront->setScale(1.5f);
+	this->m_spriteFront->setScale(2);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));
 	layer->addChild(this->m_spriteFront, 10);
 	left = ResourceManager::GetInstance()->GetAnimationById(120);

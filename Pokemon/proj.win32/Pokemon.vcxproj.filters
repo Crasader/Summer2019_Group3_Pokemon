@@ -368,6 +368,14 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Item\ThunderStone.cpp">
       <Filter>src\Item</Filter>
+    <ClCompile Include="..\Classes\Map\Lab.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Town.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Model.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -709,6 +717,14 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item\ThunderStone.h">
       <Filter>src\Item</Filter>
+    <ClInclude Include="..\Classes\Map\Lab.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Town.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Model.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
