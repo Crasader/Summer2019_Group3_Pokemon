@@ -4,20 +4,18 @@
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "Model.h"
 
-USING_NS_CC;
 Size route1VisibleSize;
 Size route1TileMapSize;
 
 PhysicsBody* route1Body, *route1GateWay;
 Camera *route1Camera;
 
-
-
 Scene* Route1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
@@ -62,11 +60,10 @@ bool Route1::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
@@ -86,7 +83,7 @@ bool Route1::init()
 					int _random = rand() % 15;
 					if (!_random) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(12);
+						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
 						pokemon->setContactTestBitmask(true);
 						pokemon->setDynamic(false);
 						pokemon->setGravityEnable(false);
@@ -99,7 +96,6 @@ bool Route1::init()
 	}
 
 	InitObject();
-
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
 	Button *right = Buttons::GetIntance()->GetButtonRight();
@@ -123,27 +119,24 @@ bool Route1::init()
 bool Route1::onContactBegin(PhysicsContact& contact)
 
 {
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_TOWN)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_TOWN && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 2;
+		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
-	else if (a->getCollisionBitmask() == 19 && b->getCollisionBitmask() == 15
-		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 19)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
-
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
-
 	return true;
 
 }
@@ -159,25 +152,23 @@ void Route1::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			route1Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1Body->setCollisionBitmask(15);
-			route1Body->setMass(14);
+			route1Body->setCollisionBitmask(Model::BITMASK_PLAYER);
 			route1Body->setContactTestBitmask(true);
 			route1Body->setDynamic(true);
 			route1Body->setRotationEnable(false);
 			route1Body->setGravityEnable(false);
 			mPlayer->GetSpriteFront()->setPhysicsBody(route1Body);
 		}
-		else if (type ==2)
+		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_TOWN)
 			{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1GateWay->setCollisionBitmask(17);
-			route1GateWay->setMass(16);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_TOWN);
 			route1GateWay->setContactTestBitmask(true);
 			route1GateWay->setDynamic(false);
 			route1GateWay->setGravityEnable(false);
@@ -185,13 +176,12 @@ void Route1::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		else if (type==3)
+		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_CITY)
 		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1GateWay->setCollisionBitmask(19);
-			route1GateWay->setMass(18);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_CITY);
 			route1GateWay->setContactTestBitmask(true);
 			route1GateWay->setDynamic(false);
 			route1GateWay->setGravityEnable(false);
@@ -200,7 +190,6 @@ void Route1::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
 void Route1::UpdateCamera() {
@@ -245,8 +234,8 @@ void Route1::UpdateCamera() {
 			}
 		}
 	}
-
 }
+
 void Route1::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);

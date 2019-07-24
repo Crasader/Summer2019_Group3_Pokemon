@@ -5,8 +5,8 @@
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "Model.h"
 
-USING_NS_CC;
 Size labVisibleSize;
 Size labTileMapSize;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
@@ -58,11 +58,10 @@ bool Lab::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
@@ -98,12 +97,12 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_TOWN)
+		|| a->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_TOWN && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 1;
+		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 
@@ -122,7 +121,7 @@ void Lab::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -134,22 +133,23 @@ void Lab::InitObject()
 			labBody->setGravityEnable(false);
 			mPlayer->GetSpriteFront()->setPhysicsBody(labBody);
 		}
-		else if(type == 2) {
+		else if(type == Model::MODLE_TYPE_GATEWAY_LAB) {
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			labGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			labGateWay->setCollisionBitmask(15);
+			labGateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_TOWN);
 			labGateWay->setContactTestBitmask(true);
 			labGateWay->setDynamic(false);
 			labGateWay->setGravityEnable(false);
 			mGateWay->setPhysicsBody(labGateWay);
+			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
 		else {
 			doctor = Sprite::create("res/oak_down.png");
 			doctor->setPosition(Vec2(posX, posY));
 			doctorBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			doctorBody->setCollisionBitmask(26);
+			doctorBody->setCollisionBitmask(Model::BITMASK_DOCTOR);
 			doctorBody->setContactTestBitmask(true);
 			doctorBody->setDynamic(false);
 			doctorBody->setGravityEnable(false);

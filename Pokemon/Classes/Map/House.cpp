@@ -2,8 +2,9 @@
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
-#include "PokemonCenter.h"
 #include "Town.h"
+#include "Model.h"
+
 
 USING_NS_CC;
 
@@ -53,11 +54,10 @@ bool House::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
@@ -90,8 +90,8 @@ bool House::onContactBegin(PhysicsContact & contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if ((a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17)
-		|| (a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15))
+	if ((a->getCollisionBitmask() == Model::BITMASK_HOUSE_GATE && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_HOUSE_GATE))
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
@@ -114,12 +114,11 @@ void House::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			houseBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			houseBody->setCollisionBitmask(17);
-			houseBody->setMass(16);
+			houseBody->setCollisionBitmask(Model::BITMASK_PLAYER);
 			houseBody->setContactTestBitmask(true);
 			houseBody->setDynamic(true);
 			houseBody->setRotationEnable(false);
@@ -130,8 +129,7 @@ void House::InitObject()
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			houseGateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			houseGateWay->setCollisionBitmask(15);
-			houseGateWay->setMass(14);
+			houseGateWay->setCollisionBitmask(Model::BITMASK_HOUSE_GATE);
 			houseGateWay->setContactTestBitmask(true);
 			houseGateWay->setDynamic(false);
 			houseGateWay->setGravityEnable(false);
