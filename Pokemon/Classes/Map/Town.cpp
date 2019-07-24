@@ -184,6 +184,7 @@ void Town::InitObject()
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				townBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				townBody->setCollisionBitmask(Model::BITMASK_PLAYER);

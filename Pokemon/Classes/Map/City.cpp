@@ -141,7 +141,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_ROUTE2 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		City::previousScene = Model::BITMASK_ROUTE2_GATE_TO_CITY;
+		City::previousScene = Model::PRESCENE_ROUTE2_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route2::createScene()));
 	}
@@ -160,15 +160,35 @@ void City::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
-			mPlayer = new Trainer(this);
-			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			cityBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			cityBody->setCollisionBitmask(Model::BITMASK_PLAYER);
-			cityBody->setContactTestBitmask(true);
-			cityBody->setDynamic(true);
-			cityBody->setRotationEnable(false);
-			cityBody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(cityBody);
+			int preScene = object.asValueMap().at("pre").asInt();
+			if (preScene == previousScene) {
+				mPlayer = new Trainer(this);
+				if (preScene == 1)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+				}
+				else if (preScene == 2)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+				}
+				else if (preScene == 3)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+				}
+				else if (preScene == 4)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+				}
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				cityBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				cityBody->setCollisionBitmask(Model::BITMASK_PLAYER);
+				cityBody->setContactTestBitmask(true);
+				cityBody->setDynamic(true);
+				cityBody->setRotationEnable(false);
+				cityBody->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(cityBody);
+			}
+			else continue;
 		}
 		else if (type == Model::MODLE_TYPE_CITY_GATE_TO_ROUTE1)
 		{
