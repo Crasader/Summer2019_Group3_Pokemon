@@ -372,6 +372,21 @@
     <ClCompile Include="..\Classes\Item\MaxRevive.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Map\City.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Cave.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\Route2.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\VictoryRoad.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Map\ChampionLeague.cpp">
+      <Filter>src\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -721,6 +736,20 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item\MaxRevive.h">
       <Filter>src\Item</Filter>
+    <ClInclude Include="..\Classes\Map\City.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Cave.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\Route2.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\VictoryRoad.h">
+      <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Map\ChampionLeague.h">
+      <Filter>src\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
