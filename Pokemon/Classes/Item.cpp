@@ -45,3 +45,8 @@ void Item::SetNumber(int index)
 	this->m_number = index;
 }
 
+int Item::GetId()
+{
+	return this->m_id;
+}
+

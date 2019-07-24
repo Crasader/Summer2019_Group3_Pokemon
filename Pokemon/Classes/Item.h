@@ -16,6 +16,7 @@ public:
 	void SetName(string name);
 	int GetNumber();
 	void SetNumber(int index);
+	int GetId();
 protected:
 	int m_id;
 	string m_name;

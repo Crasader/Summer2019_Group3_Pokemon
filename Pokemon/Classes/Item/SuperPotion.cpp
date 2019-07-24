@@ -7,7 +7,7 @@ SuperPotion::SuperPotion()
 	this->hpRevice = 50;
 	this->m_name = "Super Potion";
 	this->Init(138);
-	this->m_number = 0;
+	this->m_number = 1;
 }
 
 SuperPotion::~SuperPotion()
@@ -17,9 +17,9 @@ SuperPotion::~SuperPotion()
 
 void SuperPotion::ReviceHealthPokemon(Pokemon * pokemon)
 {
-	pokemon->SetCurrentHP(pokemon->GetCurrentHP + this->hpRevice);
-	if (pokemon->GetCurrentHP() > pokemon->GetMaxHP)
+	pokemon->SetCurrentHP(pokemon->GetCurrentHP() + this->hpRevice);
+	if (pokemon->GetCurrentHP() > pokemon->GetMaxHP())
 	{
-		pokemon->SetCurrentHP(pokemon->GetMaxHP);
+		pokemon->SetCurrentHP(pokemon->GetMaxHP());
 	}
 }

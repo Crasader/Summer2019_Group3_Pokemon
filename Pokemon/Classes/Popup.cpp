@@ -279,6 +279,48 @@ namespace UICustom
 			}
 #pragma endregion
 			auto containerMI = Layout::create();
+#pragma region Tab3
+			auto listViewMI = ui::ListView::create();
+			listViewMI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewMI->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewMI->setContentSize(Size(280, 140));
+			listViewMI->setScale(0.8);
+			CCLOG("%f", listViewPO->getContentSize().width);
+			listViewMI->setGlobalZOrder(200);
+			listViewMI->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listViewMI->setClippingEnabled(true);
+			containerMI->addChild(listViewMI);
+			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
+			auto listItem = Bag::GetInstance()->GetListItem();
+			for (int i = 0; i < sizeOfItem; i++)
+			{
+				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
+				buttonItem->setTag(i);
+				string id = to_string(listItem.at(i)->GetId());
+				string name = listItem.at(i)->GetName();
+				string amount = "x" + to_string(listItem.at(i)->GetNumber());
+				Sprite *sprite = Sprite::create("res/Item/" + id + ".png");
+				sprite->setTag(i);
+				sprite->setScale(2);
+				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
+				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+				labelName->setString(name);
+				labelName->setColor(Color3B(0, 0, 0));
+				labelName->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewMI->getContentSize().height * 4 / 5);
+				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+				labelNumber->setString(amount);
+				labelNumber->setColor(Color3B(0, 0, 0));
+				labelNumber->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewMI->getContentSize().height * 1 / 5);
+				listViewMI->addChild(labelName, 202);
+				listViewMI->addChild(labelNumber, 202);
+				listViewMI->addChild(sprite, 202);
+				listViewMI->pushBackCustomItem(buttonItem);
+			}
+#pragma endregion
+
 			tab->insertTab(0, headerMP, containerMP);
 			tab->insertTab(1, headerPO, containerPO);
 			tab->insertTab(2, headerMI, containerMI);

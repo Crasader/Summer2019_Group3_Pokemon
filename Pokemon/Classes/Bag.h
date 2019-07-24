@@ -20,8 +20,9 @@ public:
 	void AddItem(Item* item);
 	void AddPokemonIntoMyList(int index);
 	void RemovePokemonFormMyListIntoListOver(int index);
+	void CreateListItem();
 private:
-	static Bag* s_bag;
+	static Bag* m_instance;
 	vector<Pokemon*> m_pokemons, m_pokemons_over;
 	vector<Item*> m_items;
 	int my_gold;

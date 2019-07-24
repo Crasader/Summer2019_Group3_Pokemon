@@ -230,10 +230,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp" />
-    <ClCompile Include="..\Classes\Scene\BuyItem.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
-    <ClCompile Include="..\Classes\Scene\MyBag.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
     <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
@@ -348,10 +346,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Scene\BattleScene.h" />
-    <ClInclude Include="..\Classes\Scene\BuyItem.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Scene\MainMenu.h" />
-    <ClInclude Include="..\Classes\Scene\MyBag.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
     <ClInclude Include="..\Classes\Skill\BlastBurn.h" />

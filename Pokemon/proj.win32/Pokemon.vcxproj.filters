@@ -261,16 +261,10 @@
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Scene\Loading.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
@@ -611,16 +605,10 @@
     <ClInclude Include="..\Classes\Scene\BattleScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Scene\BuyItem.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Scene\Loading.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\MainMenu.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Scene\MyBag.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\CaveNPC.h">
