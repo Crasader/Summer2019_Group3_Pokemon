@@ -6,7 +6,7 @@ MaxRevive::MaxRevive()
 	this->m_gold = 50;
 	this->m_number = 0;
 	this->m_name = "Max Revive";
-	this->Init(143);
+	this->Init(142);
 }
 
 MaxRevive::~MaxRevive()

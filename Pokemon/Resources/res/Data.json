@@ -148,16 +148,16 @@
     "135": "res/UI/LoadingBar/0.png",
     "136": "res/UI/LoadingBar/1.png",
 
-    "137": "res/Item/0.png",
-    "138": "res/Item/1.png",
-    "139": "res/Item/2.png",
-    "140": "res/Item/3.png",
-    "141": "res/Item/4.png",
-    "142": "res/Item/5.png",
-    "143": "res/Item/6.png",
-    "144": "res/Item/7.png",
-    "145": "res/Item/8.png",
-    "146": "res/Item/9.png"
+    "137": "res/Item/Potion.png",
+    "138": "res/Item/SuperPotion.png",
+    "139": "res/Item/MaxPotion.png",
+    "140": "res/Item/Ether.png",
+    "141": "res/Item/Revive.png",
+    "142": "res/Item/MaxRevive.png",
+    "143": "res/Item/FireStone.png",
+    "144": "res/Item/LeafStone.png",
+    "145": "res/Item/ThunderStone.png",
+    "146": "res/Item/WaterStone.png"
   },
   "BUTTON": {
     "size": 13,

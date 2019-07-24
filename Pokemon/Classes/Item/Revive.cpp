@@ -6,7 +6,7 @@ Revive::Revive()
 	this->m_gold = 20;
 	this->m_number = 1;
 	this->m_name = "Revive";
-	this->Init(142);
+	this->Init(141);
 }
 
 Revive::~Revive()

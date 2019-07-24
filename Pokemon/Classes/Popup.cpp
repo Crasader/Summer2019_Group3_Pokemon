@@ -201,8 +201,8 @@ namespace UICustom
 			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
 			containerMP->addChild(listView);
-			Charizard *charizard = new Charizard();
-			Bag::GetInstance()->AddPokemon(charizard);
+			//Charizard *charizard = new Charizard();
+			//Bag::GetInstance()->AddPokemon(charizard);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
 			auto list = Bag::GetInstance()->GetListPokemon();
 			for (int i = 0; i < 6; i++)
@@ -299,9 +299,9 @@ namespace UICustom
 				string id = to_string(listItem.at(i)->GetId());
 				string name = listItem.at(i)->GetName();
 				string amount = "x" + to_string(listItem.at(i)->GetNumber());
-				Sprite *sprite = Sprite::create("res/Item/" + id + ".png");
+				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137+i);
 				sprite->setTag(i);
-				sprite->setScale(2);
+				sprite->setScale(2.5);
 				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
 					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
 				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
