@@ -5,11 +5,11 @@
 
 using namespace cocos2d;
 
-class Revive : public Item
+class MaxRevive : public Item
 {
 public:
-	Revive();
-	~Revive();
-	void RevivePokemon(Pokemon* pokemon);
+	MaxRevive();
+	~MaxRevive();
+	void MaxRevivePokemon(Pokemon* pokemon);
 private:
 };

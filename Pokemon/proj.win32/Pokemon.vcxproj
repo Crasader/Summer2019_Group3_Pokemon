@@ -149,15 +149,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
-      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
-      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Bag.cpp" />
     <ClCompile Include="..\Classes\Buttons.cpp" />
@@ -167,6 +158,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Item\FireStone.cpp" />
     <ClCompile Include="..\Classes\Item\LeafStone.cpp" />
     <ClCompile Include="..\Classes\Item\MaxPotion.cpp" />
+    <ClCompile Include="..\Classes\Item\MaxRevive.cpp" />
     <ClCompile Include="..\Classes\Item\Potion.cpp" />
     <ClCompile Include="..\Classes\Item\Revive.cpp" />
     <ClCompile Include="..\Classes\Item\SuperPotion.cpp" />
@@ -178,7 +170,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Map\PokemonCenter.cpp" />
     <ClCompile Include="..\Classes\Map\Route1.cpp" />
     <ClCompile Include="..\Classes\Map\Town.cpp" />
-    <ClCompile Include="..\Classes\Model.cpp" />
     <ClCompile Include="..\Classes\MyObject.cpp" />
     <ClCompile Include="..\Classes\NPC.cpp" />
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp" />
@@ -239,8 +230,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Popup.cpp" />
     <ClCompile Include="..\Classes\ResourceManager.cpp" />
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp" />
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp" />
     <ClCompile Include="..\Classes\Scene\Loading.cpp" />
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp" />
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp" />
     <ClCompile Include="..\Classes\Skill.cpp" />
     <ClCompile Include="..\Classes\Skill\Bite.cpp" />
     <ClCompile Include="..\Classes\Skill\BlastBurn.cpp" />
@@ -283,6 +276,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Item\FireStone.h" />
     <ClInclude Include="..\Classes\Item\LeafStone.h" />
     <ClInclude Include="..\Classes\Item\MaxPotion.h" />
+    <ClInclude Include="..\Classes\Item\MaxRevive.h" />
     <ClInclude Include="..\Classes\Item\Potion.h" />
     <ClInclude Include="..\Classes\Item\Revive.h" />
     <ClInclude Include="..\Classes\Item\SuperPotion.h" />
@@ -294,7 +288,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Map\PokemonCenter.h" />
     <ClInclude Include="..\Classes\Map\Route1.h" />
     <ClInclude Include="..\Classes\Map\Town.h" />
-    <ClInclude Include="..\Classes\Model.h" />
     <ClInclude Include="..\Classes\MyObject.h" />
     <ClInclude Include="..\Classes\NPC.h" />
     <ClInclude Include="..\Classes\NPC\CaveNPC.h" />
@@ -355,8 +348,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Popup.h" />
     <ClInclude Include="..\Classes\ResourceManager.h" />
     <ClInclude Include="..\Classes\Scene\BattleScene.h" />
+    <ClInclude Include="..\Classes\Scene\BuyItem.h" />
     <ClInclude Include="..\Classes\Scene\Loading.h" />
     <ClInclude Include="..\Classes\Scene\MainMenu.h" />
+    <ClInclude Include="..\Classes\Scene\MyBag.h" />
     <ClInclude Include="..\Classes\Skill.h" />
     <ClInclude Include="..\Classes\Skill\Bite.h" />
     <ClInclude Include="..\Classes\Skill\BlastBurn.h" />
@@ -388,6 +383,15 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Skill\WingAttack.h" />
     <ClInclude Include="..\Classes\Trainer.h" />
     <ClInclude Include="main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
+      <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

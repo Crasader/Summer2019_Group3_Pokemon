@@ -17,6 +17,7 @@ public:
 	int GetNumber();
 	void SetNumber(int index);
 protected:
+	int m_id;
 	string m_name;
 	int m_gold;
 	int m_number;

@@ -86,8 +86,8 @@ bool House::init()
 			UICustom::Popup *popup = UICustom::Popup::createBag("Bag");
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
-			popup->setPosition(Housecamera->getPosition().x - popup->getContentSize().width/2,
-				Housecamera->getPosition().y - popup->getContentSize().height / 2);
+			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width/2,
+				houseCamera->getPosition().y - popup->getContentSize().height / 2);
 			this->addChild(popup,101);
 		}
 	});

@@ -2,9 +2,6 @@
 #include "ResourceManager.h"
 #include "Pokemon/Squirtle.h"
 
-list<Pokemon*> Trainer::m_Pokemons;
-
-list<Pokemon*> Trainer::m_Pokemons;
 
 Trainer::Trainer()
 {
@@ -38,11 +35,6 @@ void Trainer::Init(cocos2d::Layer* layer)
 	down = ResourceManager::GetInstance()->GetAnimationById(119);
 	down->setDelayPerUnit(0.3);
 	down->setRestoreOriginalFrame(true);
-}
-
-void Trainer::AddPokemon(Pokemon *pokemon)
-{
-	Trainer::m_Pokemons.push_back(pokemon);
 }
 
 void Trainer::walkLeft()

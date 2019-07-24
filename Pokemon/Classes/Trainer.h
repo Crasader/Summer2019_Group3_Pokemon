@@ -17,9 +17,7 @@ public:
 	Trainer();
 	Trainer(cocos2d::Layer* layer);
 	~Trainer();
-	static list<Pokemon*> m_Pokemons;
 	void Init(cocos2d::Layer* layer);
-	void AddPokemon(Pokemon *);
 	void walkLeft();
 	void walkRight();
 	void walkUp();

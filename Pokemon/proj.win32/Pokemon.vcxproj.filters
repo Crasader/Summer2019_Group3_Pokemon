@@ -26,7 +26,7 @@
       <UniqueIdentifier>{4199e900-0a1d-48a3-a4d3-9a56b5b79061}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Item">
-      <UniqueIdentifier>{1980c31d-e35c-4166-8510-99d2c75fe26c}</UniqueIdentifier>
+      <UniqueIdentifier>{fa18d2cc-2fd1-4173-a87b-2524128a8ca8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,10 +261,16 @@
     <ClCompile Include="..\Classes\Scene\BattleScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Scene\BuyItem.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Scene\Loading.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\MainMenu.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\MyBag.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\NPC\CaveNPC.cpp">
@@ -330,6 +336,9 @@
     <ClCompile Include="..\Classes\Pokemon.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Popup.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\ResourceManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -339,22 +348,22 @@
     <ClCompile Include="..\Classes\Trainer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Popup.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Item\Potion.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\Revive.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Item\SuperPotion.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Item\MaxPotion.cpp">
+    <ClCompile Include="..\Classes\Item\ThunderStone.cpp">
+      <Filter>src\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Item\WaterStone.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Item\Ether.cpp">
-      <Filter>src\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Item\Revive.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Item\FireStone.cpp">
@@ -363,19 +372,11 @@
     <ClCompile Include="..\Classes\Item\LeafStone.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Item\WaterStone.cpp">
+    <ClCompile Include="..\Classes\Item\MaxPotion.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Item\ThunderStone.cpp">
+    <ClCompile Include="..\Classes\Item\MaxRevive.cpp">
       <Filter>src\Item</Filter>
-    <ClCompile Include="..\Classes\Map\Lab.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Map\Town.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Model.cpp">
-      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -610,10 +611,16 @@
     <ClInclude Include="..\Classes\Scene\BattleScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Scene\BuyItem.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Scene\Loading.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\MainMenu.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\MyBag.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\CaveNPC.h">
@@ -679,6 +686,9 @@
     <ClInclude Include="..\Classes\Pokemon.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Popup.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\ResourceManager.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -688,22 +698,22 @@
     <ClInclude Include="..\Classes\Trainer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Popup.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Item\Potion.h">
+      <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\Revive.h">
       <Filter>src\Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Item\SuperPotion.h">
       <Filter>src\Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Item\MaxPotion.h">
+    <ClInclude Include="..\Classes\Item\ThunderStone.h">
+      <Filter>src\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Item\WaterStone.h">
       <Filter>src\Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Item\Ether.h">
-      <Filter>src\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Item\Revive.h">
       <Filter>src\Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Item\FireStone.h">
@@ -712,19 +722,11 @@
     <ClInclude Include="..\Classes\Item\LeafStone.h">
       <Filter>src\Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Item\WaterStone.h">
+    <ClInclude Include="..\Classes\Item\MaxPotion.h">
       <Filter>src\Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Item\ThunderStone.h">
+    <ClInclude Include="..\Classes\Item\MaxRevive.h">
       <Filter>src\Item</Filter>
-    <ClInclude Include="..\Classes\Map\Lab.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Map\Town.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Model.h">
-      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
