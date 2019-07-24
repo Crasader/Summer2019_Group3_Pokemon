@@ -13,7 +13,7 @@ protected:
 	string m_name;
 	Animation* animationFront;
 	Animation* animationBack;
-	vector<Skill*> m_skills;
+	vector<Skill*> m_listSkill;
 	int m_type;
 	int m_maxHealth;
 	int m_currentHealth;
@@ -60,6 +60,7 @@ public:
 	bool GetState();
 	void SetPosition(float xx, float yy);
 	void SetPosition(Vec2 position);
+	void RemoveFromParent();
 	Vec2 GetPosition();
 	Skill* GetSkillById(int id);
 	int GetCountSkills();

@@ -16,7 +16,7 @@ Wartortle::Wartortle(Squirtle * it)
 	//
 	this->m_name = "Wartortle";
 	this->m_type = it->GetType();
-	this->m_skills = { it->GetSkillById(0), it->GetSkillById(1), it->GetSkillById(2) };
+	this->m_listSkill = { it->GetSkillById(0), it->GetSkillById(1), it->GetSkillById(2) };
 	this->m_level = it->GetLevel();
 	this->m_maxHealth = it->GetMaxHP() + 15;
 	this->m_currentHealth = this->m_maxHealth;

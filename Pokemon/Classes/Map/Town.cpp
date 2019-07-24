@@ -159,7 +159,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if (a->getCollisionBitmask() == 12 && b->getCollisionBitmask() == 15
 		|| a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 12)
 	{
-		//int idPokemon = random();	
+		//int idPokemon = random();
 		//new Pokemon with id
 		//chuyen scene chien dau
 		Director::getInstance()->getRunningScene()->pause();

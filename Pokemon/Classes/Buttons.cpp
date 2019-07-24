@@ -46,13 +46,12 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
-
 		}
 	});
 
 
-	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
+	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
@@ -75,12 +74,11 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
-
 		}
 	});
+
 	m_left->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
-
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
@@ -103,11 +101,11 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
-
 		}
 	});
-	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
+	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
@@ -130,7 +128,6 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
-
 		}
 	});
 }
@@ -141,7 +138,8 @@ Buttons::~Buttons()
 
 Buttons * Buttons::GetIntance()
 {
-	if (!m_button) {
+	if (!m_button)
+	{
 		m_button = new Buttons();
 	}
 	return m_button;
@@ -191,7 +189,8 @@ void Buttons::Remove()
 	m_right->setScale(0.4f);
 }
 
-void Buttons:: UpdateButton(float x, float y) {
+void Buttons:: UpdateButton(float x, float y)
+{
 	m_left->setPosition(Vec2(x - 30, y));
 	m_right->setPosition(Vec2(x + 30, y));
 	m_up->setPosition(Vec2(x, y + 30));
