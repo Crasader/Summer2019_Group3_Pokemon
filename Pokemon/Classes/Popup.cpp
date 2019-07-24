@@ -201,8 +201,8 @@ namespace UICustom
 			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
 			containerMP->addChild(listView);
-			Charizard *charizard = new Charizard();
-			Bag::GetInstance()->AddPokemon(charizard);
+			//Charizard *charizard = new Charizard();
+			//Bag::GetInstance()->AddPokemon(charizard);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
 			auto list = Bag::GetInstance()->GetListPokemon();
 			for (int i = 0; i < 6; i++)
