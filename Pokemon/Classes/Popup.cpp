@@ -346,6 +346,8 @@ namespace UICustom
 			node->autorelease();
 			return node;
 		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
 	}
 	Popup * Popup::CreateBagInBattle()
 	{
@@ -413,8 +415,68 @@ namespace UICustom
 			node->initBg(listViewPokemon->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Pokemon");
 			node->autorelease();
 			return node;
-
 		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	Popup * Popup::CreateShop()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			auto listViewItemShop = ui::ListView::create();
+			listViewItemShop->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewItemShop->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewItemShop->setContentSize(Size(280, 140));
+			listViewItemShop->setScale(0.8);
+			listViewItemShop->setPosition(Vec2(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 4));
+			listViewItemShop->setClippingEnabled(true);
+			node->addChild(listViewItemShop, 200);
+			auto listItem = Bag::GetInstance()->GetListItem();
+			for (int i = 0; i < 10; i++)
+			{
+				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
+				buttonItem->setTag(i);
+				string id = to_string(listItem.at(i)->GetId());
+				string name = listItem.at(i)->GetName();
+				string price = "Price: " + to_string(listItem.at(i)->GetGold()) + " $";
+				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137 + i);
+				sprite->setTag(i);
+				sprite->setScale(2.5);
+				sprite->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height / 2);
+				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+				labelName->setString(name);
+				labelName->setColor(Color3B(0, 0, 0));
+				labelName->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height * 4 / 5);
+				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+				labelNumber->setString(price);
+				labelNumber->setColor(Color3B(0, 0, 0));
+				labelNumber->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height * 1 / 5);
+				listViewItemShop->addChild(labelName, 202);
+				listViewItemShop->addChild(labelNumber, 202);
+				listViewItemShop->addChild(sprite, 202);
+				listViewItemShop->pushBackCustomItem(buttonItem);
+			}
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 1.2);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 150); 
+			string str = "Shop item - Gold: " + to_string(Bag::GetInstance()->GetGold());
+			node->initBg(listViewItemShop->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Shop item");
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
 	}
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{

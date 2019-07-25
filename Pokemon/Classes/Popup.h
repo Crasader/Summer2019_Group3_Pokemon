@@ -1,10 +1,4 @@
-//
-//  Popup.h
-//  dreamWeek
-//
-//  Created by Bilal Mirza on 07/08/2017.
-//
-//
+
 
 #ifndef Popup_h
 #define Popup_h
@@ -13,12 +7,6 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-/*
- -Displays a popup
- -Resizes itself
- -Automatically swallows rest of the touches
- -Exit is called if touch is outside Bg
- */
 
 namespace UICustom {
     
@@ -54,6 +42,8 @@ namespace UICustom {
 		static Popup * createSetting(const std::string & title);
 		static Popup * createBag(const std::string &title);
 		static Popup * CreateBagInBattle();
+		static Popup * CreateShop();
+
 	private:
         void initBg(const cocos2d::Size size,const std::string &title);
     };
