@@ -20,6 +20,8 @@ cocos2d::Scene * BattleScene::createScene()
 
 bool BattleScene::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("BattleScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;

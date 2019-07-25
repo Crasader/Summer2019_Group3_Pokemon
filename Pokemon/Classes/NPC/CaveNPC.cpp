@@ -1,34 +1,23 @@
 #include "CaveNPC.h"
 #include "Pokemon.h"
-#include "Pokemon\Charmander.h"
-CaveNPC::CaveNPC(Layer * layer)
+#include "Pokemon\Ponyta.h"
+#include "Pokemon\Vulpix.h"
+#include "Pokemon\Charmeleon.h"
+CaveNPC::CaveNPC()
 {
 	this->Init();
-	layer->addChild(this->m_spriteFront);
+	m_state = true;
+	auto ponyta = new Ponyta();
+	ponyta->SetLevel(10);
+	this->m_pokemons.push_back(ponyta);
 
-	auto charmender = new Charmander();
-	charmender->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	auto vulpix = new Vulpix();
+	vulpix->SetLevel(10);
+	this->m_pokemons.push_back(vulpix);
 
-	auto charmender2 = new Charmander();
-	charmender2->SetLevel(9);
-	this->m_pokemons.push_back(charmender2);
-
-	auto charmender3 = new Charmander();
-	charmender3->SetLevel(9);
-	this->m_pokemons.push_back(charmender3);
-
-	auto charmender4 = new Charmander();
-	charmender4->SetLevel(9);
-	this->m_pokemons.push_back(charmender4);
-
-	auto charmender5 = new Charmander();
-	charmender5->SetLevel(9);
-	this->m_pokemons.push_back(charmender5);
-
-	auto charmender6 = new Charmander();
-	charmender6->SetLevel(9);
-	this->m_pokemons.push_back(charmender6);
+	auto charmeleon = new Charmeleon();
+	charmeleon->SetLevel(11);
+	this->m_pokemons.push_back(charmeleon);
 }
 
 CaveNPC::~CaveNPC()

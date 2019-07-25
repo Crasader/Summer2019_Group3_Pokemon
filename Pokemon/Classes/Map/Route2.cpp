@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "VictoryRoad.h"
 
+using namespace CocosDenshion;
 Size route2VisibleSize;
 Size route2TileMapSize;
 
@@ -34,6 +35,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Route2::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("Route2.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

@@ -10,6 +10,7 @@
 #include "Model.h"
 #include <cstdlib>
 
+using namespace CocosDenshion;
 USING_NS_CC;
 Size cityVisibleSize;
 Size cityTileMapSize;
@@ -40,6 +41,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool City::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("CityScene.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

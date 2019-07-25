@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "ChampionLeague.h"
 
+using namespace CocosDenshion;
 Size roadVisibleSize;
 Size roadTileMapSize;
 
@@ -33,6 +34,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Road::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("VictoryRoad.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

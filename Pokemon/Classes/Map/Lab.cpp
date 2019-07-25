@@ -6,6 +6,7 @@
 #include "Town.h"
 #include "Model.h"
 
+using namespace CocosDenshion;
 Size labVisibleSize;
 Size labTileMapSize;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
@@ -31,6 +32,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Lab::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("LabScene.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

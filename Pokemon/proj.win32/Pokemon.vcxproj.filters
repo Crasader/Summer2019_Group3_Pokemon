@@ -387,6 +387,12 @@
     <ClCompile Include="..\Classes\Map\ChampionLeague.cpp">
       <Filter>src\Map</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NPC\RoadNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\Route2NPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -750,6 +756,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Map\ChampionLeague.h">
       <Filter>src\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\Route2NPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\RoadNPC.h">
+      <Filter>src\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

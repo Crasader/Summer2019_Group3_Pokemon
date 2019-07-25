@@ -6,6 +6,7 @@
 #include "City.h"
 #include "Model.h"
 
+using namespace CocosDenshion;
 USING_NS_CC;
 Size lakevisibleSize;
 Size laketileMapSize;
@@ -35,6 +36,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Lake::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("LakeScene.mp3", true);
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
