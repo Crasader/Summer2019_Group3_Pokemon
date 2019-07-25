@@ -11,8 +11,6 @@ Size labTileMapSize;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
 Camera *labCamera;
 
-
-
 Scene* Lab::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -42,8 +40,8 @@ bool Lab::init()
 
 	labVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
+	
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	labTileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -108,7 +106,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 
 void Lab::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

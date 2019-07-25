@@ -1,7 +1,15 @@
 {
   "TILEDMAP": {
-    "size": 1,
-    "0": "res/Battle/battle-background-grass.tmx"
+    "size": 9,
+    "0": "res/Battle/battle-background-grass.tmx",
+    "1": "res/Map/HouseMap.tmx",
+    "2": "res/Map/TownMap.tmx",
+    "3": "res/Map/TownMapHouse.tmx",
+    "4": "res/Map/Route1Map.tmx",
+    "5": "res/Map/Route1MapTree.tmx",
+    "6": "res/Map/Route1MapTree1.tmx",
+    "7": "res/Map/Lab.tmx",
+    "8": "res/Map/pc.tmx"
   },
   "SPRITE": {
     "size": 147,
@@ -113,14 +121,14 @@
     "104": "res/Skill/QuickAttack/0.png",
     "105": "res/Skill/RazorLeaf/0.png",
     "106": "res/Skill/Scratch/0.png",
-    "107": "res/Skill/SolarBeam/0.png",
+    "107": "res/Skill/LeafStorm/0.png",
     "108": "res/Skill/Spark/0.png",
     "109": "res/Skill/Surf/0.png",
     "110": "res/Skill/Tackle/0.png",
     "111": "res/Skill/Thunder/0.png",
     "112": "res/Skill/Thunderbolt/0.png",
     "113": "res/Skill/ThunderShock/0.png",
-    "114": "res/Skill/VineWhip/0.png",
+    "114": "res/Skill/LeechSeed/0.png",
     "115": "res/Skill/WaterGun/0.png",
     "116": "res/Skill/WaterPulse/0.png",
     "117": "res/Skill/WingAttack/0.png",
@@ -1643,7 +1651,7 @@
       ]
     },
     "95": {
-      "size": 10,
+      "size": 8,
       "plist": "res/Skill/DragonClaw/DragonClaw.plist",
       "path": "res/Skill/DragonClaw/DragonClaw.png",
       "png": [
@@ -1654,9 +1662,7 @@
         "4.png",
         "5.png",
         "6.png",
-        "7.png",
-        "8.png",
-        "9.png"
+        "7.png"
       ]
     },
     "96": {
@@ -1717,24 +1723,14 @@
       ]
     },
     "100": {
-      "size": 14,
+      "size": 4,
       "plist": "res/Skill/FirePunch/FirePunch.plist",
       "path": "res/Skill/FirePunch/FirePunch.png",
       "png": [
         "0.png",
         "1.png",
         "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png",
-        "7.png",
-        "8.png",
-        "9.png",
-        "10.png",
-        "11.png",
-        "12.png",
-        "13.png"
+        "3.png"
       ]
     },
     "101": {
@@ -1811,17 +1807,14 @@
       ]
     },
     "107": {
-      "size": 7,
-      "plist": "res/Skill/SolarBeam/SolarBeam.plist",
-      "path": "res/Skill/SolarBeam/SolarBeam.png",
+      "size": 4,
+      "plist": "res/Skill/LeafStorm/LeafStorm.plist",
+      "path": "res/Skill/LeafStorm/LeafStorm.png",
       "png": [
         "0.png",
         "1.png",
         "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png"
+        "3.png"
       ]
     },
     "108": {
@@ -1892,8 +1885,8 @@
     },
     "114": {
       "size": 4,
-      "plist": "res/Skill/VineWhip/VineWhip.plist",
-      "path": "res/Skill/VineWhip/VineWhip.png",
+      "plist": "res/Skill/LeechSeed/LeechSeed.plist",
+      "path": "res/Skill/LeechSeed/LeechSeed.png",
       "png": [
         "0.png",
         "1.png",

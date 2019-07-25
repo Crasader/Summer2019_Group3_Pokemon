@@ -18,9 +18,13 @@ public:
 	Trainer(cocos2d::Layer* layer);
 	~Trainer();
 	void Init(cocos2d::Layer* layer);
-	void walkLeft();
-	void walkRight();
-	void walkUp();
-	void walkDown();
+	void WalkLeft();
+	void WalkRight();
+	void WalkUp();
+	void WalkDown();
+	void StopWalkUp();
+	void StopWalkDown();
+	void StopWalkLeft();
+	void StopWalkRight();
 };
 

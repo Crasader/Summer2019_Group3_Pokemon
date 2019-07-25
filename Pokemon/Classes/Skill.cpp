@@ -78,7 +78,12 @@ Vec2 Skill::GetPosition()
 	return this->m_spriteFront->getPosition();
 }
 
-void Skill::SetAnimation(int id)
+void Skill::RemoveFromParent()
+{
+	this->m_spriteFront->removeFromParent();
+}
+
+void Skill::AddAnimation(int id)
 {
 	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(id);
 	this->m_spriteFront->setAnchorPoint(Vec2(0.5, 0));

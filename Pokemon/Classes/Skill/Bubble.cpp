@@ -14,6 +14,6 @@ void Bubble::Init()
 	Skill::SetTypeName("Water");
 	Skill::SetPower(40);
 	Skill::SetMaxPP(35);
-	Skill::SetIdType(3);
+	Skill::SetIdType(MyObject::TYPE_WATER);
 	Skill::SetCurrentPP(35);
 }

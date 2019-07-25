@@ -8,4 +8,5 @@ public:
 	Ember();
 	~Ember();
 	void Init();
+	void Run(Vec2 position) override;
 };

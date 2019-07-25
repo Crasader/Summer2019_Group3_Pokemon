@@ -41,11 +41,11 @@ bool Route1::init()
 
 	route1VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
+	
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(4);
 	route1TileMapSize = map->getContentSize();
-	auto mapTree = TMXTiledMap::create("res/Map/Route1MapTree.tmx");
-	auto mapTree1 = TMXTiledMap::create("res/Map/Route1MapTree1.tmx");
+	auto mapTree = ResourceManager::GetInstance()->GetTiledMapById(5);
+	auto mapTree1 = ResourceManager::GetInstance()->GetTiledMapById(6);
 	addChild(map);
 	addChild(mapTree, 20);
 	addChild(mapTree1, 5);
@@ -131,6 +131,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
+
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
@@ -141,7 +142,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 
 void Route1::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Route1Map.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(4);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -238,4 +239,3 @@ void Route1::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
 }
-

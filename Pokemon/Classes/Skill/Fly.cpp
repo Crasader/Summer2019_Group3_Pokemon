@@ -1,4 +1,4 @@
-#include"Fly.h"
+#include "Fly.h"
 
 Fly::Fly()
 {
@@ -14,7 +14,6 @@ void Fly::Init()
 	Skill::SetTypeName("Flying");
 	Skill::SetPower(100);
 	Skill::SetMaxPP(5);
-	Skill::SetIdType(6);
+	Skill::SetIdType(MyObject::TYPE_FLYING);
 	Skill::SetCurrentPP(5);
 }
-

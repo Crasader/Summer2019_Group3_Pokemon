@@ -1,11 +1,14 @@
 #pragma once
 #include "cocos2d.h"
 #include "Pokemon.h"
+#include "include_pokemon.h"
 using namespace cocos2d;
 
 class BattleScene : public Layer
 {
 private:
+	vector<Pokemon*> m_listTrainerPokemon = { new Charmander(), new Pikachu(), nullptr };
+
 	Sprite* m_background;
 	Sprite* m_messageBox;
 	Button* m_buttonFight;
@@ -51,11 +54,17 @@ public:
 
 	void DamageStepWithOpponentAttackFirst(float deltaTime);
 
+	void ChangePokemonStep(float deltaTime);
+
 	void ReduceHpPlayer(float deltaTime);
 
 	void ReduceHpOpponent(float deltaTime);
 
 	void BattleLogSetOpacity(GLubyte opacity);
+
+	void LoadPlayerSprite();
+
+	void LoadPlayerHpBar();
 
 	void InitTiledMap();
 
@@ -74,7 +83,11 @@ public:
 
 	void SetButtonVisible(bool visible);
 
+	void StartBattle();
+
 	void BattlePhase(int idSkill);
+
+	void ChangePokemon();
 
 	void EndBattle();
 

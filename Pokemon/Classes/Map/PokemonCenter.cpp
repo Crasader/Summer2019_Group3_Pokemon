@@ -43,7 +43,7 @@ bool PokemonCenter::init()
 	PcvisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/pc.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(8);
 	PctileMapSize = map->getContentSize();
 	addChild(map);
 	auto mPhysicsLayer = map->getLayer("physics");
@@ -110,7 +110,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 
 void PokemonCenter::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/pc.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(8);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -198,4 +198,3 @@ void PokemonCenter::update(float dt)
 	updateCamera();
 	Buttons::GetIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
 }
-

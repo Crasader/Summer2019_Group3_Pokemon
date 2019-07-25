@@ -39,7 +39,8 @@ bool House::init()
 
 	houseVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	auto map = TMXTiledMap::create("res/Map/HouseMap.tmx");
+	
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(1);
 	houseTileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -74,7 +75,6 @@ bool House::init()
 	addChild(left, 100);
 	addChild(down, 100);
 	addChild(bag, 100);
-
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	//Buttons::GetIntance()->ButtonBagListener(this, Housecamera);
@@ -113,6 +113,31 @@ bool House::onContactBegin(PhysicsContact & contact)
 		Town::previousScene = 0;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
+	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
 
 	return true;
 
@@ -120,7 +145,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 
 void House::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/HouseMap.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(1);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

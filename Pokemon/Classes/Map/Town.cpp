@@ -50,12 +50,12 @@ bool Town::init()
 
 	townVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto map = TMXTiledMap::create("res/Map/TownMap.tmx");
+	
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	townTileMapSize = map->getContentSize();
 	addChild(map);
-	auto mapHouse= TMXTiledMap::create("res/Map/TownMapHouse.tmx");
-	addChild(mapHouse,15);
+	auto mapHouse = ResourceManager::GetInstance()->GetTiledMapById(3);
+	addChild(mapHouse, 15);
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -66,7 +66,7 @@ bool Town::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
@@ -125,8 +125,6 @@ bool Town::init()
 bool Town::onContactBegin(PhysicsContact& contact)
 
 {
-
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
@@ -157,19 +155,45 @@ bool Town::onContactBegin(PhysicsContact& contact)
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_POKEMON)
 		|| (a->getCollisionBitmask() == Model::BITMASK_POKEMON && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
-		//int idPokemon = random();	
+		//int idPokemon = random();
 		//new Pokemon with id
 		//chuyen scene chien dau
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
 	}
+	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
+
 	return true;
 }
 
 void Town::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/TownMap.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {

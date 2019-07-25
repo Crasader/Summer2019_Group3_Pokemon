@@ -1,11 +1,5 @@
 #include "BattleScene.h"
 #include "Map\Town.h"
-#include "Pokemon\Charmander.h"
-#include "Pokemon\Chikorita.h"
-#include "Pokemon\Squirtle.h"
-#include "Pokemon\Pikachu.h"
-#include "Pokemon\Garchomp.h"
-#include "Pokemon\Pidgey.h"
 #define scale_hpBar 0.47
 
 BattleScene::BattleScene()
@@ -41,6 +35,8 @@ bool BattleScene::init()
 	this->InitUI();
 
 	this->AddEventListener();
+
+	this->StartBattle();
 
 	return true;
 }
@@ -174,6 +170,61 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 	}
 }
 
+void BattleScene::ChangePokemonStep(float deltaTime)
+{
+	if (this->m_opponent->IsAlive() && this->m_player->IsAlive())
+	{
+		if (this->m_statePlayer == true && this->m_stateOpponent == true)
+		{
+			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+			this->m_stateBattleLog = false;
+			this->m_statePlayer = false;
+			this->m_stateOpponent = false;
+			this->m_opponent->SetState(false);
+			this->SetButtonVisible(true);
+			this->m_labelBattleLog->setString("What will you do?");
+			this->BattleLogSetOpacity(255);
+			this->unschedule(schedule_selector(BattleScene::ChangePokemonStep));
+		}
+		else
+		{
+			if (this->m_stateBattleLog == true)
+			{
+				if (this->m_statePlayer == false)
+				{
+					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+					this->m_stateBattleLog = false;
+					this->m_statePlayer = true;
+					this->m_player->SetState(true);
+					this->LoadPlayerSprite();
+					this->LoadPlayerHpBar();
+				}
+				else
+				{
+					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+					this->m_stateBattleLog = false;
+					this->m_opponent->Attack(this->m_player, this->oppSkill);
+					this->schedule(schedule_selector(BattleScene::ReduceHpPlayer), 0.1);
+				}
+			}
+			else
+			{
+				if (this->m_statePlayer == true && this->m_player->GetState() == true)
+				{
+					this->m_player->SetState(false);
+					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
+				}
+			}
+		}
+	}
+	else
+	{
+		this->EndBattle();
+		this->unschedule(schedule_selector(BattleScene::ChangePokemonStep));
+	}
+}
+
 void BattleScene::ReduceHpPlayer(float deltaTime)
 {
 	if (this->m_opponent->GetState() == true)
@@ -242,6 +293,36 @@ void BattleScene::BattleLogSetOpacity(GLubyte opacity)
 	}
 }
 
+void BattleScene::LoadPlayerSprite()
+{
+	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
+	auto x = obj->getObject("player").at("x").asFloat();
+	auto y = obj->getObject("player").at("y").asFloat();
+	this->m_player->SetPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
+	this->addChild(this->m_player->GetSpriteBack(), 10);
+	for (int i = 0; i < this->m_player->GetCountSkills(); i++)
+	{
+		this->addChild(this->m_player->GetSkillById(i)->GetSpriteFront(), 100);
+		this->m_player->GetSkillById(i)->SetPosition(this->m_player->GetPosition());
+	}
+}
+
+void BattleScene::LoadPlayerHpBar()
+{
+	this->m_labelPlayerName->setString(this->m_player->GetName());
+	this->m_labelPlayerLevel->setString(to_string(this->m_player->GetLevel()));
+	if (this->m_player->GetCurrentHP() == this->m_player->GetMaxHP())
+	{
+		this->m_hpPlayer->setScaleX(scale_hpBar);
+	}
+	else
+	{
+		auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
+		this->m_hpPlayer->setScaleX(scale_hpBar / index);
+	}
+	this->m_hpPlayer->setScaleY(0.12);
+}
+
 void BattleScene::InitTiledMap()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -294,22 +375,18 @@ void BattleScene::InitUI()
 	auto y = this->m_buttonFight->getContentSize().height / 2;
 
 	this->m_labelSkill1 = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelSkill1->setString("Fight");
 	this->m_labelSkill1->setTag(0);
 	this->m_labelSkill1->setPosition(x, y);
 
 	this->m_labelSkill2 = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelSkill2->setString("Bag");
 	this->m_labelSkill2->setTag(1);
 	this->m_labelSkill2->setPosition(x, y);
 
 	this->m_labelSkill3 = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelSkill3->setString("Pokemon");
 	this->m_labelSkill3->setTag(2);
 	this->m_labelSkill3->setPosition(x, y);
 
 	this->m_labelSkill4 = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelSkill4->setString("Run");
 	this->m_labelSkill4->setTag(3);
 	this->m_labelSkill4->setPosition(x, y);
 	//
@@ -325,7 +402,6 @@ void BattleScene::InitUI()
 	this->m_labelBattleLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelBattleLog->setScale(1.5);
 	this->m_labelBattleLog->setTextColor(Color4B::BLACK);
-	this->m_labelBattleLog->setString("What will you do?");
 	this->m_labelBattleLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
 	this->m_messageBox->addChild(this->m_labelBattleLog);
 	//
@@ -334,6 +410,7 @@ void BattleScene::InitUI()
 	this->m_buttonBag->addChild(this->m_labelSkill2);
 	this->m_buttonPokemon->addChild(this->m_labelSkill3);
 	this->m_buttonRun->addChild(this->m_labelSkill4);
+	this->SetButtonVisible(false);
 	//
 	//
 	this->m_labelOppName = ResourceManager::GetInstance()->GetLabelById(0);
@@ -364,25 +441,13 @@ void BattleScene::InitUI()
 	//
 	//
 	this->m_labelPlayerName = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelPlayerName->setString(this->m_player->GetName());
 	this->m_labelPlayerName->setTextColor(Color4B::BLACK);
 	this->m_labelPlayerName->setAnchorPoint(Vec2::ZERO);
 	this->m_labelPlayerName->setScale(0.8);
 	this->m_labelPlayerLevel = ResourceManager::GetInstance()->GetLabelById(0);
-	this->m_labelPlayerLevel->setString(to_string(this->m_player->GetLevel()));
 	this->m_labelPlayerLevel->setTextColor(Color4B::BLACK);
 	this->m_hpPlayer = ResourceManager::GetInstance()->GetSpriteById(131);
 	this->m_hpPlayer->setAnchorPoint(Vec2::ZERO);
-	if (this->m_player->GetCurrentHP() == this->m_player->GetMaxHP())
-	{
-		this->m_hpPlayer->setScaleX(scale_hpBar);
-	}
-	else
-	{
-		auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
-		this->m_hpPlayer->setScaleX(scale_hpBar / index);
-	}
-	this->m_hpPlayer->setScaleY(0.12);
 	obj = this->m_tiledmap->getObjectGroup("player");
 	x = obj->getObject("name").at("x").asFloat();
 	y = obj->getObject("name").at("y").asFloat();
@@ -396,37 +461,21 @@ void BattleScene::InitUI()
 	y = obj->getObject("hp").at("y").asFloat();
 	this->m_hpPlayer->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
 	this->addChild(this->m_hpPlayer, 0);
+
+	this->LoadPlayerHpBar();
 }
 
 void BattleScene::InitObject()
 {
-	int _random = rand() % 2 + 1;
-	if (_random == 1)
-	{
-		this->m_player = new Pikachu();
-		this->m_opponent = new Squirtle();
-	}
-	else
-	{
-		this->m_player = new Charmander();
-		this->m_opponent = new Chikorita();
-	}
+	this->m_player = this->m_listTrainerPokemon.at(0);
+	this->m_opponent = new Chikorita();
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
-	auto x = obj->getObject("player").at("x").asFloat();
-	auto y = obj->getObject("player").at("y").asFloat();
-	this->m_player->SetPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
-	this->addChild(this->m_player->GetSpriteBack(), 10);
-	x = obj->getObject("opponent").at("x").asFloat();
-	y = obj->getObject("opponent").at("y").asFloat();
+	auto x = obj->getObject("opponent").at("x").asFloat();
+	auto y = obj->getObject("opponent").at("y").asFloat();
 	this->m_opponent->SetPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
 	this->addChild(this->m_opponent->GetSpriteFront(), 10);
 	//
 	//
-	for (int i = 0; i < this->m_player->GetCountSkills(); i++)
-	{
-		this->addChild(this->m_player->GetSkillById(i)->GetSpriteFront(), 100);
-		this->m_player->GetSkillById(i)->SetPosition(this->m_player->GetPosition());
-	}
 	for (int i = 0; i < this->m_opponent->GetCountSkills(); i++)
 	{
 		this->addChild(this->m_opponent->GetSkillById(i)->GetSpriteFront(), 100);
@@ -486,6 +535,8 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			if (this->m_labelSkill3->getString() == "Pokemon")
 			{
+				this->SetButtonVisible(false);
+				this->ChangePokemon();
 			}
 			else if (this->m_labelSkill3->getString() != "-")
 			{
@@ -596,6 +647,26 @@ void BattleScene::SetButtonVisible(bool visible)
 	this->m_buttonRun->setVisible(visible);
 }
 
+void BattleScene::StartBattle()
+{
+	auto listener = CallFunc::create([this]() {
+		if (this->m_stateBattleLog == true)
+		{
+			this->m_stateBattleLog = false;
+			this->SetButtonVisible(true);
+			this->m_labelBattleLog->setString("What will you do?");
+			this->LoadPlayerSprite();
+			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+			this->stopActionByTag(100);
+		}
+	});
+	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+	rp->setTag(100);
+	this->runAction(rp);
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+	this->BattleLog("Go, " + this->m_player->GetName() + "!");
+}
+
 void BattleScene::BattlePhase(int idSkill)
 {
 	if (this->m_player->GetAtkSpeed() >= this->m_opponent->GetAtkSpeed())
@@ -616,6 +687,24 @@ void BattleScene::BattlePhase(int idSkill)
 		this->BattleLog(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst), 0.1);
 	}
+}
+
+void BattleScene::ChangePokemon()
+{
+	int id = rand() % this->m_opponent->GetCountSkills();
+	this->oppSkill = this->m_opponent->GetSkillById(id);
+	this->m_player->RemoveFromParent();
+	if (this->m_player == this->m_listTrainerPokemon.at(0))
+	{
+		this->m_player = this->m_listTrainerPokemon.at(1);
+	}
+	else
+	{
+		this->m_player = this->m_listTrainerPokemon.at(0);
+	}
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+	this->BattleLog("Go, " + this->m_player->GetName() + "!");
+	this->schedule(schedule_selector(BattleScene::ChangePokemonStep), 0.1);
 }
 
 void BattleScene::EndBattle()

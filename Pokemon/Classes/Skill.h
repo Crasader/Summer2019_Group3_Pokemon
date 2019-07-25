@@ -39,7 +39,8 @@ public:
 	void SetPosition(float xx, float yy);
 	void SetPosition(Vec2 position);
 	Vec2 GetPosition();
-	void SetAnimation(int id);
+	void RemoveFromParent();
+	void AddAnimation(int id);
 	Animation* GetAnimation();
 	virtual void Run(Vec2 position);
 	void SetScale(float scale);
