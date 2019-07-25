@@ -46,6 +46,27 @@ void BattleScene::update(float deltaTime)
 {
 }
 
+void BattleScene::ReleaseChildren()
+{
+	this->m_player->RemoveFromParent();
+	auto listNode = this->getChildren();
+	auto size = this->getChildrenCount();
+	for (int i = 0; i < size; i++)
+	{
+		auto node = listNode.at(i);
+		auto children = node->getChildren();
+		auto _size = node->getChildrenCount();
+		for (int j = 0; j < _size; j++)
+		{
+			auto child = children.at(j);
+			child->removeFromParent();
+			child->release();
+		}
+		node->removeFromParent();
+		node->release();
+	}
+}
+
 void BattleScene::TypeWriter(float deltaTime)
 {
 	if (writing < this->m_labelBattleLog->getStringLength())
@@ -544,8 +565,6 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			if (this->m_labelSkill3->getString() == "Pokemon")
 			{
-				//this->SetButtonVisible(false);
-				//this->ChangePokemon();
 				UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
 				this->addChild(popupPokemon, 1000);
 			}
@@ -741,7 +760,8 @@ void BattleScene::EndBattle()
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
-			Director::getInstance()->getRunningScene()->pause();
+			this->ReleaseChildren();
+			this->removeFromParent();
 		}
 	});
 	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));

@@ -46,6 +46,8 @@ public:
 
 	void update(float deltaTime) override;
 
+	void ReleaseChildren();
+
 	void TypeWriter(float deltaTime);
 
 	void DamageStepWithPlayerAttackFirst(float deltaTime);

@@ -158,8 +158,8 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		//int idPokemon = random();
 		//new Pokemon with id
 		//chuyen scene chien dau
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(BattleScene::createScene());
+		auto layer = BattleScene::create();
+		this->addChild(layer, 1000);
 		CCLOG("Has Pokemon");
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
