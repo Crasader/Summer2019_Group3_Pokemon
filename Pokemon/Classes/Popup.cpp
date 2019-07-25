@@ -4,6 +4,8 @@
 #include "Bag.h"
 #include "Pokemon\Charizard.h"
 #include "Pokemon\Charmeleon.h"
+#include "Pokemon\Chikorita.h"
+#include "Pokemon\Squirtle.h"
 #include "Pokemon.h"
 #include "Buttons.h"
 USING_NS_CC;
@@ -188,33 +190,28 @@ namespace UICustom
 			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
 			headerMI->setTitleFontName(FONT::GAME_FONT);
 
-
 			auto containerMP = Layout::create();
 #pragma region Tab1
+			containerMP->setTouchEnabled(false);
 			auto listView = ui::ListView::create();
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
 			listView->setContentSize(Size(280, 140));
 			listView->setScale(0.8);
-			CCLOG("%f", listView->getContentSize().width);
-			listView->setGlobalZOrder(200);
 			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
-			containerMP->addChild(listView);
-			//Charizard *charizard = new Charizard();
-			//Bag::GetInstance()->AddPokemon(charizard);
-			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
+			containerMP->addChild(listView,2000);
+			listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
 			auto list = Bag::GetInstance()->GetListPokemon();
+			auto sizeOfPokemon = list.size();
 			for (int i = 0; i < 6; i++)
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
-				button->setTag(i);
-				if (i < sizeofpokemon)
+				if (i<sizeOfPokemon)
 				{
 					string name = list.at(i)->GetName();
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
-					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
 						button->getPosition().y + listView->getContentSize().height / 2);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
@@ -320,7 +317,6 @@ namespace UICustom
 				listViewMI->pushBackCustomItem(buttonItem);
 			}
 #pragma endregion
-
 			tab->insertTab(0, headerMP, containerMP);
 			tab->insertTab(1, headerPO, containerPO);
 			tab->insertTab(2, headerMI, containerMI);
@@ -335,6 +331,7 @@ namespace UICustom
 				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
 
+
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
 			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 100);
@@ -343,6 +340,57 @@ namespace UICustom
 			menu->removeFromParent();
 			node->addChild(menu, 2);
 			node->initBg(tab->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	Popup * Popup::ChoosePokemon()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{			
+			Button *buttonCharmander = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonCharmander->setPosition(Vec2(winSize.width/2,winSize.height/2-buttonCharmander->getContentSize().height/4));
+			node->addChild(buttonCharmander, 100);
+			Button *buttonSquirtle = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonSquirtle->setPosition(Vec2(buttonCharmander->getPosition().x - buttonCharmander->getContentSize().width -10, buttonCharmander->getPosition().y));
+			node->addChild(buttonSquirtle, 100);
+			Button *buttonChikorita = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonChikorita->setPosition(Vec2(buttonCharmander->getPosition().x + buttonCharmander->getContentSize().width + 10, buttonCharmander->getPosition().y));
+			node->addChild(buttonChikorita, 100);
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			Charmander *charmander = new Charmander();
+			Sprite *spriteCharmander = charmander->GetSpriteFront();
+			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
+			spriteCharmander->setPosition(buttonCharmander->getContentSize().width/2, buttonCharmander->getContentSize().height / 4);
+			buttonCharmander->addChild(spriteCharmander,102);
+			Squirtle *squirtle = new Squirtle();
+			Sprite *spriteSquirtle = squirtle->GetSpriteFront();
+			spriteSquirtle->setAnchorPoint(Vec2(0.5, 0));
+			spriteSquirtle->setPosition(buttonCharmander->getContentSize().width / 2 - buttonCharmander->getContentSize().width - 10, buttonCharmander->getContentSize().height / 4);
+			buttonSquirtle->addChild(spriteSquirtle, 102);
+			Chikorita *chikorita = new Chikorita();
+			/*Sprite *spriteCharmander = charmander->GetSpriteFront();
+			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
+			spriteCharmander->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height / 4);
+			buttonCharmander->addChild(spriteCharmander, 102);*/
+			/*vector<Pokemon*> m_pokemons;
+			m_pokemons.push_back(charmander);
+			m_pokemons.push_back(squirtle);
+			m_pokemons.push_back(chikorita);*/
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonCharmander->getContentSize().height / 1.1);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 180);
+			node->initBg(Size(buttonCharmander->getContentSize().width*3 + CONFIRM_DIALOGUE_SIZE_OFFSET.width,
+				buttonCharmander->getContentSize().height + CONFIRM_DIALOGUE_SIZE_OFFSET.height), "Choose the starting pokemon");
 			node->autorelease();
 			return node;
 		}
