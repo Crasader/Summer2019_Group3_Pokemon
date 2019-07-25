@@ -140,7 +140,6 @@ bool House::onContactBegin(PhysicsContact & contact)
 	}
 
 	return true;
-
 }
 
 void House::InitObject()
@@ -178,7 +177,6 @@ void House::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
 void House::UpdateCamera()

@@ -224,7 +224,7 @@ void Pokemon::RemoveFromParent()
 
 Vec2 Pokemon::GetPosition()
 {
-	return this->m_spriteFront->getPosition();
+	return this->m_spriteBack->getPosition();
 }
 
 Skill * Pokemon::GetSkillById(int id)

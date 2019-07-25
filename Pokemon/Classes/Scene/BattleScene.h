@@ -7,8 +7,6 @@ using namespace cocos2d;
 class BattleScene : public Layer
 {
 private:
-	vector<Pokemon*> m_listTrainerPokemon = { new Charmander(), new Pikachu(), nullptr };
-
 	Sprite* m_background;
 	Sprite* m_messageBox;
 	Button* m_buttonFight;
@@ -36,7 +34,7 @@ private:
 	Pokemon* m_opponent;
 	Skill* oppSkill;
 	int writing = 0;
-	bool m_stateBattleLog = false;
+	bool m_stateBattleMessage = false;
 	bool m_statePlayer = false;
 	bool m_stateOpponent = false;
 public:
@@ -60,9 +58,9 @@ public:
 
 	void ReduceHpOpponent(float deltaTime);
 
-	void BattleLogSetOpacity(GLubyte opacity);
+	void BattleMessageSetOpacity(GLubyte opacity);
 
-	void LoadPlayerSprite();
+	void LoadPlayerPosition();
 
 	void LoadPlayerHpBar();
 
@@ -79,7 +77,7 @@ public:
 
 	bool onTouchBegan(Touch* touch, Event* e);
 
-	void BattleLog(string logg);
+	void BattleMessage(string logg);
 
 	void SetButtonVisible(bool visible);
 

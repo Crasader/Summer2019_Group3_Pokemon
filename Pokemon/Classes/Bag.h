@@ -17,6 +17,7 @@ public:
 	vector<Pokemon*> GetListPokemonOver();
 	vector<Item*> GetListItem();
 	void AddPokemon(Pokemon* pokemon);
+	void ChangePokemon(int index);
 	void SetGold(int gold);
 	int GetGold();
 	void AddItem(Item* item);

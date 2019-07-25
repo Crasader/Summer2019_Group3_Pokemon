@@ -76,6 +76,13 @@ void Bag::AddPokemon(Pokemon* pokemon)
 	}
 }
 
+void Bag::ChangePokemon(int index)
+{
+	Pokemon* temp = this->m_pokemons.at(0);
+	this->m_pokemons.at(0) = this->m_pokemons.at(index);
+	this->m_pokemons.at(index) = temp;
+}
+
 void Bag::SetGold(int gold)
 {
 	this->my_gold = gold;

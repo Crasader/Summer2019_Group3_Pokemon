@@ -2,8 +2,7 @@
 #include "Popup.h"
 #include "ResourceManager.h"
 #include "Bag.h"
-#include "Pokemon\Charizard.h"
-#include "Pokemon\Charmeleon.h"
+#include "Scene\BattleScene.h"
 #include "Pokemon.h"
 #include "Buttons.h"
 USING_NS_CC;
@@ -79,10 +78,10 @@ namespace UICustom
 	void PopupDelegates::dismiss(const bool animated)
 	{
 		if (animated) {
-			this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(), NULL));
+			this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(false), NULL));
 		}
 		else {
-			this->removeFromParentAndCleanup(true);
+			this->removeFromParentAndCleanup(false);
 		}
 	}
 
@@ -357,7 +356,7 @@ namespace UICustom
 		}
 	}
 	
-	Popup * Popup::CreateBagInBattle()
+	Popup * Popup::createBagInBattle()
 	{
 		Popup *node = new (std::nothrow)Popup();
 		Size winSize = Director::getInstance()->getWinSize();
@@ -372,7 +371,6 @@ namespace UICustom
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
-				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
 			node->addChild(listViewPokemon, 200);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
@@ -381,17 +379,18 @@ namespace UICustom
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
 				button->setTag(i);
-				if (i < sizeofpokemon)
+				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
-					//int type = list.at(i)->GetType();
-					string percentHP = to_string(list.at(i)->GetCurrentHP() *100 / list.at(i)->GetMaxHP());
+					string percentHP = to_string(list.at(i)->GetCurrentHP() * 100 / list.at(i)->GetMaxHP());
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					string hp = "HP: " + percentHP + " %";
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = list.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
 					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
-						button->getPosition().y + listViewPokemon->getContentSize().height / 2 + 10);
+						button->getPosition().y + listViewPokemon->getContentSize().height / 3 + 10);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 					labelName->setString(name);
 					labelName->setColor(Color3B(0, 0, 0));
@@ -412,6 +411,30 @@ namespace UICustom
 					listViewPokemon->addChild(labelName, 202);
 					listViewPokemon->addChild(labelLv, 202);
 					listViewPokemon->addChild(HP, 202);
+
+					button->addTouchEventListener([node](Ref* ref, Widget::TouchEventType type) {
+						int tag = ((Button*)(ref))->getTag();
+						switch (type)
+						{
+						case cocos2d::ui::Widget::TouchEventType::BEGAN:
+							break;
+						case cocos2d::ui::Widget::TouchEventType::MOVED:
+							break;
+						case cocos2d::ui::Widget::TouchEventType::ENDED:
+							if (tag != 0)
+							{
+								Bag::GetInstance()->ChangePokemon(tag);
+								((BattleScene*)(node->getParent()))->ChangePokemon();
+								((BattleScene*)(node->getParent()))->SetButtonVisible(false);
+								node->dismiss(true);
+							}
+							break;
+						case cocos2d::ui::Widget::TouchEventType::CANCELED:
+							break;
+						default:
+							break;
+						}
+					});
 				}
 				listViewPokemon->pushBackCustomItem(button);
 			}
