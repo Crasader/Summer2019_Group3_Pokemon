@@ -211,7 +211,7 @@
     },
     "12": {
       "normal": "res/UI/Button/popUpBase.png",
-      "pressed": "res/UI/Button/popUpBase.png"
+      "pressed": "res/UI/Button/popUpBase_press.png"
     }
   },
   "FONT": {
