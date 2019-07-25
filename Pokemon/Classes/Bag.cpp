@@ -31,9 +31,9 @@ Bag * Bag::GetInstance()
 	}
 	return m_instance;
 }
+
 void Bag::Init()
 {
-
 }
 
 void Bag::Update(float deltaTime)
@@ -132,4 +132,3 @@ void Bag::CreateListItem()
 	WaterStone *waterStone = new WaterStone();
 	this->m_items.push_back(waterStone);
 }
-

@@ -468,7 +468,11 @@ void BattleScene::InitUI()
 void BattleScene::InitObject()
 {
 	this->m_player = this->m_listTrainerPokemon.at(0);
+	this->m_player->RemoveFromParent();
+	this->m_player->SetScale(2.5);
 	this->m_opponent = new Chikorita();
+	this->m_opponent->RemoveFromParent();
+	this->m_opponent->SetScale(2.5);
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
 	auto x = obj->getObject("opponent").at("x").asFloat();
 	auto y = obj->getObject("opponent").at("y").asFloat();
@@ -697,10 +701,12 @@ void BattleScene::ChangePokemon()
 	if (this->m_player == this->m_listTrainerPokemon.at(0))
 	{
 		this->m_player = this->m_listTrainerPokemon.at(1);
+		this->m_player->RemoveFromParent();
 	}
 	else
 	{
 		this->m_player = this->m_listTrainerPokemon.at(0);
+		this->m_player->RemoveFromParent();
 	}
 	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 	this->BattleLog("Go, " + this->m_player->GetName() + "!");

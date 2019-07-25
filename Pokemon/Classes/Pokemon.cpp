@@ -203,6 +203,12 @@ void Pokemon::SetPosition(Vec2 position)
 	this->m_spriteBack->setPosition(position);
 }
 
+void Pokemon::SetScale(float scale)
+{
+	this->m_spriteFront->setScale(scale);
+	this->m_spriteBack->setScale(scale);
+}
+
 void Pokemon::RemoveFromParent()
 {
 	this->m_spriteFront->removeFromParentAndCleanup(false);

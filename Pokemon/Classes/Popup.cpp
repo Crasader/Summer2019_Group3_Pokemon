@@ -209,14 +209,16 @@ namespace UICustom
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
 				button->setTag(i);
-				if (i < sizeofpokemon)
+				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = list.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
 					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
-						button->getPosition().y + listView->getContentSize().height / 2);
+						button->getPosition().y + listView->getContentSize().height / 3);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 					labelName->setString(name);
 					labelName->setColor(Color3B(0,0,0));
@@ -257,7 +259,9 @@ namespace UICustom
 				{
 					string name = listOver.at(i)->GetName();
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = listOver.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
 					sprite->setTag(i);
 					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
 						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
@@ -299,7 +303,8 @@ namespace UICustom
 				string id = to_string(listItem.at(i)->GetId());
 				string name = listItem.at(i)->GetName();
 				string amount = "x" + to_string(listItem.at(i)->GetNumber());
-				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137+i);
+				auto sprite = listItem.at(i)->GetSpriteFront();
+				sprite->removeFromParentAndCleanup(false);
 				sprite->setTag(i);
 				sprite->setScale(2.5);
 				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
@@ -433,5 +438,3 @@ namespace UICustom
         heading->enableShadow(Color4B::BLACK, Size(0, -3));
     }
 }
-
-

@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Item.h"
+#include "include_pokemon.h"
+
 class Bag :public MyObject
 {
 public:
@@ -23,7 +25,8 @@ public:
 	void CreateListItem();
 private:
 	static Bag* m_instance;
-	vector<Pokemon*> m_pokemons, m_pokemons_over;
+	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(), nullptr, nullptr, nullptr };
+	vector<Pokemon*> m_pokemons_over;
 	vector<Item*> m_items;
 	int my_gold;
 };
