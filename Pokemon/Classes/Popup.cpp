@@ -469,6 +469,7 @@ namespace UICustom
 			node->addChild(menu, 2);
 			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 1.2);
 			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			listViewItemShop->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent,node));
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 150); 
 			string str = "Shop item - Gold: " + to_string(Bag::GetInstance()->GetGold());
 			node->initBg(listViewItemShop->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Shop item");
@@ -477,6 +478,22 @@ namespace UICustom
 		}
 		CC_SAFE_DELETE(node);
 		return nullptr;
+	}
+	void Popup::SelectedItemEvent(Ref * sender, ListView::EventType type)
+	{
+		ListView *listview = static_cast<ListView*>(sender);
+		switch (type)
+		{
+		case cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START:
+			log("selected index start = %d", listview->getCurSelectedIndex());
+			break;
+		case cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END:
+			log("selected index end = %d", listview->getCurSelectedIndex());
+
+			break;
+		default:
+			break;
+		}
 	}
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{
