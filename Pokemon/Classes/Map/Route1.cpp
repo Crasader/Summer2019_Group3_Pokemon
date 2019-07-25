@@ -167,7 +167,7 @@ void Route1::InitObject()
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_TOWN);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_ROUTE1_GATE_TO_TOWN);
 			route1GateWay->setContactTestBitmask(true);
 			route1GateWay->setDynamic(false);
 			route1GateWay->setGravityEnable(false);
@@ -180,7 +180,7 @@ void Route1::InitObject()
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1GateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_CITY);
+			route1GateWay->setCollisionBitmask(Model::BITMASK_ROUTE1_GATE_TO_CITY);
 			route1GateWay->setContactTestBitmask(true);
 			route1GateWay->setDynamic(false);
 			route1GateWay->setGravityEnable(false);

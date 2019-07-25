@@ -75,6 +75,7 @@ namespace UICustom
 			this->setOpacity(FADE_RATIO);
 		}
 	}
+	
 	void PopupDelegates::dismiss(const bool animated)
 	{
 		if (animated) {
@@ -106,6 +107,7 @@ namespace UICustom
 		};
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	}
+	
 	Popup *Popup::createAsMessage(const std::string &title, const std::string &msg)
 	{
 		return createAsConfirmDialogue(title, msg, NULL);
@@ -115,6 +117,7 @@ namespace UICustom
 	{
 		return create(title, msg, NULL, YesFunc);
 	}
+	
 	Popup *Popup::createSetting(const std::string &title)
 	{
 		Popup *node = new (std::nothrow)Popup();
@@ -126,7 +129,7 @@ namespace UICustom
 			layoutsetting->setContentSize(Size(300, 100));
 			layoutsetting->setPosition(winSize / 2);
 			layoutsetting->removeFromParent();
-			node->addChild(layoutsetting,3);
+			node->addChild(layoutsetting, 3);
 			CheckBox *checkboxSound = CheckBox::create(IMAGEPATH::SOUND_BUTTON, IMAGEPATH::SOUND_BUTTON_CHECK);
 			checkboxSound->setPosition(Vec2(layoutsetting->getContentSize().width / 4, layoutsetting->getContentSize().height / 2));
 			checkboxSound->setScale(2);
@@ -157,6 +160,7 @@ namespace UICustom
 			return node;
 		}
 	}
+	
 	Popup *Popup::createBag(const std::string &title)
 	{
 		Popup *node = new (std::nothrow)Popup();
@@ -178,7 +182,7 @@ namespace UICustom
 
 			auto headerPO = TabHeader::create();
 			headerPO->loadTextureBackGround("res/Background/2.png");
-			headerPO->setTitleText("Pokemon Over");
+			headerPO->setTitleText("Box Pokemon");
 			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
 			headerPO->setTitleFontName(FONT::GAME_FONT);
 
@@ -221,9 +225,9 @@ namespace UICustom
 						button->getPosition().y + listView->getContentSize().height / 3);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 					labelName->setString(name);
-					labelName->setColor(Color3B(0,0,0));
+					labelName->setColor(Color3B(0, 0, 0));
 					labelName->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
-						button->getPosition().y + listView->getContentSize().height*4/5);
+						button->getPosition().y + listView->getContentSize().height * 4 / 5);
 					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
 					labelLv->setString(level);
 					labelLv->setColor(Color3B(0, 0, 0));
@@ -352,41 +356,112 @@ namespace UICustom
 			return node;
 		}
 	}
-    Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void ()> &YesFunc)
-    {
-        Popup *node = new (std::nothrow)Popup();
-        Size winSize = Director::getInstance()->getWinSize();
-        if(node && node->init())
-        {
-            
-            if(!lbl){
-                lbl = Label::createWithTTF(msg, FONT::GAME_FONT,20);
+	
+	Popup * Popup::CreateBagInBattle()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			auto listViewPokemon = ui::ListView::create();
+			listViewPokemon->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewPokemon->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewPokemon->setContentSize(Size(280, 140));
+			listViewPokemon->setScale(0.8);
+			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
+			listViewPokemon->setClippingEnabled(true);
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			node->addChild(listViewPokemon, 200);
+			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
+			auto list = Bag::GetInstance()->GetListPokemon();
+			for (int i = 0; i < 6; i++)
+			{
+				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
+				button->setTag(i);
+				if (i < sizeofpokemon)
+				{
+					string name = list.at(i)->GetName();
+					//int type = list.at(i)->GetType();
+					string percentHP = to_string(list.at(i)->GetCurrentHP() *100 / list.at(i)->GetMaxHP());
+					string level = "Level:" + to_string(list.at(i)->GetLevel());
+					string hp = "HP: " + percentHP + " %";
+					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					sprite->setTag(i);
+					sprite->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listViewPokemon->getContentSize().height / 2 + 10);
+					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+					labelName->setString(name);
+					labelName->setColor(Color3B(0, 0, 0));
+					labelName->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listViewPokemon->getContentSize().height * 4 / 5 + 10);
+					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+					labelLv->setString(level);
+					labelLv->setColor(Color3B(0, 0, 0));
+					labelLv->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listViewPokemon->getContentSize().height * 1 / 5 + 15);
+					Label* HP = ResourceManager::GetInstance()->GetLabelById(0);
+					HP->setString(hp);
+					HP->setColor(Color3B(0, 0, 0));
+					HP->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
+						button->getPosition().y + listViewPokemon->getContentSize().height * 1 / 5 - 10);
+
+					listViewPokemon->addChild(sprite, 202);
+					listViewPokemon->addChild(labelName, 202);
+					listViewPokemon->addChild(labelLv, 202);
+					listViewPokemon->addChild(HP, 202);
+				}
+				listViewPokemon->pushBackCustomItem(button);
+			}
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewPokemon->getContentSize().height / 2 - 75);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 150);
+			node->initBg(listViewPokemon->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Pokemon");
+			node->autorelease();
+			return node;
+
+		}
+	}
+	
+	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+
+			if (!lbl) {
+				lbl = Label::createWithTTF(msg, FONT::GAME_FONT, 20);
 				lbl->setWidth(300);
-            }
-            lbl->setPosition(winSize.width/2,winSize.height/2 - FONT::LABEL_OFFSET/2);
-            lbl->enableOutline(Color4B::BLACK,FONT::LABEL_STROKE);
-            lbl->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
-            lbl->enableShadow(Color4B::BLACK, Size(0, -2));
-            if(YesFunc){
-                MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON,IMAGEPATH::OK_BUTTON_PRESSED,[=](Ref *sender){
-                    
-                    YesFunc();
-                    node->dismiss(true);
-                });
-                
-                MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender){
-                    node->dismiss(true);
-                });
-                
-                
-                Menu *menu = Menu::create(yesButton,noButton,NULL);
-                node->addChild(menu,2);
-                menu->setPosition(winSize.width/2, winSize.height/2 - lbl->getContentSize().height/2 - 75);
-                menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET/2);
-                
-                lbl->setPosition(winSize/2);
-                CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width,250);
-            }
+			}
+			lbl->setPosition(winSize.width / 2, winSize.height / 2 - FONT::LABEL_OFFSET / 2);
+			lbl->enableOutline(Color4B::BLACK, FONT::LABEL_STROKE);
+			lbl->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
+			lbl->enableShadow(Color4B::BLACK, Size(0, -2));
+			if (YesFunc) {
+				MenuItemImage *yesButton = MenuItemImage::create(IMAGEPATH::OK_BUTTON, IMAGEPATH::OK_BUTTON_PRESSED, [=](Ref *sender) {
+
+					YesFunc();
+					node->dismiss(true);
+				});
+
+				MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+					node->dismiss(true);
+				});
+
+
+				Menu *menu = Menu::create(yesButton, noButton, NULL);
+				node->addChild(menu, 2);
+				menu->setPosition(winSize.width / 2, winSize.height / 2 - lbl->getContentSize().height / 2 - 75);
+				menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+
+				lbl->setPosition(winSize / 2);
+				CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
+			}
 			else
 			{
 				MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
@@ -400,20 +475,18 @@ namespace UICustom
 				lbl->setPosition(winSize / 2);
 				CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			}
-            node->addChild(lbl,3);
-            node->initBg(lbl->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
-            node->autorelease();
-            return node;
-        }
-        
-        CC_SAFE_DELETE(node);
-        return nullptr;
-    }
-    
+			node->addChild(lbl, 3);
+			node->initBg(lbl->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->autorelease();
+			return node;
+		}
 
-    
-    void Popup::initBg(Size size,const std::string &title)
-    {  
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	
+	void Popup::initBg(Size size, const std::string &title)
+	{
 		Size winSize = Director::getInstance()->getWinSize();
         _bg = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
         this->addChild(_bg);

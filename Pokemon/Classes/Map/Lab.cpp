@@ -119,8 +119,7 @@ void Lab::InitObject()
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			labBody->setCollisionBitmask(17);
-			labBody->setMass(16);
+			labBody->setCollisionBitmask(Model::BITMASK_PLAYER);
 			labBody->setContactTestBitmask(true);
 			labBody->setDynamic(true);
 			labBody->setRotationEnable(false);

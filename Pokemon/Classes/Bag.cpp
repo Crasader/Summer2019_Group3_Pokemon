@@ -10,12 +10,20 @@
 #include "Item\FireStone.h"
 #include "Item\ThunderStone.h"
 #include "Item\WaterStone.h"
-
+#include "Pokemon\Pikachu.h"
+#include "Pokemon\Squirtle.h"
+#include "Pokemon\Charmander.h"
 Bag::Bag()
 {
 	this->Init();
 	this->my_gold = 100;
 	this->CreateListItem();
+	Pikachu *pikachu = new Pikachu();
+	Squirtle *squirtle = new Squirtle();
+	Charmander *charmander = new Charmander();
+	this->m_pokemons.push_back(pikachu);
+	this->m_pokemons.push_back(squirtle);
+	this->m_pokemons.push_back(charmander);
 }
 Bag::~Bag()
 {
