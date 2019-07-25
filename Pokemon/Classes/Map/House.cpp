@@ -5,7 +5,7 @@
 #include "Town.h"
 #include "Model.h"
 
-
+using namespace CocosDenshion;
 USING_NS_CC;
 
 Size houseVisibleSize;
@@ -32,11 +32,12 @@ static void problemLoading(const char* filename)
 
 bool House::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("HouseScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;
 	}
-
 	houseVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 

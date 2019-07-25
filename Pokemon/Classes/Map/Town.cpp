@@ -9,6 +9,7 @@
 #include "Scene\BattleScene.h"
 #include <cstdlib>
 
+using namespace CocosDenshion;
 USING_NS_CC;
 Size townVisibleSize;
 Size townTileMapSize;
@@ -39,6 +40,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Town::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("Town.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

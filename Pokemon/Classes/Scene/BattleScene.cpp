@@ -6,6 +6,7 @@
 #include "Pokemon\Pikachu.h"
 #include "Pokemon\Garchomp.h"
 #include "Pokemon\Pidgey.h"
+#include "SimpleAudioEngine.h"
 #define scale_hpBar 0.47
 
 BattleScene::BattleScene()
@@ -26,6 +27,8 @@ cocos2d::Scene * BattleScene::createScene()
 
 bool BattleScene::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("BattleScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;

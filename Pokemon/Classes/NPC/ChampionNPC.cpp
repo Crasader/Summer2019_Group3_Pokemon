@@ -1,34 +1,39 @@
 #include "ChampionNPC.h"
 #include "Pokemon.h"
-#include "Pokemon\Charmander.h"
-ChampionNPC::ChampionNPC(Layer * layer)
+#include "Pokemon\Dragonite.h"
+#include "Pokemon\Garchomp.h"
+#include "Pokemon\Salamence.h"
+#include "Pokemon\Greninja.h"
+#include "Pokemon\Charizard.h"
+#include "Pokemon\Blastoise.h"
+ChampionNPC::ChampionNPC()
 {
 	this->Init();
-	layer->addChild(this->m_spriteFront);
+	m_state = true;
 
-	auto charmender = new Charmander();
-	charmender->SetLevel(9);
-	this->m_pokemons.push_back(charmender);
+	auto blastoise = new Blastoise();
+	blastoise->SetLevel(20);
+	this->m_pokemons.push_back(blastoise);
 
-	auto charmender2 = new Charmander();
-	charmender2->SetLevel(9);
-	this->m_pokemons.push_back(charmender2);
+	auto greninja = new Greninja();
+	greninja->SetLevel(20);
+	this->m_pokemons.push_back(greninja);
 
-	auto charmender3 = new Charmander();
-	charmender3->SetLevel(9);
-	this->m_pokemons.push_back(charmender3);
+	auto charizard = new Charizard();
+	charizard->SetLevel(20);
+	this->m_pokemons.push_back(charizard);
 
-	auto charmender4 = new Charmander();
-	charmender4->SetLevel(9);
-	this->m_pokemons.push_back(charmender4);
+	auto dragonite = new Dragonite();
+	dragonite->SetLevel(20);
+	this->m_pokemons.push_back(dragonite);
 
-	auto charmender5 = new Charmander();
-	charmender5->SetLevel(9);
-	this->m_pokemons.push_back(charmender5);
+	auto garchomp = new Garchomp();
+	garchomp->SetLevel(20);
+	this->m_pokemons.push_back(garchomp);
 
-	auto charmender6 = new Charmander();
-	charmender6->SetLevel(9);
-	this->m_pokemons.push_back(charmender6);
+	auto salamence = new Salamence();
+	salamence->SetLevel(20);
+	this->m_pokemons.push_back(salamence);
 }
 
 ChampionNPC::~ChampionNPC()

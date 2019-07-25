@@ -4,7 +4,7 @@
 #include "Buttons.h"
 #include "Model.h"
 
-
+using namespace CocosDenshion;
 USING_NS_CC;
 
 Size leagueVisibleSize;
@@ -31,6 +31,8 @@ static void problemLoading(const char* filename)
 
 bool League::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("ChampionLeague.mp3", true);
 	if (!Layer::init())
 	{
 		return false;

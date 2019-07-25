@@ -1,18 +1,21 @@
 #pragma once
+
+#include "MyObject.h"
 #include "Pokemon.h"
 #include <vector>
 #include "NPC.h"
 
 using namespace std;
 
-class LakeNPC : public NPC
+class Route2NPC : public NPC
 {
 private:
 	string name;
 	vector<Pokemon*> m_pokemons;
 public:
-	LakeNPC();
-	~LakeNPC();
+	Route2NPC();
+	~Route2NPC();
 	void Init() override;
 	void Update(float deltaTime) override;
-}; 
+};
+
