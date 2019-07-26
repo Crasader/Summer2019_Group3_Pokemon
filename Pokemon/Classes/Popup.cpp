@@ -355,35 +355,100 @@ namespace UICustom
 			Button *buttonCharmander = ResourceManager::GetInstance()->GetButtonById(12);
 			buttonCharmander->setPosition(Vec2(winSize.width/2,winSize.height/2-buttonCharmander->getContentSize().height/4));
 			node->addChild(buttonCharmander, 100);
+			
 			Button *buttonSquirtle = ResourceManager::GetInstance()->GetButtonById(12);
 			buttonSquirtle->setPosition(Vec2(buttonCharmander->getPosition().x - buttonCharmander->getContentSize().width -10, buttonCharmander->getPosition().y));
 			node->addChild(buttonSquirtle, 100);
+			
 			Button *buttonChikorita = ResourceManager::GetInstance()->GetButtonById(12);
 			buttonChikorita->setPosition(Vec2(buttonCharmander->getPosition().x + buttonCharmander->getContentSize().width + 10, buttonCharmander->getPosition().y));
 			node->addChild(buttonChikorita, 100);
+
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
 				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
-			Charmander *charmander = new Charmander();
+			
+			Pokemon *charmander = new Charmander();
 			Sprite *spriteCharmander = charmander->GetSpriteFront();
+			spriteCharmander->setScale(2);
 			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
 			spriteCharmander->setPosition(buttonCharmander->getContentSize().width/2, buttonCharmander->getContentSize().height / 4);
 			buttonCharmander->addChild(spriteCharmander,102);
+			string nameCharmander = "Charmander - Fire";
+			Label *labelCharmander = ResourceManager::GetInstance()->GetLabelById(0);
+			labelCharmander->setString(nameCharmander);
+			labelCharmander->setColor(Color3B(0, 0, 0));
+			labelCharmander->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height *5/6);
+			buttonCharmander->addChild(labelCharmander,102);
+			
 			Squirtle *squirtle = new Squirtle();
 			Sprite *spriteSquirtle = squirtle->GetSpriteFront();
+			spriteSquirtle->setScale(2);
 			spriteSquirtle->setAnchorPoint(Vec2(0.5, 0));
-			spriteSquirtle->setPosition(buttonCharmander->getContentSize().width / 2 - buttonCharmander->getContentSize().width - 10, buttonCharmander->getContentSize().height / 4);
+			spriteSquirtle->setPosition(buttonCharmander->getContentSize().width / 2 , buttonCharmander->getContentSize().height / 4);
 			buttonSquirtle->addChild(spriteSquirtle, 102);
+			string nameSquirtle = "Squirtle - Water";
+			Label *labelSquirtle = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSquirtle->setString(nameSquirtle);
+			labelSquirtle->setColor(Color3B(0, 0, 0));
+			labelSquirtle->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height * 5 / 6);
+			buttonSquirtle->addChild(labelSquirtle, 102);
+			
 			Chikorita *chikorita = new Chikorita();
-			/*Sprite *spriteCharmander = charmander->GetSpriteFront();
-			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
-			spriteCharmander->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height / 4);
-			buttonCharmander->addChild(spriteCharmander, 102);*/
-			/*vector<Pokemon*> m_pokemons;
-			m_pokemons.push_back(charmander);
-			m_pokemons.push_back(squirtle);
-			m_pokemons.push_back(chikorita);*/
+			Sprite *spriteChikorita = chikorita->GetSpriteFront();
+			spriteChikorita->setScale(2);
+			spriteChikorita->setAnchorPoint(Vec2(0.5, 0));
+			spriteChikorita->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height / 4);
+			buttonChikorita->addChild(spriteChikorita, 102);
+			string nameChikorita = "Chikorita - Grass";
+			Label *labelChikorita = ResourceManager::GetInstance()->GetLabelById(0);
+			labelChikorita->setString(nameChikorita);
+			labelChikorita->setColor(Color3B(0, 0, 0));
+			labelChikorita->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height * 5 / 6);
+			buttonChikorita->addChild(labelChikorita, 102);
+			
+			Label *labelPokemon = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPokemon->setColor(Color3B(0, 0, 0));
+			labelPokemon->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
+			node->addChild(labelPokemon, 100);
+			
+			buttonCharmander->addTouchEventListener([labelPokemon,buttonCharmander,buttonChikorita,buttonSquirtle, charmander, winSize,node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(charmander);
+					labelPokemon->setString("Congratulations. Charmander will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
+			buttonChikorita->addTouchEventListener([labelPokemon, buttonCharmander, buttonChikorita, buttonSquirtle, chikorita, winSize, node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(chikorita);
+					labelPokemon->setString("Congratulations. Chikorita will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
+			buttonSquirtle->addTouchEventListener([labelPokemon, buttonCharmander, buttonChikorita, buttonSquirtle, squirtle, winSize, node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(squirtle);
+					labelPokemon->setString("Congratulations. Squirtle will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
 			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonCharmander->getContentSize().height / 1.1);
