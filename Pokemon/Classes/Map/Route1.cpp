@@ -36,7 +36,7 @@ static void problemLoading(const char* filename)
 bool Route1::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("Route1.mp3", true);
+	audio->playBackgroundMusic("res/Sound/Route1.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

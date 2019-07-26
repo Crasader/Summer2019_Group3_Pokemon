@@ -34,7 +34,7 @@ static void problemLoading(const char* filename)
 bool House::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("HouseScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/HouseScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;

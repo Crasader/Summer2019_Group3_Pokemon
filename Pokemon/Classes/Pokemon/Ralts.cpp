@@ -10,6 +10,7 @@ Ralts::Ralts()
 	this->Init(80, 81);
 	//
 	this->m_name = "Ralts";
+	this->m_type = MyObject::TYPE_GRASS;
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
@@ -28,6 +29,7 @@ Pokemon * Ralts::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Kirlia(this);
 	}
 	else

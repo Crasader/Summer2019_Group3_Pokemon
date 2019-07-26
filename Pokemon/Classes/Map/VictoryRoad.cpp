@@ -35,7 +35,7 @@ static void problemLoading(const char* filename)
 bool Road::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("VictoryRoad.mp3", true);
+	audio->playBackgroundMusic("res/Sound/VictoryRoad.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

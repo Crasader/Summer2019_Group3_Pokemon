@@ -36,7 +36,7 @@ static void problemLoading(const char* filename)
 bool PokemonCenter::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("PokemonCenter.mp3", true);
+	audio->playBackgroundMusic("res/Sound/PokemonCenter.mp3", true);
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -48,7 +48,7 @@ bool PokemonCenter::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
 	auto map = ResourceManager::GetInstance()->GetTiledMapById(8);
-	PctileMapSize = map->getContentSize();
+	pctileMapSize = map->getContentSize();
 	addChild(map);
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -194,6 +194,6 @@ void PokemonCenter::UpdateCamera() {
 }
 void PokemonCenter::update(float dt)
 {
-	updateCamera();
-	Buttons::GetIntance()->UpdateButton(Pccamera->getPosition().x - 200, Pccamera->getPosition().y - 100);
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(pccamera->getPosition().x - 200, pccamera->getPosition().y - 100);
 }

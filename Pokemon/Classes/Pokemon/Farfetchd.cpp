@@ -9,6 +9,7 @@ Farfetchd::Farfetchd()
 	this->Init(66, 67);
 	//
 	this->m_name = "Farfetchd";
+	this->m_type = MyObject::TYPE_NORMAL;
 	this->m_level = 5;
 	this->m_id = 0;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);

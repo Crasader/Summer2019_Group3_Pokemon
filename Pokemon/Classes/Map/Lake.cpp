@@ -37,7 +37,7 @@ static void problemLoading(const char* filename)
 bool Lake::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("LakeScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/LakeScene.mp3", true);
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )

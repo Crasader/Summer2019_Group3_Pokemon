@@ -33,7 +33,7 @@ static void problemLoading(const char* filename)
 bool Lab::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("LabScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/LabScene.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

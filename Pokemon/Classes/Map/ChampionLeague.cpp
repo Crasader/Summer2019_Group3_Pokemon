@@ -32,7 +32,7 @@ static void problemLoading(const char* filename)
 bool League::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("ChampionLeague.mp3", true);
+	audio->playBackgroundMusic("res/Sound/ChampionLeague.mp3", true);
 	if (!Layer::init())
 	{
 		return false;

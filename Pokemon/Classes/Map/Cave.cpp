@@ -17,7 +17,7 @@ Camera *caveCamera;
 Scene * Cave::createScene()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("CaveScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/CaveScene.mp3", true);
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Cave::create();

@@ -42,7 +42,7 @@ static void problemLoading(const char* filename)
 bool Town::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("Town.mp3", true);
+	audio->playBackgroundMusic("res/Sound/Town.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
