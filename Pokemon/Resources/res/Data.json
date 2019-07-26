@@ -228,6 +228,21 @@
     "0": "res/UI/Label/arial.ttf",
     "1": "res/UI/Label/MarkerFelt.ttf"
   },
+  "SOUND": {
+    "size": 12,
+    "0": "res/Sound/HouseScene.mp3",
+    "1": "res/Sound/Town.mp3",
+    "2": "res/Sound/LabScene.mp3",
+    "3": "res/Sound/Route1.mp3",
+    "4": "res/Sound/CityScene.mp3",
+    "5": "res/Sound/PokemonCenter.mp3",
+    "6": "res/Sound/LakeScene.mp3",
+    "7": "res/Sound/CaveScene.mp3",
+    "8": "res/Sound/Route2.mp3",
+    "9": "res/Sound/VictoryRoad.mp3",
+    "10": "res/Sound/ChampionLeague.mp3",
+    "11": "res/Sound/BattleScene.mp3"
+  },
   "ANIMATION": {
     "size": 123,
     "0": {

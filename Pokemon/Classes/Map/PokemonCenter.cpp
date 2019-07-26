@@ -4,22 +4,24 @@
 #include "SimpleAudioEngine.h"
 #include "ResourceManager.h"
 #include "Buttons.h"
-#include "Lake.h"
+#include "City.h"
+#include "Model.h"
 
+using namespace CocosDenshion;
 USING_NS_CC;
-Size PcvisibleSize;
-Size PctileMapSize;
+Size pcvisibleSize;
+Size pctileMapSize;
 
-PhysicsBody* Pcbody, *PcgateWay;
-Camera *Pccamera;
+PhysicsBody* pcbody, *pcgateWay;
+Camera *pccamera;
 
 Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = PokemonCenter::create();
 	scene->addChild(layer);
-	Pccamera = scene->getDefaultCamera();
+	pccamera = scene->getDefaultCamera();
 	return scene;
 }
 
@@ -33,6 +35,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool PokemonCenter::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("PokemonCenter.mp3", true);
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -40,9 +44,9 @@ bool PokemonCenter::init()
         return false;
     }
 
-	PcvisibleSize = Director::getInstance()->getVisibleSize();
+	pcvisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+	
 	auto map = ResourceManager::GetInstance()->GetTiledMapById(8);
 	PctileMapSize = map->getContentSize();
 	addChild(map);
@@ -96,12 +100,12 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
-	if (a->getCollisionBitmask() == 15 && b->getCollisionBitmask() == 17
-		|| a->getCollisionBitmask() == 17 && b->getCollisionBitmask() == 15)
+	if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_CITY)
+		|| (a->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 	}
 
 	return true;
@@ -119,79 +123,74 @@ void PokemonCenter::InitObject()
 		float posX = properties.at("x").asFloat();
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
-		if (type == 1) {
+		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			Pcbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			Pcbody->setCollisionBitmask(17);
-			Pcbody->setMass(16);
-			Pcbody->setContactTestBitmask(true);
-			Pcbody->setDynamic(true);
-			Pcbody->setRotationEnable(false);
-			Pcbody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(Pcbody);
+			pcbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			pcbody->setCollisionBitmask(Model::BITMASK_PLAYER);
+			pcbody->setContactTestBitmask(true);
+			pcbody->setDynamic(true);
+			pcbody->setRotationEnable(false);
+			pcbody->setGravityEnable(false);
+			mPlayer->GetSpriteFront()->setPhysicsBody(pcbody);
 		}
 		else {
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
-			PcgateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			PcgateWay->setCollisionBitmask(15);
-			PcgateWay->setMass(14);
-			PcgateWay->setContactTestBitmask(true);
-			PcgateWay->setDynamic(false);
-			PcgateWay->setGravityEnable(false);
-			mGateWay->setPhysicsBody(PcgateWay);
+			pcgateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			pcgateWay->setCollisionBitmask(Model::BITMASK_GATEWAY_TO_CITY);
+			pcgateWay->setContactTestBitmask(true);
+			pcgateWay->setDynamic(false);
+			pcgateWay->setGravityEnable(false);
+			mGateWay->setPhysicsBody(pcgateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
-void PokemonCenter::updateCamera()
-{
-	if (PcvisibleSize.width >= PctileMapSize.width) {
-		if (PcvisibleSize.height >= PctileMapSize.height) {
-			Pccamera->setPosition(PctileMapSize / 2);
+void PokemonCenter::UpdateCamera() {
+	if (pcvisibleSize.width >= pctileMapSize.width) {
+		if (pcvisibleSize.height >= pctileMapSize.height) {
+			pccamera->setPosition(pctileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)>abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
-				Pccamera->setPosition(PctileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
+				pccamera->setPosition(pctileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
 			}
 			else {
-				Pccamera->setPosition(PctileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				pccamera->setPosition(pctileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 		}
 	}
 	else {
-		if (PcvisibleSize.height >= PctileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)) {
-				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, PctileMapSize.height / 2);
+		if (pcvisibleSize.height >= pctileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, pctileMapSize.height / 2);
 			}
 			else {
-				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, PctileMapSize.height / 2);
+				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, pctileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)>abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
-				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)>abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)<abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
-				Pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().x) ? (PctileMapSize.width - PcvisibleSize.width / 2) : PcvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)<abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - PctileMapSize.width / 2)<abs(PctileMapSize.width / 2 - PcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - PctileMapSize.height / 2)>abs(PctileMapSize.height / 2 - PcvisibleSize.height / 2)) {
-				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >Pccamera->getPosition().y) ? (PctileMapSize.height - PcvisibleSize.height / 2) : PcvisibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)<abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
+				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
 			}
 			else {
-				Pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
-
 }
 void PokemonCenter::update(float dt)
 {

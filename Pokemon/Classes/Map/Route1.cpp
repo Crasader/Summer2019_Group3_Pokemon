@@ -4,18 +4,21 @@
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "City.h"
 #include "Model.h"
 
+using namespace CocosDenshion;
 Size route1VisibleSize;
 Size route1TileMapSize;
 
 PhysicsBody* route1Body, *route1GateWay;
 Camera *route1Camera;
+int Route1::previousScene = 0;
 
 Scene* Route1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
@@ -32,6 +35,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Route1::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("Route1.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -125,7 +130,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
+		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
@@ -133,8 +138,9 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	{
 
 		Buttons::GetIntance()->Remove();
+		Route1::previousScene = Model::PRESCENE_CITY_TO_ROUTE1;
 		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 	}
 	return true;
 
@@ -152,15 +158,23 @@ void Route1::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
-			mPlayer = new Trainer(this);
-			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			route1Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			route1Body->setCollisionBitmask(Model::BITMASK_PLAYER);
-			route1Body->setContactTestBitmask(true);
-			route1Body->setDynamic(true);
-			route1Body->setRotationEnable(false);
-			route1Body->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(route1Body);
+			int preScene = object.asValueMap().at("pre").asInt();
+			if (preScene == previousScene) {
+				mPlayer = new Trainer(this);
+				if (preScene == 1)
+				{
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+				}
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				route1Body = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				route1Body->setCollisionBitmask(Model::BITMASK_PLAYER);
+				route1Body->setContactTestBitmask(true);
+				route1Body->setDynamic(true);
+				route1Body->setRotationEnable(false);
+				route1Body->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(route1Body);
+			}
+			else continue;
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_TOWN)
 			{
