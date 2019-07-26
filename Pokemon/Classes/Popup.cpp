@@ -462,6 +462,125 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
+	Popup * Popup::CreateBagItemInBattle()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			Button *buttonPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonPotion->setPosition(Vec2(winSize.width / 2, winSize.height / 2 - buttonPotion->getContentSize().height / 4));
+			node->addChild(buttonPotion, 100);
+
+			Button *buttonSuperPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonSuperPotion->setPosition(Vec2(buttonPotion->getPosition().x - buttonPotion->getContentSize().width - 10, buttonPotion->getPosition().y));
+			node->addChild(buttonSuperPotion, 100);
+
+			Button *buttonMaxPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonMaxPotion->setPosition(Vec2(buttonPotion->getPosition().x + buttonPotion->getContentSize().width + 10, buttonPotion->getPosition().y));
+			node->addChild(buttonMaxPotion, 100);
+
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+			});
+
+			Sprite *spritePotion = ResourceManager::GetInstance()->GetSpriteById(137);
+			spritePotion->setScale(3);
+			spritePotion->setAnchorPoint(Vec2(0.5, 0));
+			spritePotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonPotion->addChild(spritePotion, 102);
+			
+			string namePotion = "Potion";
+			Label *labelPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPotion->setString(namePotion);
+			labelPotion->setColor(Color3B(0, 0, 0));
+			labelPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonPotion->addChild(labelPotion, 102);
+			
+			Label *labelPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPotion2->setString("Restores 50 HP");
+			labelPotion2->setColor(Color3B(0, 0, 0));
+			labelPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonPotion->addChild(labelPotion2, 102);
+
+			
+			Sprite *spriteSuperPotion = ResourceManager::GetInstance()->GetSpriteById(138);
+			spriteSuperPotion->setScale(3);
+			spriteSuperPotion->setAnchorPoint(Vec2(0.5, 0));
+			spriteSuperPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonSuperPotion->addChild(spriteSuperPotion, 102);
+			
+			string supperPotion = "Super Potion";
+			Label *labelSuperPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSuperPotion->setString(supperPotion);
+			labelSuperPotion->setColor(Color3B(0, 0, 0));
+			labelSuperPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonSuperPotion->addChild(labelSuperPotion, 102);
+			
+			Label *labelSuperPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSuperPotion2->setString("Restores 100 HP");
+			labelSuperPotion2->setColor(Color3B(0, 0, 0));
+			labelSuperPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonSuperPotion->addChild(labelSuperPotion2, 102);
+
+			
+			Sprite *spriteMaxPotion = ResourceManager::GetInstance()->GetSpriteById(139);
+			spriteMaxPotion->setScale(3);
+			spriteMaxPotion->setAnchorPoint(Vec2(0.5, 0));
+			spriteMaxPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonMaxPotion->addChild(spriteMaxPotion, 102);
+			
+			string nameChikorita = "Max Potion";
+			Label *labelMaxPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelMaxPotion->setString(nameChikorita);
+			labelMaxPotion->setColor(Color3B(0, 0, 0));
+			labelMaxPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonMaxPotion->addChild(labelMaxPotion, 102);
+			
+			Label *labelMaxPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelMaxPotion2->setString("Fully restores HP");
+			labelMaxPotion2->setColor(Color3B(0, 0, 0));
+			labelMaxPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonMaxPotion->addChild(labelMaxPotion2, 102);
+
+			
+			buttonPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			buttonSuperPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			buttonMaxPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonPotion->getContentSize().height / 1.1);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 180);
+			node->initBg(Size(buttonPotion->getContentSize().width * 3 + CONFIRM_DIALOGUE_SIZE_OFFSET.width,
+				buttonPotion->getContentSize().height + CONFIRM_DIALOGUE_SIZE_OFFSET.height), "Item Potion");
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
 	Popup * Popup::CreateBagInBattle()
 	{
 		Popup *node = new (std::nothrow)Popup();
