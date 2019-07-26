@@ -192,16 +192,17 @@ namespace UICustom
 
 			auto containerMP = Layout::create();
 #pragma region Tab1
-			containerMP->setTouchEnabled(false);
 			auto listView = ui::ListView::create();
+			listView->setTouchEnabled(false);
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
 			listView->setContentSize(Size(280, 140));
 			listView->setScale(0.8);
 			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
 			listView->setClippingEnabled(true);
-			containerMP->addChild(listView,2000);
+			containerMP->addChild(listView,200);
 			listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
+			
 			auto list = Bag::GetInstance()->GetListPokemon();
 			auto sizeOfPokemon = list.size();
 			for (int i = 0; i < 6; i++)
