@@ -28,6 +28,7 @@ Pokemon * Feebas::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Milotic(this);
 	}
 	else

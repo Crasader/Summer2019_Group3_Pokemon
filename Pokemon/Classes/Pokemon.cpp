@@ -18,6 +18,22 @@ Pokemon::Pokemon()
 
 Pokemon::~Pokemon()
 {
+	this->m_spriteFront->removeFromParent();
+	this->m_spriteBack->removeFromParent();
+	this->m_spriteFront->release();
+	this->m_spriteBack->release();
+	this->animationFront->release();
+	this->animationBack->release();
+	if (this->m_evolved == false)
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (this->m_listSkill.at(i) != nullptr)
+			{
+				delete this->m_listSkill.at(i);
+			}
+		}
+	}
 }
 
 void Pokemon::Init()

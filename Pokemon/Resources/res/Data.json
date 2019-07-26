@@ -12,7 +12,7 @@
     "8": "res/Map/pc.tmx"
   },
   "SPRITE": {
-    "size": 147,
+    "size": 148,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -165,7 +165,8 @@
     "143": "res/Item/FireStone.png",
     "144": "res/Item/LeafStone.png",
     "145": "res/Item/ThunderStone.png",
-    "146": "res/Item/WaterStone.png"
+    "146": "res/Item/WaterStone.png",
+    "147": "res/Trainer/Pokeball/0.png"
   },
   "BUTTON": {
     "size": 13,
@@ -228,7 +229,7 @@
     "1": "res/UI/Label/MarkerFelt.ttf"
   },
   "ANIMATION": {
-    "size": 122,
+    "size": 123,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -1962,7 +1963,7 @@
         "1.png"
       ]
     },
-     "121": {
+    "121": {
       "size": 4,
       "plist": "res/Trainer/walkright/walkright.plist",
       "path": "res/Trainer/walkright/walkright.png",
@@ -1971,6 +1972,17 @@
         "1.png",
         "2.png",
         "1.png"
+      ]
+    },
+    "122": {
+      "size": 4,
+      "plist": "res/Trainer/Pokeball/Pokeball.plist",
+      "path": "res/Trainer/Pokeball/Pokeball.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
       ]
     }
   }

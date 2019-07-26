@@ -28,6 +28,7 @@ Pokemon * Electrike::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Manectric(this);
 	}
 	else

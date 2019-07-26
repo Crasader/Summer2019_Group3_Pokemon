@@ -32,6 +32,7 @@ Pokemon * Charmander::Evolve()
 {
 	if (this->m_level >= 10)
 	{
+		this->m_evolved = true;
 		return new Charmeleon(this);
 	}
 	else

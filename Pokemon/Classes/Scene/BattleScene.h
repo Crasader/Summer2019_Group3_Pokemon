@@ -7,6 +7,9 @@ using namespace cocos2d;
 class BattleScene : public Layer
 {
 private:
+	Sprite* m_pokeball;
+	Animation* m_animationPokeball;
+
 	Sprite* m_background;
 	Sprite* m_messageBox;
 	Button* m_buttonFight;

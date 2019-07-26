@@ -30,6 +30,7 @@ Pokemon * Pidgey::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Pidgeotto(this);
 	}
 	else

@@ -370,6 +370,15 @@ namespace UICustom
 			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				auto list = Bag::GetInstance()->GetListPokemon();
+				for (int i = 0; i < 6; i++)
+				{
+					if (list.at(i) != nullptr)
+					{
+						auto sprite = list.at(i)->GetSpriteFront();
+						sprite->removeFromParentAndCleanup(false);
+					}
+				}
 				node->dismiss(true);
 			});
 			node->addChild(listViewPokemon, 200);

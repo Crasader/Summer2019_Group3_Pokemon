@@ -48,7 +48,9 @@ void BattleScene::update(float deltaTime)
 
 void BattleScene::ReleaseChildren()
 {
+	this->m_tiledmap->removeFromParent();
 	this->m_player->RemoveFromParent();
+	delete this->m_opponent;
 	auto listNode = this->getChildren();
 	auto size = this->getChildrenCount();
 	for (int i = 0; i < size; i++)
@@ -217,13 +219,19 @@ void BattleScene::ChangePokemonStep(float deltaTime)
 					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 					this->m_stateBattleMessage = false;
 					this->LoadPlayerPosition();
-					auto finished = CallFunc::create([this]() {
-						this->m_statePlayer = true;
-						this->m_player->SetState(true);
-						this->LoadPlayerHpBar();
+					this->m_pokeball->setPosition(this->m_player->GetPosition());
+					this->m_pokeball->setVisible(true);
+					auto pokeball_finished = CallFunc::create([this]() {
+						this->m_pokeball->setVisible(false);
+						auto finished = CallFunc::create([this]() {
+							this->m_statePlayer = true;
+							this->m_player->SetState(true);
+							this->LoadPlayerHpBar();
+						});
+						auto scaleTo = ScaleTo::create(1, 2.5);
+						this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
 					});
-					auto scaleTo = ScaleTo::create(1, 2.5);
-					this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
+					this->m_pokeball->runAction(Sequence::create(Animate::create(this->m_animationPokeball), pokeball_finished, nullptr));
 				}
 				else
 				{
@@ -347,6 +355,7 @@ void BattleScene::LoadPlayerHpBar()
 		this->m_hpPlayer->setScaleX(scale_hpBar / index);
 	}
 	this->m_hpPlayer->setScaleY(0.12);
+	this->m_hpPlayer->setVisible(true);
 }
 
 void BattleScene::InitTiledMap()
@@ -474,6 +483,7 @@ void BattleScene::InitUI()
 	this->m_labelPlayerLevel->setTextColor(Color4B::BLACK);
 	this->m_hpPlayer = ResourceManager::GetInstance()->GetSpriteById(131);
 	this->m_hpPlayer->setAnchorPoint(Vec2::ZERO);
+	this->m_hpPlayer->setVisible(false);
 	obj = this->m_tiledmap->getObjectGroup("player");
 	x = obj->getObject("name").at("x").asFloat();
 	y = obj->getObject("name").at("y").asFloat();
@@ -487,8 +497,6 @@ void BattleScene::InitUI()
 	y = obj->getObject("hp").at("y").asFloat();
 	this->m_hpPlayer->setPosition(x * this->m_tiledmap->getScaleX(), y * this->m_tiledmap->getScaleY());
 	this->addChild(this->m_hpPlayer, 0);
-
-	this->LoadPlayerHpBar();
 }
 
 void BattleScene::InitObject()
@@ -511,6 +519,15 @@ void BattleScene::InitObject()
 		this->addChild(this->m_opponent->GetSkillById(i)->GetSpriteFront(), 100);
 		this->m_opponent->GetSkillById(i)->SetPosition(this->m_opponent->GetPosition());
 	}
+
+	this->m_pokeball = ResourceManager::GetInstance()->GetSpriteById(147);
+	this->m_pokeball->setAnchorPoint(Vec2(0.25, 0));
+	this->m_pokeball->setScale(1.5);
+	this->m_pokeball->setVisible(false);
+	this->m_animationPokeball = ResourceManager::GetInstance()->GetAnimationById(122);
+	this->m_animationPokeball->setDelayPerUnit(0.1);
+	this->m_animationPokeball->setRestoreOriginalFrame(true);
+	this->addChild(this->m_pokeball, 10);
 }
 
 void BattleScene::AddEventListener()
@@ -685,12 +702,19 @@ void BattleScene::StartBattle()
 			this->m_stateBattleMessage = false;
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 			this->LoadPlayerPosition();
-			auto finished = CallFunc::create([this]() {
-				this->SetButtonVisible(true);
-				this->m_labelBattleLog->setString("What will you do?");
+			this->m_pokeball->setPosition(this->m_player->GetPosition());
+			this->m_pokeball->setVisible(true);
+			auto pokeball_finished = CallFunc::create([this]() {
+				this->m_pokeball->setVisible(false);
+				auto finished = CallFunc::create([this]() {
+					this->LoadPlayerHpBar();
+					this->SetButtonVisible(true);
+					this->m_labelBattleLog->setString("What will you do?");
+				});
+				auto scaleTo = ScaleTo::create(1, 2.5);
+				this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
 			});
-			auto scaleTo = ScaleTo::create(1, 2.5);
-			this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
+			this->m_pokeball->runAction(Sequence::create(Animate::create(this->m_animationPokeball), pokeball_finished, nullptr));
 			this->stopActionByTag(100);
 		}
 	});
@@ -760,6 +784,7 @@ void BattleScene::EndBattle()
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
+			this->m_stateBattleMessage = false;
 			this->ReleaseChildren();
 			this->removeFromParent();
 		}
