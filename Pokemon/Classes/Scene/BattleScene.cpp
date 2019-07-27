@@ -579,6 +579,8 @@ void BattleScene::AddEventListener()
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill1->getString() == "Fight")
 			{
 				this->m_labelSkill1->setString(this->m_player->GetSkillById(0) != nullptr ? this->m_player->GetSkillById(0)->GetName() : "-");
@@ -593,8 +595,6 @@ void BattleScene::AddEventListener()
 				this->BattlePhase(choice);
 			}
 			break;
-		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			break;
 		default:
 			break;
 		}
@@ -603,6 +603,8 @@ void BattleScene::AddEventListener()
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill2->getString() == "Bag")
 			{
 			}
@@ -613,8 +615,6 @@ void BattleScene::AddEventListener()
 				this->BattlePhase(choice);
 			}
 			break;
-		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			break;
 		default:
 			break;
 		}
@@ -623,6 +623,8 @@ void BattleScene::AddEventListener()
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill3->getString() == "Pokemon")
 			{
 				UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
@@ -635,8 +637,6 @@ void BattleScene::AddEventListener()
 				this->BattlePhase(choice);
 			}
 			break;
-		case cocos2d::ui::Widget::TouchEventType::ENDED:
-			break;
 		default:
 			break;
 		}
@@ -645,7 +645,9 @@ void BattleScene::AddEventListener()
 		switch (type)
 		{
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
-			if (this->m_labelSkill1->getString() == "Run")
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			if (this->m_labelSkill4->getString() == "Run")
 			{
 				this->ReleaseChildren();
 				this->removeFromParent();
@@ -654,8 +656,6 @@ void BattleScene::AddEventListener()
 			{
 				this->SetButtonVisible(true);
 			}
-			break;
-		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			break;
 		default:
 			break;
