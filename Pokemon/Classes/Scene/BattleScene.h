@@ -53,6 +53,10 @@ public:
 
 	void TypeWriter(float deltaTime);
 
+	void ResetAllState();
+
+	Pokemon* GetTrainerPokemon();
+
 	void DamageStepWithPlayerAttackFirst(float deltaTime);
 
 	void DamageStepWithOpponentAttackFirst(float deltaTime);
@@ -91,6 +95,8 @@ public:
 	void BattlePhase(int idSkill);
 
 	void ChangePokemon();
+
+	void NextBattle();
 
 	void EndBattle();
 

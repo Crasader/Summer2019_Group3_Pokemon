@@ -370,16 +370,22 @@ namespace UICustom
 			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				auto list = Bag::GetInstance()->GetListPokemon();
-				for (int i = 0; i < 6; i++)
+				if (!((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
 				{
-					if (list.at(i) != nullptr)
-					{
-						auto sprite = list.at(i)->GetSpriteFront();
-						sprite->removeFromParentAndCleanup(false);
-					}
 				}
-				node->dismiss(true);
+				else
+				{
+					auto list = Bag::GetInstance()->GetListPokemon();
+					for (int i = 0; i < 6; i++)
+					{
+						if (list.at(i) != nullptr)
+						{
+							auto sprite = list.at(i)->GetSpriteFront();
+							sprite->removeFromParentAndCleanup(false);
+						}
+					}
+					node->dismiss(true);
+				}
 			});
 			node->addChild(listViewPokemon, 200);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
@@ -421,29 +427,58 @@ namespace UICustom
 					listViewPokemon->addChild(labelLv, 202);
 					listViewPokemon->addChild(HP, 202);
 
-					button->addTouchEventListener([node](Ref* ref, Widget::TouchEventType type) {
-						int tag = ((Button*)(ref))->getTag();
-						switch (type)
-						{
-						case cocos2d::ui::Widget::TouchEventType::BEGAN:
-							break;
-						case cocos2d::ui::Widget::TouchEventType::MOVED:
-							break;
-						case cocos2d::ui::Widget::TouchEventType::ENDED:
-							if (tag != 0)
+					if (list.at(i)->IsAlive() == true)
+					{
+						button->addTouchEventListener([node, list](Ref* ref, Widget::TouchEventType type) {
+							int tag = ((Button*)(ref))->getTag();
+							switch (type)
 							{
-								Bag::GetInstance()->ChangePokemon(tag);
-								((BattleScene*)(node->getParent()))->ChangePokemon();
-								((BattleScene*)(node->getParent()))->SetButtonVisible(false);
-								node->dismiss(true);
+							case cocos2d::ui::Widget::TouchEventType::BEGAN:
+								break;
+							case cocos2d::ui::Widget::TouchEventType::MOVED:
+								break;
+							case cocos2d::ui::Widget::TouchEventType::ENDED:
+								if (tag != 0)
+								{
+									if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
+									{
+										Bag::GetInstance()->ChangePokemon(tag);
+										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->SetButtonVisible(false);
+										for (int i = 0; i < 6; i++)
+										{
+											if (list.at(i) != nullptr)
+											{
+												auto sprite = list.at(i)->GetSpriteFront();
+												sprite->removeFromParentAndCleanup(false);
+											}
+										}
+										node->dismiss(true);
+									}
+									else
+									{
+										Bag::GetInstance()->ChangePokemon(tag);
+										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->StartBattle();
+										for (int i = 0; i < 6; i++)
+										{
+											if (list.at(i) != nullptr)
+											{
+												auto sprite = list.at(i)->GetSpriteFront();
+												sprite->removeFromParentAndCleanup(false);
+											}
+										}
+										node->dismiss(true);
+									}
+								}
+								break;
+							case cocos2d::ui::Widget::TouchEventType::CANCELED:
+								break;
+							default:
+								break;
 							}
-							break;
-						case cocos2d::ui::Widget::TouchEventType::CANCELED:
-							break;
-						default:
-							break;
-						}
-					});
+						});
+					}
 				}
 				listViewPokemon->pushBackCustomItem(button);
 			}

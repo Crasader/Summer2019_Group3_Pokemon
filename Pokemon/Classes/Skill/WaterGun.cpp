@@ -12,7 +12,7 @@ WaterGun::~WaterGun()
 void WaterGun::Init()
 {
 	this->AddAnimation(115);
-	this->SetScale(3);
+	this->SetScale(3.5);
 	Skill::SetName("Water Gun");
 	Skill::SetTypeName("Water");
 	Skill::SetPower(40);

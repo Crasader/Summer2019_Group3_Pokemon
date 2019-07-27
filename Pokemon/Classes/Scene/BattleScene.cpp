@@ -22,7 +22,7 @@ cocos2d::Scene * BattleScene::createScene()
 bool BattleScene::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("BattleScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/BattleScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;
@@ -90,6 +90,23 @@ void BattleScene::TypeWriter(float deltaTime)
 	}
 }
 
+void BattleScene::ResetAllState()
+{
+	this->m_stateBattleMessage = false;
+	this->m_statePlayer = false;
+	this->m_stateOpponent = false;
+	this->m_player->SetState(false);
+	this->m_opponent->SetState(false);
+	this->SetButtonVisible(true);
+	this->m_labelBattleLog->setString("What will you do?");
+	this->BattleMessageSetOpacity(255);
+}
+
+Pokemon * BattleScene::GetTrainerPokemon()
+{
+	return this->m_player;
+}
+
 void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 {
 	if (this->m_opponent->IsAlive() && this->m_player->IsAlive())
@@ -97,13 +114,7 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 		if (this->m_statePlayer == true && this->m_stateOpponent == true)
 		{
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			this->m_stateBattleMessage = false;
-			this->m_statePlayer = false;
-			this->m_stateOpponent = false;
-			this->m_opponent->SetState(false);
-			this->SetButtonVisible(true);
-			this->m_labelBattleLog->setString("What will you do?");
-			this->BattleMessageSetOpacity(255);
+			this->ResetAllState();
 			this->unschedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst));
 		}
 		else
@@ -138,7 +149,21 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 	}
 	else
 	{
-		this->EndBattle();
+		if (this->m_player->IsAlive() == false)
+		{
+			if (Bag::GetInstance()->GetCountPokemon() > 0)
+			{
+				this->NextBattle();
+			}
+			else
+			{
+				this->EndBattle();
+			}
+		}
+		else
+		{
+			this->EndBattle();
+		}
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst));
 	}
 }
@@ -150,13 +175,7 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 		if (this->m_statePlayer == true && this->m_stateOpponent == true)
 		{
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			this->m_stateBattleMessage = false;
-			this->m_statePlayer = false;
-			this->m_stateOpponent = false;
-			this->m_player->SetState(false);
-			this->SetButtonVisible(true);
-			this->m_labelBattleLog->setString("What will you do?");
-			this->BattleMessageSetOpacity(255);
+			this->ResetAllState();
 			this->unschedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst));
 		}
 		else
@@ -191,7 +210,21 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 	}
 	else
 	{
-		this->EndBattle();
+		if (this->m_player->IsAlive() == false)
+		{
+			if (Bag::GetInstance()->GetCountPokemon() > 0)
+			{
+				this->NextBattle();
+			}
+			else
+			{
+				this->EndBattle();
+			}
+		}
+		else
+		{
+			this->EndBattle();
+		}
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst));
 	}
 }
@@ -203,13 +236,7 @@ void BattleScene::ChangePokemonStep(float deltaTime)
 		if (this->m_statePlayer == true && this->m_stateOpponent == true)
 		{
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			this->m_stateBattleMessage = false;
-			this->m_statePlayer = false;
-			this->m_stateOpponent = false;
-			this->m_opponent->SetState(false);
-			this->SetButtonVisible(true);
-			this->m_labelBattleLog->setString("What will you do?");
-			this->BattleMessageSetOpacity(255);
+			this->ResetAllState();
 			this->unschedule(schedule_selector(BattleScene::ChangePokemonStep));
 		}
 		else
@@ -256,7 +283,21 @@ void BattleScene::ChangePokemonStep(float deltaTime)
 	}
 	else
 	{
-		this->EndBattle();
+		if (this->m_player->IsAlive() == false)
+		{
+			if (Bag::GetInstance()->GetCountPokemon() > 0)
+			{
+				this->NextBattle();
+			}
+			else
+			{
+				this->EndBattle();
+			}
+		}
+		else
+		{
+			this->EndBattle();
+		}
 		this->unschedule(schedule_selector(BattleScene::ChangePokemonStep));
 	}
 }
@@ -506,7 +547,7 @@ void BattleScene::InitObject()
 	this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
 	this->m_player->RemoveFromParent();
 	this->m_player->SetScale(0);
-	this->m_opponent = new Chikorita();
+	this->m_opponent = new Squirtle();
 	this->m_opponent->RemoveFromParent();
 	this->m_opponent->SetScale(2.5);
 	auto obj = this->m_tiledmap->getObjectGroup("pokemon");
@@ -606,6 +647,8 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::BEGAN:
 			if (this->m_labelSkill1->getString() == "Run")
 			{
+				this->ReleaseChildren();
+				this->removeFromParent();
 			}
 			else
 			{
@@ -710,8 +753,7 @@ void BattleScene::StartBattle()
 				this->m_pokeball->setVisible(false);
 				auto finished = CallFunc::create([this]() {
 					this->LoadPlayerHpBar();
-					this->SetButtonVisible(true);
-					this->m_labelBattleLog->setString("What will you do?");
+					this->ResetAllState();
 				});
 				auto scaleTo = ScaleTo::create(1, 2.5);
 				this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
@@ -751,38 +793,74 @@ void BattleScene::BattlePhase(int idSkill)
 
 void BattleScene::ChangePokemon()
 {
-	int id = rand() % this->m_opponent->GetCountSkills();
-	this->oppSkill = this->m_opponent->GetSkillById(id);
+	if (this->m_player->IsAlive() && this->m_opponent->IsAlive())
+	{
+		int id = rand() % this->m_opponent->GetCountSkills();
+		this->oppSkill = this->m_opponent->GetSkillById(id);
+		auto listener = CallFunc::create([this]() {
+			if (this->m_stateBattleMessage == true)
+			{
+				this->m_stateBattleMessage = false;
+				Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+				auto finished = CallFunc::create([this]() {
+					this->m_player->RemoveFromParent();
+					this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
+					this->m_player->RemoveFromParent();
+					this->m_player->SetScale(0);
+					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					this->BattleMessage("Go, " + this->m_player->GetName() + "!");
+					this->schedule(schedule_selector(BattleScene::ChangePokemonStep), 0.1);
+				});
+				auto scaleTo = ScaleTo::create(1, 0);
+				this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
+				this->stopActionByTag(1000);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(1000);
+		this->runAction(rp);
+		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+		this->BattleMessage("Come back, " + this->m_player->GetName() + "!");
+	}
+	else
+	{
+		this->m_player->RemoveFromParent();
+		this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
+		this->m_player->RemoveFromParent();
+		this->m_player->SetScale(0);
+	}
+}
+
+void BattleScene::NextBattle()
+{
+	this->m_stateBattleMessage = false;
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
 			this->m_stateBattleMessage = false;
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			auto finished = CallFunc::create([this]() {
-				this->m_player->RemoveFromParent();
-				this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
-				this->m_player->SetScale(0);
-				this->m_player->RemoveFromParent();
-				Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-				this->BattleMessage("Go, " + this->m_player->GetName() + "!");
-				this->schedule(schedule_selector(BattleScene::ChangePokemonStep), 0.1);
-			});
-			auto scaleTo = ScaleTo::create(1, 0);
-			this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
-			this->stopActionByTag(1000);
+			UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+			this->addChild(popupPokemon, 1000);
+			this->stopActionByTag(101);
 		}
 	});
 	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
-	rp->setTag(1000);
+	rp->setTag(101);
 	this->runAction(rp);
-	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-	this->BattleMessage("Come back, " + this->m_player->GetName() + "!");
+	if (this->m_player->IsAlive() == false)
+	{
+		auto finished = CallFunc::create([this]() {
+			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+			this->BattleMessage(this->m_player->GetName() + " fainted.");
+		});
+		auto scaleTo = ScaleTo::create(1, 0);
+		this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
+	}
 }
 
 void BattleScene::EndBattle()
 {
 	this->m_stateBattleMessage = false;
-	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
@@ -795,11 +873,13 @@ void BattleScene::EndBattle()
 	this->runAction(rp);
 	if (this->m_player->IsAlive() == false)
 	{
+		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage(this->m_player->GetName() + " fainted. You lose!");
 	}
 	else
 	{
 		auto finished = CallFunc::create([this]() {
+			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 			this->BattleMessage(this->m_opponent->GetName() + " fainted. You win!");
 		});
 		auto scaleTo = ScaleTo::create(1, 0);
