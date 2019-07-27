@@ -48,7 +48,7 @@ bool Lake::init()
 	lakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Lake.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(9);
 	laketileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -116,7 +116,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 
 void Lake::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Lake.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(9);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -195,6 +195,7 @@ void Lake::UpdateCamera() {
 		}
 	}
 }
+
 void Lake::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(lakecamera->getPosition().x - 200, lakecamera->getPosition().y - 100);

@@ -24,5 +24,4 @@ public:
 	//void createPhysics();
 	void update(float);
 };
-
 #endif

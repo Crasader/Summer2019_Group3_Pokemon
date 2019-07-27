@@ -1,6 +1,6 @@
 {
   "TILEDMAP": {
-    "size": 9,
+    "size": 10,
     "0": "res/Battle/battle-background-grass.tmx",
     "1": "res/Map/HouseMap.tmx",
     "2": "res/Map/TownMap.tmx",
@@ -9,7 +9,8 @@
     "5": "res/Map/Route1MapTree.tmx",
     "6": "res/Map/Route1MapTree1.tmx",
     "7": "res/Map/Lab.tmx",
-    "8": "res/Map/pc.tmx"
+    "8": "res/Map/PokemonCenter.tmx",
+    "9": "res/Map/lake.tmx"
   },
   "SPRITE": {
     "size": 148,
