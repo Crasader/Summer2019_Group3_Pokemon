@@ -18,6 +18,22 @@ Pokemon::Pokemon()
 
 Pokemon::~Pokemon()
 {
+	this->m_spriteFront->removeFromParent();
+	this->m_spriteBack->removeFromParent();
+	this->m_spriteFront->release();
+	this->m_spriteBack->release();
+	this->animationFront->release();
+	this->animationBack->release();
+	if (this->m_evolved == false)
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (this->m_listSkill.at(i) != nullptr)
+			{
+				delete this->m_listSkill.at(i);
+			}
+		}
+	}
 }
 
 void Pokemon::Init()
@@ -60,13 +76,19 @@ int Pokemon::GetID()
 
 void Pokemon::LevelUp()
 {
-	this->m_level += 1;
-	this->m_maxHealth += 10;
-	this->m_currentHealth += 10;
-	this->m_attack += 2;
-	this->m_defense += 4;
-	this->m_currentExp = 0;
-	this->m_maxExp += 2;
+	if (this->m_level < 20)
+	{
+		if (this->m_currentExp >= this->m_maxExp)
+		{
+			this->m_level += 1;
+			this->m_maxHealth += 12;
+			this->m_attack += 2;
+			this->m_defense += 4;
+			this->m_attackSpeed += 1;
+			this->m_currentExp = 0;
+			this->m_maxExp += 2;
+		}
+	}
 }
 
 string Pokemon::GetName()
@@ -89,7 +111,6 @@ void Pokemon::SetType(int type)
 	this->m_type = type;
 }
 
-
 int Pokemon::GetCurrentHP()
 {
 	return this->m_currentHealth;
@@ -104,7 +125,6 @@ void Pokemon::SetCurrentHP(int health)
 	this->m_currentHealth = health;
 }
 
-
 int Pokemon::GetMaxHP()
 {
 	return this->m_maxHealth;
@@ -114,6 +134,7 @@ void Pokemon::SetMaxHP(int maxhealth)
 {
 	this->m_maxHealth = maxhealth;
 }
+
 int Pokemon::GetLevel()
 {
 	return this->m_level;
@@ -121,10 +142,7 @@ int Pokemon::GetLevel()
 
 void Pokemon::SetLevel(int level)
 {
-	for (int i = this->m_level; i < level; i++)
-	{
-		this->LevelUp();
-	}
+	this->m_level = level;
 }
 
 int Pokemon::GetAtk()
@@ -165,6 +183,7 @@ int Pokemon::GetCurrentExp()
 void Pokemon::SetCurrentExp(int exp)
 {
 	this->m_currentExp = exp;
+	this->LevelUp();
 }
 
 int Pokemon::GetMaxExp()
@@ -204,14 +223,33 @@ void Pokemon::SetPosition(Vec2 position)
 	this->m_spriteBack->setPosition(position);
 }
 
+void Pokemon::SetScale(float scale)
+{
+	this->m_spriteFront->setScale(scale);
+	this->m_spriteBack->setScale(scale);
+}
+
+void Pokemon::RemoveFromParent()
+{
+	this->m_spriteFront->removeFromParentAndCleanup(false);
+	this->m_spriteBack->removeFromParentAndCleanup(false);
+	for (int i = 0; i < length; i++)
+	{
+		if (this->m_listSkill.at(i) != nullptr)
+		{
+			this->m_listSkill.at(i)->RemoveFromParent();
+		}
+	}
+}
+
 Vec2 Pokemon::GetPosition()
 {
-	return this->m_spriteFront->getPosition();
+	return this->m_spriteBack->getPosition();
 }
 
 Skill * Pokemon::GetSkillById(int id)
 {
-	return this->m_skills.at(id);
+	return this->m_listSkill.at(id);
 }
 
 int Pokemon::GetCountSkills()
@@ -219,7 +257,7 @@ int Pokemon::GetCountSkills()
 	int count = 0;
 	for (int i = 0; i < length; i++)
 	{
-		if (this->m_skills.at(i) != nullptr)
+		if (this->m_listSkill.at(i) != nullptr)
 		{
 			count++;
 		}

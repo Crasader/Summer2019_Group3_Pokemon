@@ -1,10 +1,19 @@
 {
   "TILEDMAP": {
-    "size": 1,
-    "0": "res/Battle/battle-background-grass.tmx"
+    "size": 10,
+    "0": "res/Battle/battle-background-grass.tmx",
+    "1": "res/Map/HouseMap.tmx",
+    "2": "res/Map/TownMap.tmx",
+    "3": "res/Map/TownMapHouse.tmx",
+    "4": "res/Map/Route1Map.tmx",
+    "5": "res/Map/Route1MapTree.tmx",
+    "6": "res/Map/Route1MapTree1.tmx",
+    "7": "res/Map/Lab.tmx",
+    "8": "res/Map/PokemonCenter.tmx",
+    "9": "res/Map/Lake.tmx"
   },
   "SPRITE": {
-    "size": 147,
+    "size": 148,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -113,14 +122,14 @@
     "104": "res/Skill/QuickAttack/0.png",
     "105": "res/Skill/RazorLeaf/0.png",
     "106": "res/Skill/Scratch/0.png",
-    "107": "res/Skill/SolarBeam/0.png",
+    "107": "res/Skill/LeafStorm/0.png",
     "108": "res/Skill/Spark/0.png",
     "109": "res/Skill/Surf/0.png",
     "110": "res/Skill/Tackle/0.png",
     "111": "res/Skill/Thunder/0.png",
     "112": "res/Skill/Thunderbolt/0.png",
     "113": "res/Skill/ThunderShock/0.png",
-    "114": "res/Skill/VineWhip/0.png",
+    "114": "res/Skill/LeechSeed/0.png",
     "115": "res/Skill/WaterGun/0.png",
     "116": "res/Skill/WaterPulse/0.png",
     "117": "res/Skill/WingAttack/0.png",
@@ -157,7 +166,8 @@
     "143": "res/Item/FireStone.png",
     "144": "res/Item/LeafStone.png",
     "145": "res/Item/ThunderStone.png",
-    "146": "res/Item/WaterStone.png"
+    "146": "res/Item/WaterStone.png",
+    "147": "res/Trainer/Pokeball/0.png"
   },
   "BUTTON": {
     "size": 13,
@@ -211,7 +221,7 @@
     },
     "12": {
       "normal": "res/UI/Button/popUpBase.png",
-      "pressed": "res/UI/Button/popUpBase.png"
+      "pressed": "res/UI/Button/popUpBase_press.png"
     }
   },
   "FONT": {
@@ -219,8 +229,23 @@
     "0": "res/UI/Label/arial.ttf",
     "1": "res/UI/Label/MarkerFelt.ttf"
   },
+  "SOUND": {
+    "size": 12,
+    "0": "res/Sound/HouseScene.mp3",
+    "1": "res/Sound/Town.mp3",
+    "2": "res/Sound/LabScene.mp3",
+    "3": "res/Sound/Route1.mp3",
+    "4": "res/Sound/CityScene.mp3",
+    "5": "res/Sound/PokemonCenter.mp3",
+    "6": "res/Sound/LakeScene.mp3",
+    "7": "res/Sound/CaveScene.mp3",
+    "8": "res/Sound/Route2.mp3",
+    "9": "res/Sound/VictoryRoad.mp3",
+    "10": "res/Sound/ChampionLeague.mp3",
+    "11": "res/Sound/BattleScene.mp3"
+  },
   "ANIMATION": {
-    "size": 122,
+    "size": 123,
     "0": {
       "size": 8,
       "plist": "res/Animation/Blastoise/front/front.plist",
@@ -1643,7 +1668,7 @@
       ]
     },
     "95": {
-      "size": 10,
+      "size": 8,
       "plist": "res/Skill/DragonClaw/DragonClaw.plist",
       "path": "res/Skill/DragonClaw/DragonClaw.png",
       "png": [
@@ -1654,9 +1679,7 @@
         "4.png",
         "5.png",
         "6.png",
-        "7.png",
-        "8.png",
-        "9.png"
+        "7.png"
       ]
     },
     "96": {
@@ -1717,24 +1740,14 @@
       ]
     },
     "100": {
-      "size": 14,
+      "size": 4,
       "plist": "res/Skill/FirePunch/FirePunch.plist",
       "path": "res/Skill/FirePunch/FirePunch.png",
       "png": [
         "0.png",
         "1.png",
         "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png",
-        "7.png",
-        "8.png",
-        "9.png",
-        "10.png",
-        "11.png",
-        "12.png",
-        "13.png"
+        "3.png"
       ]
     },
     "101": {
@@ -1811,17 +1824,14 @@
       ]
     },
     "107": {
-      "size": 7,
-      "plist": "res/Skill/SolarBeam/SolarBeam.plist",
-      "path": "res/Skill/SolarBeam/SolarBeam.png",
+      "size": 4,
+      "plist": "res/Skill/LeafStorm/LeafStorm.plist",
+      "path": "res/Skill/LeafStorm/LeafStorm.png",
       "png": [
         "0.png",
         "1.png",
         "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png"
+        "3.png"
       ]
     },
     "108": {
@@ -1892,8 +1902,8 @@
     },
     "114": {
       "size": 4,
-      "plist": "res/Skill/VineWhip/VineWhip.plist",
-      "path": "res/Skill/VineWhip/VineWhip.png",
+      "plist": "res/Skill/LeechSeed/LeechSeed.plist",
+      "path": "res/Skill/LeechSeed/LeechSeed.png",
       "png": [
         "0.png",
         "1.png",
@@ -1969,7 +1979,7 @@
         "1.png"
       ]
     },
-     "121": {
+    "121": {
       "size": 4,
       "plist": "res/Trainer/walkright/walkright.plist",
       "path": "res/Trainer/walkright/walkright.png",
@@ -1978,6 +1988,17 @@
         "1.png",
         "2.png",
         "1.png"
+      ]
+    },
+    "122": {
+      "size": 4,
+      "plist": "res/Trainer/Pokeball/Pokeball.plist",
+      "path": "res/Trainer/Pokeball/Pokeball.png",
+      "png": [
+        "0.png",
+        "1.png",
+        "2.png",
+        "3.png"
       ]
     }
   }

@@ -20,9 +20,9 @@ public:
 	MyObject();
 	~MyObject();
 	virtual void Init() {};
+	virtual void Init(int id_front) {};
 	virtual void Init(int id_front, int id_back) {};
 	virtual void Update(float deltaTime) {};
 	Sprite* GetSpriteFront();
 	Sprite* GetSpriteBack();
-	void SetSprite(int id);
 };

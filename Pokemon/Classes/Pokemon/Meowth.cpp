@@ -9,7 +9,8 @@ Meowth::Meowth()
 	this->Init(32, 33);
 	//
 	this->m_name = "Meowth";
-	this->m_id = 1;
+	this->m_type = MyObject::TYPE_NORMAL;
+	this->m_listSkill = { new Scratch(), new Bite(), nullptr };
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;

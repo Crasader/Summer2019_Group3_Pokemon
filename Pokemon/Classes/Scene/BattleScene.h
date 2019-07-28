@@ -1,11 +1,15 @@
 #pragma once
 #include "cocos2d.h"
 #include "Pokemon.h"
+#include "include_pokemon.h"
 using namespace cocos2d;
 
 class BattleScene : public Layer
 {
 private:
+	Sprite* m_pokeball;
+	Animation* m_animationPokeball;
+
 	Sprite* m_background;
 	Sprite* m_messageBox;
 	Button* m_buttonFight;
@@ -33,7 +37,7 @@ private:
 	Pokemon* m_opponent;
 	Skill* oppSkill;
 	int writing = 0;
-	bool m_stateBattleLog = false;
+	bool m_stateBattleMessage = false;
 	bool m_statePlayer = false;
 	bool m_stateOpponent = false;
 public:
@@ -45,17 +49,29 @@ public:
 
 	void update(float deltaTime) override;
 
+	void ReleaseChildren();
+
 	void TypeWriter(float deltaTime);
+
+	void ResetAllState();
+
+	Pokemon* GetTrainerPokemon();
 
 	void DamageStepWithPlayerAttackFirst(float deltaTime);
 
 	void DamageStepWithOpponentAttackFirst(float deltaTime);
 
+	void ChangePokemonStep(float deltaTime);
+
 	void ReduceHpPlayer(float deltaTime);
 
 	void ReduceHpOpponent(float deltaTime);
 
-	void BattleLogSetOpacity(GLubyte opacity);
+	void BattleMessageSetOpacity(GLubyte opacity);
+
+	void LoadPlayerPosition();
+
+	void LoadPlayerHpBar();
 
 	void InitTiledMap();
 
@@ -70,11 +86,17 @@ public:
 
 	bool onTouchBegan(Touch* touch, Event* e);
 
-	void BattleLog(string logg);
+	void BattleMessage(string logg);
 
 	void SetButtonVisible(bool visible);
 
+	void StartBattle();
+
 	void BattlePhase(int idSkill);
+
+	void ChangePokemon();
+
+	void NextBattle();
 
 	void EndBattle();
 

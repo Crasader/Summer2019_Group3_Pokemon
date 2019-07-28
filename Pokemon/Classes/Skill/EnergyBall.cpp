@@ -1,7 +1,8 @@
-#include"EnergyBall.h"
+#include "EnergyBall.h"
 
 EnergyBall::EnergyBall()
 {
+	this->Init();
 }
 
 EnergyBall::~EnergyBall()
@@ -10,14 +11,14 @@ EnergyBall::~EnergyBall()
 
 void EnergyBall::Init()
 {
-	this->SetAnimation(98);
-	this->GetAnimation()->setDelayPerUnit(0.12);
+	this->AddAnimation(98);
+	this->GetAnimation()->setDelayPerUnit(0.08);
 	this->SetScale(1.5);
 	Skill::SetName("Energy Ball");
 	Skill::SetTypeName("Grass");
 	Skill::SetPower(80);
 	Skill::SetMaxPP(10);
-	Skill::SetIdType(4);
+	Skill::SetIdType(MyObject::TYPE_GRASS);
 	Skill::SetCurrentPP(10);
 }
 

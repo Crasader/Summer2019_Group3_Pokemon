@@ -14,7 +14,7 @@ void DracoMeteor::Init()
 	Skill::SetTypeName("Dragon");
 	Skill::SetPower(120);
 	Skill::SetMaxPP(5);
-	Skill::SetIdType(7);
+	Skill::SetIdType(MyObject::TYPE_DRAGON);
 	Skill::SetCurrentPP(5);
 }
 

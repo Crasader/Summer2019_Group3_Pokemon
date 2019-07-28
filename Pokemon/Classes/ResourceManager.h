@@ -3,6 +3,9 @@
 #include <map>
 #include <cocos2d.h>
 #include <ui\CocosGUI.h>
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 using namespace cocos2d;
 using namespace ui;
 using namespace std;

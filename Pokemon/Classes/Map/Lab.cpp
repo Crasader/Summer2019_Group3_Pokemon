@@ -6,17 +6,16 @@
 #include "Town.h"
 #include "Model.h"
 
+using namespace CocosDenshion;
 Size labVisibleSize;
 Size labTileMapSize;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
 Camera *labCamera;
 
-
-
 Scene* Lab::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Lab::create();
 	scene->addChild(layer);
 	labCamera = scene->getDefaultCamera();
@@ -33,6 +32,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Lab::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("res/Sound/LabScene.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -42,8 +43,8 @@ bool Lab::init()
 
 	labVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
+	
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	labTileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -108,7 +109,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 
 void Lab::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Lab.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -121,7 +122,7 @@ void Lab::InitObject()
 			mPlayer = new Trainer(this);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			labBody->setCollisionBitmask(17);
+			labBody->setCollisionBitmask(Model::BITMASK_PLAYER);
 			labBody->setMass(16);
 			labBody->setContactTestBitmask(true);
 			labBody->setDynamic(true);
@@ -183,22 +184,21 @@ void Lab::UpdateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
-				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)>abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)<abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
-				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				labCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >labCamera->getPosition().x) ? (labTileMapSize.width - labVisibleSize.width / 2) : labVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - labTileMapSize.width / 2)<abs(labTileMapSize.width / 2 - labVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - labTileMapSize.height / 2)>abs(labTileMapSize.height / 2 - labVisibleSize.height / 2)) {
 				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >labCamera->getPosition().y) ? (labTileMapSize.height - labVisibleSize.height / 2) : labVisibleSize.height / 2);
 			}
 			else {
-				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				labCamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
-
 }
 void Lab::update(float dt) {
 	UpdateCamera();

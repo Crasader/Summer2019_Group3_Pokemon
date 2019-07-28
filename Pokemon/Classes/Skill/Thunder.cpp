@@ -11,13 +11,13 @@ Thunder::~Thunder()
 
 void Thunder::Init()
 {
-	this->SetAnimation(111);
+	this->AddAnimation(111);
 	this->SetScale(1.5);
 	Skill::SetName("Thunder");
 	Skill::SetTypeName("Electric");
 	Skill::SetPower(100);
 	Skill::SetMaxPP(5);
-	Skill::SetIdType(5);
+	Skill::SetIdType(MyObject::TYPE_ELECTRIC);
 	Skill::SetCurrentPP(5);
 }
 

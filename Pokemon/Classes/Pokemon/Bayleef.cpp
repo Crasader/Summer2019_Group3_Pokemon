@@ -10,6 +10,8 @@ Bayleef::Bayleef(Chikorita* it)
 	this->Init(58, 59);
 	//
 	this->m_name = "Bayleef";
+	this->m_type = it->GetType();
+	this->m_listSkill = { it->GetSkillById(0), it->GetSkillById(1), it->GetSkillById(2) };
 	this->m_level = it->GetLevel();
 	this->m_maxHealth = it->GetMaxHP() + 15;
 	this->m_currentHealth = this->m_maxHealth;
@@ -29,6 +31,7 @@ Pokemon * Bayleef::Evolve()
 {
 	if (this->m_level >= 15)
 	{
+		this->m_evolved = true;
 		return new Meganium(this);
 	}
 	else

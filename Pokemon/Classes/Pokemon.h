@@ -1,15 +1,7 @@
 #pragma once
 #include "MyObject.h"
 #include "Skill.h"
-#include "Skill\Bite.h"
-#include "Skill\DragonCut.h"
-#include "Skill\DragonClaw.h"
-#include "Skill\Gust.h"
-#include "Skill\Surf.h"
-#include "Skill\Tackle.h"
-#include "Skill\Thunder.h"
-#include "Skill\RazorLeaf.h"
-#include "Skill\FireBlast.h"
+#include "include_skill.h"
 #include <vector>
 using namespace std;
 
@@ -21,7 +13,7 @@ protected:
 	string m_name;
 	Animation* animationFront;
 	Animation* animationBack;
-	vector<Skill*> m_skills;
+	vector<Skill*> m_listSkill;
 	int m_type;
 	int m_maxHealth;
 	int m_currentHealth;
@@ -34,6 +26,7 @@ protected:
 	int m_id;
 	bool m_alive = true;
 	bool m_state = false;
+	bool m_evolved = false;
 public:
 	Pokemon();
 	~Pokemon();
@@ -70,6 +63,8 @@ public:
 	bool GetState();
 	void SetPosition(float xx, float yy);
 	void SetPosition(Vec2 position);
+	void SetScale(float scale);
+	void RemoveFromParent();
 	Vec2 GetPosition();
 	Skill* GetSkillById(int id);
 	int GetCountSkills();

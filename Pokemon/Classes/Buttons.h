@@ -16,7 +16,6 @@ private:
 	Button *m_left;
 	Button *m_down;
 	Button *m_bag;
-
 public:
 	~Buttons();
 	static int state;

@@ -7,4 +7,5 @@ public:
 	Bubble();
 	~Bubble();
 	void Init() override;
+	void Run(Vec2 position) override;
 };

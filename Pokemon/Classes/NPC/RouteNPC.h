@@ -13,7 +13,7 @@ private:
 	string name;
 	vector<Pokemon*> m_pokemons;
 public:
-	RouteNPC(Layer* layer);
+	RouteNPC();
 	~RouteNPC();
 	void Init() override;
 	void Update(float deltaTime) override;

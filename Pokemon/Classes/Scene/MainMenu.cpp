@@ -26,26 +26,32 @@ bool MainMenu::init()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto backGround = ResourceManager::GetInstance()->GetSpriteById(134);
+	backGround = ResourceManager::GetInstance()->GetSpriteById(134);
 	backGround->removeFromParent();
 	backGround->setAnchorPoint(Vec2(0, 0));
 	backGround->setScale(visibleSize.width / backGround->getContentSize().width, visibleSize.height / backGround->getContentSize().height);
 	addChild(backGround, -99);
-	auto buttonPlay = ResourceManager::GetInstance()->GetButtonById(7);
+	buttonPlay = ResourceManager::GetInstance()->GetButtonById(7);
 	buttonPlay->removeFromParent();
 	buttonPlay->setScale(1.2);
 	buttonPlay->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 9));
 	addChild(buttonPlay, -98);
-	buttonPlay->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
+	buttonPlay->addTouchEventListener([this](Ref* sender, ui::Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
+			this->removeAllChildren();
+			backGround->release();
+			buttonPlay->release();
+			buttonSetting->release();
+			buttonAbout->release();
+			buttonExit->release();
 			Director::getInstance()->getRunningScene()->pause();
 			Director::getInstance()->replaceScene(House::createScene());
 		}
 	});
 
-	auto buttonSetting = ResourceManager::GetInstance()->GetButtonById(9);
+	buttonSetting = ResourceManager::GetInstance()->GetButtonById(9);
 	buttonSetting->removeFromParent();
 	//buttonSetting->setScale();
 	buttonSetting->setPosition(Vec2(visibleSize.width / 20, visibleSize.height / 10));
@@ -59,7 +65,7 @@ bool MainMenu::init()
 			this->addChild(popup);
 		}
 	});
-	auto buttonAbout = ResourceManager::GetInstance()->GetButtonById(6);
+	buttonAbout = ResourceManager::GetInstance()->GetButtonById(6);
 	buttonAbout->removeFromParent();
 	//buttonAbout->setScale(0.25f);
 	buttonAbout->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height / 10));
@@ -77,7 +83,7 @@ bool MainMenu::init()
 	});
 
 
-	auto buttonExit = ResourceManager::GetInstance()->GetButtonById(10);
+	buttonExit = ResourceManager::GetInstance()->GetButtonById(10);
 	buttonExit->removeFromParent();
 	//buttonExit->setScale(0.1f);
 	buttonExit->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height * 9 / 10));

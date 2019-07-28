@@ -18,11 +18,10 @@ public:
     virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
-	void updateCamera();
+	void UpdateCamera();
 	//void CreateButon();
     CREATE_FUNC(Lake);
 	//void createPhysics();
 	void update(float);
 };
-
 #endif
