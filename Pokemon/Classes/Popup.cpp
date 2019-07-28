@@ -170,44 +170,191 @@ namespace UICustom
 		Size winSize = Director::getInstance()->getWinSize();
 		if (node && node->init())
 		{
-			auto tab = TabControl::create();
-			tab->setContentSize(Size(300, 100));
-			tab->setHeaderHeight(20);
-			tab->setHeaderWidth(100);
-			tab->setHeaderDockPlace(TabControl::Dock::TOP);
-			tab->setPosition(winSize / 2);
-			node->addChild(tab, 101);
-			auto headerMP = TabHeader::create();
-			headerMP->setTitleText("My Pokemon");
-			headerMP->setTitleColor(Color4B(0, 0, 0, 255));
-			headerMP->loadTextureBackGround("res/Background/2.png");
-			headerMP->setTitleFontName(FONT::GAME_FONT);
+//			auto tab = TabControl::create();
+//			tab->setContentSize(Size(300, 100));
+//			tab->setHeaderHeight(20);
+//			tab->setHeaderWidth(100);
+//			tab->setHeaderDockPlace(TabControl::Dock::TOP);
+//			tab->setPosition(winSize / 2);
+//			node->addChild(tab, 101);
+//			auto headerMP = TabHeader::create();
+//			headerMP->setTitleText("My Pokemon");
+//			headerMP->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerMP->loadTextureBackGround("res/Background/2.png");
+//			headerMP->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto headerPO = TabHeader::create();
+//			headerPO->loadTextureBackGround("res/Background/2.png");
+//			headerPO->setTitleText("Box Pokemon");
+//			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerPO->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto headerMI = TabHeader::create();
+//			headerMI->loadTextureBackGround("res/Background/2.png");
+//			headerMI->setTitleText("My Item");
+//			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerMI->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto containerMP = Layout::create();
+//#pragma region Tab1
+//			auto listView = ui::ListView::create();
+//			//listView->setTouchEnabled(false);
+//			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listView->setAnchorPoint(Vec2(0.5, 0.5));
+//			listView->setContentSize(Size(280, 140));
+//			listView->setScale(0.8);
+//			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listView->setClippingEnabled(true);
+//			containerMP->addChild(listView,204);
+//			listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
+//			
+//			auto list = Bag::GetInstance()->GetListPokemon();
+//			auto sizeOfPokemon = list.size();
+//			for (int i = 0; i < 6; i++)
+//			{
+//				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
+//				button->setTag(i);
+//				if (list.at(i) != nullptr)
+//				{
+//					string name = list.at(i)->GetName();
+//					string level = "Level:" + to_string(list.at(i)->GetLevel());
+//					auto sprite = list.at(i)->GetSpriteFront();
+//					sprite->removeFromParentAndCleanup(false);
+//					sprite->setScale(1);
+//					sprite->setTag(i);
+//					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height / 3);
+//					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelName->setString(name);
+//					labelName->setColor(Color3B(0, 0, 0));
+//					labelName->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height * 4 / 5);
+//					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelLv->setString(level);
+//					labelLv->setColor(Color3B(0, 0, 0));
+//					labelLv->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height * 1 / 5);
+//					listView->addChild(sprite, 202);
+//					listView->addChild(labelName, 202);
+//					listView->addChild(labelLv, 202);
+//				}
+//				listView->pushBackCustomItem(button);
+//			}
+//
+//#pragma endregion
+//			auto containerPO = Layout::create();
+//#pragma region Tab2
+//			auto listViewPO = ui::ListView::create();
+//			listViewPO->setTouchEnabled(false);
+//			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
+//			listViewPO->setContentSize(Size(280, 140));
+//			listViewPO->setScale(0.8);
+//			CCLOG("%f", listViewPO->getContentSize().width);
+//			listViewPO->setGlobalZOrder(200);
+//			listViewPO->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listViewPO->setClippingEnabled(true);
+//			containerPO->addChild(listViewPO);
+//			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
+//			auto listOver = Bag::GetInstance()->GetListPokemonOver();
+//			for (int i = 0; i < 10; i++)
+//			{
+//				ui::Button *buttonOver = ResourceManager::GetInstance()->GetButtonById(12);
+//				buttonOver->setTag(i);
+//				if (i < sizeOfPokemonOver)
+//				{
+//					string name = listOver.at(i)->GetName();
+//					string level = "Level:" + to_string(list.at(i)->GetLevel());
+//					auto sprite = listOver.at(i)->GetSpriteFront();
+//					sprite->removeFromParentAndCleanup(false);
+//					sprite->setScale(1);
+//					sprite->setTag(i);
+//					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
+//					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelName->setString(name);
+//					labelName->setColor(Color3B(0, 0, 0));
+//					labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
+//					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelLv->setString(level);
+//					labelLv->setColor(Color3B(0, 0, 0));
+//					labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
+//					listViewPO->addChild(labelName, 202);
+//					listViewPO->addChild(labelLv, 202);
+//					listViewPO->addChild(sprite, 202);
+//				}
+//				listViewPO->pushBackCustomItem(buttonOver);
+//			}
+//#pragma endregion
+//			auto containerMI = Layout::create();
+//#pragma region Tab3
+//			auto listViewMI = ui::ListView::create();
+//			listViewMI->setTouchEnabled(false);
+//			listViewMI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listViewMI->setAnchorPoint(Vec2(0.5, 0.5));
+//			listViewMI->setContentSize(Size(280, 140));
+//			listViewMI->setScale(0.8);
+//			listViewMI->setGlobalZOrder(200);
+//			listViewMI->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listViewMI->setClippingEnabled(true);
+//			containerMI->addChild(listViewMI);
+//			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
+//			auto listItem = Bag::GetInstance()->GetListItem();
+//			for (int i = 0; i < sizeOfItem; i++)
+//			{
+//				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
+//				buttonItem->setTag(i);
+//				string id = to_string(listItem.at(i)->GetId());
+//				string name = listItem.at(i)->GetName();
+//				string amount = "x" + to_string(listItem.at(i)->GetNumber());
+//				auto sprite = listItem.at(i)->GetSpriteFront();
+//				sprite->removeFromParentAndCleanup(false);
+//				sprite->setTag(i);
+//				sprite->setScale(2.5);
+//				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
+//				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//				labelName->setString(name);
+//				labelName->setColor(Color3B(0, 0, 0));
+//				labelName->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height * 4 / 5);
+//				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+//				labelNumber->setString(amount);
+//				labelNumber->setColor(Color3B(0, 0, 0));
+//				labelNumber->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height * 1 / 5);
+//				listViewMI->addChild(labelName, 202);
+//				listViewMI->addChild(labelNumber, 202);
+//				listViewMI->addChild(sprite, 202);
+//				listViewMI->pushBackCustomItem(buttonItem);
+//			}
+//#pragma endregion
+//			tab->insertTab(0, headerMP, containerMP);
+//			tab->insertTab(1, headerPO, containerPO);
+//			tab->insertTab(2, headerMI, containerMI);
+//			tab->setSelectTab(0);
+//			CC_SAFE_RETAIN(tab);
+//			CC_SAFE_RETAIN(headerMP);
+//			CC_SAFE_RETAIN(headerPO);
+//			CC_SAFE_RETAIN(headerMI);
+//
+#pragma region Button Your Pokemon
+			Button *buttonYP = ResourceManager::GetInstance()->GetButtonById(13);
+			buttonYP->setPosition(Vec2(winSize.width / 2 - buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
+			node->addChild(buttonYP,2);
+			buttonYP->setScale(0.75);
 
-			auto headerPO = TabHeader::create();
-			headerPO->loadTextureBackGround("res/Background/2.png");
-			headerPO->setTitleText("Box Pokemon");
-			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
-			headerPO->setTitleFontName(FONT::GAME_FONT);
-
-			auto headerMI = TabHeader::create();
-			headerMI->loadTextureBackGround("res/Background/2.png");
-			headerMI->setTitleText("My Item");
-			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
-			headerMI->setTitleFontName(FONT::GAME_FONT);
-
-			auto containerMP = Layout::create();
-#pragma region Tab1
 			auto listView = ui::ListView::create();
-			listView->setTouchEnabled(false);
+			listView->setAnchorPoint(Vec2(0.5, 1));
+			listView->setScale(0.8);
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
 			listView->setContentSize(Size(280, 140));
-			listView->setScale(0.8);
-			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listView->setPosition(Vec2(winSize.width/2,winSize.height/3));
 			listView->setClippingEnabled(true);
-			containerMP->addChild(listView,200);
-			listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
-			
+			node->addChild(listView,2);						
 			auto list = Bag::GetInstance()->GetListPokemon();
 			auto sizeOfPokemon = list.size();
 			for (int i = 0; i < 6; i++)
@@ -240,20 +387,23 @@ namespace UICustom
 				}
 				listView->pushBackCustomItem(button);
 			}
-
 #pragma endregion
-			auto containerPO = Layout::create();
-#pragma region Tab2
+#pragma region Button Pokemon Over
+			Button *buttonPO = ResourceManager::GetInstance()->GetButtonById(14);
+			buttonPO->setScale(0.75);
+			buttonPO->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
+			node->addChild(buttonPO, 2);
+			
 			auto listViewPO = ui::ListView::create();
+			listViewPO->setAnchorPoint(Vec2(0.5, 1));
+			listViewPO->setScale(0.8);
+			listViewPO->setVisible(false);
 			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
 			listViewPO->setContentSize(Size(280, 140));
-			listViewPO->setScale(0.8);
-			CCLOG("%f", listViewPO->getContentSize().width);
-			listViewPO->setGlobalZOrder(200);
-			listViewPO->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listViewPO->setPosition(Vec2(winSize.width / 2, winSize.height / 3));
 			listViewPO->setClippingEnabled(true);
-			containerPO->addChild(listViewPO);
+			node->addChild(listViewPO,2);
 			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
 			auto listOver = Bag::GetInstance()->GetListPokemonOver();
 			for (int i = 0; i < 10; i++)
@@ -287,18 +437,21 @@ namespace UICustom
 				listViewPO->pushBackCustomItem(buttonOver);
 			}
 #pragma endregion
-			auto containerMI = Layout::create();
-#pragma region Tab3
-			auto listViewMI = ui::ListView::create();
-			listViewMI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
-			listViewMI->setAnchorPoint(Vec2(0.5, 0.5));
-			listViewMI->setContentSize(Size(280, 140));
-			listViewMI->setScale(0.8);
-			CCLOG("%f", listViewPO->getContentSize().width);
-			listViewMI->setGlobalZOrder(200);
-			listViewMI->setPosition(Vec2(tab->getContentSize().width / 2, 0));
-			listViewMI->setClippingEnabled(true);
-			containerMI->addChild(listViewMI);
+#pragma region Buton Your Item
+			Button *buttonYI = ResourceManager::GetInstance()->GetButtonById(15);
+			buttonYI->setScale(0.75);
+			buttonYI->setPosition(Vec2(winSize.width / 2 + buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
+			node->addChild(buttonYI, 2);
+			auto listViewYI = ui::ListView::create();
+			listViewYI->setAnchorPoint(Vec2(0.5, 1));
+			listViewYI->setScale(0.8);
+			listViewYI->setVisible(false);
+			listViewYI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewYI->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewYI->setContentSize(Size(280, 140));
+			listViewYI->setPosition(Vec2(winSize.width / 2, winSize.height / 3));
+			listViewYI->setClippingEnabled(true);
+			node->addChild(listViewYI,2);
 			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
 			auto listItem = Bag::GetInstance()->GetListItem();
 			for (int i = 0; i < sizeOfItem; i++)
@@ -312,32 +465,52 @@ namespace UICustom
 				sprite->removeFromParentAndCleanup(false);
 				sprite->setTag(i);
 				sprite->setScale(2.5);
-				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
+				sprite->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height / 2);
 				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 				labelName->setString(name);
 				labelName->setColor(Color3B(0, 0, 0));
-				labelName->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height * 4 / 5);
+				labelName->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height * 4 / 5);
 				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
 				labelNumber->setString(amount);
 				labelNumber->setColor(Color3B(0, 0, 0));
-				labelNumber->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height * 1 / 5);
-				listViewMI->addChild(labelName, 202);
-				listViewMI->addChild(labelNumber, 202);
-				listViewMI->addChild(sprite, 202);
-				listViewMI->pushBackCustomItem(buttonItem);
+				labelNumber->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height * 1 / 5);
+				listViewYI->addChild(labelName, 202);
+				listViewYI->addChild(labelNumber, 202);
+				listViewYI->addChild(sprite, 202);
+				listViewYI->pushBackCustomItem(buttonItem);
 			}
 #pragma endregion
-			tab->insertTab(0, headerMP, containerMP);
-			tab->insertTab(1, headerPO, containerPO);
-			tab->insertTab(2, headerMI, containerMI);
-			tab->setSelectTab(0);
-			CC_SAFE_RETAIN(tab);
-			CC_SAFE_RETAIN(headerMP);
-			CC_SAFE_RETAIN(headerPO);
-			CC_SAFE_RETAIN(headerMI);
+
+			buttonYP->addTouchEventListener([listView, listViewPO,listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(true);
+					listViewPO->setVisible(false);
+					listViewYI->setVisible(false);
+				}
+			});
+			buttonPO->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(false);
+					listViewPO->setVisible(true);
+					listViewYI->setVisible(false);
+				}
+			});
+			buttonYI->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(false);
+					listViewPO->setVisible(false);
+					listViewYI->setVisible(true);
+				}
+			});
 
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
@@ -347,12 +520,12 @@ namespace UICustom
 
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 100);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - 150);
 			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			menu->removeFromParent();
 			node->addChild(menu, 2);
-			node->initBg(tab->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->initBg(Size(300,100) + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 			node->autorelease();
 			return node;
 		}
@@ -595,7 +768,7 @@ namespace UICustom
 		return nullptr;
 	}
 	
-	Popup * Popup::createBagInBattle()
+	Popup * Popup::CreateBagInBattle()
 	{
 		Popup *node = new (std::nothrow)Popup();
 		Size winSize = Director::getInstance()->getWinSize();

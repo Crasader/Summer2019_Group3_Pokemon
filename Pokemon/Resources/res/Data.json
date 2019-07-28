@@ -170,7 +170,7 @@
     "147": "res/Trainer/Pokeball/0.png"
   },
   "BUTTON": {
-    "size": 13,
+    "size": 16,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -222,6 +222,18 @@
     "12": {
       "normal": "res/UI/Button/popUpBase.png",
       "pressed": "res/UI/Button/popUpBase_press.png"
+    },
+    "13": {
+      "normal": "res/UI/Button/your_pokemon_1.png",
+      "pressed": "res/UI/Button/your_pokemon_2.png"
+    },
+    "14": {
+      "normal": "res/UI/Button/pokemon_over_1.png",
+      "pressed": "res/UI/Button/pokemon_over_2.png"
+    },
+    "15": {
+      "normal": "res/UI/Button/your_item_1.png",
+      "pressed": "res/UI/Button/your_item_2.png"
     }
   },
   "FONT": {

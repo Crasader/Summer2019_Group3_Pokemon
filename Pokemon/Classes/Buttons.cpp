@@ -29,7 +29,7 @@ void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			UICustom::Popup *popup = UICustom::Popup::createBagInBattle();
+			UICustom::Popup *popup = UICustom::Popup::CreateBagInBattle();
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,

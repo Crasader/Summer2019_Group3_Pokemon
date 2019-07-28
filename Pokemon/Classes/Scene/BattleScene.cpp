@@ -627,7 +627,7 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill3->getString() == "Pokemon")
 			{
-				UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+				UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagInBattle();
 				this->addChild(popupPokemon, 1000);
 			}
 			else if (this->m_labelSkill3->getString() != "-")
@@ -839,7 +839,7 @@ void BattleScene::NextBattle()
 		{
 			this->m_stateBattleMessage = false;
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+			UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagInBattle();
 			this->addChild(popupPokemon, 1000);
 			this->stopActionByTag(101);
 		}
