@@ -215,7 +215,7 @@ namespace UICustom
 				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
 					auto sprite = list.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
 					sprite->setScale(1);
@@ -261,7 +261,7 @@ namespace UICustom
 				if (i < sizeOfPokemonOver)
 				{
 					string name = listOver.at(i)->GetName();
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
 					auto sprite = listOver.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
 					sprite->setScale(1);
@@ -370,10 +370,7 @@ namespace UICustom
 			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				if (!((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
-				{
-				}
-				else
+				if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
 				{
 					auto list = Bag::GetInstance()->GetListPokemon();
 					for (int i = 0; i < 6; i++)
@@ -398,8 +395,8 @@ namespace UICustom
 				{
 					string name = list.at(i)->GetName();
 					string percentHP = to_string(list.at(i)->GetCurrentHP() * 100 / list.at(i)->GetMaxHP());
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					string hp = "HP: " + percentHP + " %";
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
+					string hp = "HP: " + percentHP + "%";
 					auto sprite = list.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
 					sprite->setScale(1);
@@ -443,7 +440,7 @@ namespace UICustom
 									if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
 									{
 										Bag::GetInstance()->ChangePokemon(tag);
-										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->TrainerChangePokemon();
 										((BattleScene*)(node->getParent()))->SetButtonVisible(false);
 										for (int i = 0; i < 6; i++)
 										{
@@ -458,7 +455,7 @@ namespace UICustom
 									else
 									{
 										Bag::GetInstance()->ChangePokemon(tag);
-										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->TrainerChangePokemon();
 										((BattleScene*)(node->getParent()))->StartBattle();
 										for (int i = 0; i < 6; i++)
 										{

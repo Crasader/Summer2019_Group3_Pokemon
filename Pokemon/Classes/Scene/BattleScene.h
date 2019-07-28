@@ -33,9 +33,9 @@ private:
 	TMXTiledMap* m_tiledmap;
 
 	Pokemon* m_player;
-	Skill* playerSkill;
+	Skill* m_playerSkill;
 	Pokemon* m_opponent;
-	Skill* oppSkill;
+	Skill* m_oppSkill;
 	int writing = 0;
 	bool m_stateBattleMessage = false;
 	bool m_statePlayer = false;
@@ -56,6 +56,10 @@ public:
 	void ResetAllState();
 
 	Pokemon* GetTrainerPokemon();
+
+	void PlayerAttackOpponent();
+
+	void OpponentAttackPlayer();
 
 	void DamageStepWithPlayerAttackFirst(float deltaTime);
 
@@ -92,11 +96,13 @@ public:
 
 	void StartBattle();
 
+	void HasNextBattle();
+
 	void BattlePhase(int idSkill);
 
-	void ChangePokemon();
+	void TrainerChangePokemon();
 
-	void NextBattle();
+	void StandByPhase();
 
 	void EndBattle();
 

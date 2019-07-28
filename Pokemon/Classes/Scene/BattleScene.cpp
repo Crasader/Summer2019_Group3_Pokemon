@@ -107,6 +107,30 @@ Pokemon * BattleScene::GetTrainerPokemon()
 	return this->m_player;
 }
 
+void BattleScene::PlayerAttackOpponent()
+{
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+	this->m_stateBattleMessage = false;
+	auto finished = CallFunc::create([this]() {
+		this->m_player->Attack(this->m_opponent, this->m_playerSkill);
+		this->schedule(schedule_selector(BattleScene::ReduceHpOpponent), 0.1);
+	});
+	auto jumpBy = JumpBy::create(0.5, Vec2::ZERO, 15, 2);
+	this->m_player->GetSpriteBack()->runAction(Sequence::create(jumpBy, finished, nullptr));
+}
+
+void BattleScene::OpponentAttackPlayer()
+{
+	Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+	this->m_stateBattleMessage = false;
+	auto finished = CallFunc::create([this]() {
+		this->m_opponent->Attack(this->m_player, this->m_oppSkill);
+		this->schedule(schedule_selector(BattleScene::ReduceHpPlayer), 0.1);
+	});
+	auto jumpBy = JumpBy::create(0.5, Vec2::ZERO, 15, 2);
+	this->m_opponent->GetSpriteFront()->runAction(Sequence::create(jumpBy, finished, nullptr));
+}
+
 void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 {
 	if (this->m_opponent->IsAlive() && this->m_player->IsAlive())
@@ -123,17 +147,11 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 			{
 				if (this->m_statePlayer == false)
 				{
-					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-					this->m_stateBattleMessage = false;
-					this->m_player->Attack(this->m_opponent, this->playerSkill);
-					this->schedule(schedule_selector(BattleScene::ReduceHpOpponent), 0.1);
+					this->PlayerAttackOpponent();
 				}
 				else
 				{
-					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-					this->m_stateBattleMessage = false;
-					this->m_opponent->Attack(this->m_player, this->oppSkill);
-					this->schedule(schedule_selector(BattleScene::ReduceHpPlayer), 0.1);
+					this->OpponentAttackPlayer();
 				}
 			}
 			else
@@ -142,28 +160,14 @@ void BattleScene::DamageStepWithPlayerAttackFirst(float deltaTime)
 				{
 					this->m_player->SetState(false);
 					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-					this->BattleMessage(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
+					this->BattleMessage(this->m_opponent->GetName() + " used " + this->m_oppSkill->GetName() + ".");
 				}
 			}
 		}
 	}
 	else
 	{
-		if (this->m_player->IsAlive() == false)
-		{
-			if (Bag::GetInstance()->GetCountPokemon() > 0)
-			{
-				this->NextBattle();
-			}
-			else
-			{
-				this->EndBattle();
-			}
-		}
-		else
-		{
-			this->EndBattle();
-		}
+		this->HasNextBattle();
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst));
 	}
 }
@@ -184,17 +188,11 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 			{
 				if (this->m_stateOpponent == false)
 				{
-					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-					this->m_stateBattleMessage = false;
-					this->m_opponent->Attack(this->m_player, this->oppSkill);
-					this->schedule(schedule_selector(BattleScene::ReduceHpPlayer), 0.1);
+					this->OpponentAttackPlayer();
 				}
 				else
 				{
-					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-					this->m_stateBattleMessage = false;
-					this->m_player->Attack(this->m_opponent, this->playerSkill);
-					this->schedule(schedule_selector(BattleScene::ReduceHpOpponent), 0.1);
+					this->PlayerAttackOpponent();
 				}
 			}
 			else
@@ -203,28 +201,14 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 				{
 					this->m_opponent->SetState(false);
 					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-					this->BattleMessage(this->m_player->GetName() + " used " + this->playerSkill->GetName() + ".");
+					this->BattleMessage(this->m_player->GetName() + " used " + this->m_playerSkill->GetName() + ".");
 				}
 			}
 		}
 	}
 	else
 	{
-		if (this->m_player->IsAlive() == false)
-		{
-			if (Bag::GetInstance()->GetCountPokemon() > 0)
-			{
-				this->NextBattle();
-			}
-			else
-			{
-				this->EndBattle();
-			}
-		}
-		else
-		{
-			this->EndBattle();
-		}
+		this->HasNextBattle();
 		this->unschedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst));
 	}
 }
@@ -264,10 +248,7 @@ void BattleScene::ChangePokemonStep(float deltaTime)
 				}
 				else
 				{
-					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-					this->m_stateBattleMessage = false;
-					this->m_opponent->Attack(this->m_player, this->oppSkill);
-					this->schedule(schedule_selector(BattleScene::ReduceHpPlayer), 0.1);
+					this->OpponentAttackPlayer();
 				}
 			}
 			else
@@ -276,28 +257,14 @@ void BattleScene::ChangePokemonStep(float deltaTime)
 				{
 					this->m_player->SetState(false);
 					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-					this->BattleMessage(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
+					this->BattleMessage(this->m_opponent->GetName() + " used " + this->m_oppSkill->GetName() + ".");
 				}
 			}
 		}
 	}
 	else
 	{
-		if (this->m_player->IsAlive() == false)
-		{
-			if (Bag::GetInstance()->GetCountPokemon() > 0)
-			{
-				this->NextBattle();
-			}
-			else
-			{
-				this->EndBattle();
-			}
-		}
-		else
-		{
-			this->EndBattle();
-		}
+		this->HasNextBattle();
 		this->unschedule(schedule_selector(BattleScene::ChangePokemonStep));
 	}
 }
@@ -312,16 +279,15 @@ void BattleScene::ReduceHpPlayer(float deltaTime)
 		this->m_player->GetSpriteBack()->runAction(fadeOut_In);
 		//
 		//
-		auto finished = CallFunc::create([this]() {
-			this->m_stateOpponent = true;
-		});
 		if (this->m_player->GetCurrentHP() == 0)
 		{
-			auto sq = Sequence::create(ScaleTo::create(0.5, 0), finished, nullptr);
-			this->m_hpPlayer->runAction(sq);
+			this->m_hpPlayer->runAction(ScaleTo::create(0.5, 0));
 		}
 		else
 		{
+			auto finished = CallFunc::create([this]() {
+				this->m_stateOpponent = true;
+			});
 			auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
 			auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpPlayer->getScaleY()), finished, nullptr);
 			this->m_hpPlayer->runAction(sq);
@@ -340,16 +306,15 @@ void BattleScene::ReduceHpOpponent(float deltaTime)
 		this->m_opponent->GetSpriteFront()->runAction(fadeOut_In);
 		//
 		//
-		auto finished = CallFunc::create([this]() {
-			this->m_statePlayer = true;
-		});
 		if (this->m_opponent->GetCurrentHP() == 0)
 		{
-			auto sq = Sequence::create(ScaleTo::create(0.5, 0), finished, nullptr);
-			this->m_hpOpponent->runAction(sq);
+			this->m_hpOpponent->runAction(ScaleTo::create(0.5, 0));
 		}
 		else
 		{
+			auto finished = CallFunc::create([this]() {
+				this->m_statePlayer = true;
+			});
 			auto index = ((float)this->m_opponent->GetMaxHP() / this->m_opponent->GetCurrentHP());
 			auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpOpponent->getScaleY()), finished, nullptr);
 			this->m_hpOpponent->runAction(sq);
@@ -744,8 +709,8 @@ void BattleScene::StartBattle()
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
-			this->m_stateBattleMessage = false;
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+			this->m_stateBattleMessage = false;
 			this->LoadPlayerPosition();
 			this->m_pokeball->setPosition(this->m_player->GetPosition());
 			this->m_pokeball->setVisible(true);
@@ -769,39 +734,95 @@ void BattleScene::StartBattle()
 	this->BattleMessage("Go, " + this->m_player->GetName() + "!");
 }
 
+void BattleScene::HasNextBattle()
+{
+	if (this->m_player->IsAlive() == false)
+	{
+		auto listener = CallFunc::create([this]() {
+			if (this->m_stateBattleMessage == true)
+			{
+				Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+				this->m_stateBattleMessage = false;
+				if (Bag::GetInstance()->GetCountPokemon() > 0)
+				{
+					this->StandByPhase();
+				}
+				else
+				{
+					this->EndBattle();
+				}
+				this->stopActionByTag(200);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(200);
+		this->runAction(rp);
+		auto finished = CallFunc::create([this]() {
+			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+			this->BattleMessage(this->m_player->GetName() + " fainted.");
+		});
+		auto scaleTo = ScaleTo::create(1, 0);
+		this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
+	}
+	else
+	{
+		auto listener = CallFunc::create([this]() {
+			if (this->m_stateBattleMessage == true)
+			{
+				Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+				this->m_stateBattleMessage = false;
+				this->EndBattle();
+				this->stopActionByTag(200);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(200);
+		this->runAction(rp);
+		auto finished = CallFunc::create([this]() {
+			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+			int xp = this->m_player->GetCurrentExp() + (this->m_opponent->GetLevel() / this->m_player->GetLevel() + 2);
+			this->m_player->SetCurrentExp(xp);
+			this->BattleMessage(this->m_opponent->GetName() + " fainted. " + this->m_player->GetName() + " gain "
+				+ to_string((this->m_opponent->GetLevel() / this->m_player->GetLevel() + 2)) + " exp.");
+		});
+		auto scaleTo = ScaleTo::create(1, 0);
+		this->m_opponent->GetSpriteFront()->runAction(Sequence::create(scaleTo, finished, nullptr));
+	}
+}
+
 void BattleScene::BattlePhase(int idSkill)
 {
 	if (this->m_player->GetAtkSpeed() >= this->m_opponent->GetAtkSpeed())
 	{
-		this->playerSkill = this->m_player->GetSkillById(idSkill);
+		this->m_playerSkill = this->m_player->GetSkillById(idSkill);
 		int id = rand() % this->m_opponent->GetCountSkills();
-		this->oppSkill = this->m_opponent->GetSkillById(id);
+		this->m_oppSkill = this->m_opponent->GetSkillById(id);
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-		this->BattleMessage(this->m_player->GetName() + " used " + this->playerSkill->GetName() + ".");
+		this->BattleMessage(this->m_player->GetName() + " used " + this->m_playerSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithPlayerAttackFirst), 0.1);
 	}
 	else
 	{
 		int id = rand() % this->m_opponent->GetCountSkills();
-		this->oppSkill = this->m_opponent->GetSkillById(id);
-		this->playerSkill = this->m_player->GetSkillById(idSkill);
+		this->m_oppSkill = this->m_opponent->GetSkillById(id);
+		this->m_playerSkill = this->m_player->GetSkillById(idSkill);
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-		this->BattleMessage(this->m_opponent->GetName() + " used " + this->oppSkill->GetName() + ".");
+		this->BattleMessage(this->m_opponent->GetName() + " used " + this->m_oppSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst), 0.1);
 	}
 }
 
-void BattleScene::ChangePokemon()
+void BattleScene::TrainerChangePokemon()
 {
 	if (this->m_player->IsAlive() && this->m_opponent->IsAlive())
 	{
 		int id = rand() % this->m_opponent->GetCountSkills();
-		this->oppSkill = this->m_opponent->GetSkillById(id);
+		this->m_oppSkill = this->m_opponent->GetSkillById(id);
 		auto listener = CallFunc::create([this]() {
 			if (this->m_stateBattleMessage == true)
 			{
-				this->m_stateBattleMessage = false;
 				Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+				this->m_stateBattleMessage = false;
 				auto finished = CallFunc::create([this]() {
 					this->m_player->RemoveFromParent();
 					this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
@@ -831,36 +852,14 @@ void BattleScene::ChangePokemon()
 	}
 }
 
-void BattleScene::NextBattle()
+void BattleScene::StandByPhase()
 {
-	this->m_stateBattleMessage = false;
-	auto listener = CallFunc::create([this]() {
-		if (this->m_stateBattleMessage == true)
-		{
-			this->m_stateBattleMessage = false;
-			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
-			UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
-			this->addChild(popupPokemon, 1000);
-			this->stopActionByTag(101);
-		}
-	});
-	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
-	rp->setTag(101);
-	this->runAction(rp);
-	if (this->m_player->IsAlive() == false)
-	{
-		auto finished = CallFunc::create([this]() {
-			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-			this->BattleMessage(this->m_player->GetName() + " fainted.");
-		});
-		auto scaleTo = ScaleTo::create(1, 0);
-		this->m_player->GetSpriteBack()->runAction(Sequence::create(scaleTo, finished, nullptr));
-	}
+	UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+	this->addChild(popupPokemon, 1000);
 }
 
 void BattleScene::EndBattle()
 {
-	this->m_stateBattleMessage = false;
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
@@ -874,15 +873,11 @@ void BattleScene::EndBattle()
 	if (this->m_player->IsAlive() == false)
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-		this->BattleMessage(this->m_player->GetName() + " fainted. You lose!");
+		this->BattleMessage("You lose!");
 	}
 	else
 	{
-		auto finished = CallFunc::create([this]() {
-			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-			this->BattleMessage(this->m_opponent->GetName() + " fainted. You win!");
-		});
-		auto scaleTo = ScaleTo::create(1, 0);
-		this->m_opponent->GetSpriteFront()->runAction(Sequence::create(scaleTo, finished, nullptr));
+		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+		this->BattleMessage("You win!");
 	}
 }

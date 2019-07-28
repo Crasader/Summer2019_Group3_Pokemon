@@ -76,19 +76,13 @@ int Pokemon::GetID()
 
 void Pokemon::LevelUp()
 {
-	if (this->m_level < 20)
-	{
-		if (this->m_currentExp >= this->m_maxExp)
-		{
-			this->m_level += 1;
-			this->m_maxHealth += 12;
-			this->m_attack += 2;
-			this->m_defense += 4;
-			this->m_attackSpeed += 1;
-			this->m_currentExp = 0;
-			this->m_maxExp += 2;
-		}
-	}
+	this->m_level += 1;
+	this->m_maxHealth += 12;
+	this->m_attack += 2;
+	this->m_defense += 4;
+	this->m_attackSpeed += 1;
+	this->m_currentExp = 0;
+	this->m_maxExp += 2;
 }
 
 string Pokemon::GetName()
@@ -121,6 +115,10 @@ void Pokemon::SetCurrentHP(int health)
 	if (health == 0)
 	{
 		this->m_alive = false;
+	}
+	else
+	{
+		this->m_alive = true;
 	}
 	this->m_currentHealth = health;
 }
@@ -182,8 +180,16 @@ int Pokemon::GetCurrentExp()
 
 void Pokemon::SetCurrentExp(int exp)
 {
-	this->m_currentExp = exp;
-	this->LevelUp();
+	if (this->m_level < 20)
+	{
+		this->m_currentExp = exp;
+		if (this->m_currentExp >= this->m_maxExp)
+		{
+			int xp = this->m_currentExp - this->m_maxExp;
+			this->LevelUp();
+			this->SetCurrentExp(this->m_currentExp + xp);
+		}
+	}
 }
 
 int Pokemon::GetMaxExp()
