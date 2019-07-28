@@ -10,21 +10,14 @@
 #include "Item\FireStone.h"
 #include "Item\ThunderStone.h"
 #include "Item\WaterStone.h"
-#include "Pokemon\Pikachu.h"
-#include "Pokemon\Squirtle.h"
-#include "Pokemon\Charmander.h"
+
 Bag::Bag()
 {
 	this->Init();
 	this->my_gold = 100;
 	this->CreateListItem();
-	Pikachu *pikachu = new Pikachu();
-	Squirtle *squirtle = new Squirtle();
-	Charmander *charmander = new Charmander();
-	this->m_pokemons.push_back(pikachu);
-	this->m_pokemons.push_back(squirtle);
-	this->m_pokemons.push_back(charmander);
 }
+
 Bag::~Bag()
 {
 }
@@ -39,9 +32,9 @@ Bag * Bag::GetInstance()
 	}
 	return m_instance;
 }
+
 void Bag::Init()
 {
-
 }
 
 void Bag::Update(float deltaTime)
@@ -74,6 +67,30 @@ void Bag::AddPokemon(Pokemon* pokemon)
 	{
 		this->m_pokemons_over.push_back(pokemon);
 	}
+}
+
+int Bag::GetCountPokemon()
+{
+	int count = 0;
+	for (int i = 0; i < 6; i++)
+	{
+		auto pokemon = this->m_pokemons.at(i);
+		if (pokemon != nullptr)
+		{
+			if (pokemon->IsAlive() == true)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+void Bag::ChangePokemon(int index)
+{
+	Pokemon* temp = this->m_pokemons.at(0);
+	this->m_pokemons.at(0) = this->m_pokemons.at(index);
+	this->m_pokemons.at(index) = temp;
 }
 
 void Bag::SetGold(int gold)
@@ -140,4 +157,3 @@ void Bag::CreateListItem()
 	WaterStone *waterStone = new WaterStone();
 	this->m_items.push_back(waterStone);
 }
-

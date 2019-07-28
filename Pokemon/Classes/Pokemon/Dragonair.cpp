@@ -28,6 +28,7 @@ Pokemon * Dragonair::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Dragonite(this);
 	}
 	else

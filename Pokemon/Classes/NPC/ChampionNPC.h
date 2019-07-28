@@ -11,7 +11,7 @@ private:
 	string name;
 	vector<Pokemon*> m_pokemons;
 public:
-	ChampionNPC(Layer* layer);
+	ChampionNPC();
 	~ChampionNPC();
 	void Init() override;
 	void Update(float deltaTime) override;

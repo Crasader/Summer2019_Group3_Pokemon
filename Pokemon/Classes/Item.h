@@ -9,7 +9,7 @@ class Item : public MyObject
 public:
 	Item();
 	~Item();
-	void Init(int id);
+	void Init(int id) override;
 	int GetGold();
 	string GetName();
 	void SetGold(int gold);

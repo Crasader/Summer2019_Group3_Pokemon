@@ -35,6 +35,7 @@ Pokemon * Kirlia::Evolve()
 {
 	if (true)
 	{
+		this->m_evolved = true;
 		return new Gardevoir(this);
 	}
 	else

@@ -6,6 +6,7 @@
 #include "Popup.h"
 #include "Model.h"
 
+using namespace CocosDenshion;
 USING_NS_CC;
 
 Size houseVisibleSize;
@@ -32,11 +33,12 @@ static void problemLoading(const char* filename)
 
 bool House::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("res/Sound/HouseScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;
 	}
-
 	houseVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
@@ -110,7 +112,7 @@ bool House::onContactBegin(PhysicsContact & contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Town::previousScene = 0;
+		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -140,7 +142,6 @@ bool House::onContactBegin(PhysicsContact & contact)
 	}
 
 	return true;
-
 }
 
 void House::InitObject()
@@ -178,11 +179,9 @@ void House::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
-void House::UpdateCamera()
-{
+void House::UpdateCamera() {
 	if (houseVisibleSize.width >= houseTileMapSize.width) {
 		if (houseVisibleSize.height >= houseTileMapSize.height) {
 			houseCamera->setPosition(houseTileMapSize / 2);
@@ -209,18 +208,18 @@ void House::UpdateCamera()
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - houseTileMapSize.width / 2)>abs(houseTileMapSize.width / 2 - houseVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - houseTileMapSize.height / 2)>abs(houseTileMapSize.height / 2 - houseVisibleSize.height / 2)) {
-				houseCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >houseCamera->getPosition().x) ? (houseTileMapSize.width - houseVisibleSize.width / 2) : houseVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >houseCamera->getPosition().y) ? (houseTileMapSize.height - houseVisibleSize.height / 2) : houseVisibleSize.height / 2);
+				houseCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >houseCamera->getPosition().x) ? (houseTileMapSize.width - houseVisibleSize.width / 2) : houseVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >houseCamera->getPosition().y) ? (houseTileMapSize.height - houseVisibleSize.height / 2) : houseVisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - houseTileMapSize.width / 2)>abs(houseTileMapSize.width / 2 - houseVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - houseTileMapSize.height / 2)<abs(houseTileMapSize.height / 2 - houseVisibleSize.height / 2)) {
-				houseCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >houseCamera->getPosition().x) ? (houseTileMapSize.width - houseVisibleSize.width / 2) : houseVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				houseCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >houseCamera->getPosition().x) ? (houseTileMapSize.width - houseVisibleSize.width / 2) : houseVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - houseTileMapSize.width / 2)<abs(houseTileMapSize.width / 2 - houseVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - houseTileMapSize.height / 2)>abs(houseTileMapSize.height / 2 - houseVisibleSize.height / 2)) {
 				houseCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >houseCamera->getPosition().y) ? (houseTileMapSize.height - houseVisibleSize.height / 2) : houseVisibleSize.height / 2);
 			}
 			else {
-				houseCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				houseCamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}

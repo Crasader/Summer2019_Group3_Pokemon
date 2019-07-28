@@ -6,6 +6,7 @@
 #include "Pokemon\Charmeleon.h"
 #include "Pokemon\Chikorita.h"
 #include "Pokemon\Squirtle.h"
+#include "Scene\BattleScene.h"
 #include "Pokemon.h"
 #include "Buttons.h"
 USING_NS_CC;
@@ -77,13 +78,14 @@ namespace UICustom
 			this->setOpacity(FADE_RATIO);
 		}
 	}
+	
 	void PopupDelegates::dismiss(const bool animated)
 	{
 		if (animated) {
-			this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(), NULL));
+			this->runAction(Sequence::create(FadeTo::create(ANIMATION_TIME, 0), RemoveSelf::create(false), NULL));
 		}
 		else {
-			this->removeFromParentAndCleanup(true);
+			this->removeFromParentAndCleanup(false);
 		}
 	}
 
@@ -108,6 +110,7 @@ namespace UICustom
 		};
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 	}
+	
 	Popup *Popup::createAsMessage(const std::string &title, const std::string &msg)
 	{
 		return createAsConfirmDialogue(title, msg, NULL);
@@ -117,6 +120,7 @@ namespace UICustom
 	{
 		return create(title, msg, NULL, YesFunc);
 	}
+	
 	Popup *Popup::createSetting(const std::string &title)
 	{
 		Popup *node = new (std::nothrow)Popup();
@@ -159,6 +163,7 @@ namespace UICustom
 			return node;
 		}
 	}
+	
 	Popup *Popup::createBag(const std::string &title)
 	{
 		Popup *node = new (std::nothrow)Popup();
@@ -208,13 +213,17 @@ namespace UICustom
 			for (int i = 0; i < 6; i++)
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
-				if (i<sizeOfPokemon)
+				button->setTag(i);
+				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = list.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
+					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
-						button->getPosition().y + listView->getContentSize().height / 2);
+						button->getPosition().y + listView->getContentSize().height / 3);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 					labelName->setString(name);
 					labelName->setColor(Color3B(0, 0, 0));
@@ -255,7 +264,9 @@ namespace UICustom
 				{
 					string name = listOver.at(i)->GetName();
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = listOver.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
 					sprite->setTag(i);
 					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
 						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
@@ -297,7 +308,8 @@ namespace UICustom
 				string id = to_string(listItem.at(i)->GetId());
 				string name = listItem.at(i)->GetName();
 				string amount = "x" + to_string(listItem.at(i)->GetNumber());
-				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137 + i);
+				auto sprite = listItem.at(i)->GetSpriteFront();
+				sprite->removeFromParentAndCleanup(false);
 				sprite->setTag(i);
 				sprite->setScale(2.5);
 				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
@@ -582,7 +594,8 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
-	Popup * Popup::CreateBagInBattle()
+	
+	Popup * Popup::createBagInBattle()
 	{
 		Popup *node = new (std::nothrow)Popup();
 		Size winSize = Director::getInstance()->getWinSize();
@@ -596,8 +609,22 @@ namespace UICustom
 			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				node->dismiss(true);
-				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+				if (!((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
+				{
+				}
+				else
+				{
+					auto list = Bag::GetInstance()->GetListPokemon();
+					for (int i = 0; i < 6; i++)
+					{
+						if (list.at(i) != nullptr)
+						{
+							auto sprite = list.at(i)->GetSpriteFront();
+							sprite->removeFromParentAndCleanup(false);
+						}
+					}
+					node->dismiss(true);
+				}
 			});
 			node->addChild(listViewPokemon, 200);
 			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
@@ -606,17 +633,18 @@ namespace UICustom
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
 				button->setTag(i);
-				if (i < sizeofpokemon)
+				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
-					//int type = list.at(i)->GetType();
-					string percentHP = to_string(list.at(i)->GetCurrentHP() *100 / list.at(i)->GetMaxHP());
+					string percentHP = to_string(list.at(i)->GetCurrentHP() * 100 / list.at(i)->GetMaxHP());
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					string hp = "HP: " + percentHP + " %";
-					Sprite *sprite = Sprite::create("res/Animation/" + name + "/front/0.png");
+					auto sprite = list.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
 					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listViewPokemon->getContentSize().width* (i * 2 + 1) / 4,
-						button->getPosition().y + listViewPokemon->getContentSize().height / 2 + 10);
+						button->getPosition().y + listViewPokemon->getContentSize().height / 3 + 10);
 					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 					labelName->setString(name);
 					labelName->setColor(Color3B(0, 0, 0));
@@ -637,6 +665,59 @@ namespace UICustom
 					listViewPokemon->addChild(labelName, 202);
 					listViewPokemon->addChild(labelLv, 202);
 					listViewPokemon->addChild(HP, 202);
+
+					if (list.at(i)->IsAlive() == true)
+					{
+						button->addTouchEventListener([node, list](Ref* ref, Widget::TouchEventType type) {
+							int tag = ((Button*)(ref))->getTag();
+							switch (type)
+							{
+							case cocos2d::ui::Widget::TouchEventType::BEGAN:
+								break;
+							case cocos2d::ui::Widget::TouchEventType::MOVED:
+								break;
+							case cocos2d::ui::Widget::TouchEventType::ENDED:
+								if (tag != 0)
+								{
+									if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
+									{
+										Bag::GetInstance()->ChangePokemon(tag);
+										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->SetButtonVisible(false);
+										for (int i = 0; i < 6; i++)
+										{
+											if (list.at(i) != nullptr)
+											{
+												auto sprite = list.at(i)->GetSpriteFront();
+												sprite->removeFromParentAndCleanup(false);
+											}
+										}
+										node->dismiss(true);
+									}
+									else
+									{
+										Bag::GetInstance()->ChangePokemon(tag);
+										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->StartBattle();
+										for (int i = 0; i < 6; i++)
+										{
+											if (list.at(i) != nullptr)
+											{
+												auto sprite = list.at(i)->GetSpriteFront();
+												sprite->removeFromParentAndCleanup(false);
+											}
+										}
+										node->dismiss(true);
+									}
+								}
+								break;
+							case cocos2d::ui::Widget::TouchEventType::CANCELED:
+								break;
+							default:
+								break;
+							}
+						});
+					}
 				}
 				listViewPokemon->pushBackCustomItem(button);
 			}
@@ -728,6 +809,7 @@ namespace UICustom
 			break;
 		}
 	}
+	
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{
 		Popup *node = new (std::nothrow)Popup();
@@ -785,31 +867,30 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
+	
 	void Popup::initBg(Size size, const std::string &title)
 	{
 		Size winSize = Director::getInstance()->getWinSize();
-		_bg = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
-		this->addChild(_bg);
-
-		_bg->setPosition(Point(winSize.width / 2, winSize.height / 2));
-		_bg->setScale9Enabled(true);
-		_bg->setContentSize(Size(size.width, size.height));
-
-		ui::ImageView *fill = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
-		_bg->addChild(fill);
-		fill->setColor(Color3B(210, 210, 210));
-		fill->setScale9Enabled(true);
-		fill->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
-		fill->setPosition(Point(FONT::LABEL_OFFSET / 4, FONT::LABEL_OFFSET / 4));
-		fill->setContentSize(Size(size.width - FONT::LABEL_OFFSET / 2, size.height - FONT::LABEL_OFFSET * 2));
-
-
-		Label *heading = Label::createWithTTF(title, FONT::GAME_FONT, FONT::TITLE_TEXT_SIZE);
-		heading->setPosition(_bg->getContentSize().width / 2, _bg->getContentSize().height - FONT::LABEL_OFFSET);
-		_bg->addChild(heading);
-		heading->enableOutline(Color4B::BLACK, FONT::LABEL_STROKE);
-		heading->enableShadow(Color4B::BLACK, Size(0, -3));
-	}
+        _bg = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
+        this->addChild(_bg);
+        
+        _bg->setPosition(Point(winSize.width/2,winSize.height/2));
+        _bg->setScale9Enabled(true);
+        _bg->setContentSize(Size(size.width,size.height));
+        
+        ui::ImageView *fill = ui::ImageView::create(IMAGEPATH::BACKGROUND_IMAGE);
+        _bg->addChild(fill);
+        fill->setColor(Color3B(210,210,210));
+        fill->setScale9Enabled(true);
+        fill->setAnchorPoint(Point::ANCHOR_BOTTOM_LEFT);
+        fill->setPosition(Point(FONT::LABEL_OFFSET/4,FONT::LABEL_OFFSET/4));
+        fill->setContentSize(Size(size.width - FONT::LABEL_OFFSET/2, size.height - FONT::LABEL_OFFSET* 2 ));
+        
+        
+        Label *heading = Label::createWithTTF(title, FONT::GAME_FONT, FONT::TITLE_TEXT_SIZE);
+        heading->setPosition(_bg->getContentSize().width/2 , _bg->getContentSize().height - FONT::LABEL_OFFSET);
+        _bg->addChild(heading);
+        heading->enableOutline(Color4B::BLACK,FONT::LABEL_STROKE);
+        heading->enableShadow(Color4B::BLACK, Size(0, -3));
+    }
 }
-
-

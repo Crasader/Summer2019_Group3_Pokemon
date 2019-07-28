@@ -2,6 +2,7 @@
 
 Fly::Fly()
 {
+	this->Init();
 }
 
 Fly::~Fly()
@@ -10,6 +11,9 @@ Fly::~Fly()
 
 void Fly::Init()
 {
+	this->AddAnimation(101);
+	this->GetAnimation()->setDelayPerUnit(0.1);
+	this->SetScale(1.5);
 	Skill::SetName("Fly");
 	Skill::SetTypeName("Flying");
 	Skill::SetPower(100);

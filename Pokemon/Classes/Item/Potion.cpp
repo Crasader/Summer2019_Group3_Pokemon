@@ -2,18 +2,17 @@
 
 Potion::Potion()
 {
+	this->Init(137);
 	this->m_id = 0;
 	this->m_gold = 5;
 	this->hpRevice = 20;
 	this->m_name = "Potion";
-	this->Init(137);
 	this->m_number = 5;
 }
 
 Potion::~Potion()
 {
 }
-
 
 void Potion::ReviceHealthPokemon(Pokemon * pokemon)
 {

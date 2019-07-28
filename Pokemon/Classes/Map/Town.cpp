@@ -1,4 +1,3 @@
-
 #include "Town.h"
 #include "ResourceManager.h"
 #include "SimpleAudioEngine.h"
@@ -11,6 +10,7 @@
 #include "Scene\BattleScene.h"
 #include <cstdlib>
 
+using namespace CocosDenshion;
 USING_NS_CC;
 Size townVisibleSize;
 Size townTileMapSize;
@@ -23,7 +23,7 @@ int Town::previousScene = 0;
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
 	townCamera = scene->getDefaultCamera();
@@ -41,6 +41,8 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool Town::init()
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("res/Sound/Town.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -158,8 +160,8 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		//int idPokemon = random();
 		//new Pokemon with id
 		//chuyen scene chien dau
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(BattleScene::createScene());
+		auto layer = BattleScene::create();
+		this->addChild(layer, 1000);
 		CCLOG("Has Pokemon");
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -206,6 +208,7 @@ void Town::InitObject()
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				townBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				townBody->setCollisionBitmask(Model::BITMASK_PLAYER);
@@ -287,22 +290,21 @@ void Town::UpdateCamera() {
 		else {
 			if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)>abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)>abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
-				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
+				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)>abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)<abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
-				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+				townCamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >townCamera->getPosition().x) ? (townTileMapSize.width - townVisibleSize.width / 2) : townVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
 			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - townTileMapSize.width / 2)<abs(townTileMapSize.width / 2 - townVisibleSize.width / 2)
 				&& abs(mPlayer->GetSpriteFront()->getPosition().y - townTileMapSize.height / 2)>abs(townTileMapSize.height / 2 - townVisibleSize.height / 2)) {
 				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >townCamera->getPosition().y) ? (townTileMapSize.height - townVisibleSize.height / 2) : townVisibleSize.height / 2);
 			}
 			else {
-				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition() / 2);
+				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
 			}
 		}
 	}
-
 }
 void Town::update(float dt) {
 	UpdateCamera();

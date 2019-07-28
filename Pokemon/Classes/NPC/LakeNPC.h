@@ -11,7 +11,7 @@ private:
 	string name;
 	vector<Pokemon*> m_pokemons;
 public:
-	LakeNPC(Layer* layer);
+	LakeNPC();
 	~LakeNPC();
 	void Init() override;
 	void Update(float deltaTime) override;

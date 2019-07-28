@@ -14,7 +14,7 @@ private:
 	Sprite * mGateWay;
 public:
 	static cocos2d::Scene* createScene();
-
+	static int previousScene;
 	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();

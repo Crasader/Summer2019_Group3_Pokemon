@@ -51,14 +51,30 @@ list(APPEND GAME_SOURCE
      Classes/AppDelegate.cpp
      Classes/HelloWorldScene.cpp
     Classes/Bag.cpp 
-    Classes/Buttons.cpp
+    Classes/Buttons.cpp 
     Classes/Item.cpp 
+    Classes/Item/Ether.cpp 
+    Classes/Item/FireStone.cpp 
+    Classes/Item/LeafStone.cpp 
+    Classes/Item/MaxPotion.cpp 
+    Classes/Item/MaxRevive.cpp 
+    Classes/Item/Potion.cpp 
+    Classes/Item/Revive.cpp 
+    Classes/Item/SuperPotion.cpp 
+    Classes/Item/ThunderStone.cpp 
+    Classes/Item/WaterStone.cpp 
+    Classes/Map/Cave.cpp 
+    Classes/Map/ChampionLeague.cpp 
+    Classes/Map/City.cpp 
     Classes/Map/House.cpp 
     Classes/Map/Lab.cpp 
     Classes/Map/Lake.cpp 
     Classes/Map/PokemonCenter.cpp 
     Classes/Map/Route1.cpp 
+    Classes/Map/Route2.cpp 
     Classes/Map/Town.cpp 
+    Classes/Map/VictoryRoad.cpp 
+    Classes/Model.cpp 
     Classes/MyObject.cpp 
     Classes/NPC.cpp 
     Classes/NPC/CaveNPC.cpp 
@@ -67,6 +83,8 @@ list(APPEND GAME_SOURCE
     Classes/NPC/KhuongDuyNPC.cpp 
     Classes/NPC/LakeNPC.cpp 
     Classes/NPC/MinhVuongNPC.cpp 
+    Classes/NPC/RoadNPC.cpp 
+    Classes/NPC/Route2NPC.cpp 
     Classes/NPC/RouteNPC.cpp 
     Classes/NPC/TanNgocNPC.cpp 
     Classes/NPC/TanTaiNPC.cpp 
@@ -119,10 +137,8 @@ list(APPEND GAME_SOURCE
     Classes/Popup.cpp 
     Classes/ResourceManager.cpp 
     Classes/Scene/BattleScene.cpp 
-    Classes/Scene/BuyItem.cpp 
     Classes/Scene/Loading.cpp 
     Classes/Scene/MainMenu.cpp 
-    Classes/Scene/MyBag.cpp 
     Classes/Skill.cpp 
     Classes/Skill/Bite.cpp 
     Classes/Skill/BlastBurn.cpp 
@@ -162,12 +178,28 @@ list(APPEND GAME_HEADER
     Classes/include_pokemon.h 
     Classes/include_skill.h 
     Classes/Item.h 
+    Classes/Item/Ether.h 
+    Classes/Item/FireStone.h 
+    Classes/Item/LeafStone.h 
+    Classes/Item/MaxPotion.h 
+    Classes/Item/MaxRevive.h 
+    Classes/Item/Potion.h 
+    Classes/Item/Revive.h 
+    Classes/Item/SuperPotion.h 
+    Classes/Item/ThunderStone.h 
+    Classes/Item/WaterStone.h 
+    Classes/Map/Cave.h 
+    Classes/Map/ChampionLeague.h 
+    Classes/Map/City.h 
     Classes/Map/House.h 
     Classes/Map/Lab.h 
     Classes/Map/Lake.h 
     Classes/Map/PokemonCenter.h 
     Classes/Map/Route1.h 
+    Classes/Map/Route2.h 
     Classes/Map/Town.h 
+    Classes/Map/VictoryRoad.h 
+    Classes/Model.h 
     Classes/MyObject.h 
     Classes/NPC.h 
     Classes/NPC/CaveNPC.h 
@@ -176,6 +208,8 @@ list(APPEND GAME_HEADER
     Classes/NPC/KhuongDuyNPC.h 
     Classes/NPC/LakeNPC.h 
     Classes/NPC/MinhVuongNPC.h 
+    Classes/NPC/RoadNPC.h 
+    Classes/NPC/Route2NPC.h 
     Classes/NPC/RouteNPC.h 
     Classes/NPC/TanNgocNPC.h 
     Classes/NPC/TanTaiNPC.h 
@@ -228,10 +262,8 @@ list(APPEND GAME_HEADER
     Classes/Popup.h 
     Classes/ResourceManager.h 
     Classes/Scene/BattleScene.h 
-    Classes/Scene/BuyItem.h 
     Classes/Scene/Loading.h 
     Classes/Scene/MainMenu.h 
-    Classes/Scene/MyBag.h 
     Classes/Skill.h 
     Classes/Skill/Bite.h 
     Classes/Skill/BlastBurn.h 

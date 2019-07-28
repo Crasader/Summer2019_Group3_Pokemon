@@ -30,6 +30,7 @@ Pokemon * Chikorita::Evolve()
 {
 	if (this->m_level >= 10)
 	{
+		this->m_evolved = true;
 		return new Bayleef(this);
 	}
 	else

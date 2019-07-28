@@ -36,6 +36,7 @@ Pokemon * Wartortle::Evolve()
 {
 	if (this->m_level >= 15)
 	{
+		this->m_evolved = true;
 		return new Blastoise(this);
 	}
 	else

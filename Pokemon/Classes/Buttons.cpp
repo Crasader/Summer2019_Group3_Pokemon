@@ -4,6 +4,7 @@
 
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
+
 Buttons::Buttons()
 {
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
@@ -21,14 +22,14 @@ Buttons::Buttons()
 	m_left->setScale(0.4f);
 	m_right->setScale(0.4f);
 }
+
 void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 {
 	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
-
 		if (type == Widget::TouchEventType::ENDED)
 		{
-			UICustom::Popup *popup = UICustom::Popup::createBag("Bag");
+			UICustom::Popup *popup = UICustom::Popup::createBagInBattle();
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
@@ -37,6 +38,7 @@ void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 		}
 	});
 }
+
 void Buttons ::ButtonListener(Trainer *&mPlayer)
 {
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
@@ -65,7 +67,6 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		}
 		}
 	});
-
 
 	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
