@@ -88,6 +88,36 @@ bool League::init()
 
 bool League::onContactBegin(PhysicsContact & contact)
 {
+	PhysicsBody* a = contact.getShapeA()->getBody();
+	PhysicsBody* b = contact.getShapeB()->getBody();
+
+	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
 	return true;
 }
 

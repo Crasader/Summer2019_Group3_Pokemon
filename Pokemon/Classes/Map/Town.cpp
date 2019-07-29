@@ -23,7 +23,7 @@ int Town::previousScene = 0;
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
 	townCamera = scene->getDefaultCamera();
@@ -72,7 +72,6 @@ bool Town::init()
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
@@ -137,6 +136,35 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_LAB)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_LAB && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -145,6 +173,8 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -153,6 +183,8 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_POKEMON)
 		|| (a->getCollisionBitmask() == Model::BITMASK_POKEMON && b->getCollisionBitmask() == Model::BITMASK_PLAYER))

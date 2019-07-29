@@ -13,6 +13,5 @@ private:
 public:
 	LakeNPC();
 	~LakeNPC();
-	void Init() override;
 	void Update(float deltaTime) override;
 }; 

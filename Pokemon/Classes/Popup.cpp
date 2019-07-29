@@ -2,6 +2,10 @@
 #include "Popup.h"
 #include "ResourceManager.h"
 #include "Bag.h"
+#include "Pokemon\Charizard.h"
+#include "Pokemon\Charmeleon.h"
+#include "Pokemon\Chikorita.h"
+#include "Pokemon\Squirtle.h"
 #include "Scene\BattleScene.h"
 #include "Pokemon.h"
 #include "Buttons.h"
@@ -166,48 +170,193 @@ namespace UICustom
 		Size winSize = Director::getInstance()->getWinSize();
 		if (node && node->init())
 		{
-			auto tab = TabControl::create();
-			tab->setContentSize(Size(300, 100));
-			tab->setHeaderHeight(20);
-			tab->setHeaderWidth(100);
-			tab->setHeaderDockPlace(TabControl::Dock::TOP);
-			tab->setPosition(winSize / 2);
-			node->addChild(tab, 101);
-			auto headerMP = TabHeader::create();
-			headerMP->setTitleText("My Pokemon");
-			headerMP->setTitleColor(Color4B(0, 0, 0, 255));
-			headerMP->loadTextureBackGround("res/Background/2.png");
-			headerMP->setTitleFontName(FONT::GAME_FONT);
+//			auto tab = TabControl::create();
+//			tab->setContentSize(Size(300, 100));
+//			tab->setHeaderHeight(20);
+//			tab->setHeaderWidth(100);
+//			tab->setHeaderDockPlace(TabControl::Dock::TOP);
+//			tab->setPosition(winSize / 2);
+//			node->addChild(tab, 101);
+//			auto headerMP = TabHeader::create();
+//			headerMP->setTitleText("My Pokemon");
+//			headerMP->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerMP->loadTextureBackGround("res/Background/2.png");
+//			headerMP->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto headerPO = TabHeader::create();
+//			headerPO->loadTextureBackGround("res/Background/2.png");
+//			headerPO->setTitleText("Box Pokemon");
+//			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerPO->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto headerMI = TabHeader::create();
+//			headerMI->loadTextureBackGround("res/Background/2.png");
+//			headerMI->setTitleText("My Item");
+//			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
+//			headerMI->setTitleFontName(FONT::GAME_FONT);
+//
+//			auto containerMP = Layout::create();
+//#pragma region Tab1
+//			auto listView = ui::ListView::create();
+//			//listView->setTouchEnabled(false);
+//			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listView->setAnchorPoint(Vec2(0.5, 0.5));
+//			listView->setContentSize(Size(280, 140));
+//			listView->setScale(0.8);
+//			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listView->setClippingEnabled(true);
+//			containerMP->addChild(listView,204);
+//			listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
+//			
+//			auto list = Bag::GetInstance()->GetListPokemon();
+//			auto sizeOfPokemon = list.size();
+//			for (int i = 0; i < 6; i++)
+//			{
+//				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
+//				button->setTag(i);
+//				if (list.at(i) != nullptr)
+//				{
+//					string name = list.at(i)->GetName();
+//					string level = "Level:" + to_string(list.at(i)->GetLevel());
+//					auto sprite = list.at(i)->GetSpriteFront();
+//					sprite->removeFromParentAndCleanup(false);
+//					sprite->setScale(1);
+//					sprite->setTag(i);
+//					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height / 3);
+//					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelName->setString(name);
+//					labelName->setColor(Color3B(0, 0, 0));
+//					labelName->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height * 4 / 5);
+//					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelLv->setString(level);
+//					labelLv->setColor(Color3B(0, 0, 0));
+//					labelLv->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						button->getPosition().y + listView->getContentSize().height * 1 / 5);
+//					listView->addChild(sprite, 202);
+//					listView->addChild(labelName, 202);
+//					listView->addChild(labelLv, 202);
+//				}
+//				listView->pushBackCustomItem(button);
+//			}
+//
+//#pragma endregion
+//			auto containerPO = Layout::create();
+//#pragma region Tab2
+//			auto listViewPO = ui::ListView::create();
+//			listViewPO->setTouchEnabled(false);
+//			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
+//			listViewPO->setContentSize(Size(280, 140));
+//			listViewPO->setScale(0.8);
+//			CCLOG("%f", listViewPO->getContentSize().width);
+//			listViewPO->setGlobalZOrder(200);
+//			listViewPO->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listViewPO->setClippingEnabled(true);
+//			containerPO->addChild(listViewPO);
+//			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
+//			auto listOver = Bag::GetInstance()->GetListPokemonOver();
+//			for (int i = 0; i < 10; i++)
+//			{
+//				ui::Button *buttonOver = ResourceManager::GetInstance()->GetButtonById(12);
+//				buttonOver->setTag(i);
+//				if (i < sizeOfPokemonOver)
+//				{
+//					string name = listOver.at(i)->GetName();
+//					string level = "Level:" + to_string(list.at(i)->GetLevel());
+//					auto sprite = listOver.at(i)->GetSpriteFront();
+//					sprite->removeFromParentAndCleanup(false);
+//					sprite->setScale(1);
+//					sprite->setTag(i);
+//					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
+//					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelName->setString(name);
+//					labelName->setColor(Color3B(0, 0, 0));
+//					labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
+//					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+//					labelLv->setString(level);
+//					labelLv->setColor(Color3B(0, 0, 0));
+//					labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+//						buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
+//					listViewPO->addChild(labelName, 202);
+//					listViewPO->addChild(labelLv, 202);
+//					listViewPO->addChild(sprite, 202);
+//				}
+//				listViewPO->pushBackCustomItem(buttonOver);
+//			}
+//#pragma endregion
+//			auto containerMI = Layout::create();
+//#pragma region Tab3
+//			auto listViewMI = ui::ListView::create();
+//			listViewMI->setTouchEnabled(false);
+//			listViewMI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+//			listViewMI->setAnchorPoint(Vec2(0.5, 0.5));
+//			listViewMI->setContentSize(Size(280, 140));
+//			listViewMI->setScale(0.8);
+//			listViewMI->setGlobalZOrder(200);
+//			listViewMI->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+//			listViewMI->setClippingEnabled(true);
+//			containerMI->addChild(listViewMI);
+//			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
+//			auto listItem = Bag::GetInstance()->GetListItem();
+//			for (int i = 0; i < sizeOfItem; i++)
+//			{
+//				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
+//				buttonItem->setTag(i);
+//				string id = to_string(listItem.at(i)->GetId());
+//				string name = listItem.at(i)->GetName();
+//				string amount = "x" + to_string(listItem.at(i)->GetNumber());
+//				auto sprite = listItem.at(i)->GetSpriteFront();
+//				sprite->removeFromParentAndCleanup(false);
+//				sprite->setTag(i);
+//				sprite->setScale(2.5);
+//				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
+//				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+//				labelName->setString(name);
+//				labelName->setColor(Color3B(0, 0, 0));
+//				labelName->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height * 4 / 5);
+//				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+//				labelNumber->setString(amount);
+//				labelNumber->setColor(Color3B(0, 0, 0));
+//				labelNumber->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
+//					buttonItem->getPosition().y + listViewMI->getContentSize().height * 1 / 5);
+//				listViewMI->addChild(labelName, 202);
+//				listViewMI->addChild(labelNumber, 202);
+//				listViewMI->addChild(sprite, 202);
+//				listViewMI->pushBackCustomItem(buttonItem);
+//			}
+//#pragma endregion
+//			tab->insertTab(0, headerMP, containerMP);
+//			tab->insertTab(1, headerPO, containerPO);
+//			tab->insertTab(2, headerMI, containerMI);
+//			tab->setSelectTab(0);
+//			CC_SAFE_RETAIN(tab);
+//			CC_SAFE_RETAIN(headerMP);
+//			CC_SAFE_RETAIN(headerPO);
+//			CC_SAFE_RETAIN(headerMI);
+//
+#pragma region Button Your Pokemon
+			Button *buttonYP = ResourceManager::GetInstance()->GetButtonById(13);
+			buttonYP->setPosition(Vec2(winSize.width / 2 - buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
+			node->addChild(buttonYP,2);
+			buttonYP->setScale(0.75);
 
-			auto headerPO = TabHeader::create();
-			headerPO->loadTextureBackGround("res/Background/2.png");
-			headerPO->setTitleText("Box Pokemon");
-			headerPO->setTitleColor(Color4B(0, 0, 0, 255));
-			headerPO->setTitleFontName(FONT::GAME_FONT);
-
-			auto headerMI = TabHeader::create();
-			headerMI->loadTextureBackGround("res/Background/2.png");
-			headerMI->setTitleText("My Item");
-			headerMI->setTitleColor(Color4B(0, 0, 0, 255));
-			headerMI->setTitleFontName(FONT::GAME_FONT);
-
-
-			auto containerMP = Layout::create();
-#pragma region Tab1
 			auto listView = ui::ListView::create();
+			listView->setAnchorPoint(Vec2(0.5, 1));
+			listView->setScale(0.8);
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
 			listView->setContentSize(Size(280, 140));
-			listView->setScale(0.8);
-			CCLOG("%f", listView->getContentSize().width);
-			listView->setGlobalZOrder(200);
-			listView->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listView->setPosition(Vec2(winSize.width/2,winSize.height / 2.7));
 			listView->setClippingEnabled(true);
-			containerMP->addChild(listView);
-			//Charizard *charizard = new Charizard();
-			//Bag::GetInstance()->AddPokemon(charizard);
-			int sizeofpokemon = Bag::GetInstance()->GetListPokemon().size();
+			node->addChild(listView,2);						
 			auto list = Bag::GetInstance()->GetListPokemon();
+			auto sizeOfPokemon = list.size();
 			for (int i = 0; i < 6; i++)
 			{
 				ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
@@ -238,20 +387,23 @@ namespace UICustom
 				}
 				listView->pushBackCustomItem(button);
 			}
-
 #pragma endregion
-			auto containerPO = Layout::create();
-#pragma region Tab2
+#pragma region Button Pokemon Over
+			Button *buttonPO = ResourceManager::GetInstance()->GetButtonById(14);
+			buttonPO->setScale(0.75);
+			buttonPO->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
+			node->addChild(buttonPO, 2);
+			
 			auto listViewPO = ui::ListView::create();
+			listViewPO->setAnchorPoint(Vec2(0.5, 1));
+			listViewPO->setScale(0.8);
+			listViewPO->setVisible(false);
 			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
 			listViewPO->setContentSize(Size(280, 140));
-			listViewPO->setScale(0.8);
-			CCLOG("%f", listViewPO->getContentSize().width);
-			listViewPO->setGlobalZOrder(200);
-			listViewPO->setPosition(Vec2(tab->getContentSize().width / 2, 0));
+			listViewPO->setPosition(Vec2(winSize.width / 2, winSize.height / 2.7));
 			listViewPO->setClippingEnabled(true);
-			containerPO->addChild(listViewPO);
+			node->addChild(listViewPO,2);
 			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
 			auto listOver = Bag::GetInstance()->GetListPokemonOver();
 			for (int i = 0; i < 10; i++)
@@ -285,18 +437,21 @@ namespace UICustom
 				listViewPO->pushBackCustomItem(buttonOver);
 			}
 #pragma endregion
-			auto containerMI = Layout::create();
-#pragma region Tab3
-			auto listViewMI = ui::ListView::create();
-			listViewMI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
-			listViewMI->setAnchorPoint(Vec2(0.5, 0.5));
-			listViewMI->setContentSize(Size(280, 140));
-			listViewMI->setScale(0.8);
-			CCLOG("%f", listViewPO->getContentSize().width);
-			listViewMI->setGlobalZOrder(200);
-			listViewMI->setPosition(Vec2(tab->getContentSize().width / 2, 0));
-			listViewMI->setClippingEnabled(true);
-			containerMI->addChild(listViewMI);
+#pragma region Buton Your Item
+			Button *buttonYI = ResourceManager::GetInstance()->GetButtonById(15);
+			buttonYI->setScale(0.75);
+			buttonYI->setPosition(Vec2(winSize.width / 2 + buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
+			node->addChild(buttonYI, 2);
+			auto listViewYI = ui::ListView::create();
+			listViewYI->setAnchorPoint(Vec2(0.5, 1));
+			listViewYI->setScale(0.8);
+			listViewYI->setVisible(false);
+			listViewYI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewYI->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewYI->setContentSize(Size(280, 140));
+			listViewYI->setPosition(Vec2(winSize.width / 2, winSize.height / 2.7));
+			listViewYI->setClippingEnabled(true);
+			node->addChild(listViewYI,2);
 			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
 			auto listItem = Bag::GetInstance()->GetListItem();
 			for (int i = 0; i < sizeOfItem; i++)
@@ -310,34 +465,53 @@ namespace UICustom
 				sprite->removeFromParentAndCleanup(false);
 				sprite->setTag(i);
 				sprite->setScale(2.5);
-				sprite->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height / 2);
+				sprite->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height / 2);
 				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
 				labelName->setString(name);
 				labelName->setColor(Color3B(0, 0, 0));
-				labelName->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height * 4 / 5);
+				labelName->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height * 4 / 5);
 				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
 				labelNumber->setString(amount);
 				labelNumber->setColor(Color3B(0, 0, 0));
-				labelNumber->setPosition(buttonItem->getPosition().x + listViewMI->getContentSize().width* (i * 2 + 1) / 4,
-					buttonItem->getPosition().y + listViewMI->getContentSize().height * 1 / 5);
-				listViewMI->addChild(labelName, 202);
-				listViewMI->addChild(labelNumber, 202);
-				listViewMI->addChild(sprite, 202);
-				listViewMI->pushBackCustomItem(buttonItem);
+				labelNumber->setPosition(buttonItem->getPosition().x + listViewYI->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewYI->getContentSize().height * 1 / 5);
+				listViewYI->addChild(labelName, 202);
+				listViewYI->addChild(labelNumber, 202);
+				listViewYI->addChild(sprite, 202);
+				listViewYI->pushBackCustomItem(buttonItem);
 			}
 #pragma endregion
-
-			tab->insertTab(0, headerMP, containerMP);
-			tab->insertTab(1, headerPO, containerPO);
-			tab->insertTab(2, headerMI, containerMI);
-			tab->setSelectTab(0);
-			CC_SAFE_RETAIN(tab);
-			CC_SAFE_RETAIN(headerMP);
-			CC_SAFE_RETAIN(headerPO);
-			CC_SAFE_RETAIN(headerMI);
-
+#pragma region Even Button 
+			buttonYP->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(true);
+					listViewPO->setVisible(false);
+					listViewYI->setVisible(false);
+				}
+			});
+			buttonPO->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(false);
+					listViewPO->setVisible(true);
+					listViewYI->setVisible(false);
+				}
+			});
+			buttonYI->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					listView->setVisible(false);
+					listViewPO->setVisible(false);
+					listViewYI->setVisible(true);
+				}
+			});
+			//listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				auto list = Bag::GetInstance()->GetListPokemon();
 				for (int i = 0; i < 6; i++)
@@ -351,21 +525,259 @@ namespace UICustom
 				node->dismiss(true);
 				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
+#pragma endregion
 
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2 - tab->getContentSize().height / 2 - 100);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - 150);
 			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			menu->removeFromParent();
 			node->addChild(menu, 2);
-			node->initBg(tab->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
+			node->initBg(Size(300,100) + CONFIRM_DIALOGUE_SIZE_OFFSET, title);
 			node->autorelease();
 			return node;
 		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	Popup * Popup::ChoosePokemon()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{			
+			Button *buttonCharmander = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonCharmander->setPosition(Vec2(winSize.width/2,winSize.height/2-buttonCharmander->getContentSize().height/4));
+			node->addChild(buttonCharmander, 100);
+			
+			Button *buttonSquirtle = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonSquirtle->setPosition(Vec2(buttonCharmander->getPosition().x - buttonCharmander->getContentSize().width -10, buttonCharmander->getPosition().y));
+			node->addChild(buttonSquirtle, 100);
+			
+			Button *buttonChikorita = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonChikorita->setPosition(Vec2(buttonCharmander->getPosition().x + buttonCharmander->getContentSize().width + 10, buttonCharmander->getPosition().y));
+			node->addChild(buttonChikorita, 100);
+
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			
+			Pokemon *charmander = new Charmander();
+			Sprite *spriteCharmander = charmander->GetSpriteFront();
+			spriteCharmander->setScale(2);
+			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
+			spriteCharmander->setPosition(buttonCharmander->getContentSize().width/2, buttonCharmander->getContentSize().height / 4);
+			buttonCharmander->addChild(spriteCharmander,102);
+			string nameCharmander = "Charmander - Fire";
+			Label *labelCharmander = ResourceManager::GetInstance()->GetLabelById(0);
+			labelCharmander->setString(nameCharmander);
+			labelCharmander->setColor(Color3B(0, 0, 0));
+			labelCharmander->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height *5/6);
+			buttonCharmander->addChild(labelCharmander,102);
+			
+			Squirtle *squirtle = new Squirtle();
+			Sprite *spriteSquirtle = squirtle->GetSpriteFront();
+			spriteSquirtle->setScale(2);
+			spriteSquirtle->setAnchorPoint(Vec2(0.5, 0));
+			spriteSquirtle->setPosition(buttonCharmander->getContentSize().width / 2 , buttonCharmander->getContentSize().height / 4);
+			buttonSquirtle->addChild(spriteSquirtle, 102);
+			string nameSquirtle = "Squirtle - Water";
+			Label *labelSquirtle = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSquirtle->setString(nameSquirtle);
+			labelSquirtle->setColor(Color3B(0, 0, 0));
+			labelSquirtle->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height * 5 / 6);
+			buttonSquirtle->addChild(labelSquirtle, 102);
+			
+			Chikorita *chikorita = new Chikorita();
+			Sprite *spriteChikorita = chikorita->GetSpriteFront();
+			spriteChikorita->setScale(2);
+			spriteChikorita->setAnchorPoint(Vec2(0.5, 0));
+			spriteChikorita->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height / 4);
+			buttonChikorita->addChild(spriteChikorita, 102);
+			string nameChikorita = "Chikorita - Grass";
+			Label *labelChikorita = ResourceManager::GetInstance()->GetLabelById(0);
+			labelChikorita->setString(nameChikorita);
+			labelChikorita->setColor(Color3B(0, 0, 0));
+			labelChikorita->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height * 5 / 6);
+			buttonChikorita->addChild(labelChikorita, 102);
+			
+			Label *labelPokemon = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPokemon->setColor(Color3B(0, 0, 0));
+			labelPokemon->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
+			node->addChild(labelPokemon, 100);
+			
+			buttonCharmander->addTouchEventListener([labelPokemon,buttonCharmander,buttonChikorita,buttonSquirtle, charmander, winSize,node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(charmander);
+					labelPokemon->setString("Congratulations. Charmander will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
+			buttonChikorita->addTouchEventListener([labelPokemon, buttonCharmander, buttonChikorita, buttonSquirtle, chikorita, winSize, node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(chikorita);
+					labelPokemon->setString("Congratulations. Chikorita will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
+			buttonSquirtle->addTouchEventListener([labelPokemon, buttonCharmander, buttonChikorita, buttonSquirtle, squirtle, winSize, node](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					Bag::GetInstance()->AddPokemon(squirtle);
+					labelPokemon->setString("Congratulations. Squirtle will be your partner");
+					buttonCharmander->setTouchEnabled(false);
+					buttonChikorita->setTouchEnabled(false);
+					buttonSquirtle->setTouchEnabled(false);
+				}
+			});
+
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonCharmander->getContentSize().height / 1.1);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 180);
+			node->initBg(Size(buttonCharmander->getContentSize().width*3 + CONFIRM_DIALOGUE_SIZE_OFFSET.width,
+				buttonCharmander->getContentSize().height + CONFIRM_DIALOGUE_SIZE_OFFSET.height), "Choose the starting pokemon");
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+	Popup * Popup::CreateBagItemInBattle()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			Button *buttonPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonPotion->setPosition(Vec2(winSize.width / 2, winSize.height / 2 - buttonPotion->getContentSize().height / 4));
+			node->addChild(buttonPotion, 100);
+
+			Button *buttonSuperPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonSuperPotion->setPosition(Vec2(buttonPotion->getPosition().x - buttonPotion->getContentSize().width - 10, buttonPotion->getPosition().y));
+			node->addChild(buttonSuperPotion, 100);
+
+			Button *buttonMaxPotion = ResourceManager::GetInstance()->GetButtonById(12);
+			buttonMaxPotion->setPosition(Vec2(buttonPotion->getPosition().x + buttonPotion->getContentSize().width + 10, buttonPotion->getPosition().y));
+			node->addChild(buttonMaxPotion, 100);
+
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+			});
+
+			Sprite *spritePotion = ResourceManager::GetInstance()->GetSpriteById(137);
+			spritePotion->setScale(3);
+			spritePotion->setAnchorPoint(Vec2(0.5, 0));
+			spritePotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonPotion->addChild(spritePotion, 102);
+			
+			string namePotion = "Potion";
+			Label *labelPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPotion->setString(namePotion);
+			labelPotion->setColor(Color3B(0, 0, 0));
+			labelPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonPotion->addChild(labelPotion, 102);
+			
+			Label *labelPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelPotion2->setString("Restores 50 HP");
+			labelPotion2->setColor(Color3B(0, 0, 0));
+			labelPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonPotion->addChild(labelPotion2, 102);
+
+			
+			Sprite *spriteSuperPotion = ResourceManager::GetInstance()->GetSpriteById(138);
+			spriteSuperPotion->setScale(3);
+			spriteSuperPotion->setAnchorPoint(Vec2(0.5, 0));
+			spriteSuperPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonSuperPotion->addChild(spriteSuperPotion, 102);
+			
+			string supperPotion = "Super Potion";
+			Label *labelSuperPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSuperPotion->setString(supperPotion);
+			labelSuperPotion->setColor(Color3B(0, 0, 0));
+			labelSuperPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonSuperPotion->addChild(labelSuperPotion, 102);
+			
+			Label *labelSuperPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelSuperPotion2->setString("Restores 100 HP");
+			labelSuperPotion2->setColor(Color3B(0, 0, 0));
+			labelSuperPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonSuperPotion->addChild(labelSuperPotion2, 102);
+
+			
+			Sprite *spriteMaxPotion = ResourceManager::GetInstance()->GetSpriteById(139);
+			spriteMaxPotion->setScale(3);
+			spriteMaxPotion->setAnchorPoint(Vec2(0.5, 0));
+			spriteMaxPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height / 3);
+			buttonMaxPotion->addChild(spriteMaxPotion, 102);
+			
+			string nameChikorita = "Max Potion";
+			Label *labelMaxPotion = ResourceManager::GetInstance()->GetLabelById(0);
+			labelMaxPotion->setString(nameChikorita);
+			labelMaxPotion->setColor(Color3B(0, 0, 0));
+			labelMaxPotion->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 5 / 6);
+			buttonMaxPotion->addChild(labelMaxPotion, 102);
+			
+			Label *labelMaxPotion2 = ResourceManager::GetInstance()->GetLabelById(0);
+			labelMaxPotion2->setString("Fully restores HP");
+			labelMaxPotion2->setColor(Color3B(0, 0, 0));
+			labelMaxPotion2->setPosition(buttonPotion->getContentSize().width / 2, buttonPotion->getContentSize().height * 1 / 6);
+			buttonMaxPotion->addChild(labelMaxPotion2, 102);
+
+			
+			buttonPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			buttonSuperPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			buttonMaxPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED)
+				{
+					
+				}
+			});
+
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonPotion->getContentSize().height / 1.1);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 180);
+			node->initBg(Size(buttonPotion->getContentSize().width * 3 + CONFIRM_DIALOGUE_SIZE_OFFSET.width,
+				buttonPotion->getContentSize().height + CONFIRM_DIALOGUE_SIZE_OFFSET.height), "Item Potion");
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
 	}
 	
-	Popup * Popup::createBagInBattle()
+	Popup * Popup::CreateBagInBattle()
 	{
 		Popup *node = new (std::nothrow)Popup();
 		Size winSize = Director::getInstance()->getWinSize();
@@ -496,10 +908,261 @@ namespace UICustom
 			node->initBg(listViewPokemon->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Pokemon");
 			node->autorelease();
 			return node;
-
 		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
 	}
-	
+	Popup * Popup::CreateShop()
+	{
+		Popup *node = new (std::nothrow)Popup();
+		Size winSize = Director::getInstance()->getWinSize();
+		if (node && node->init())
+		{
+			auto listViewItemShop = ui::ListView::create();
+			listViewItemShop->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+			listViewItemShop->setAnchorPoint(Vec2(0.5, 0.5));
+			listViewItemShop->setContentSize(Size(280, 140));
+			listViewItemShop->setScale(0.8);
+			listViewItemShop->setPosition(Vec2(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 4));
+			listViewItemShop->setClippingEnabled(true);
+			node->addChild(listViewItemShop, 200);
+			auto listItem = Bag::GetInstance()->GetListItem();
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 1.2);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			for (int i = 0; i < 10; i++)
+			{
+#pragma region Create UI
+				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
+				buttonItem->setTag(i);
+				string id = to_string(listItem.at(i)->GetId());
+				string name = listItem.at(i)->GetName();
+				string price = "Price: " + to_string(listItem.at(i)->GetGold()) + " $";
+				Sprite *sprite = ResourceManager::GetInstance()->GetSpriteById(137 + i);
+				sprite->setTag(i);
+				sprite->setScale(2.5);
+				sprite->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height / 2);
+				Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+				labelName->setString(name);
+				labelName->setColor(Color3B(0, 0, 0));
+				labelName->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height * 4 / 5);
+				Label* labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+				labelNumber->setString(price);
+				labelNumber->setColor(Color3B(0, 0, 0));
+				labelNumber->setPosition(buttonItem->getPosition().x + listViewItemShop->getContentSize().width* (i * 2 + 1) / 4,
+					buttonItem->getPosition().y + listViewItemShop->getContentSize().height * 1 / 5);
+				listViewItemShop->addChild(labelName, 202);
+				listViewItemShop->addChild(labelNumber, 202);
+				listViewItemShop->addChild(sprite, 202);
+				listViewItemShop->pushBackCustomItem(buttonItem);
+#pragma endregion
+				buttonItem->addTouchEventListener([menu,winSize,node, listViewItemShop](Ref* ref, Widget::TouchEventType type)
+				{
+					if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+					{
+						
+						listViewItemShop->setVisible(false);
+						auto layout = Layout::create();
+						layout->setAnchorPoint(Vec2(0.5, 0.5));
+						layout->setPosition(Vec2(winSize.width / 2,winSize.height/2.4));
+						layout->setContentSize(Size(300, 150));
+						layout->setBackGroundImage(IMAGEPATH::BACKGROUND_IMAGE);
+						layout->setBackGroundImageScale9Enabled(true);
+						node->addChild(layout);
+						menu->setVisible(false);
+						MenuItemImage *noButton2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [menu,listViewItemShop,layout](Ref *sender)
+						{
+							layout->setVisible(false);
+							listViewItemShop->setVisible(true);
+							menu->setVisible(true);
+						});
+						Menu *menu2 = Menu::create(noButton2, NULL);
+						layout->addChild(menu2, 2);
+						menu2->setPosition(layout->getContentSize().width, layout->getContentSize().height);
+						int i = listViewItemShop->getCurSelectedIndex();
+						auto listItem = Bag::GetInstance()->GetListItem().at(i);
+						
+						Sprite *spriteItem = listItem->GetSpriteFront();
+						spriteItem->setScale(2.5);
+						spriteItem->setPosition(Vec2(layout->getContentSize().width/4, layout->getPosition().y/2));
+						spriteItem->removeFromParent();
+						
+						Label *labelName = ResourceManager::GetInstance()->GetLabelById(0);
+						string name = listItem->GetName();
+						labelName->setString(name);
+						labelName->setColor(Color3B(0, 0, 0));
+						labelName->setPosition(Vec2(layout->getContentSize().width / 4, layout->getPosition().y - 35));
+						
+						Label *labelPrice = ResourceManager::GetInstance()->GetLabelById(0);
+						string price = "Price: "+to_string(listItem->GetGold())+" $";
+						labelPrice->setString(price);
+						labelPrice->setColor(Color3B(0, 0, 0));
+						labelPrice->setPosition(Vec2(layout->getContentSize().width / 4, layout->getPosition().y / 4));
+						
+#pragma region Describe
+
+						Label *labelDescribe = ResourceManager::GetInstance()->GetLabelById(0);
+						//string describe = listItem->GetDescribe();
+						switch (i)
+						{
+						case 0:
+						{
+							labelDescribe->setString("Restores 50 HP");
+							break;
+						}
+						case 1:
+						{
+							labelDescribe->setString("Restores 100 HP");
+							break;
+						}
+						case 2:
+						{
+							labelDescribe->setString("Fully restores HP");
+							break;
+						}
+						case 3:
+						{
+							labelDescribe->setString("It fully restores the PP");
+							break;
+						}
+						case 4:
+						{
+							labelDescribe->setString("Revive pokemon with half HP maximum");
+							break;
+						}
+						case 5:
+						{
+							labelDescribe->setString("Revive pokemon with full HP");
+							break;
+						}
+						case 6:
+						{
+							labelDescribe->setString("Evolution Fire Pokemon");
+							break;
+						}
+						case 7:
+						{
+							labelDescribe->setString("Evolution Leaf Pokemon");
+							break;
+						}
+						case 8:
+						{
+							labelDescribe->setString("Evolution Thunder Pokemon");
+							break;
+						}
+						case 9:
+						{
+							labelDescribe->setString("Evolution Water Pokemon");
+							break;
+						}
+						default:
+							break;
+						}
+#pragma endregion
+						labelDescribe->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
+						labelDescribe->setWidth(140);
+						labelDescribe->setAnchorPoint(Vec2(0.5, 1));
+						labelDescribe->setColor(Color3B(0, 0, 0));
+						labelDescribe->setPosition(Vec2(layout->getContentSize().width *3/4.3, layout->getPosition().y - 30));
+						
+						Label *labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+						labelNumber->setString(to_string(1));
+						labelNumber->setColor(Color3B(0, 0, 0));
+						labelNumber->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 2));
+
+						Label *labelAlert = ResourceManager::GetInstance()->GetLabelById(0);
+						string strGold = to_string(Bag::GetInstance()->GetGold());
+						labelAlert->setString("Your gold: " + strGold + " $");
+						labelAlert->setColor(Color3B(0, 0, 0));
+						labelAlert->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 7));
+
+						auto buttonMinus = ResourceManager::GetInstance()->GetButtonById(16);
+						buttonMinus->setPosition(Vec2(layout->getContentSize().width * 1.25 /2, layout->getPosition().y /2));
+						buttonMinus->setScale(0.2);
+						buttonMinus->addTouchEventListener([labelAlert,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED)
+							{
+								int num = stoi(labelNumber->getString());
+								if (num != 1)
+								{
+									labelAlert->setString("Your gold: " + to_string(Bag::GetInstance()->GetGold()) + " $");
+									num--;
+									labelNumber->setString(to_string(num));
+								}
+							}
+						});
+
+						auto buttonAdd = ResourceManager::GetInstance()->GetButtonById(17);
+						buttonAdd->setPosition(Vec2(layout->getContentSize().width * 3.3 / 4.3 , layout->getPosition().y / 2));
+						buttonAdd->setScale(0.2);
+						buttonAdd->addTouchEventListener([labelAlert,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED) 
+							{
+								int num = stoi(labelNumber->getString());
+								if (num != 9)
+								{
+									labelAlert->setString("Your gold: " + to_string(Bag::GetInstance()->GetGold()) + " $");
+									num++;
+									labelNumber->setString(to_string(num));
+								}
+							}
+						});
+						
+						auto buttonBuy = ResourceManager::GetInstance()->GetButtonById(18);
+						buttonBuy->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 3));
+						buttonBuy->setScale(0.5);
+						buttonBuy->addTouchEventListener([labelAlert,listItem,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED)
+							{
+								int num = stoi(labelNumber->getString());
+								if (num* listItem->GetGold() <= Bag::GetInstance()->GetGold())
+								{
+									listItem->SetNumber(listItem->GetNumber() + num);
+									labelNumber->setString("1");
+									labelAlert->setString("Buy success");
+									Bag::GetInstance()->SetGold(Bag::GetInstance()->GetGold() - num* listItem->GetGold());
+								}
+								else
+								{
+									labelAlert->setString("No enough money");
+								}
+							}
+						});
+			
+						layout->addChild(labelAlert);
+						layout->addChild(buttonBuy);
+						layout->addChild(labelNumber);
+						layout->addChild(buttonMinus);
+						layout->addChild(buttonAdd);
+						layout->addChild(labelName);
+						layout->addChild(labelDescribe);
+						layout->addChild(labelPrice);
+						layout->addChild(spriteItem);
+					}
+				});
+			}
+			
+			//listViewItemShop->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedShopItemEvent,node));
+			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 150); 
+			string str = "Shop item - Gold: " + to_string(Bag::GetInstance()->GetGold());
+			node->initBg(listViewItemShop->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Shop item");
+			node->autorelease();
+			return node;
+		}
+		CC_SAFE_DELETE(node);
+		return nullptr;
+	}
+
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{
 		Popup *node = new (std::nothrow)Popup();

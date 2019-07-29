@@ -267,22 +267,7 @@
     <ClCompile Include="..\Classes\NPC\CityNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NPC\KhuongDuyNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Bag.cpp">
@@ -635,22 +620,7 @@
     <ClInclude Include="..\Classes\NPC\CityNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\NPC\KhuongDuyNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\NPC\LakeNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bag.h">

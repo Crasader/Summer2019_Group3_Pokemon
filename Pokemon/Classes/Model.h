@@ -98,4 +98,41 @@ public:
 
 	static const int MODLE_TYPE_ROAD_GATE_TO_ROUTE2 = 2;
 	static const int MODLE_TYPE_ROAD_GATE_TO_LEAGUE = 3;
+	//NPC
+	static const int MODLE_TYPE_DOCTORNPC = 3;
+	static const int MODLE_TYPE_ROUTE1NPC = 4;
+	static const int MODLE_TYPE_NURSENPC = 3;
+	static const int MODLE_TYPE_SHOPNPC = 4;
+	static const int MODLE_TYPE_CAVENPC = 7;
+	static const int MODLE_TYPE_LAKENPC = 8;
+	static const int MODLE_TYPE_ROUTE2NPC = 9;
+	static const int MODLE_TYPE_ROADNPC = 3;
+	static const int MODLE_TYPE_ENTEI = 3;
+	static const int MODLE_TYPE_SUICUNE = 3;
+	static const int MODLE_TYPE_RAIKOU = 4;
+
+
+	static const int BITMASK_DOCTORNPC = BITMASK_ROAD_GATE_TO_LEAGUE + 1;
+	static const int BITMASK_ROUTE1NPC = BITMASK_DOCTORNPC + 1;
+	static const int BITMASK_NURSENPC = BITMASK_ROUTE1NPC + 1;
+	static const int BITMASK_SHOPNPC = BITMASK_NURSENPC + 1;
+	static const int BITMASK_CAVENPC = BITMASK_SHOPNPC + 1;
+	static const int BITMASK_LAKENPC = BITMASK_CAVENPC + 1;
+	static const int BITMASK_ROUTE2NPC = BITMASK_LAKENPC + 1;
+	static const int BITMASK_ROADNPC = BITMASK_ROUTE2NPC + 1;
+	static const int BITMASK_ENTEI = BITMASK_ROADNPC + 1;
+	static const int BITMASK_SUICUNE = BITMASK_ENTEI + 1;
+	static const int BITMASK_RAIKOU = BITMASK_SUICUNE + 1;
+
+ //bool is defeat
+	static bool ENTEI;
+	static bool SUICUNE;
+	static bool RAIKOU;
+	static bool ROUTE1NPC;
+	static bool CAVENPC;
+	static bool LAKENPC;
+	static bool ROUTE2NPC;
+	static bool ROADNPC;
+	static bool CHAMPIONNPC;
+	static bool DOCTOR;
 };

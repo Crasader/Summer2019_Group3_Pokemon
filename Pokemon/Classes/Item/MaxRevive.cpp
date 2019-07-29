@@ -7,6 +7,7 @@ MaxRevive::MaxRevive()
 	this->m_gold = 50;
 	this->m_number = 0;
 	this->m_name = "Max Revive";
+	this->m_describe = "Revives a Pokémon full HP";
 }
 
 MaxRevive::~MaxRevive()

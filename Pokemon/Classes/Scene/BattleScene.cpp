@@ -291,6 +291,11 @@ void BattleScene::ReduceHpPlayer(float deltaTime)
 			auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpPlayer->getScaleY()), finished, nullptr);
 			this->m_hpPlayer->runAction(sq);
 		}
+		if (m_player->GetCurrentHP()*100/m_player->GetMaxHP()<20)
+		{
+			auto audio = SimpleAudioEngine::getInstance();
+			audio->playEffect("LowHealth.mp3", true);
+		}
 		this->unschedule(schedule_selector(BattleScene::ReduceHpPlayer));
 	}
 }
@@ -622,7 +627,7 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill3->getString() == "Pokemon")
 			{
-				UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+				UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagInBattle();
 				this->addChild(popupPokemon, 1000);
 			}
 			else if (this->m_labelSkill3->getString() != "-")

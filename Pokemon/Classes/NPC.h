@@ -8,7 +8,6 @@ class NPC : public MyObject
 protected:
 	string m_name;
 	vector<Pokemon*> m_pokemons;
-	bool m_state;
 public:
 	NPC();
 	~NPC();

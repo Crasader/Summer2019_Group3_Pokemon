@@ -8,7 +8,6 @@ Charizard::Charizard()
 {
 	this->Init(2, 3);
 	this->m_name = "Charizard";
-	this->m_level = 15;
 }
 
 Charizard::Charizard(Charmeleon * it)

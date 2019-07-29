@@ -3,6 +3,8 @@
 #include "ResourceManager.h"
 #include "Scene\Loading.h"
 #include "Scene\BattleScene.h"
+#include "Map\House.h"
+#include "Map\PokemonCenter.h"
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
@@ -98,7 +100,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-	auto scene = Loading::createScene();
+	auto scene = PokemonCenter::createScene();
     // run
     director->runWithScene(scene);
 

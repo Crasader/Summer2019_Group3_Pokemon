@@ -6,19 +6,21 @@
 #include "Buttons.h"
 #include "City.h"
 #include "Model.h"
+#include "Bag.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 USING_NS_CC;
 Size pcvisibleSize;
 Size pctileMapSize;
 
-PhysicsBody* pcbody, *pcgateWay;
+PhysicsBody* pcbody, *pcgateWay, *nursebody, *shopbody;
 Camera *pccamera;
 
 Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = PokemonCenter::create();
 	scene->addChild(layer);
 	pccamera = scene->getDefaultCamera();
@@ -60,11 +62,10 @@ bool PokemonCenter::init()
 			if (tileSet != NULL)
 			{
 				auto physics = PhysicsBody::createBox(tileSet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-				physics->setCollisionBitmask(13);
+				physics->setCollisionBitmask(Model::BITMASK_WORLD);
 				physics->setContactTestBitmask(true);
 				physics->setDynamic(false);
 				physics->setGravityEnable(false);
-				physics->setMass(12);
 				tileSet->setPhysicsBody(physics);
 			}
 		}
@@ -76,6 +77,9 @@ bool PokemonCenter::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	bag->removeFromParent();
+	addChild(bag, 100);
 	up->removeFromParent();
 	right->removeFromParent();
 	left->removeFromParent();
@@ -85,6 +89,21 @@ bool PokemonCenter::init()
 	addChild(left, 100);
 	addChild(down, 100);
 
+
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(pccamera->getPosition().x - popup->getContentSize().width / 2,
+				pccamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -92,7 +111,52 @@ bool PokemonCenter::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleUpdate();
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setVisible(false);
+	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.88, Director::getInstance()->getVisibleSize().height / 4);
+	this->addChild(this->m_messageBox, 0);
+	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelLog->setScale(1.5);
+	this->m_labelLog->setTextColor(Color4B::BLACK);
+	this->m_labelLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelLog);
 	return true;
+}
+
+void PokemonCenter::TypeWriter(float deltaTime)
+{
+	if (writing < this->m_labelLog->getStringLength())
+	{
+		auto letter = this->m_labelLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelLog->setOpacity(255);
+		this->unschedule(schedule_selector(PokemonCenter::TypeWriter));
+	}
+}
+
+void PokemonCenter::LogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
 }
 
 bool PokemonCenter::onContactBegin(PhysicsContact & contact)
@@ -106,8 +170,126 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
 	}
-
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_NURSENPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_NURSENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("recovery.wav", false);
+		Buttons::GetIntance()->Remove();
+		this->Log("pokemon cua ban da duoc phuc hoi");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		
+		auto ListYP = Bag::GetInstance()->GetListPokemon();
+		for (int i = 0; i < ListYP.size(); i++)
+		{
+			if (ListYP.at(i) != nullptr)
+			{
+				ListYP.at(i)->SetCurrentHP(ListYP.at(1)->GetMaxHP());
+				ListYP.at(i)->GetSkillById(0)->SetCurrentPP(ListYP.at(i)->GetSkillById(0)->GetMaxPP());
+				if (ListYP.at(i)->GetSkillById(1) != nullptr)
+				{
+					ListYP.at(i)->GetSkillById(1)->SetCurrentPP(ListYP.at(i)->GetSkillById(1)->GetMaxPP());
+					if (ListYP.at(i)->GetSkillById(2) != nullptr)
+					{
+						ListYP.at(i)->GetSkillById(2)->SetCurrentPP(ListYP.at(i)->GetSkillById(2)->GetMaxPP());
+					}
+				}
+			}
+		}
+		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
+		for (int i = 0; i < ListPO.size(); i++)
+		{
+			ListPO.at(i)->SetCurrentHP(ListPO.at(1)->GetMaxHP());
+			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
+			if (ListPO.at(i)->GetSkillById(1) != nullptr)
+			{
+				ListPO.at(i)->GetSkillById(1)->SetCurrentPP(ListPO.at(i)->GetSkillById(1)->GetMaxPP());
+				if (ListPO.at(i)->GetSkillById(2) != nullptr)
+				{
+					ListPO.at(i)->GetSkillById(2)->SetCurrentPP(ListPO.at(i)->GetSkillById(2)->GetMaxPP());
+				}
+			}
+		}
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_SHOPNPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_SHOPNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		UICustom::Popup *popupShop = UICustom::Popup::CreateShop();
+		this->addChild(popupShop);
+	}
 	return true;
 
 }
@@ -133,6 +315,32 @@ void PokemonCenter::InitObject()
 			pcbody->setRotationEnable(false);
 			pcbody->setGravityEnable(false);
 			mPlayer->GetSpriteFront()->setPhysicsBody(pcbody);
+		}
+		else if (type== Model::MODLE_TYPE_NURSENPC)
+		{
+			m_nurse = ResourceManager::GetInstance()->GetSpriteById(126);
+			m_nurse->setPosition(Vec2(posX, posY));
+			m_nurse->setScale(0.8);
+			nursebody = PhysicsBody::createBox(m_nurse->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			nursebody->setCollisionBitmask(Model::BITMASK_NURSENPC);
+			nursebody->setContactTestBitmask(true);
+			nursebody->setDynamic(false);
+			nursebody->setGravityEnable(false);
+			m_nurse->setPhysicsBody(nursebody);
+			this->addChild(m_nurse, 10);
+		}
+		else if (type == Model::MODLE_TYPE_SHOPNPC)
+		{
+			m_shop = ResourceManager::GetInstance()->GetSpriteById(127);
+			m_shop->setPosition(Vec2(posX, posY));
+			m_shop->setScale(0.8);
+			shopbody = PhysicsBody::createBox(m_shop->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			shopbody->setCollisionBitmask(Model::BITMASK_SHOPNPC);
+			shopbody->setContactTestBitmask(true);
+			shopbody->setDynamic(false);
+			shopbody->setGravityEnable(false);
+			m_shop->setPhysicsBody(shopbody);
+			this->addChild(m_shop, 10);
 		}
 		else {
 			mGateWay = Sprite::create("res/walkup.png");
@@ -191,6 +399,51 @@ void PokemonCenter::UpdateCamera() {
 			}
 		}
 	}
+}
+void PokemonCenter::Log(string logg)
+{
+	this->m_labelLog->setString(logg);
+	this->LogSetOpacity(0);
+	this->m_labelLog->setOpacity(0);
+	writing = 0;
+	this->schedule(schedule_selector(PokemonCenter::TypeWriter), 0.05);
+}
+bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
+{
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
+	if (!m_stateLog) {
+		if (this->m_labelLog->getOpacity() == 0)
+		{
+			this->unschedule(schedule_selector(PokemonCenter::TypeWriter));
+			this->LogSetOpacity(255);
+			this->m_labelLog->setOpacity(255);
+		}
+	}
+	else
+	{
+		m_stateLog = false;
+		this->m_messageBox->setVisible(false);
+		Button *up = Buttons::GetIntance()->GetButtonUp();
+		Button *right = Buttons::GetIntance()->GetButtonRight();
+		Button *left = Buttons::GetIntance()->GetButtonLeft();
+		Button *down = Buttons::GetIntance()->GetButtonDown();
+		addChild(up, 100);
+		addChild(right, 100);
+		addChild(left, 100);
+		addChild(down, 100);
+		Button *bag = Buttons::GetIntance()->GetButtonBag();
+		bag->removeFromParent();
+		addChild(bag, 100);
+		Buttons::GetIntance()->ButtonListener(this->mPlayer);
+
+		auto contactListener = EventListenerPhysicsContact::create();
+		contactListener->onContactBegin = CC_CALLBACK_1(PokemonCenter::onContactBegin, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+		scheduleUpdate();
+	}
+	return true;
 }
 void PokemonCenter::update(float dt)
 {

@@ -7,6 +7,7 @@ Revive::Revive()
 	this->m_gold = 20;
 	this->m_number = 1;
 	this->m_name = "Revive";
+	this->m_describe = "Revives a Pokémon";
 }
 
 Revive::~Revive()

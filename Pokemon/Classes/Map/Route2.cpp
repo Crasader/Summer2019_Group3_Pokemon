@@ -18,7 +18,7 @@ int Route2::previousScene = 0;
 Scene* Route2::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route2::create();
 	scene->addChild(layer);
 	route2Camera = scene->getDefaultCamera();
@@ -130,6 +130,8 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Route2::previousScene = Model::PRESCENE_CITY_TO_ROUTE2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2_GATE_TO_ROAD)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2_GATE_TO_ROAD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -138,6 +140,35 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		Route2::previousScene = Model::PRESCENE_ROAD_TO_ROUTE2;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Road::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
 	}
 	return true;
 
