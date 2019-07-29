@@ -201,6 +201,8 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		default:
 			break;
 		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->Remove();
 		this->Log("Meow ?");
 		this->m_stateLog = true;
@@ -321,6 +323,8 @@ void Lake::UpdateCamera() {
 }
 void Lake::Log(string logg)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);

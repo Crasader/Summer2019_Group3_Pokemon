@@ -323,7 +323,7 @@ void Lab::Log(string logg)
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("emerald 0005 - Selection Click Beep.mp3", false);
+	audio->playEffect("Beep.mp3", false);
 	if(!m_stateLog){
 		if (this->m_labelLog->getOpacity() == 0)
 		{
