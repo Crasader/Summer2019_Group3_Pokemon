@@ -7,6 +7,7 @@ FireStone::FireStone()
 	this->m_gold = 50;
 	this->m_name = "Fire Stone";
 	this->m_number = 0;
+	this->m_describe = "Evolution Fire Pokémon";
 }
 
 FireStone::~FireStone()

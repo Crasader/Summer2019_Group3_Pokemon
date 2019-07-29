@@ -8,6 +8,7 @@ Potion::Potion()
 	this->hpRevice = 20;
 	this->m_name = "Potion";
 	this->m_number = 5;
+	this->m_describe = "Restores 50 HP.";
 }
 
 Potion::~Potion()

@@ -352,7 +352,7 @@ namespace UICustom
 			listView->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listView->setAnchorPoint(Vec2(0.5, 0.5));
 			listView->setContentSize(Size(280, 140));
-			listView->setPosition(Vec2(winSize.width/2,winSize.height/3));
+			listView->setPosition(Vec2(winSize.width/2,winSize.height / 2.7));
 			listView->setClippingEnabled(true);
 			node->addChild(listView,2);						
 			auto list = Bag::GetInstance()->GetListPokemon();
@@ -401,7 +401,7 @@ namespace UICustom
 			listViewPO->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listViewPO->setAnchorPoint(Vec2(0.5, 0.5));
 			listViewPO->setContentSize(Size(280, 140));
-			listViewPO->setPosition(Vec2(winSize.width / 2, winSize.height / 3));
+			listViewPO->setPosition(Vec2(winSize.width / 2, winSize.height / 2.7));
 			listViewPO->setClippingEnabled(true);
 			node->addChild(listViewPO,2);
 			int sizeOfPokemonOver = Bag::GetInstance()->GetListPokemonOver().size();
@@ -449,7 +449,7 @@ namespace UICustom
 			listViewYI->setDirection(ui::ScrollView::Direction::HORIZONTAL);
 			listViewYI->setAnchorPoint(Vec2(0.5, 0.5));
 			listViewYI->setContentSize(Size(280, 140));
-			listViewYI->setPosition(Vec2(winSize.width / 2, winSize.height / 3));
+			listViewYI->setPosition(Vec2(winSize.width / 2, winSize.height / 2.7));
 			listViewYI->setClippingEnabled(true);
 			node->addChild(listViewYI,2);
 			int sizeOfItem = Bag::GetInstance()->GetListItem().size();
@@ -483,8 +483,8 @@ namespace UICustom
 				listViewYI->pushBackCustomItem(buttonItem);
 			}
 #pragma endregion
-
-			buttonYP->addTouchEventListener([listView, listViewPO,listViewYI](Ref* sender, Widget::TouchEventType type)
+#pragma region Even Button 
+			buttonYP->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
@@ -511,12 +511,12 @@ namespace UICustom
 					listViewYI->setVisible(true);
 				}
 			});
-
+			//listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 				node->dismiss(true);
 				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
-
+#pragma endregion
 
 			Menu *menu = Menu::create(noButton, NULL);
 			node->addChild(menu, 2);
@@ -921,8 +921,17 @@ namespace UICustom
 			listViewItemShop->setClippingEnabled(true);
 			node->addChild(listViewItemShop, 200);
 			auto listItem = Bag::GetInstance()->GetListItem();
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 1.2);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			for (int i = 0; i < 10; i++)
 			{
+#pragma region Create UI
 				ui::Button *buttonItem = ResourceManager::GetInstance()->GetButtonById(12);
 				buttonItem->setTag(i);
 				string id = to_string(listItem.at(i)->GetId());
@@ -947,16 +956,197 @@ namespace UICustom
 				listViewItemShop->addChild(labelNumber, 202);
 				listViewItemShop->addChild(sprite, 202);
 				listViewItemShop->pushBackCustomItem(buttonItem);
+#pragma endregion
+				buttonItem->addTouchEventListener([menu,winSize,node, listViewItemShop](Ref* ref, Widget::TouchEventType type)
+				{
+					if (type == cocos2d::ui::Widget::TouchEventType::ENDED)
+					{
+						
+						listViewItemShop->setVisible(false);
+						auto layout = Layout::create();
+						layout->setAnchorPoint(Vec2(0.5, 0.5));
+						layout->setPosition(Vec2(winSize.width / 2,winSize.height/2.4));
+						layout->setContentSize(Size(300, 150));
+						layout->setBackGroundImage(IMAGEPATH::BACKGROUND_IMAGE);
+						layout->setBackGroundImageScale9Enabled(true);
+						node->addChild(layout);
+						menu->setVisible(false);
+						MenuItemImage *noButton2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [menu,listViewItemShop,layout](Ref *sender)
+						{
+							layout->setVisible(false);
+							listViewItemShop->setVisible(true);
+							menu->setVisible(true);
+						});
+						Menu *menu2 = Menu::create(noButton2, NULL);
+						layout->addChild(menu2, 2);
+						menu2->setPosition(layout->getContentSize().width, layout->getContentSize().height);
+						int i = listViewItemShop->getCurSelectedIndex();
+						auto listItem = Bag::GetInstance()->GetListItem().at(i);
+						
+						Sprite *spriteItem = listItem->GetSpriteFront();
+						spriteItem->setScale(2.5);
+						spriteItem->setPosition(Vec2(layout->getContentSize().width/4, layout->getPosition().y/2));
+						spriteItem->removeFromParent();
+						
+						Label *labelName = ResourceManager::GetInstance()->GetLabelById(0);
+						string name = listItem->GetName();
+						labelName->setString(name);
+						labelName->setColor(Color3B(0, 0, 0));
+						labelName->setPosition(Vec2(layout->getContentSize().width / 4, layout->getPosition().y - 35));
+						
+						Label *labelPrice = ResourceManager::GetInstance()->GetLabelById(0);
+						string price = "Price: "+to_string(listItem->GetGold())+" $";
+						labelPrice->setString(price);
+						labelPrice->setColor(Color3B(0, 0, 0));
+						labelPrice->setPosition(Vec2(layout->getContentSize().width / 4, layout->getPosition().y / 4));
+						
+#pragma region Describe
+
+						Label *labelDescribe = ResourceManager::GetInstance()->GetLabelById(0);
+						//string describe = listItem->GetDescribe();
+						switch (i)
+						{
+						case 0:
+						{
+							labelDescribe->setString("Restores 50 HP");
+							break;
+						}
+						case 1:
+						{
+							labelDescribe->setString("Restores 100 HP");
+							break;
+						}
+						case 2:
+						{
+							labelDescribe->setString("Fully restores HP");
+							break;
+						}
+						case 3:
+						{
+							labelDescribe->setString("It fully restores the PP");
+							break;
+						}
+						case 4:
+						{
+							labelDescribe->setString("Revive pokemon with half HP maximum");
+							break;
+						}
+						case 5:
+						{
+							labelDescribe->setString("Revive pokemon with full HP");
+							break;
+						}
+						case 6:
+						{
+							labelDescribe->setString("Evolution Fire Pokemon");
+							break;
+						}
+						case 7:
+						{
+							labelDescribe->setString("Evolution Leaf Pokemon");
+							break;
+						}
+						case 8:
+						{
+							labelDescribe->setString("Evolution Thunder Pokemon");
+							break;
+						}
+						case 9:
+						{
+							labelDescribe->setString("Evolution Water Pokemon");
+							break;
+						}
+						default:
+							break;
+						}
+#pragma endregion
+						labelDescribe->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
+						labelDescribe->setWidth(140);
+						labelDescribe->setAnchorPoint(Vec2(0.5, 1));
+						labelDescribe->setColor(Color3B(0, 0, 0));
+						labelDescribe->setPosition(Vec2(layout->getContentSize().width *3/4.3, layout->getPosition().y - 30));
+						
+						Label *labelNumber = ResourceManager::GetInstance()->GetLabelById(0);
+						labelNumber->setString(to_string(1));
+						labelNumber->setColor(Color3B(0, 0, 0));
+						labelNumber->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 2));
+
+						Label *labelAlert = ResourceManager::GetInstance()->GetLabelById(0);
+						string strGold = to_string(Bag::GetInstance()->GetGold());
+						labelAlert->setString("Your gold: " + strGold + " $");
+						labelAlert->setColor(Color3B(0, 0, 0));
+						labelAlert->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 7));
+
+						auto buttonMinus = ResourceManager::GetInstance()->GetButtonById(16);
+						buttonMinus->setPosition(Vec2(layout->getContentSize().width * 1.25 /2, layout->getPosition().y /2));
+						buttonMinus->setScale(0.2);
+						buttonMinus->addTouchEventListener([labelAlert,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED)
+							{
+								int num = stoi(labelNumber->getString());
+								if (num != 1)
+								{
+									labelAlert->setString("Your gold: " + to_string(Bag::GetInstance()->GetGold()) + " $");
+									num--;
+									labelNumber->setString(to_string(num));
+								}
+							}
+						});
+
+						auto buttonAdd = ResourceManager::GetInstance()->GetButtonById(17);
+						buttonAdd->setPosition(Vec2(layout->getContentSize().width * 3.3 / 4.3 , layout->getPosition().y / 2));
+						buttonAdd->setScale(0.2);
+						buttonAdd->addTouchEventListener([labelAlert,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED) 
+							{
+								int num = stoi(labelNumber->getString());
+								if (num != 9)
+								{
+									labelAlert->setString("Your gold: " + to_string(Bag::GetInstance()->GetGold()) + " $");
+									num++;
+									labelNumber->setString(to_string(num));
+								}
+							}
+						});
+						
+						auto buttonBuy = ResourceManager::GetInstance()->GetButtonById(18);
+						buttonBuy->setPosition(Vec2(layout->getContentSize().width * 1.4 / 2, layout->getPosition().y / 3));
+						buttonBuy->setScale(0.5);
+						buttonBuy->addTouchEventListener([labelAlert,listItem,node, labelNumber](Ref* ref, Widget::TouchEventType type)
+						{
+							if (type == ui::Widget::TouchEventType::ENDED)
+							{
+								int num = stoi(labelNumber->getString());
+								if (num* listItem->GetGold() <= Bag::GetInstance()->GetGold())
+								{
+									listItem->SetNumber(listItem->GetNumber() + num);
+									labelNumber->setString("1");
+									labelAlert->setString("Buy success");
+									Bag::GetInstance()->SetGold(Bag::GetInstance()->GetGold() - num* listItem->GetGold());
+								}
+								else
+								{
+									labelAlert->setString("No enough money");
+								}
+							}
+						});
+			
+						layout->addChild(labelAlert);
+						layout->addChild(buttonBuy);
+						layout->addChild(labelNumber);
+						layout->addChild(buttonMinus);
+						layout->addChild(buttonAdd);
+						layout->addChild(labelName);
+						layout->addChild(labelDescribe);
+						layout->addChild(labelPrice);
+						layout->addChild(spriteItem);
+					}
+				});
 			}
-			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				node->dismiss(true);
-				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
-			});
-			Menu *menu = Menu::create(noButton, NULL);
-			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2 - listViewItemShop->getContentSize().height / 1.2);
-			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
-			listViewItemShop->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent,node));
+			
+			//listViewItemShop->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedShopItemEvent,node));
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 150); 
 			string str = "Shop item - Gold: " + to_string(Bag::GetInstance()->GetGold());
 			node->initBg(listViewItemShop->getContentSize() + CONFIRM_DIALOGUE_SIZE_OFFSET, "Shop item");
@@ -966,23 +1156,32 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
-	void Popup::SelectedItemEvent(Ref * sender, ListView::EventType type)
-	{
-		ListView *listview = static_cast<ListView*>(sender);
-		switch (type)
-		{
-		case cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_START:
-			log("selected index start = %d", listview->getCurSelectedIndex());
-			break;
-		case cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END:
-			log("selected index end = %d", listview->getCurSelectedIndex());
-
-			break;
-		default:
-			break;
-		}
-	}
-	
+	//void Popup::SelectedShopItemEvent(Ref * sender, ListView::EventType type)
+	//{
+	//	ListView *listview = static_cast<ListView*>(sender);
+	//	Popup *node = static_cast<Popup*>(sender);
+	//	int index = listview->getCurSelectedIndex();
+	//	if (type== cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END)
+	//	{
+	//		UICustom::Popup *popup = Popup::CreateItemShop(index);
+	//		popup->setPosition(Director::getInstance()->getVisibleSize() / 2);
+	//		node->addChild(popup, 1000);
+	//	}
+	//}
+	//Popup *Popup::CreateItemShop(int index)
+	//{
+	//	Popup *node = new (std::nothrow)Popup();
+	//	Size winSize = Director::getInstance()->getWinSize();
+	//	if (node && node->init())
+	//	{
+	//		node->initBg(Size(300,300),"ahihi");
+	//		node->autorelease();
+	//		return node;
+	//	}
+	//	CC_SAFE_DELETE(node);
+	//	return nullptr;
+	//
+	//}
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{
 		Popup *node = new (std::nothrow)Popup();

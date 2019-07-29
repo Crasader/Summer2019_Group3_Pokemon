@@ -45,7 +45,8 @@ namespace UICustom {
 		static Popup * CreateBagItemInBattle();
 		static Popup * CreateBagInBattle();
 		static Popup * CreateShop();
-		void SelectedItemEvent(Ref *sender, cocos2d::ui::ListView::EventType type);
+		void SelectedShopItemEvent(Ref *sender, cocos2d::ui::ListView::EventType type);
+		static Popup * CreateItemShop(int index);
 	private:
         void initBg(const cocos2d::Size size,const std::string &title);
     };

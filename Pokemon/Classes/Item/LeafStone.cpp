@@ -7,6 +7,7 @@ LeafStone::LeafStone()
 	this->m_name = "Leaf Stone";
 	this->m_number = 0;
 	this->m_id = 7;
+	this->m_describe = "Evolution Leaf Pokémon";
 }
 
 LeafStone::~LeafStone()
