@@ -270,6 +270,15 @@
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp">
+      <Filter>src\NPC</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Bag.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -621,6 +630,15 @@
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\LakeNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">
+      <Filter>src\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bag.h">

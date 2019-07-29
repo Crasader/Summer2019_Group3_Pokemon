@@ -10,8 +10,8 @@
     "6": "res/Map/Route1MapTree1.tmx",
     "7": "res/Map/Lab.tmx",
     "8": "res/Map/PokemonCenter.tmx",
-    "9": "res/Map/Lake.tmx",
-    "10": "res/Map/Route2.tmx"
+    "9": "res/Map/lake.tmx",
+    "10": "res/Map/route2.tmx"
   },
   "SPRITE": {
     "size": 152,
@@ -158,6 +158,7 @@
     "134": "res/Background/1.png",
     "135": "res/UI/LoadingBar/0.png",
     "136": "res/UI/LoadingBar/1.png",
+	
     "137": "res/Item/Potion.png",
     "138": "res/Item/SuperPotion.png",
     "139": "res/Item/MaxPotion.png",
@@ -168,6 +169,7 @@
     "144": "res/Item/LeafStone.png",
     "145": "res/Item/ThunderStone.png",
     "146": "res/Item/WaterStone.png",
+	
     "147": "res/Trainer/Pokeball/0.png",
     "148": "res/Battle/levelup.png",
     "149": "res/NPC/8.png",

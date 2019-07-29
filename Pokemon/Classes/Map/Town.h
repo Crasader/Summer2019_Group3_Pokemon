@@ -10,15 +10,21 @@ class Town : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
+	TMXTiledMap* map;
 public:
+	static int arrayGrassHasPokemon[32][16];
 	static cocos2d::Scene* createScene();
+	int Check(int x, int y);
 	static int previousScene;
 	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
+	static void InitArray();
+	//void InitGrass();
 	//void CreateButon();
 	CREATE_FUNC(Town);
 	//void createPhysics();
 	void update(float);
+	void DeleteGrassHasPokemon();
 };

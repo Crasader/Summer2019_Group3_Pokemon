@@ -1,5 +1,7 @@
 #pragma once
 #include "cocos2d.h"
+#include <string>
+using namespace std;
 using namespace cocos2d;
 
 class Model
@@ -9,6 +11,10 @@ protected:
 public:
 	Model();
 	~Model();
+
+	static string GetTipsGame();
+
+	static void SetStateGame(int state);
 
 	static const int BITMASK_WORLD = 100;
 	static const int BITMASK_PLAYER = BITMASK_WORLD + 1;
@@ -54,7 +60,9 @@ public:
 	static const int MODLE_TYPE_GATEWAY_PC = 2;
 
 	static const int BITMASK_POKEMON = BITMASK_GATEWAY_TO_CITY + 1;
-	static const int STATE_GAME = 0;
+
+	static int stateGame;
+
 	// City
 	static const int BITMASK_CITY_GATE_TO_ROUTE1 = BITMASK_POKEMON + 1;
 	static const int BITMASK_CITY_GATE_TO_PC = BITMASK_CITY_GATE_TO_ROUTE1 + 1;
@@ -98,6 +106,7 @@ public:
 
 	static const int MODLE_TYPE_ROAD_GATE_TO_ROUTE2 = 2;
 	static const int MODLE_TYPE_ROAD_GATE_TO_LEAGUE = 3;
+
 	//NPC
 	static const int MODLE_TYPE_DOCTORNPC = 3;
 	static const int MODLE_TYPE_ROUTE1NPC = 4;
@@ -106,7 +115,7 @@ public:
 	static const int MODLE_TYPE_CAVENPC = 7;
 	static const int MODLE_TYPE_LAKENPC = 8;
 	static const int MODLE_TYPE_ROUTE2NPC = 9;
-	static const int MODLE_TYPE_ROADNPC = 3;
+	static const int MODLE_TYPE_ROADNPC = 5;
 	static const int MODLE_TYPE_ENTEI = 3;
 	static const int MODLE_TYPE_SUICUNE = 3;
 	static const int MODLE_TYPE_RAIKOU = 4;

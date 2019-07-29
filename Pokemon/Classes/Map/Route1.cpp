@@ -6,10 +6,14 @@
 #include "Town.h"
 #include "City.h"
 #include "Model.h"
+//#include "Joystick.h"
 
 using namespace CocosDenshion;
 Size route1VisibleSize;
 Size route1TileMapSize;
+//Joystick *joystick;
+
+//Layer *layer_UI_Route1;
 
 PhysicsBody* route1Body, *route1GateWay, *route1npcbody;
 Camera *route1Camera;
@@ -22,6 +26,7 @@ Scene* Route1::createScene()
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
+	//route1Camera->setCameraFlag(CameraFlag::USER2);
 	return scene;
 }
 
@@ -54,6 +59,8 @@ bool Route1::init()
 	addChild(map);
 	addChild(mapTree, 20);
 	addChild(mapTree1, 5);
+
+	//CreateLayerUI();
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -115,6 +122,16 @@ bool Route1::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
+		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
+		switch (jsevent->EVENT_JOYSTICK)
+		{
+			
+		default:
+			break;
+		}
+	});
+	_eventDispatcher->addEventListenerWithFixedPriority(_listener, 1);*/
 	scheduleUpdate();
 	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
 	auto scale_x = 0.7;
@@ -249,8 +266,8 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		removeChild(m_route1npc, true);
 	}*/
+	
 	return true;
-
 }
 
 void Route1::InitObject()
@@ -311,6 +328,8 @@ void Route1::InitObject()
 		}
 		/*else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
+			if (Model::ROUTE1NPC == true)
+			{
 				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
 				m_route1npc->setPosition(Vec2(posX, posY));
 				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -320,8 +339,9 @@ void Route1::InitObject()
 				route1npcbody->setGravityEnable(false);
 				m_route1npc->setPhysicsBody(route1npcbody);
 				this->addChild(m_route1npc, 10);
-			}*/
-		}
+			}
+		}*/
+	}
 }
 
 void Route1::UpdateCamera() {
@@ -416,4 +436,18 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 void Route1::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
+	//joystick->setPosition(Vec2(route1Camera->getPosition().x - 540, route1Camera->getPosition().y - 80));
 }
+
+//void Route1::CreateLayerUI() {
+//	layer_UI_Route1 = Layer::create();
+//	joystick = Joystick::create();
+//	cameraUIRoute1 = Camera::create();
+//	cameraUIRoute1->setCameraMask(2);
+//	cameraUIRoute1->setCameraFlag(CameraFlag::USER1);
+//	joystick->setCameraMask(2);
+//	layer_UI_Route1->addChild(cameraUIRoute1,2);
+//	layer_UI_Route1->addChild(joystick);
+//	this->addChild(layer_UI_Route1,100);
+//
+//}

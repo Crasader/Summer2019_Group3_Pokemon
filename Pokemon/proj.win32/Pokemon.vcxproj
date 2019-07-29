@@ -184,6 +184,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\NPC\LakeNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\RoadNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\Route2NPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp" />
+    <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\Pokemon.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Bayleef.cpp" />
     <ClCompile Include="..\Classes\Pokemon\Beautifly.cpp" />
@@ -305,6 +307,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\NPC\LakeNPC.h" />
     <ClInclude Include="..\Classes\NPC\RoadNPC.h" />
     <ClInclude Include="..\Classes\NPC\Route2NPC.h" />
+    <ClInclude Include="..\Classes\NPC\TanNgocNPC.h" />
+    <ClInclude Include="..\Classes\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\Pokemon.h" />
     <ClInclude Include="..\Classes\Pokemon\Bayleef.h" />
     <ClInclude Include="..\Classes\Pokemon\Beautifly.h" />

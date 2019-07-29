@@ -1,5 +1,4 @@
-#ifndef __ROUTE1_H__
-#define __ROUTE1_H__
+#pragma once
 
 #include "cocos2d.h"
 #include "Pokemon.h"
@@ -33,6 +32,5 @@ public:
 	CREATE_FUNC(Route1);
 	//void createPhysics();
 	void update(float);
+	void CreateLayerUI();
 };
-
-#endif
