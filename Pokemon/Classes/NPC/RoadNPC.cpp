@@ -4,7 +4,6 @@
 #include "Pokemon\Snorlax.h"
 #include "Pokemon\Pidgeot.h"
 
-
 RoadNPC::RoadNPC()
 {
 	this->Init();

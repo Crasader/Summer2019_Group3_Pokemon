@@ -72,6 +72,8 @@ bool House::init()
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
 	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+	addChild(tips, 100);
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
@@ -79,7 +81,7 @@ bool House::init()
 	addChild(bag, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
-	//Buttons::GetIntance()->ButtonBagListener(this, Housecamera);
+	
 	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
@@ -90,10 +92,25 @@ bool House::init()
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width/2,
-				houseCamera->getPosition().y - popup->getContentSize().height / 2);
+			houseCamera->getPosition().y - popup->getContentSize().height / 2);
 			this->addChild(popup,101);
 		}
 	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor",Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width / 2,
+			houseCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);

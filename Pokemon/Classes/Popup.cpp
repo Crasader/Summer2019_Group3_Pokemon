@@ -534,6 +534,7 @@ namespace UICustom
 			{
 				MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 					node->dismiss(true);
+					Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(true);
 				});
 				Menu *menu = Menu::create(noButton, NULL);
 				node->addChild(menu, 2);

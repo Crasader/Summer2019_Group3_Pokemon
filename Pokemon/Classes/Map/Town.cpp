@@ -8,29 +8,79 @@
 #include "House.h"
 #include "Model.h"
 #include "Scene\BattleScene.h"
+#include "Popup.h"
+#include "Bag.h"
+//#include "Joystick.h"
 #include <cstdlib>
 
 using namespace CocosDenshion;
 USING_NS_CC;
 Size townVisibleSize;
 Size townTileMapSize;
+TMXLayer* grass;
+//Joystick *joystickTown;
 
+//Layer *layer_UI;
 PhysicsBody* townBody, *townGateWay;
 Camera *townCamera;
 int Town::previousScene = 0;
 
-
+int Town::arrayGrassHasPokemon[32][16] = { 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	 };
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
 	townCamera = scene->getDefaultCamera();
 	return scene;
 }
 
-
+int Town::Check(int x, int y) {
+	int i = 0, j = 0;
+	for ( i = 0; i < 32; i++) {
+		for (j = 0; j < 16; j++) {
+			if ((abs(i - x) <= 2) && (abs(j - y) <= 2)) {
+				if (arrayGrassHasPokemon[i][j] ==1)
+					return 1;
+			}
+		}
+	}
+	return 0;
+}
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
@@ -53,7 +103,7 @@ bool Town::init()
 	townVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
+	map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	townTileMapSize = map->getContentSize();
 	addChild(map);
 	auto mapHouse = ResourceManager::GetInstance()->GetTiledMapById(3);
@@ -78,25 +128,29 @@ bool Town::init()
 		}
 	}
 
-	auto grass = map->getLayer("grass");
+	//InitGrass();
+	grass = map->getLayer("grass");
 	int count = 0;
-	Size layerSize2 = grass->getLayerSize();
-	for (int i = 0; i < layerSize.width; i++)
+	int width = layerSize.width;
+	int height = layerSize.height;
+	for (int i = 0; i < width; i++)
 	{
-		for (int j = 0; j < layerSize2.height; j++)
+		for (int j = 0; j < height; j++)
 		{
 			auto tilePokemon = grass->getTileAt(Vec2(i, j));
 			if (tilePokemon != NULL)
 			{
 				if (count < 3) {
 					int _random = rand() % 4;
-					if (!_random) {
+					if (!_random && !Check(i, j)) {
 						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
 						pokemon->setContactTestBitmask(true);
 						pokemon->setDynamic(false);
 						pokemon->setGravityEnable(false);
 						tilePokemon->setPhysicsBody(pokemon);
+						tilePokemon->setName("physics");
+						arrayGrassHasPokemon[i][j] = 1;
 						count++;
 					}
 				}
@@ -110,19 +164,69 @@ bool Town::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
-
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+	addChild(tips, 100);
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	addChild(bag, 100);
+
+	//CreateLayerUI();
+
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,
+			townCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,
+			townCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Town::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
+		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
+		log("--------------got joystick event, %p,  angle=%f", jsevent, jsevent->mAnagle);
+	}
+	);*/
 	scheduleUpdate();
 	return true;
 }
+
+//void Town::CreateLayerUI() {
+//	layer_UI = Layer::create();
+//	joystickTown = Joystick::create();
+//	cameraUI = Camera::create();
+//	layer_UI->addChild(cameraUI, 100);
+//	layer_UI->addChild(joystickTown, 100);
+//	this->addChild(layer_UI, 100);
+//	
+//}
 
 bool Town::onContactBegin(PhysicsContact& contact)
 
@@ -134,6 +238,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_HOUSE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
+		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
@@ -142,6 +247,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_LAB && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
+		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
@@ -150,6 +256,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
+		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
@@ -160,6 +267,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		//int idPokemon = random();
 		//new Pokemon with id
 		//chuyen scene chien dau
+		DeleteGrassHasPokemon();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(BattleScene::createScene());
 		CCLOG("Has Pokemon");
@@ -195,7 +303,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 
 void Town::InitObject()
 {
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -306,7 +413,30 @@ void Town::UpdateCamera() {
 		}
 	}
 }
+//void Town::InitArray()
+//{
+//	for (int i = 0; i < 32; i++) {
+//		for (int j = 0; j < 32; j++) {
+//			arrayOfTile[i][j] = 0;
+//		}
+//	}
+//}
+//void Town::InitGrass()
+//{
+//	
+//}
 void Town::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
+}
+void Town::DeleteGrassHasPokemon() {
+	int i, j;
+	for (i = 0; i < 32; i++) {
+		for (j = 0; j < 16; j++) {
+			if (arrayGrassHasPokemon[i][j]) {
+				grass->getTileAt(Vec2(i, j))->removeComponent(grass->getTileAt(Vec2(i, j))->getPhysicsBody());
+				arrayGrassHasPokemon[i][j] = 0;
+			}
+		}
+	}
 }

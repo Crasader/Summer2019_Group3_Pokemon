@@ -168,7 +168,7 @@
     "146": "res/Item/WaterStone.png"
   },
   "BUTTON": {
-    "size": 13,
+    "size": 14,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -220,6 +220,10 @@
     "12": {
       "normal": "res/UI/Button/popUpBase.png",
       "pressed": "res/UI/Button/popUpBase_press.png"
+    },
+    "13": {
+      "normal": "res/UI/Button/TipNoMal.png",
+      "pressed": "res/UI/Button/TipPress.png"
     }
   },
   "FONT": {

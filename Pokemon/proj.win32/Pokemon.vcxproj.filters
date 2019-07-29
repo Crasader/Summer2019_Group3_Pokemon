@@ -341,7 +341,7 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Map\Town.cpp">
       <Filter>src\Map</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Classes\Item\Potion.cpp">
       <Filter>src\Item</Filter>
     </ClCompile>
@@ -393,6 +393,7 @@
     <ClCompile Include="..\Classes\NPC\Route2NPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Model.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -712,7 +713,7 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Map\Town.h">
       <Filter>src\Map</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Classes\Item\Potion.h">
       <Filter>src\Item</Filter>
     </ClInclude>
@@ -742,6 +743,7 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Item\MaxRevive.h">
       <Filter>src\Item</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Map\City.h">
       <Filter>src\Map</Filter>
     </ClInclude>
@@ -763,6 +765,7 @@
     <ClInclude Include="..\Classes\NPC\RoadNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Model.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -110,13 +110,13 @@
    </properties>
    <point/>
   </object>
-  <object id="2" type="2" x="122" y="238">
+  <object id="2" type="2" x="122" y="249">
    <point/>
   </object>
-  <object id="3" type="3" x="814" y="234">
+  <object id="3" type="3" x="814" y="248">
    <point/>
   </object>
-  <object id="4" type="1" x="816" y="304">
+  <object id="4" type="1" x="816" y="308">
    <properties>
     <property name="pre" type="int" value="1"/>
    </properties>

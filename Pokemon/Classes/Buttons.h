@@ -16,17 +16,20 @@ private:
 	Button *m_left;
 	Button *m_down;
 	Button *m_bag;
+	Button *m_tips;
 public:
 	~Buttons();
 	static int state;
 	static Buttons* GetIntance();
 	void ButtonListener(Trainer *&mPlayer);
-	void ButtonBagListener(Layer * layer, Camera* camera);
+	//void ButtonBagListener(Layer * layer, Camera* camera);
+	//void ButtonTipListener(Layer * layer, Camera * camera);
 	Button *GetButtonUp();
 	Button *GetButtonLeft();
 	Button *GetButtonRight();
 	Button *GetButtonDown();
 	Button *GetButtonBag();
+	Button *GetButtonTips();
 	void Remove();
 	void UpdateButton(float x, float y);
 };
