@@ -237,6 +237,7 @@ void Pokemon::SetScale(float scale)
 
 void Pokemon::RemoveFromParent()
 {
+	this->m_state = false;
 	this->m_spriteFront->removeFromParentAndCleanup(false);
 	this->m_spriteBack->removeFromParentAndCleanup(false);
 	for (int i = 0; i < length; i++)
@@ -355,6 +356,7 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				target->SetCurrentHP(target->GetCurrentHP() - damage);
 			}
 			skill->SetState(false);
+			skill->SetCurrentPP(skill->GetCurrentPP() - 1);
 			this->m_state = true;
 			skill->GetSpriteFront()->stopActionByTag(11);
 		}

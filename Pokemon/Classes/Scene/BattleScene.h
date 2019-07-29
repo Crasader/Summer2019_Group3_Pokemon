@@ -9,6 +9,8 @@ class BattleScene : public Layer
 private:
 	Sprite* m_pokeball;
 	Animation* m_animationPokeball;
+	Sprite* m_levelUp;
+	vector<Pokemon*> m_listOpponentPokemon = { new Pidgey(), new Squirtle() };
 
 	Sprite* m_background;
 	Sprite* m_messageBox;
@@ -77,6 +79,10 @@ public:
 
 	void LoadPlayerHpBar();
 
+	void LoadOpponentPosition();
+
+	void LoadOpponentHpBar();
+
 	void InitTiledMap();
 
 	void InitUI();
@@ -101,6 +107,8 @@ public:
 	void BattlePhase(int idSkill);
 
 	void TrainerChangePokemon();
+
+	void OpponentChangePokemon();
 
 	void StandByPhase();
 

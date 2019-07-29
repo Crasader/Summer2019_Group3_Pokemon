@@ -13,7 +13,7 @@
     "9": "res/Map/Lake.tmx"
   },
   "SPRITE": {
-    "size": 148,
+    "size": 149,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -167,7 +167,8 @@
     "144": "res/Item/LeafStone.png",
     "145": "res/Item/ThunderStone.png",
     "146": "res/Item/WaterStone.png",
-    "147": "res/Trainer/Pokeball/0.png"
+    "147": "res/Trainer/Pokeball/0.png",
+    "148": "res/Battle/levelup.png"
   },
   "BUTTON": {
     "size": 13,
