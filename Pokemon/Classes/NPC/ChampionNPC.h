@@ -13,7 +13,6 @@ private:
 public:
 	ChampionNPC();
 	~ChampionNPC();
-	void Init() override;
 	void Update(float deltaTime) override;
 };
 

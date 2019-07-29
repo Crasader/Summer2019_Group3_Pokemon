@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="11">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="14">
  <tileset firstgid="1" source="tileset-alistair.tsx"/>
  <tileset firstgid="1486" source="3768.tsx"/>
  <tileset firstgid="2116" source="3736.tsx"/>
@@ -241,7 +241,7 @@
   <object id="2" type="2" x="572" y="753">
    <point/>
   </object>
-  <object id="3" type="3" x="407" y="350">
+  <object id="3" type="3" x="407" y="342">
    <point/>
   </object>
   <object id="4" type="4" x="22" y="396">
@@ -253,7 +253,7 @@
   <object id="6" type="6" x="576" y="34">
    <point/>
   </object>
-  <object id="7" type="1" x="79" y="395">
+  <object id="7" type="1" x="81" y="409">
    <properties>
     <property name="pre" type="int" value="2"/>
    </properties>
@@ -265,7 +265,7 @@
    </properties>
    <point/>
   </object>
-  <object id="9" type="1" x="1092" y="397">
+  <object id="9" type="1" x="1075" y="407">
    <properties>
     <property name="pre" type="int" value="3"/>
    </properties>
@@ -275,6 +275,15 @@
    <properties>
     <property name="pre" type="int" value="4"/>
    </properties>
+   <point/>
+  </object>
+  <object id="11" type="9" x="577" y="77">
+   <point/>
+  </object>
+  <object id="12" type="7" x="74" y="399">
+   <point/>
+  </object>
+  <object id="13" type="8" x="1084" y="397">
    <point/>
   </object>
  </objectgroup>

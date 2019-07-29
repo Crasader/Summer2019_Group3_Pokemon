@@ -1,7 +1,9 @@
 #include "Pokemon.h"
+#include "SimpleAudioEngine.h"
 #include <cstdlib>
 #define length 3
 
+using namespace CocosDenshion;
 
 float Pokemon::RandomFloatNumber(float a, float b)
 {
@@ -245,6 +247,8 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 		if (skill->GetState() == true)
 		{
 			float type = 1;
+			auto audio = SimpleAudioEngine::getInstance();
+			audio->playEffect("Damage.mp3", false);
 			if (skill->GetIdType() == target->GetType())
 			{
 				type = 0.5;
@@ -254,10 +258,14 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_GRASS || target->GetType() == MyObject::TYPE_ELECTRIC)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 0.5;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_WATER)
@@ -265,10 +273,14 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_ELECTRIC || target->GetType() == MyObject::TYPE_GRASS)
 				{
 					type = 0.5;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_GRASS)
@@ -276,10 +288,14 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
 				{
 					type = 0.5;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_ELECTRIC)
@@ -287,10 +303,14 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 0.5;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_FLYING)
@@ -298,10 +318,14 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
 				{
 					type = 0.5;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_DRAGON)
@@ -309,6 +333,8 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				if (target->GetType() == MyObject::TYPE_DRAGON)
 				{
 					type = 2;
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("SuperEffective.mp3", false);
 				}
 			}
 			float crit = this->RandomFloatNumber(1, 1.5);

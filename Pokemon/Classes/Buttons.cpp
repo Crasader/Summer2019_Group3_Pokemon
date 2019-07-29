@@ -60,7 +60,7 @@ Buttons::Buttons()
 //	});
 //}
 
-void Buttons ::ButtonListener(Trainer *&mPlayer)
+void Buttons::ButtonListener(Trainer *&mPlayer)
 {
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
@@ -88,7 +88,6 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		}
 		}
 	});
-
 
 	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
@@ -248,7 +247,7 @@ void Buttons::Remove()
 	m_tips->setScale(0.2f);
 }
 
-void Buttons:: UpdateButton(float x, float y) {
+void Buttons::UpdateButton(float x, float y) {
 	m_left->setPosition(Vec2(x - 30, y));
 	m_right->setPosition(Vec2(x + 30, y));
 	m_up->setPosition(Vec2(x , y +30));

@@ -15,7 +15,7 @@ Size route1TileMapSize;
 
 //Layer *layer_UI_Route1;
 
-PhysicsBody* route1Body, *route1GateWay;
+PhysicsBody* route1Body, *route1GateWay, *route1npcbody;
 Camera *route1Camera;
 int Route1::previousScene = 0;
 
@@ -133,7 +133,52 @@ bool Route1::init()
 	});
 	_eventDispatcher->addEventListenerWithFixedPriority(_listener, 1);*/
 	scheduleUpdate();
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setVisible(false);
+	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
+	this->addChild(this->m_messageBox, 0);
+	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelLog->setScale(1.5);
+	this->m_labelLog->setTextColor(Color4B::BLACK);
+	this->m_labelLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelLog);
 	return true;
+}
+
+void Route1::TypeWriter(float deltaTime)
+{
+	if (writing < this->m_labelLog->getStringLength())
+	{
+		auto letter = this->m_labelLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelLog->setOpacity(255);
+		this->unschedule(schedule_selector(Route1::TypeWriter));
+	}
+}
+
+void Route1::LogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
 }
 
 bool Route1::onContactBegin(PhysicsContact& contact)
@@ -149,6 +194,8 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -158,6 +205,67 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		Route1::previousScene = Model::PRESCENE_CITY_TO_ROUTE1;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("ExitRoom.mp3", false);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			break;
+		default:
+			break;
+		}
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->Remove();
+		this->Log("nhao vo kiem an");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		removeChild(m_route1npc, true);
+		Model::ROUTE1NPC = false;
 	}
 	return true;
 
@@ -194,7 +302,7 @@ void Route1::InitObject()
 			else continue;
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE1_GATE_TO_TOWN)
-			{
+		{
 			mGateWay = Sprite::create("res/walkup.png");
 			mGateWay->setPosition(Vec2(posX, posY));
 			route1GateWay = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -218,6 +326,25 @@ void Route1::InitObject()
 			mGateWay->setPhysicsBody(route1GateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
+		}
+		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
+		{
+			if (Model::ROUTE1NPC == true)
+			{
+				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
+				m_route1npc->setPosition(Vec2(posX, posY));
+				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				route1npcbody->setCollisionBitmask(Model::BITMASK_ROUTE1NPC);
+				route1npcbody->setContactTestBitmask(true);
+				route1npcbody->setDynamic(false);
+				route1npcbody->setGravityEnable(false);
+				m_route1npc->setPhysicsBody(route1npcbody);
+				this->addChild(m_route1npc, 10);
+			}
+			else
+			{
+
+			}
 		}
 	}
 }
@@ -264,6 +391,51 @@ void Route1::UpdateCamera() {
 			}
 		}
 	}
+}
+
+void Route1::Log(string logg)
+{
+	this->m_labelLog->setString(logg);
+	this->LogSetOpacity(0);
+	this->m_labelLog->setOpacity(0);
+	writing = 0;
+	this->schedule(schedule_selector(Route1::TypeWriter), 0.05);
+}
+
+bool Route1::onTouchBegan(Touch * touch, Event * e)
+{
+	Model::ROUTE1NPC = false;
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
+	if (m_stateLog==false) {
+		if (this->m_labelLog->getOpacity() == 0)
+		{
+			this->unschedule(schedule_selector(Route1::TypeWriter));
+			this->LogSetOpacity(255);
+			this->m_labelLog->setOpacity(255);
+		}
+	}
+	else
+	{
+		m_stateLog = false;
+		this->m_messageBox->setVisible(false);
+		Button *up = Buttons::GetIntance()->GetButtonUp();
+		Button *right = Buttons::GetIntance()->GetButtonRight();
+		Button *left = Buttons::GetIntance()->GetButtonLeft();
+		Button *down = Buttons::GetIntance()->GetButtonDown();
+		addChild(up, 100);
+		addChild(right, 100);
+		addChild(left, 100);
+		addChild(down, 100);
+		Buttons::GetIntance()->ButtonListener(this->mPlayer);
+
+		auto contactListener = EventListenerPhysicsContact::create();
+		contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+		scheduleUpdate();
+	}
+	return true;
 }
 
 void Route1::update(float dt) {

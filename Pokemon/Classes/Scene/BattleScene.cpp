@@ -1,5 +1,12 @@
 #include "BattleScene.h"
 #include "Map\Town.h"
+#include "Pokemon\Charmander.h"
+#include "Pokemon\Chikorita.h"
+#include "Pokemon\Squirtle.h"
+#include "Pokemon\Pikachu.h"
+#include "Pokemon\Garchomp.h"
+#include "Pokemon\Pidgey.h"
+#include "SimpleAudioEngine.h"
 #define scale_hpBar 0.47
 
 BattleScene::BattleScene()
@@ -250,6 +257,11 @@ void BattleScene::ReduceHpPlayer(float deltaTime)
 			auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
 			auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpPlayer->getScaleY()), finished, nullptr);
 			this->m_hpPlayer->runAction(sq);
+		}
+		if (m_player->GetCurrentHP()*100/m_player->GetMaxHP()<20)
+		{
+			auto audio = SimpleAudioEngine::getInstance();
+			audio->playEffect("LowHealth.mp3", true);
 		}
 		this->unschedule(schedule_selector(BattleScene::ReduceHpPlayer));
 	}

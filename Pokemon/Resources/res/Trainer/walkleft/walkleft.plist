@@ -11,11 +11,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{18,24}</string>
+                <string>{24,28}</string>
                 <key>spriteSourceSize</key>
-                <string>{18,24}</string>
+                <string>{24,28}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{18,24}}</string>
+                <string>{{0,0},{24,28}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -26,11 +26,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{17,24}</string>
+                <string>{21,27}</string>
                 <key>spriteSourceSize</key>
-                <string>{17,24}</string>
+                <string>{21,27}</string>
                 <key>textureRect</key>
-                <string>{{18,0},{17,24}}</string>
+                <string>{{24,0},{21,27}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -41,11 +41,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{16,25}</string>
+                <string>{24,28}</string>
                 <key>spriteSourceSize</key>
-                <string>{16,25}</string>
+                <string>{24,28}</string>
                 <key>textureRect</key>
-                <string>{{35,0},{16,25}}</string>
+                <string>{{45,0},{24,28}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>walkleft.png</string>
             <key>size</key>
-            <string>{51,25}</string>
+            <string>{69,28}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3b10fa50ec7d5ff1adf6e1ace1e6637d:94595115e8e251cd48fe8358f5932a7e:e4626758dada381665e3fbe85c324cd5$</string>
+            <string>$TexturePacker:SmartUpdate:10c4b6d0321be5bbaf4099996ebd7151:5a3cd01ca56544c91038e67be24599a6:e4626758dada381665e3fbe85c324cd5$</string>
             <key>textureFileName</key>
             <string>walkleft.png</string>
         </dict>

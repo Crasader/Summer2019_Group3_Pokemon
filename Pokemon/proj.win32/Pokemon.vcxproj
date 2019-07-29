@@ -186,7 +186,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\RoadNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\Route2NPC.cpp" />
-    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp" />
     <ClCompile Include="..\Classes\NPC\TanTaiNPC.cpp" />
     <ClCompile Include="..\Classes\Pokemon.cpp" />
@@ -312,7 +311,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h" />
     <ClInclude Include="..\Classes\NPC\RoadNPC.h" />
     <ClInclude Include="..\Classes\NPC\Route2NPC.h" />
-    <ClInclude Include="..\Classes\NPC\RouteNPC.h" />
     <ClInclude Include="..\Classes\NPC\TanNgocNPC.h" />
     <ClInclude Include="..\Classes\NPC\TanTaiNPC.h" />
     <ClInclude Include="..\Classes\Pokemon.h" />
