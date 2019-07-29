@@ -106,7 +106,7 @@ public:
 	static const int MODLE_TYPE_CAVENPC = 7;
 	static const int MODLE_TYPE_LAKENPC = 8;
 	static const int MODLE_TYPE_ROUTE2NPC = 9;
-	static const int MODLE_TYPE_ROADNPC = 3;
+	static const int MODLE_TYPE_ROADNPC = 5;
 	static const int MODLE_TYPE_ENTEI = 3;
 	static const int MODLE_TYPE_SUICUNE = 3;
 	static const int MODLE_TYPE_RAIKOU = 4;

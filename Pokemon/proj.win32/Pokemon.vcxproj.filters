@@ -288,9 +288,6 @@
     <ClCompile Include="..\Classes\NPC\MinhVuongNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\NPC\RouteNPC.cpp">
-      <Filter>src\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\NPC\TanNgocNPC.cpp">
       <Filter>src\NPC</Filter>
     </ClCompile>
@@ -636,9 +633,6 @@
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\MinhVuongNPC.h">
-      <Filter>src\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\NPC\RouteNPC.h">
       <Filter>src\NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\NPC\TanNgocNPC.h">

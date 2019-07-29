@@ -249,6 +249,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		removeChild(m_route1npc, true);
+		Model::ROUTE1NPC = false;
 	}
 	return true;
 
@@ -312,6 +313,8 @@ void Route1::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
+			if (Model::ROUTE1NPC == true)
+			{
 				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
 				m_route1npc->setPosition(Vec2(posX, posY));
 				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -322,7 +325,12 @@ void Route1::InitObject()
 				m_route1npc->setPhysicsBody(route1npcbody);
 				this->addChild(m_route1npc, 10);
 			}
+			else
+			{
+
+			}
 		}
+	}
 }
 
 void Route1::UpdateCamera() {
@@ -383,7 +391,7 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 	Model::ROUTE1NPC = false;
 	auto audio = SimpleAudioEngine::getInstance();
 	audio->playEffect("Beep.mp3", false);
-	if (!m_stateLog) {
+	if (m_stateLog==false) {
 		if (this->m_labelLog->getOpacity() == 0)
 		{
 			this->unschedule(schedule_selector(Route1::TypeWriter));

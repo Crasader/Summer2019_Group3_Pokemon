@@ -245,10 +245,10 @@ void Cave::InitObject()
 		{
 			if (Model::ENTEI==true)
 			{
-				entei = Sprite::create("res/0.png");
+				entei = ResourceManager::GetInstance()->GetSpriteById(148);
 				entei->setPosition(Vec2(posX, posY));
 				entei->setScale(2);
-				enteiBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				enteiBody = PhysicsBody::createBox(entei->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				enteiBody->setCollisionBitmask(Model::BITMASK_ENTEI);
 				enteiBody->setContactTestBitmask(true);
 				enteiBody->setDynamic(false);
