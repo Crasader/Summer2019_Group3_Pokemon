@@ -6,6 +6,8 @@
 #include "Buttons.h"
 #include "City.h"
 #include "Model.h"
+#include "Bag.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -75,6 +77,9 @@ bool PokemonCenter::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	bag->removeFromParent();
+	addChild(bag, 100);
 	up->removeFromParent();
 	right->removeFromParent();
 	left->removeFromParent();
@@ -84,6 +89,21 @@ bool PokemonCenter::init()
 	addChild(left, 100);
 	addChild(down, 100);
 
+
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(pccamera->getPosition().x - popup->getContentSize().width / 2,
+				pccamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -209,6 +229,38 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		
+		auto ListYP = Bag::GetInstance()->GetListPokemon();
+		for (int i = 0; i < ListYP.size(); i++)
+		{
+			if (ListYP.at(i) != nullptr)
+			{
+				ListYP.at(i)->SetCurrentHP(ListYP.at(1)->GetMaxHP());
+				ListYP.at(i)->GetSkillById(0)->SetCurrentPP(ListYP.at(i)->GetSkillById(0)->GetMaxPP());
+				if (ListYP.at(i)->GetSkillById(1) != nullptr)
+				{
+					ListYP.at(i)->GetSkillById(1)->SetCurrentPP(ListYP.at(i)->GetSkillById(1)->GetMaxPP());
+					if (ListYP.at(i)->GetSkillById(2) != nullptr)
+					{
+						ListYP.at(i)->GetSkillById(2)->SetCurrentPP(ListYP.at(i)->GetSkillById(2)->GetMaxPP());
+					}
+				}
+			}
+		}
+		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
+		for (int i = 0; i < ListPO.size(); i++)
+		{
+			ListPO.at(i)->SetCurrentHP(ListPO.at(1)->GetMaxHP());
+			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
+			if (ListPO.at(i)->GetSkillById(1) != nullptr)
+			{
+				ListPO.at(i)->GetSkillById(1)->SetCurrentPP(ListPO.at(i)->GetSkillById(1)->GetMaxPP());
+				if (ListPO.at(i)->GetSkillById(2) != nullptr)
+				{
+					ListPO.at(i)->GetSkillById(2)->SetCurrentPP(ListPO.at(i)->GetSkillById(2)->GetMaxPP());
+				}
+			}
+		}
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_SHOPNPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_SHOPNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -235,6 +287,8 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		UICustom::Popup *popupShop = UICustom::Popup::CreateShop();
+		this->addChild(popupShop);
 	}
 	return true;
 
@@ -378,6 +432,9 @@ bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 		addChild(right, 100);
 		addChild(left, 100);
 		addChild(down, 100);
+		Button *bag = Buttons::GetIntance()->GetButtonBag();
+		bag->removeFromParent();
+		addChild(bag, 100);
 		Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 		auto contactListener = EventListenerPhysicsContact::create();

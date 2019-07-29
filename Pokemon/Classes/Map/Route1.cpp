@@ -218,7 +218,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
+	/*else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		switch (Buttons::state)
@@ -248,7 +248,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		removeChild(m_route1npc, true);
-	}
+	}*/
 	return true;
 
 }
@@ -309,7 +309,7 @@ void Route1::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
+		/*else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
 				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
 				m_route1npc->setPosition(Vec2(posX, posY));
@@ -320,7 +320,7 @@ void Route1::InitObject()
 				route1npcbody->setGravityEnable(false);
 				m_route1npc->setPhysicsBody(route1npcbody);
 				this->addChild(m_route1npc, 10);
-			}
+			}*/
 		}
 }
 

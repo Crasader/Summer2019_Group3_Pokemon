@@ -79,14 +79,13 @@ bool House::init()
 	addChild(bag, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
-	//Buttons::GetIntance()->ButtonBagListener(this, Housecamera);
 	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
 			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
-			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width/2,

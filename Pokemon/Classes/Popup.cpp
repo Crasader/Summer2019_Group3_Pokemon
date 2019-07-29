@@ -1156,32 +1156,7 @@ namespace UICustom
 		CC_SAFE_DELETE(node);
 		return nullptr;
 	}
-	//void Popup::SelectedShopItemEvent(Ref * sender, ListView::EventType type)
-	//{
-	//	ListView *listview = static_cast<ListView*>(sender);
-	//	Popup *node = static_cast<Popup*>(sender);
-	//	int index = listview->getCurSelectedIndex();
-	//	if (type== cocos2d::ui::ListView::EventType::ON_SELECTED_ITEM_END)
-	//	{
-	//		UICustom::Popup *popup = Popup::CreateItemShop(index);
-	//		popup->setPosition(Director::getInstance()->getVisibleSize() / 2);
-	//		node->addChild(popup, 1000);
-	//	}
-	//}
-	//Popup *Popup::CreateItemShop(int index)
-	//{
-	//	Popup *node = new (std::nothrow)Popup();
-	//	Size winSize = Director::getInstance()->getWinSize();
-	//	if (node && node->init())
-	//	{
-	//		node->initBg(Size(300,300),"ahihi");
-	//		node->autorelease();
-	//		return node;
-	//	}
-	//	CC_SAFE_DELETE(node);
-	//	return nullptr;
-	//
-	//}
+
 	Popup *Popup::create(const std::string &title, const std::string &msg, cocos2d::Label *lbl, const std::function<void()> &YesFunc)
 	{
 		Popup *node = new (std::nothrow)Popup();
