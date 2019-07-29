@@ -340,12 +340,30 @@ namespace UICustom
 //			CC_SAFE_RETAIN(headerPO);
 //			CC_SAFE_RETAIN(headerMI);
 //
-#pragma region Button Your Pokemon
 			Button *buttonYP = ResourceManager::GetInstance()->GetButtonById(13);
 			buttonYP->setPosition(Vec2(winSize.width / 2 - buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
 			node->addChild(buttonYP,2);
 			buttonYP->setScale(0.75);
 
+			Button *buttonPO = ResourceManager::GetInstance()->GetButtonById(14);
+			buttonPO->setScale(0.75);
+			buttonPO->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
+			node->addChild(buttonPO, 2);
+
+			Button *buttonYI = ResourceManager::GetInstance()->GetButtonById(15);
+			buttonYI->setScale(0.75);
+			buttonYI->setPosition(Vec2(winSize.width / 2 + buttonYP->getContentSize().width / 1.2, winSize.height * 5 / 8));
+			node->addChild(buttonYI, 2);
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - 150);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+
+#pragma region Button Your Pokemon
 			auto listView = ui::ListView::create();
 			listView->setAnchorPoint(Vec2(0.5, 1));
 			listView->setScale(0.8);
@@ -385,14 +403,134 @@ namespace UICustom
 					listView->addChild(labelName, 202);
 					listView->addChild(labelLv, 202);
 				}
+				else
+				{
+					button->setTouchEnabled(false);
+				}
 				listView->pushBackCustomItem(button);
+				button->addTouchEventListener([button,node,menu,winSize,listView,buttonPO,buttonYI,buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+				{
+					if (Bag::GetInstance()->GetListItem().at(button->getTag()) != nullptr)
+					{
+						if (type == ui::Widget::TouchEventType::ENDED)
+						{
+							listView->setVisible(false);
+							buttonPO->setVisible(false);
+							buttonYI->setVisible(false);
+							buttonYP->setVisible(false);
+							listView->setVisible(false);
+							menu->setVisible(false);
+
+							auto layout = Layout::create();
+							layout->setAnchorPoint(Vec2(0.5, 0.5));
+							layout->setPosition(Vec2(winSize.width / 2, winSize.height / 2.6));
+							layout->setContentSize(Size(350, 200));
+							layout->setBackGroundImage(IMAGEPATH::BACKGROUND_IMAGE);
+							layout->setBackGroundImageScale9Enabled(true);
+							node->addChild(layout);
+
+							MenuItemImage *noButton2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [buttonYP, buttonYI, buttonPO, menu, listView, layout](Ref *sender)
+							{
+								buttonPO->setVisible(true);
+								buttonYI->setVisible(true);
+								buttonYP->setVisible(true);
+								layout->setVisible(false);
+								listView->setVisible(true);
+								menu->setVisible(true);
+							});
+							Menu *menu2 = Menu::create(noButton2, NULL);
+							layout->addChild(menu2, 2);
+							menu2->setPosition(layout->getContentSize().width, layout->getContentSize().height);
+							int i = listView->getCurSelectedIndex();
+							auto pokemon = Bag::GetInstance()->GetListPokemon().at(i);
+							string type;
+							switch (pokemon->GetType())
+							{
+							case 1:
+							{
+								type = "Normal";
+								break;
+							}
+							case 2:
+							{
+								type = "Fire";
+								break;
+							}
+							case 3:
+							{
+								type = "Water";
+								break;
+							}
+							case 4:
+							{
+								type = "Grass";
+								break;
+							}
+							case 5:
+							{
+								type = "Electric";
+								break;
+							}
+							case 6:
+							{
+								type = "Flying";
+								break;
+							}
+							case 7:
+							{
+								type = "Dragon";
+								break;
+							}
+							default:
+								break;
+							}
+							Label *name = Label::createWithTTF(pokemon->GetName(), FONT::GAME_FONT, FONT::TITLE_TEXT_SIZE);
+							name->setPosition(Vec2(layout->getContentSize().width/2,layout->getContentSize().height*5/6));
+							
+							Label *labelType = Label::createWithTTF("Type: " + type, FONT::GAME_FONT, 20);							
+							labelType->setAnchorPoint(Vec2(0,0.5));
+							labelType->setColor(Color3B(0, 0, 0));
+							labelType->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3));
+							
+							Label *labelLevel = Label::createWithTTF("Level: " + to_string(pokemon->GetLevel()), FONT::GAME_FONT, 20);
+							labelLevel->setColor(Color3B(0, 0, 0));
+							labelLevel->setAnchorPoint(Vec2(0, 0.5));
+							labelLevel->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3));
+
+							Label *labelAttack = Label::createWithTTF("Attack: " + to_string(pokemon->GetAtk()), FONT::GAME_FONT, 20);
+							labelAttack->setColor(Color3B(0, 0, 0));
+							labelAttack->setAnchorPoint(Vec2(0, 0.5));
+							labelAttack->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 40));
+
+							Label *labelDef = Label::createWithTTF("Defender: " + to_string(pokemon->GetDef()), FONT::GAME_FONT, 20);
+							labelDef->setColor(Color3B(0, 0, 0));
+							labelDef->setAnchorPoint(Vec2(0, 0.5));
+							labelDef->setPosition(Vec2(layout->getContentSize().width *3 / 5, layout->getContentSize().height * 2 / 3 - 40));
+
+							Label *labelSpeed = Label::createWithTTF("Speed: " + to_string(pokemon->GetAtkSpeed()), FONT::GAME_FONT, 20);
+							labelSpeed->setColor(Color3B(0, 0, 0));
+							labelSpeed->setAnchorPoint(Vec2(0, 0.5));
+							labelSpeed->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 80));
+
+							Label *labelHp = Label::createWithTTF("Hp: " + to_string(pokemon->GetCurrentHP())+"/"+ to_string(pokemon->GetMaxHP()), FONT::GAME_FONT, 20);
+							labelHp->setColor(Color3B(0, 0, 0));
+							labelHp->setAnchorPoint(Vec2(0, 0.5));
+							labelHp->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3 - 80));
+
+							layout->addChild(labelHp);
+							layout->addChild(labelSpeed);
+							layout->addChild(labelDef);
+							layout->addChild(labelAttack);
+							layout->addChild(labelLevel);
+							layout->addChild(labelType);
+							layout->addChild(name);
+						}
+					}
+				});
 			}
 #pragma endregion
 #pragma region Button Pokemon Over
-			Button *buttonPO = ResourceManager::GetInstance()->GetButtonById(14);
-			buttonPO->setScale(0.75);
-			buttonPO->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
-			node->addChild(buttonPO, 2);
+			
 			
 			auto listViewPO = ui::ListView::create();
 			listViewPO->setAnchorPoint(Vec2(0.5, 1));
@@ -438,10 +576,7 @@ namespace UICustom
 			}
 #pragma endregion
 #pragma region Buton Your Item
-			Button *buttonYI = ResourceManager::GetInstance()->GetButtonById(15);
-			buttonYI->setScale(0.75);
-			buttonYI->setPosition(Vec2(winSize.width / 2 + buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
-			node->addChild(buttonYI, 2);
+			
 			auto listViewYI = ui::ListView::create();
 			listViewYI->setAnchorPoint(Vec2(0.5, 1));
 			listViewYI->setScale(0.8);
@@ -512,16 +647,9 @@ namespace UICustom
 				}
 			});
 			//listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
-			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				node->dismiss(true);
-				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
-			});
+			
 #pragma endregion
-
-			Menu *menu = Menu::create(noButton, NULL);
-			node->addChild(menu, 2);
-			menu->setPosition(winSize.width / 2, winSize.height / 2 - 150);
-			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
+			
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
 			menu->removeFromParent();
 			node->addChild(menu, 2);

@@ -20,7 +20,7 @@ Camera *pccamera;
 Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = PokemonCenter::create();
 	scene->addChild(layer);
 	pccamera = scene->getDefaultCamera();
@@ -235,7 +235,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		{
 			if (ListYP.at(i) != nullptr)
 			{
-				ListYP.at(i)->SetCurrentHP(ListYP.at(1)->GetMaxHP());
+				ListYP.at(i)->SetCurrentHP(ListYP.at(i)->GetMaxHP());
 				ListYP.at(i)->GetSkillById(0)->SetCurrentPP(ListYP.at(i)->GetSkillById(0)->GetMaxPP());
 				if (ListYP.at(i)->GetSkillById(1) != nullptr)
 				{
@@ -250,7 +250,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
 		for (int i = 0; i < ListPO.size(); i++)
 		{
-			ListPO.at(i)->SetCurrentHP(ListPO.at(1)->GetMaxHP());
+			ListPO.at(i)->SetCurrentHP(ListPO.at(i)->GetMaxHP());
 			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
 			if (ListPO.at(i)->GetSkillById(1) != nullptr)
 			{
