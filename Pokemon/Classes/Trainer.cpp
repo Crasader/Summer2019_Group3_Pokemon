@@ -2,7 +2,6 @@
 #include "ResourceManager.h"
 #include "Pokemon/Squirtle.h"
 
-list<Pokemon*> Trainer::m_Pokemons;
 
 Trainer::Trainer()
 {
@@ -38,47 +37,70 @@ void Trainer::Init(cocos2d::Layer* layer)
 	down->setRestoreOriginalFrame(true);
 }
 
-void Trainer::AddPokemon(Pokemon *pokemon)
+void Trainer::WalkLeft()
 {
-	Trainer::m_Pokemons.push_back(pokemon);
+	auto moveLeft = RepeatForever::create(MoveBy::create(1, Vec2(-80, 0)));
+	auto animateLeft = RepeatForever::create(Animate::create(left));
+	moveLeft->setTag(4);
+	animateLeft->setTag(5);
+	this->m_spriteFront->runAction(animateLeft);
+	this->m_spriteFront->runAction(moveLeft);
 }
 
-void Trainer::walkLeft()
+void Trainer::WalkRight()
 {
-	auto moveLeft = MoveBy::create(1.125f, Vec2(-75, 0));
-	auto animateLeft = Animate::create(left);
-	auto spawn = Spawn::create(animateLeft, moveLeft, nullptr);
-	auto repeat = RepeatForever::create(spawn);
-	repeat->setTag(2);
-	m_spriteFront->runAction(repeat);
+	auto moveRight = RepeatForever::create(MoveBy::create(1, Vec2(80, 0)));
+	auto animateRight = RepeatForever::create(Animate::create(right));
+	moveRight->setTag(6);
+	animateRight->setTag(7);
+	this->m_spriteFront->runAction(animateRight);
+	this->m_spriteFront->runAction(moveRight);
 }
 
-void Trainer::walkRight()
+void Trainer::WalkUp()
 {
-	auto moveRight = MoveBy::create(1.125f, Vec2(75, 0));
-	auto animateRight = Animate::create(right);
-	auto spawn = Spawn::create(animateRight, moveRight, nullptr);
-	auto repeat = RepeatForever::create(spawn);
-	repeat->setTag(3);
-	this->m_spriteFront->runAction(repeat);
+	auto moveUp = RepeatForever::create(MoveBy::create(1, Vec2(0, 80)));
+	auto animateUp = RepeatForever::create(Animate::create(up));
+	moveUp->setTag(0);
+	animateUp->setTag(1);
+	this->m_spriteFront->runAction(animateUp);
+	this->m_spriteFront->runAction(moveUp);
 }
 
-void Trainer::walkUp()
+void Trainer::WalkDown()
 {
-	auto moveUp = MoveBy::create(1.125f, Vec2(0, 75));
-	auto animateUp = Animate::create(up);
-	auto spawn = Spawn::create(animateUp,moveUp, nullptr);
-	auto repeat = RepeatForever::create(spawn);
-	repeat->setTag(0);
-	m_spriteFront->runAction(repeat);
+	auto moveDown = RepeatForever::create(MoveBy::create(1, Vec2(0, -80)));
+	auto animateDown = RepeatForever::create(Animate::create(down));
+	moveDown->setTag(2);
+	animateDown->setTag(3);
+	this->m_spriteFront->runAction(animateDown);
+	this->m_spriteFront->runAction(moveDown);
 }
 
-void Trainer::walkDown()
+void Trainer::StopWalkUp()
 {
-	auto moveDown = MoveBy::create(1.125f, Vec2(0, -75));
-	auto animateDown = Animate::create(down);
-	auto spawn = Spawn::create(animateDown, moveDown, nullptr);
-	auto repeat = RepeatForever::create(spawn);
-	repeat->setTag(1);
-	this->m_spriteFront->runAction(repeat);
+	this->m_spriteFront->stopActionByTag(0);
+	this->m_spriteFront->stopActionByTag(1);
+	this->m_spriteFront->setTexture("res/Trainer/walkup/1.png");
+}
+
+void Trainer::StopWalkDown()
+{
+	this->m_spriteFront->stopActionByTag(2);
+	this->m_spriteFront->stopActionByTag(3);
+	this->m_spriteFront->setTexture("res/Trainer/walkdown/1.png");
+}
+
+void Trainer::StopWalkLeft()
+{
+	this->m_spriteFront->stopActionByTag(4);
+	this->m_spriteFront->stopActionByTag(5);
+	this->m_spriteFront->setTexture("res/Trainer/walkleft/1.png");
+}
+
+void Trainer::StopWalkRight()
+{
+	this->m_spriteFront->stopActionByTag(6);
+	this->m_spriteFront->stopActionByTag(7);
+	this->m_spriteFront->setTexture("res/Trainer/walkright/1.png");
 }

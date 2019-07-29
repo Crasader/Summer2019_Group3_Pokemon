@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="9">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="9">
  <tileset firstgid="1" source="terrain_atlas.tsx"/>
  <tileset firstgid="1025" source="3736.tsx"/>
  <tileset firstgid="1277" source="HelloWorld.tsx"/>
@@ -110,13 +110,13 @@
    </properties>
    <point/>
   </object>
-  <object id="2" type="2" x="122" y="238">
+  <object id="2" type="2" x="123" y="244">
    <point/>
   </object>
-  <object id="3" type="3" x="814" y="234">
+  <object id="3" type="3" x="812" y="245">
    <point/>
   </object>
-  <object id="4" type="1" x="816" y="304">
+  <object id="4" type="1" x="816" y="314">
    <properties>
     <property name="pre" type="int" value="1"/>
    </properties>
@@ -125,7 +125,7 @@
   <object id="5" type="4" x="512" y="8">
    <point/>
   </object>
-  <object id="7" type="1" x="512" y="70">
+  <object id="7" type="1" x="512" y="78">
    <properties>
     <property name="pre" type="int" value="2"/>
    </properties>

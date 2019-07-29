@@ -1,5 +1,6 @@
 #include "Buttons.h"
 #include "ResourceManager.h"
+#include "Popup.h"
 
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
@@ -20,7 +21,7 @@ Buttons::Buttons()
 	m_right->setScale(0.4f);
 }
 
-void Buttons ::ButtonListener(Trainer *&mPlayer)
+void Buttons::ButtonListener(Trainer *&mPlayer)
 {
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
@@ -28,109 +29,105 @@ void Buttons ::ButtonListener(Trainer *&mPlayer)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			mPlayer->walkUp();
+			mPlayer->WalkUp();
 			state = 1;
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->StopWalkUp();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
 		default:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->StopWalkUp();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
-
 		}
 	});
 
-
-	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
+	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			mPlayer->walkRight();
-			state = 1;
+			mPlayer->WalkRight();
+			state = 2;
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(3);
+			mPlayer->StopWalkRight();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
 		default:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(3);
+			mPlayer->StopWalkRight();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
 		}
-
 		}
 	});
+
 	m_left->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
-
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			mPlayer->walkLeft();
-			state = 1;
+			mPlayer->WalkLeft();
+			state = 3;
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->StopWalkLeft();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
 		default:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->StopWalkLeft();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
-
 		}
 	});
-	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
+	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			mPlayer->walkDown();
-			state = 1;
+			mPlayer->WalkDown();
+			state = 4;
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(1);
+			mPlayer->StopWalkDown();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
 		default:
 		{
-			mPlayer->GetSpriteFront()->stopActionByTag(1);
+			mPlayer->StopWalkDown();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 			break;
 		}
-
 		}
 	});
 }
@@ -141,7 +138,8 @@ Buttons::~Buttons()
 
 Buttons * Buttons::GetIntance()
 {
-	if (!m_button) {
+	if (!m_button)
+	{
 		m_button = new Buttons();
 	}
 	return m_button;
@@ -167,6 +165,7 @@ Button * Buttons::GetButtonDown()
 	return m_down;
 }
 
+
 void Buttons::Remove()
 {
 	m_up->removeFromParentAndCleanup(true);
@@ -189,11 +188,12 @@ void Buttons::Remove()
 	m_up->setScale(0.4f);
 	m_left->setScale(0.4f);
 	m_right->setScale(0.4f);
+	//m_bag->setScale();
 }
 
-void Buttons:: UpdateButton(float x, float y) {
+void Buttons::UpdateButton(float x, float y) {
 	m_left->setPosition(Vec2(x - 30, y));
 	m_right->setPosition(Vec2(x + 30, y));
-	m_up->setPosition(Vec2(x , y +30));
-	m_down->setPosition(Vec2(x , y -30));
+	m_up->setPosition(Vec2(x, y + 30));
+	m_down->setPosition(Vec2(x, y - 30));
 }

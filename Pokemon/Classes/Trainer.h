@@ -13,16 +13,17 @@ private:
 	Animation* down;
 	Animation* left;
 	Animation* right;
-public: 
+public:
 	Trainer();
 	Trainer(cocos2d::Layer* layer);
 	~Trainer();
-	static list<Pokemon*> m_Pokemons;
 	void Init(cocos2d::Layer* layer);
-	void AddPokemon(Pokemon *);
-	void walkLeft();
-	void walkRight();
-	void walkUp();
-	void walkDown();
+	void WalkLeft();
+	void WalkRight();
+	void WalkUp();
+	void WalkDown();
+	void StopWalkUp();
+	void StopWalkDown();
+	void StopWalkLeft();
+	void StopWalkRight();
 };
-
