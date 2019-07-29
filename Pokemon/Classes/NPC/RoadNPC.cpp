@@ -7,8 +7,6 @@
 
 RoadNPC::RoadNPC()
 {
-	this->Init();
-	m_state = true;
 	auto kirlia = new Kirlia();
 	kirlia->SetLevel(14);
 	this->m_pokemons.push_back(kirlia);
@@ -24,11 +22,6 @@ RoadNPC::RoadNPC()
 
 RoadNPC::~RoadNPC()
 {
-}
-
-void RoadNPC::Init()
-{
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
 }
 
 void RoadNPC::Update(float deltaTime)

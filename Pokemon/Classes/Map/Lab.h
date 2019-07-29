@@ -10,7 +10,7 @@ class Lab : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
-	Sprite * doctor;
+	Sprite * m_doctor;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;

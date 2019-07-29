@@ -1,4 +1,6 @@
 #pragma once
+
+#include "MyObject.h"
 #include "Pokemon.h"
 #include <vector>
 #include "NPC.h"
@@ -9,10 +11,10 @@ class CityNPC : public NPC
 {
 private:
 	string name;
+	vector<Pokemon*> m_pokemons;
 public:
-	CityNPC(Layer* layer);
+	CityNPC();
 	~CityNPC();
-	void Init() override;
 	void Update(float deltaTime) override;
 };
-#pragma once
+

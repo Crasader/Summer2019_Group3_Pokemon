@@ -235,7 +235,6 @@ void Lab::InitObject()
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			labBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			labBody->setCollisionBitmask(Model::BITMASK_PLAYER);
-			labBody->setMass(16);
 			labBody->setContactTestBitmask(true);
 			labBody->setDynamic(true);
 			labBody->setRotationEnable(false);
@@ -255,15 +254,15 @@ void Lab::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 		else {
-			doctor = Sprite::create("res/oak_down.png");
-			doctor->setPosition(Vec2(posX, posY));
-			doctorBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			m_doctor = ResourceManager::GetInstance()->GetSpriteById(122);
+			m_doctor->setPosition(Vec2(posX, posY));
+			doctorBody = PhysicsBody::createBox(m_doctor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			doctorBody->setCollisionBitmask(Model::BITMASK_DOCTOR);
 			doctorBody->setContactTestBitmask(true);
 			doctorBody->setDynamic(false);
 			doctorBody->setGravityEnable(false);
-			doctor->setPhysicsBody(doctorBody);
-			this->addChild(doctor, 10);
+			m_doctor->setPhysicsBody(doctorBody);
+			this->addChild(m_doctor, 10);
 		}
 	}
 

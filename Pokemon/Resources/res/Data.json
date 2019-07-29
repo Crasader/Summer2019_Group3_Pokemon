@@ -4,7 +4,7 @@
     "0": "res/Battle/battle-background-grass.tmx"
   },
   "SPRITE": {
-    "size": 148,
+    "size": 151,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -132,12 +132,13 @@
 
     "122": "res/NPC/0.png",
     "123": "res/NPC/1.png",
-    "124": "res/NPC/3.png",
-    "125": "res/NPC/4.png",
-    "126": "res/NPC/6.png",
-    "127": "res/NPC/7.png",
-    "128": "res/NPC/9.png",
-    "129": "res/NPC/10.png",
+    "124": "res/NPC/2.png",
+    "125": "res/NPC/3.png",
+    "126": "res/NPC/4.png",
+    "127": "res/NPC/5.png",
+    "128": "res/NPC/6.png",
+    "129": "res/NPC/7.png",
+
 
     "130": "res/UI/Button/menu3.png",
     "131": "res/Battle/hp.png",
@@ -158,7 +159,11 @@
     "144": "res/Item/7.png",
     "145": "res/Item/8.png",
     "146": "res/Item/9.png",
-    "147": "res/Item/10.png"
+    "147": "res/Item/10.png",
+
+    "148": "res/NPC/8.png",
+    "149": "res/NPC/9.png",
+    "150": "res/NPC/10.png"
   },
   "BUTTON": {
     "size": 11,

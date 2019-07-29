@@ -7,8 +7,6 @@
 
 Route2NPC::Route2NPC()
 {
-	this->Init();
-	m_state = true;
 	auto skymin = new Skymin();
 	skymin->SetLevel(10);
 	this->m_pokemons.push_back(skymin);
@@ -24,11 +22,6 @@ Route2NPC::Route2NPC()
 
 Route2NPC::~Route2NPC()
 {
-}
-
-void Route2NPC::Init()
-{
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
 }
 
 void Route2NPC::Update(float deltaTime)
