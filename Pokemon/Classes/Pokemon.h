@@ -69,4 +69,5 @@ public:
 	Skill* GetSkillById(int id);
 	int GetCountSkills();
 	void Attack(Pokemon* target, Skill* skill);
+	void Restore();
 };

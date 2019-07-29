@@ -259,10 +259,10 @@ void Lake::InitObject()
 		{
 			if (Model::SUICUNE==true)
 			{
-				suicune = Sprite::create("res/2.png");
+				suicune = ResourceManager::GetInstance()->GetSpriteById(150);
 				suicune->setPosition(Vec2(posX, posY));
 				suicune->setScale(2);
-				suicuneBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				suicuneBody = PhysicsBody::createBox(suicune->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				suicuneBody->setCollisionBitmask(Model::BITMASK_SUICUNE);
 				suicuneBody->setContactTestBitmask(true);
 				suicuneBody->setDynamic(false);

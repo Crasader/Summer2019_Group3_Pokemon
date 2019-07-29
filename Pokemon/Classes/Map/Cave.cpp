@@ -144,13 +144,13 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -194,7 +194,7 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		Buttons::GetIntance()->Remove();
 		this->Log("Roar !");
 		this->m_stateLog = true;
@@ -245,10 +245,10 @@ void Cave::InitObject()
 		{
 			if (Model::ENTEI==true)
 			{
-				entei = Sprite::create("res/0.png");
+				entei = ResourceManager::GetInstance()->GetSpriteById(149);
 				entei->setPosition(Vec2(posX, posY));
 				entei->setScale(2);
-				enteiBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				enteiBody = PhysicsBody::createBox(entei->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				enteiBody->setCollisionBitmask(Model::BITMASK_ENTEI);
 				enteiBody->setContactTestBitmask(true);
 				enteiBody->setDynamic(false);
@@ -311,7 +311,7 @@ void Cave::UpdateCamera() {
 void Cave::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);

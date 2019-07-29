@@ -948,7 +948,7 @@ void BattleScene::OpponentChangePokemon()
 
 void BattleScene::StandByPhase()
 {
-	UICustom::Popup* popupPokemon = UICustom::Popup::createBagInBattle();
+	UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagInBattle();
 	this->addChild(popupPokemon, 1000);
 }
 
