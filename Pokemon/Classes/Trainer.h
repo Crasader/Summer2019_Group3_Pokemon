@@ -13,7 +13,7 @@ private:
 	Animation* down;
 	Animation* left;
 	Animation* right;
-public: 
+public:
 	Trainer();
 	Trainer(cocos2d::Layer* layer);
 	~Trainer();
@@ -27,4 +27,3 @@ public:
 	void StopWalkLeft();
 	void StopWalkRight();
 };
-

@@ -13,7 +13,7 @@
     "9": "res/Map/Lake.tmx"
   },
   "SPRITE": {
-    "size": 148,
+    "size": 151,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -141,12 +141,13 @@
 
     "122": "res/NPC/0.png",
     "123": "res/NPC/1.png",
-    "124": "res/NPC/3.png",
-    "125": "res/NPC/4.png",
-    "126": "res/NPC/6.png",
-    "127": "res/NPC/7.png",
-    "128": "res/NPC/9.png",
-    "129": "res/NPC/10.png",
+    "124": "res/NPC/2.png",
+    "125": "res/NPC/3.png",
+    "126": "res/NPC/4.png",
+    "127": "res/NPC/5.png",
+    "128": "res/NPC/6.png",
+    "129": "res/NPC/7.png",
+
 
     "130": "res/UI/Button/menu3.png",
     "131": "res/Battle/hp.png",
@@ -156,7 +157,6 @@
     "134": "res/Background/1.png",
     "135": "res/UI/LoadingBar/0.png",
     "136": "res/UI/LoadingBar/1.png",
-
     "137": "res/Item/Potion.png",
     "138": "res/Item/SuperPotion.png",
     "139": "res/Item/MaxPotion.png",
@@ -168,6 +168,9 @@
     "145": "res/Item/ThunderStone.png",
     "146": "res/Item/WaterStone.png",
     "147": "res/Trainer/Pokeball/0.png"
+    "148": "res/NPC/8.png",
+    "149": "res/NPC/9.png",
+    "150": "res/NPC/10.png"
   },
   "BUTTON": {
     "size": 19,

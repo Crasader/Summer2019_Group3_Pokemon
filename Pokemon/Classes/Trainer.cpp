@@ -81,22 +81,26 @@ void Trainer::StopWalkUp()
 {
 	this->m_spriteFront->stopActionByTag(0);
 	this->m_spriteFront->stopActionByTag(1);
+	this->m_spriteFront->setTexture("res/Trainer/walkup/1.png");
 }
 
 void Trainer::StopWalkDown()
 {
 	this->m_spriteFront->stopActionByTag(2);
 	this->m_spriteFront->stopActionByTag(3);
+	this->m_spriteFront->setTexture("res/Trainer/walkdown/1.png");
 }
 
 void Trainer::StopWalkLeft()
 {
 	this->m_spriteFront->stopActionByTag(4);
 	this->m_spriteFront->stopActionByTag(5);
+	this->m_spriteFront->setTexture("res/Trainer/walkleft/1.png");
 }
 
 void Trainer::StopWalkRight()
 {
 	this->m_spriteFront->stopActionByTag(6);
 	this->m_spriteFront->stopActionByTag(7);
+	this->m_spriteFront->setTexture("res/Trainer/walkright/1.png");
 }

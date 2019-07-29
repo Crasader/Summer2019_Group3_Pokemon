@@ -15,7 +15,6 @@ private:
 public:
 	RoadNPC();
 	~RoadNPC();
-	void Init() override;
 	void Update(float deltaTime) override;
 };
 

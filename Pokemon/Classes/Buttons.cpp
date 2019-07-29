@@ -40,6 +40,7 @@ void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 }
 
 void Buttons ::ButtonListener(Trainer *&mPlayer)
+
 {
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
@@ -183,10 +184,12 @@ Button * Buttons::GetButtonDown()
 	return m_down;
 }
 
+
 Button * Buttons::GetButtonBag()
 {
 	return m_bag;
 }
+
 
 void Buttons::Remove()
 {
@@ -217,10 +220,11 @@ void Buttons::Remove()
 	//m_bag->setScale();
 }
 
-void Buttons:: UpdateButton(float x, float y) {
+void Buttons::UpdateButton(float x, float y) {
 	m_left->setPosition(Vec2(x - 30, y));
 	m_right->setPosition(Vec2(x + 30, y));
 	m_up->setPosition(Vec2(x , y +30));
 	m_down->setPosition(Vec2(x , y -30));
 	m_bag->setPosition(Vec2(x + 400, y));
+
 }

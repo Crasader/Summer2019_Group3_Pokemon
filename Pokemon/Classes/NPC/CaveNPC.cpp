@@ -5,8 +5,6 @@
 #include "Pokemon\Charmeleon.h"
 CaveNPC::CaveNPC()
 {
-	this->Init();
-	m_state = true;
 	auto ponyta = new Ponyta();
 	ponyta->SetLevel(10);
 	this->m_pokemons.push_back(ponyta);
@@ -22,11 +20,6 @@ CaveNPC::CaveNPC()
 
 CaveNPC::~CaveNPC()
 {
-}
-
-void CaveNPC::Init()
-{
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(92);
 }
 
 void CaveNPC::Update(float deltaTime)
