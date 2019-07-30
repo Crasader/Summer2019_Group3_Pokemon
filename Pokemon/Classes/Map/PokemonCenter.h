@@ -19,6 +19,7 @@ private:
 	bool m_stateLog = false;
 public:
     static cocos2d::Scene* createScene();
+	static int previousScene;
     virtual bool init();
 	void TypeWriter(float deltaTime);
 	void LogSetOpacity(GLubyte opacity);
