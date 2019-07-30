@@ -16,7 +16,7 @@ void EnergyBall::Init()
 	this->SetScale(1.5);
 	Skill::SetName("Energy Ball");
 	Skill::SetTypeName("Grass");
-	Skill::SetPower(80);
+	Skill::SetPower(60);
 	Skill::SetMaxPP(10);
 	Skill::SetIdType(MyObject::TYPE_GRASS);
 	Skill::SetCurrentPP(10);

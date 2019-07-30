@@ -256,6 +256,18 @@ Vec2 Pokemon::GetPosition()
 	return this->m_spriteBack->getPosition();
 }
 
+void Pokemon::LearnSkill(Skill * skill)
+{
+	for (int i = 0; i < length; i++)
+	{
+		if (this->m_listSkill.at(i) == nullptr)
+		{
+			this->m_listSkill.at(i) = skill;
+			break;
+		}
+	}
+}
+
 Skill * Pokemon::GetSkillById(int id)
 {
 	return this->m_listSkill.at(id);

@@ -18,46 +18,49 @@ USING_NS_CC;
 Size townVisibleSize;
 Size townTileMapSize;
 TMXLayer* grass;
+Sprite* tilePokemon;
+PhysicsBody* pokemon;
 //Joystick *joystickTown;
-
+vector<Vec2> point;
+float tick = 0;
 //Layer *layer_UI;
 PhysicsBody* townBody, *townGateWay;
 Camera *townCamera;
 int Town::previousScene = 0;
 
 int Town::arrayGrassHasPokemon[32][16] = { 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 	 };
 Scene* Town::createScene()
 {
@@ -127,35 +130,7 @@ bool Town::init()
 		}
 	}
 
-	//InitGrass();
-	grass = map->getLayer("grass");
-	int count = 0;
-	int width = layerSize.width;
-	int height = layerSize.height;
-	for (int i = 0; i < width; i++)
-	{
-		for (int j = 0; j < height; j++)
-		{
-			auto tilePokemon = grass->getTileAt(Vec2(i, j));
-			if (tilePokemon != NULL)
-			{
-				if (count < 3) {
-					int _random = rand() % 4;
-					if (!_random && !Check(i, j)) {
-						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
-						pokemon->setContactTestBitmask(true);
-						pokemon->setDynamic(false);
-						pokemon->setGravityEnable(false);
-						tilePokemon->setPhysicsBody(pokemon);
-						tilePokemon->setName("physics");
-						arrayGrassHasPokemon[i][j] = 1;
-						count++;
-					}
-				}
-			}
-		}
-	}
+	InitGrass();
 
 	InitObject();
 
@@ -237,7 +212,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_HOUSE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
@@ -275,7 +249,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_LAB && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
@@ -286,23 +259,11 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		DeleteGrassHasPokemon();
 		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/ExitRoom.mp3", false);
-	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_POKEMON)
-		|| (a->getCollisionBitmask() == Model::BITMASK_POKEMON && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
-	{
-		//int idPokemon = random();
-		//new Pokemon with id
-		//chuyen scene chien dau
-		DeleteGrassHasPokemon();
-		auto layer = BattleScene::create();
-		this->addChild(layer, 1000);
-		CCLOG("Has Pokemon");
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
@@ -311,19 +272,19 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -445,6 +406,7 @@ void Town::UpdateCamera() {
 		}
 	}
 }
+
 //void Town::InitArray()
 //{
 //	for (int i = 0; i < 32; i++) {
@@ -453,22 +415,68 @@ void Town::UpdateCamera() {
 //		}
 //	}
 //}
-//void Town::InitGrass()
-//{
-//	
-//}
-void Town::update(float dt) {
-	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
-}
-void Town::DeleteGrassHasPokemon() {
-	int i, j;
-	for (i = 0; i < 32; i++) {
-		for (j = 0; j < 16; j++) {
-			if (arrayGrassHasPokemon[i][j]) {
-				grass->getTileAt(Vec2(i, j))->removeComponent(grass->getTileAt(Vec2(i, j))->getPhysicsBody());
-				arrayGrassHasPokemon[i][j] = 0;
+
+void Town::InitGrass()
+{
+	grass = map->getLayer("grass");
+	int width = grass->getLayerSize().width;
+	int height = grass->getLayerSize().height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				point.push_back(tilePokemon->getPosition());
 			}
 		}
 	}
+}
+
+void Town::update(float dt)
+{
+	for (int i = 0; i < point.size(); i++)
+	{
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(point.at(i)) && Buttons::state != 0)
+		{
+			tick += dt;
+			break;
+		}
+	}
+	if (tick >= 2.5)
+	{
+		vector<Pokemon*> wildPokemon;
+		int index = rand() % 6 + 1;
+		switch (index)
+		{
+		case 1:
+			wildPokemon.push_back(new Meowth());
+			break;
+		case 2:
+			wildPokemon.push_back(new Ralts());
+			break;
+		case 3:
+			wildPokemon.push_back(new Pikachu());
+			break;
+		case 4:
+			wildPokemon.push_back(new Pidgey());
+			break;
+		case 5:
+			wildPokemon.push_back(new Taillow());
+			break;
+		case 6:
+			wildPokemon.push_back(new Farfetchd());
+			break;
+		default:
+			break;
+		}
+		Buttons::GetIntance()->SetEnabled(false);
+		auto layer = BattleScene::CreateLayer(wildPokemon);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		tick = 0;
+	}
+	UpdateCamera();
+	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
 }

@@ -56,6 +56,7 @@ void Bag::AddPokemon(Pokemon* pokemon)
 			if (this->m_pokemons.at(i) == nullptr)
 			{
 				this->m_pokemons.at(i) = pokemon;
+				break;
 			}
 		}
 	}

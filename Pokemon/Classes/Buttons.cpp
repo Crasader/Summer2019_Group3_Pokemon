@@ -216,6 +216,16 @@ Button * Buttons::GetButtonTips()
 	return m_tips;
 }
 
+void Buttons::SetEnabled(bool enable)
+{
+	this->m_up->setEnabled(enable);
+	this->m_down->setEnabled(enable);
+	this->m_left->setEnabled(enable);
+	this->m_right->setEnabled(enable);
+	this->m_bag->setEnabled(enable);
+	this->m_tips->setEnabled(enable);
+}
+
 void Buttons::Remove()
 {
 	m_up->removeFromParentAndCleanup(true);

@@ -10,7 +10,6 @@ private:
 	Sprite* m_pokeball;
 	Animation* m_animationPokeball;
 	Sprite* m_levelUp;
-	vector<Pokemon*> m_listOpponentPokemon = { new Pidgey(), new Squirtle() };
 
 	Sprite* m_background;
 	Sprite* m_messageBox;
@@ -50,6 +49,8 @@ public:
 	virtual bool init();
 
 	void update(float deltaTime) override;
+
+	static Layer* CreateLayer(vector<Pokemon*> pokemons);
 
 	void ReleaseChildren();
 

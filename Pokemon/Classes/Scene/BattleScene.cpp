@@ -1,6 +1,8 @@
 #include "BattleScene.h"
 #include "Popup.h"
+#include "Buttons.h"
 #include "Map\Town.h"
+#include "Map\PokemonCenter.h"
 #define scale_hpBar 0.47
 
 BattleScene::BattleScene()
@@ -46,6 +48,15 @@ bool BattleScene::init()
 
 void BattleScene::update(float deltaTime)
 {
+}
+
+vector<Pokemon*> listOpponentPokemon;
+
+Layer * BattleScene::CreateLayer(vector<Pokemon*> pokemons)
+{
+	listOpponentPokemon = pokemons;
+	auto layer = BattleScene::create();
+	return layer;
 }
 
 void BattleScene::ReleaseChildren()
@@ -588,7 +599,7 @@ void BattleScene::InitObject()
 	this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
 	this->m_player->RemoveFromParent();
 	this->m_player->SetScale(0);
-	this->m_opponent = this->m_listOpponentPokemon.at(0);
+	this->m_opponent = listOpponentPokemon.at(0);
 	this->LoadOpponentPosition();
 	this->LoadOpponentHpBar();
 
@@ -708,6 +719,8 @@ void BattleScene::AddEventListener()
 			if (this->m_labelSkill4->getString() == "Run")
 			{
 				this->ReleaseChildren();
+				this->getParent()->scheduleUpdate();
+				Buttons::GetIntance()->SetEnabled(true);
 				this->removeFromParent();
 			}
 			else
@@ -876,8 +889,8 @@ void BattleScene::HasNextBattle()
 					}), nullptr));
 				}
 				delete this->m_opponent;
-				this->m_listOpponentPokemon.erase(this->m_listOpponentPokemon.begin());
-				if (this->m_listOpponentPokemon.size() > 0)
+				listOpponentPokemon.erase(listOpponentPokemon.begin());
+				if (listOpponentPokemon.size() > 0)
 				{
 					this->OpponentChangePokemon();
 				}
@@ -974,7 +987,7 @@ void BattleScene::TrainerChangePokemon()
 
 void BattleScene::OpponentChangePokemon()
 {
-	this->m_opponent = this->m_listOpponentPokemon.at(0);
+	this->m_opponent = listOpponentPokemon.at(0);
 	this->m_opponent->SetScale(0);
 	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
@@ -1012,12 +1025,20 @@ void BattleScene::StandByPhase()
 
 void BattleScene::EndBattle()
 {
-	auto listener = CallFunc::create([this]() {
+	bool is_winner;
+	auto listener = CallFunc::create([this, is_winner]() {
 		if (this->m_stateBattleMessage == true)
 		{
 			this->m_stateBattleMessage = false;
 			this->ReleaseChildren();
+			this->getParent()->scheduleUpdate();
+			Buttons::GetIntance()->SetEnabled(true);
 			this->removeFromParent();
+			if (!is_winner)
+			{
+				Director::getInstance()->getRunningScene()->pause();
+				Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
+			}
 		}
 	});
 	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
@@ -1026,10 +1047,12 @@ void BattleScene::EndBattle()
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You lose!");
+		is_winner = false;
 	}
 	else
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You win!");
+		is_winner = true;
 	}
 }
