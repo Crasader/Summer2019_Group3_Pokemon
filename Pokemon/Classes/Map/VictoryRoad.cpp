@@ -35,7 +35,7 @@ static void problemLoading(const char* filename)
 bool Road::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("VictoryRoad.mp3", true);
+	audio->playBackgroundMusic("res/Sound/VictoryRoad.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -103,7 +103,7 @@ bool Road::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route2::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROAD_GATE_TO_LEAGUE)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROAD_GATE_TO_LEAGUE && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -112,13 +112,13 @@ bool Road::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, League::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -244,4 +244,3 @@ void Road::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(roadCamera->getPosition().x - 200, roadCamera->getPosition().y - 100);
 }
-

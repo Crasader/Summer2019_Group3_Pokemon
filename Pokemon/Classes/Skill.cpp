@@ -6,6 +6,9 @@ Skill::Skill()
 
 Skill::~Skill()
 {
+	this->m_spriteFront->removeFromParent();
+	this->m_spriteFront->release();
+	this->m_animation->release();
 }
 
 void Skill::SetPower(int x)
@@ -124,7 +127,7 @@ int Skill::GetPower()
 	return m_power;
 }
 
-int Skill::GetPP()
+int Skill::GetCurrentPP()
 {
 	return m_pp;
 }

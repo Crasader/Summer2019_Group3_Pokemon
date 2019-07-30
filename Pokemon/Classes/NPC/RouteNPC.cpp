@@ -8,7 +8,7 @@
 RouteNPC::RouteNPC()
 {
 	this->Init();
-	m_state = true;
+
 	auto pidgey = new Pidgey();
 	pidgey->SetLevel(5);
 	this->m_pokemons.push_back(pidgey);

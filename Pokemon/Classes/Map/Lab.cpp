@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Buttons.h"
 #include "Town.h"
+#include "Popup.h"
 #include "Model.h"
 #include "Scene\BattleScene.h"
 
@@ -13,6 +14,7 @@ Size labTileMapSize;
 int count = 0;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
 Camera *labCamera;
+UICustom::Popup *popup;
 
 Scene* Lab::createScene()
 {
@@ -35,7 +37,7 @@ static void problemLoading(const char* filename)
 bool Lab::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("LabScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/LabScene.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -49,6 +51,11 @@ bool Lab::init()
 	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	labTileMapSize = map->getContentSize();
 	addChild(map);
+
+	popup = UICustom::Popup::ChoosePokemon();
+	popup->removeFromParent();
+	popup->setVisible(false);
+	this->addChild(popup,11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -150,13 +157,13 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -200,14 +207,24 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("fix ho bo may cai");
-		this->m_stateLog = true;
-		this->m_messageBox->setVisible(true);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		
+		if (Model::DOCTOR == true)
+		{
+			popup->setVisible(true);
+			Model::stateGame = 1;
+			Model::DOCTOR = false;
+		}
+		else
+		{
+			Buttons::GetIntance()->Remove();
+			this->m_stateLog = true;
+			this->m_messageBox->setVisible(true);
+			this->Log("To be the pokemon master ");
+		}
 	}
 	return true;
 
@@ -316,7 +333,7 @@ void Lab::Log(string logg)
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	if(!m_stateLog){
 		if (this->m_labelLog->getOpacity() == 0)
 		{

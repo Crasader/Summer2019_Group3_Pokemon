@@ -39,7 +39,7 @@ void Trainer::Init(cocos2d::Layer* layer)
 
 void Trainer::WalkLeft()
 {
-	auto moveLeft =RepeatForever::create(MoveBy::create(1, Vec2(-80, 0)));
+	auto moveLeft = RepeatForever::create(MoveBy::create(1, Vec2(-80, 0)));
 	auto animateLeft = RepeatForever::create(Animate::create(left));
 	moveLeft->setTag(4);
 	animateLeft->setTag(5);

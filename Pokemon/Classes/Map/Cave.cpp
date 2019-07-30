@@ -17,7 +17,7 @@ Camera *caveCamera;
 Scene * Cave::createScene()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("CaveScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/CaveScene.mp3", true);
 	auto scene = Scene::createWithPhysics();
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Cave::create();
@@ -144,13 +144,13 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -194,7 +194,7 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		Buttons::GetIntance()->Remove();
 		this->Log("Roar !");
 		this->m_stateLog = true;
@@ -245,7 +245,7 @@ void Cave::InitObject()
 		{
 			if (Model::ENTEI==true)
 			{
-				entei = ResourceManager::GetInstance()->GetSpriteById(148);
+				entei = ResourceManager::GetInstance()->GetSpriteById(149);
 				entei->setPosition(Vec2(posX, posY));
 				entei->setScale(2);
 				enteiBody = PhysicsBody::createBox(entei->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -311,7 +311,7 @@ void Cave::UpdateCamera() {
 void Cave::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);

@@ -34,7 +34,7 @@ static void problemLoading(const char* filename)
 bool House::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("HouseScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/HouseScene.mp3", true);
 	if (!Layer::init())
 	{
 		return false;
@@ -88,7 +88,7 @@ bool House::init()
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
 			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
-			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width/2,
@@ -132,13 +132,13 @@ bool House::onContactBegin(PhysicsContact & contact)
 		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -188,7 +188,6 @@ bool House::onContactBegin(PhysicsContact & contact)
 	}
 
 	return true;
-
 }
 
 void House::InitObject()
@@ -226,7 +225,6 @@ void House::InitObject()
 			this->addChild(mGateWay, 10);
 		}
 	}
-
 }
 
 void House::UpdateCamera() {
@@ -272,9 +270,32 @@ void House::UpdateCamera() {
 		}
 	}
 }
+float sum = 0;
+void House::UpdatePlayer(float dt) {
+	sum += dt;
+	if (sum >= 1000.0f) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		sum = 0;
+	}
+}
 
 void House::update(float dt)
 {
+	UpdatePlayer(dt);
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(houseCamera->getPosition().x - 200, houseCamera->getPosition().y - 100);
 }

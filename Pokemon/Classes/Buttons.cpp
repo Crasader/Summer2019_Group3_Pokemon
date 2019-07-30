@@ -4,6 +4,7 @@
 
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
+
 Buttons::Buttons()
 {
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
@@ -21,11 +22,12 @@ Buttons::Buttons()
 	m_bag->setPosition(Vec2(500,100));
 
 	m_tips->setScale(0.2f);
-	m_down->setScale(0.4f);
-	m_up->setScale(0.4f);
-	m_left->setScale(0.4f);
-	m_right->setScale(0.4f);
+	m_down->setScale(0.5f);
+	m_up->setScale(0.5f);
+	m_left->setScale(0.5f);
+	m_right->setScale(0.5f);
 }
+
 //void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 //{
 //	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
@@ -72,8 +74,15 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 			state = 1;
 			break;
 		}
+		case ui::Widget::TouchEventType::MOVED:
+		{
+			state = 1;
+			mPlayer->isMoveUp = 1;
+			break;
+		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			mPlayer->isMoveUp = 0;
 			mPlayer->StopWalkUp();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
@@ -83,6 +92,7 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 		{
 			mPlayer->StopWalkUp();
 			state = 0;
+			mPlayer->isMoveUp = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
 			break;
 		}
@@ -99,9 +109,15 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 			state = 2;
 			break;
 		}
+		case ui::Widget::TouchEventType::MOVED: {
+			mPlayer->isMoveRight = 1;
+			state = 2;
+			break;
+		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			mPlayer->StopWalkRight();
+			mPlayer->isMoveRight = 0;
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
@@ -109,6 +125,7 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 		default:
 		{
 			mPlayer->StopWalkRight();
+			mPlayer->isMoveRight = 0;
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
 			break;
@@ -126,9 +143,16 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 			state = 3;
 			break;
 		}
+		case ui::Widget::TouchEventType::MOVED:
+		{
+			mPlayer->isMoveLeft = 1;
+			state = 3;
+			break;
+		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
 			mPlayer->StopWalkLeft();
+			mPlayer->isMoveLeft = 0;
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
@@ -137,6 +161,7 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 		{
 			mPlayer->StopWalkLeft();
 			state = 0;
+			mPlayer->isMoveLeft = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
 			break;
 		}
@@ -153,8 +178,15 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 			state = 4;
 			break;
 		}
+		case ui::Widget::TouchEventType::MOVED:
+		{
+			mPlayer->isMoveDown = 1;
+			state = 4;
+			break;
+		}
 		case ui::Widget::TouchEventType::ENDED:
 		{
+			mPlayer->isMoveDown = 0;
 			mPlayer->StopWalkDown();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
@@ -162,6 +194,7 @@ void Buttons::ButtonListener(Trainer *&mPlayer)
 		}
 		default:
 		{
+			mPlayer->isMoveDown = 0;
 			mPlayer->StopWalkDown();
 			state = 0;
 			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");

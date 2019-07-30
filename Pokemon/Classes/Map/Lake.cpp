@@ -67,7 +67,7 @@ static void problemLoading(const char* filename)
 bool Lake::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("LakeScene.mp3", true);
+	audio->playBackgroundMusic("res/Sound/LakeScene.mp3", true);
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -78,7 +78,7 @@ bool Lake::init()
 	lakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Lake.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(9);
 	laketileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -222,7 +222,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 
 void Lake::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Lake.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(9);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -259,10 +259,10 @@ void Lake::InitObject()
 		{
 			if (Model::SUICUNE==true)
 			{
-				suicune = Sprite::create("res/2.png");
+				suicune = ResourceManager::GetInstance()->GetSpriteById(150);
 				suicune->setPosition(Vec2(posX, posY));
 				suicune->setScale(2);
-				suicuneBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				suicuneBody = PhysicsBody::createBox(suicune->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				suicuneBody->setCollisionBitmask(Model::BITMASK_SUICUNE);
 				suicuneBody->setContactTestBitmask(true);
 				suicuneBody->setDynamic(false);

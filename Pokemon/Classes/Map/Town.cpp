@@ -92,7 +92,7 @@ static void problemLoading(const char* filename)
 bool Town::init()
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playBackgroundMusic("Town.mp3", true);
+	audio->playBackgroundMusic("res/Sound/Town.mp3", true);
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -242,13 +242,13 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -280,7 +280,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -291,7 +291,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_POKEMON)
 		|| (a->getCollisionBitmask() == Model::BITMASK_POKEMON && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -300,8 +300,8 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		//new Pokemon with id
 		//chuyen scene chien dau
 		DeleteGrassHasPokemon();
-		Director::getInstance()->getRunningScene()->pause();
-		Director::getInstance()->replaceScene(BattleScene::createScene());
+		auto layer = BattleScene::create();
+		this->addChild(layer, 1000);
 		CCLOG("Has Pokemon");
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
