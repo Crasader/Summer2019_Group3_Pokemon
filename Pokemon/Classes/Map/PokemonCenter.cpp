@@ -95,7 +95,7 @@ bool PokemonCenter::init()
 		if (type == Widget::TouchEventType::ENDED)
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
-			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			string str = "Your bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
 			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
@@ -241,7 +241,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
 		for (int i = 0; i < ListPO.size(); i++)
 		{
-			ListPO.at(i)->SetCurrentHP(ListPO.at(1)->GetMaxHP());
+			ListPO.at(i)->SetCurrentHP(ListPO.at(i)->GetMaxHP());
 			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
 			if (ListPO.at(i)->GetSkillById(1) != nullptr)
 			{

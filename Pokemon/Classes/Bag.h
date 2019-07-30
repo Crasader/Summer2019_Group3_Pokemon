@@ -32,13 +32,18 @@ public:
 	void SetGold(int gold);
 	int GetGold();
 	void AddItem(Item* item);
-	void AddPokemonIntoMyList(int index);
-	void RemovePokemonFormMyListIntoListOver(int index);
+	void AddPokemonIntoMyList(Pokemon *pokemon,int index);
+	void ReleasePokemonOver(int index);
+	void ReleasePokemon(int index);
+	void RemovePokemonFormMyListToListOver(Pokemon *pokemon, int index);
+	void SortList();
 	void CreateListItem();
+	int SizeOfListPokemon();
+	int SizeOfListPokemonOver();
 private:
 	static Bag* m_instance;
 	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(), nullptr, nullptr, nullptr };
-	vector<Pokemon*> m_pokemons_over;
+	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr};
 	vector<Item*> m_items;
 	int my_gold;
 };
