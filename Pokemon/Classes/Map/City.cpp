@@ -15,7 +15,7 @@ USING_NS_CC;
 Size cityVisibleSize;
 Size cityTileMapSize;
 
-PhysicsBody* cityBody, *cityGateWay;
+PhysicsBody* cityBody, *cityGateWay, *lakenpcbody, *cavenpcbody, *route2npcbody;
 Camera *cityCamera;
 int City::previousScene = 0;
 
@@ -28,6 +28,37 @@ Scene* City::createScene()
 	scene->addChild(layer);
 	cityCamera = scene->getDefaultCamera();
 	return scene;
+}
+
+void City::TypeWriter(float deltaTime)
+{
+	if (writing < this->m_labelLog->getStringLength())
+	{
+		auto letter = this->m_labelLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelLog->setOpacity(255);
+		this->unschedule(schedule_selector(City::TypeWriter));
+	}
+}
+
+void City::LogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
 }
 
 
@@ -96,6 +127,20 @@ bool City::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleUpdate();
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setVisible(false);
+	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
+	this->addChild(this->m_messageBox, 10);
+	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelLog->setScale(1.5);
+	this->m_labelLog->setTextColor(Color4B::BLACK);
+	this->m_labelLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelLog);
 	return true;
 }
 
@@ -183,6 +228,102 @@ bool City::onContactBegin(PhysicsContact& contact)
 		default:
 			break;
 		}
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_LAKENPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_LAKENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::LAKENPC = false;
+		removeChild(m_lakenpc, true);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CAVENPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_CAVENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::CAVENPC = false;
+		removeChild(m_cavenpc, true);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::ROUTE2NPC = false;
+		removeChild(m_route2npc, true);
 	}
 	return true;
 }
@@ -294,8 +435,64 @@ void City::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
+		else if(type == Model::MODLE_TYPE_LAKENPC)
+		{
+			if (Model::LAKENPC == true)
+			{
+				m_lakenpc = ResourceManager::GetInstance()->GetSpriteById(124);
+				m_lakenpc->setPosition(Vec2(posX, posY));
+				m_lakenpc->setScale(0.8);
+				lakenpcbody = PhysicsBody::createBox(m_lakenpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				lakenpcbody->setCollisionBitmask(Model::BITMASK_LAKENPC);
+				lakenpcbody->setContactTestBitmask(true);
+				lakenpcbody->setDynamic(false);
+				lakenpcbody->setGravityEnable(false);
+				m_lakenpc->setPhysicsBody(lakenpcbody);
+				this->addChild(m_lakenpc, 10);
+			}
+			else
+			{
+			}
+		}
+		else if (type == Model::MODLE_TYPE_CAVENPC)
+		{
+			if (Model::CAVENPC == true)
+			{
+				m_cavenpc = ResourceManager::GetInstance()->GetSpriteById(125);
+				m_cavenpc->setPosition(Vec2(posX, posY));
+				m_cavenpc->setScale(0.8);
+				cavenpcbody = PhysicsBody::createBox(m_cavenpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				cavenpcbody->setCollisionBitmask(Model::BITMASK_CAVENPC);
+				cavenpcbody->setContactTestBitmask(true);
+				cavenpcbody->setDynamic(false);
+				cavenpcbody->setGravityEnable(false);
+				m_cavenpc->setPhysicsBody(cavenpcbody);
+				this->addChild(m_cavenpc, 10);
+			}
+			else
+			{
+			}
+		}
+		else if (type == Model::MODLE_TYPE_ROUTE2NPC)
+		{
+			if (Model::CAVENPC == true)
+			{
+				m_route2npc = ResourceManager::GetInstance()->GetSpriteById(128);
+				m_route2npc->setPosition(Vec2(posX, posY));
+				m_route2npc->setScale(0.8);
+				route2npcbody = PhysicsBody::createBox(m_route2npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				route2npcbody->setCollisionBitmask(Model::BITMASK_ROUTE2NPC);
+				route2npcbody->setContactTestBitmask(true);
+				route2npcbody->setDynamic(false);
+				route2npcbody->setGravityEnable(false);
+				m_route2npc->setPhysicsBody(route2npcbody);
+				this->addChild(m_route2npc, 10);
+			}
+			else
+			{
+			}
+		}
 	}
-
 }
 
 void City::UpdateCamera() {
@@ -340,6 +537,34 @@ void City::UpdateCamera() {
 			}
 		}
 	}
+}
+void City::Log(string logg)
+{
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
+	this->m_labelLog->setString(logg);
+	this->LogSetOpacity(0);
+	this->m_labelLog->setOpacity(0);
+	writing = 0;
+	this->schedule(schedule_selector(City::TypeWriter), 0.05);
+}
+bool City::onTouchBegan(Touch * touch, Event * e)
+{
+	if (m_stateLog == false) {
+		if (this->m_labelLog->getOpacity() == 0)
+		{
+			this->unschedule(schedule_selector(City::TypeWriter));
+			this->LogSetOpacity(255);
+			this->m_labelLog->setOpacity(255);
+		}
+	}
+	else
+	{
+		m_stateLog = false;
+		this->m_messageBox->setVisible(false);
+		Buttons::GetIntance()->SetTouchEnable();
+	}
+	return true;
 }
 void City::update(float dt) {
 	UpdateCamera();

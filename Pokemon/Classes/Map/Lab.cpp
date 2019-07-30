@@ -74,10 +74,14 @@ bool Lab::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+	addChild(tips, 100);
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	addChild(bag, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -201,7 +205,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
+		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("fix ho bo may cai");
 		this->m_stateLog = true;
 		this->m_messageBox->setVisible(true);
@@ -250,13 +254,14 @@ void Lab::InitObject()
 		else {
 			m_doctor = ResourceManager::GetInstance()->GetSpriteById(122);
 			m_doctor->setPosition(Vec2(posX, posY));
+			m_doctor->setScale(0.8);
 			doctorBody = PhysicsBody::createBox(m_doctor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			doctorBody->setCollisionBitmask(Model::BITMASK_DOCTOR);
 			doctorBody->setContactTestBitmask(true);
 			doctorBody->setDynamic(false);
 			doctorBody->setGravityEnable(false);
 			m_doctor->setPhysicsBody(doctorBody);
-			this->addChild(m_doctor, 10);
+			this->addChild(m_doctor, 0);
 		}
 	}
 
@@ -315,8 +320,6 @@ void Lab::Log(string logg)
 }
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
-	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
 	if(!m_stateLog){
 		if (this->m_labelLog->getOpacity() == 0)
 		{
@@ -329,21 +332,7 @@ bool Lab::onTouchBegan(Touch * touch, Event * e)
 	{
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
-		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Lab::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		
-		scheduleUpdate();
+		Buttons::GetIntance()->SetTouchEnable();
 	}
 	return true;
 }

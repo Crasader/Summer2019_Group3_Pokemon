@@ -23,6 +23,37 @@ Scene * League::createScene()
 	return scene;
 }
 
+void League::TypeWriter(float deltaTime)
+{
+	if (writing < this->m_labelLog->getStringLength())
+	{
+		auto letter = this->m_labelLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelLog->setOpacity(255);
+		this->unschedule(schedule_selector(League::TypeWriter));
+	}
+}
+
+void League::LogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
+}
+
 static void problemLoading(const char* filename)
 {
 	printf("Error while loading: %s\n", filename);
@@ -83,6 +114,20 @@ bool League::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleUpdate();
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setVisible(false);
+	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.88, Director::getInstance()->getVisibleSize().height / 4);
+	this->addChild(this->m_messageBox, 10);
+	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelLog->setScale(1.5);
+	this->m_labelLog->setTextColor(Color4B::BLACK);
+	this->m_labelLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelLog);
 	return true;
 }
 
@@ -118,6 +163,18 @@ bool League::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 	}
+	else
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Congratulation !");
+		this->m_stateLog = true;
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(League::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+	}
 	return true;
 }
 
@@ -143,6 +200,42 @@ void League::InitObject()
 			leagueBody->setRotationEnable(false);
 			leagueBody->setGravityEnable(false);
 			mPlayer->GetSpriteFront()->setPhysicsBody(leagueBody);
+		}
+		else if (type == 3)
+		{
+			mGateWay = Sprite::create("res/walkup.png");
+			mGateWay->setPosition(Vec2(posX, posY));
+			leagueBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+			leagueBody->setCollisionBitmask(3);
+			leagueBody->setContactTestBitmask(true);
+			leagueBody->setDynamic(false);
+			leagueBody->setGravityEnable(false);
+			mGateWay->setPhysicsBody(leagueBody);
+			mGateWay->setVisible(false);
+			this->addChild(mGateWay, 10);
+		}
+		else
+		{
+			switch (Buttons::state)
+			{
+			case 1:
+				mPlayer->StopWalkUp();
+				break;
+			case 2:
+				mPlayer->StopWalkRight();
+				break;
+			case 3:
+				mPlayer->StopWalkLeft();
+				break;
+			case 4:
+				mPlayer->StopWalkDown();
+				break;
+			default:
+				break;
+			}
+			mNpc = Sprite::create("res/0.png");
+			mNpc->setPosition(Vec2(posX, posY));
+			this->addChild(mNpc, 10);
 		}
 	}
 }
@@ -189,6 +282,36 @@ void League::UpdateCamera() {
 			}
 		}
 	}
+}
+
+void League::Log(string logg)
+{
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
+	this->m_labelLog->setString(logg);
+	this->LogSetOpacity(0);
+	this->m_labelLog->setOpacity(0);
+	writing = 0;
+	this->schedule(schedule_selector(League::TypeWriter), 0.05);
+}
+
+bool League::onTouchBegan(Touch * touch, Event * e)
+{
+	if (m_stateLog == false) {
+		if (this->m_labelLog->getOpacity() == 0)
+		{
+			this->unschedule(schedule_selector(League::TypeWriter));
+			this->LogSetOpacity(255);
+			this->m_labelLog->setOpacity(255);
+		}
+	}
+	else
+	{
+		m_stateLog = false;
+		this->m_messageBox->setVisible(false);
+		Buttons::GetIntance()->SetTouchEnable();
+	}
+	return true;
 }
 
 void League::update(float dt)

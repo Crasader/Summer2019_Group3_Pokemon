@@ -128,7 +128,7 @@ bool Lake::init()
 	this->m_messageBox->setScaleY(scale_y);
 	this->m_messageBox->setVisible(false);
 	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
-	this->addChild(this->m_messageBox, 0);
+	this->addChild(this->m_messageBox, 10);
 	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelLog->setScale(1.5);
@@ -203,14 +203,14 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
+		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Meow ?");
 		this->m_stateLog = true;
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		
+		Model::SUICUNE = false;
 		if (Model::SUICUNE == false)
 		{
 			this->Log("really nigga");
@@ -259,7 +259,7 @@ void Lake::InitObject()
 		{
 			if (Model::SUICUNE==true)
 			{
-				suicune = Sprite::create("res/2.png");
+				suicune = ResourceManager::GetInstance()->GetSpriteById(149);
 				suicune->setPosition(Vec2(posX, posY));
 				suicune->setScale(2);
 				suicuneBody = PhysicsBody::createBox(mGateWay->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -333,7 +333,6 @@ void Lake::Log(string logg)
 }
 bool Lake::onTouchBegan(Touch * touch, Event * e)
 {
-	Model::SUICUNE = false;
 	if (m_stateLog == false) {
 		if (this->m_labelLog->getOpacity() == 0)
 		{
@@ -346,21 +345,8 @@ bool Lake::onTouchBegan(Touch * touch, Event * e)
 	{
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
-		//removeChild(suicune, true);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
-		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
-
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		scheduleUpdate();
+		removeChild(suicune, true);
+		Buttons::GetIntance()->SetTouchEnable();
 	}
 	return true;
 }
