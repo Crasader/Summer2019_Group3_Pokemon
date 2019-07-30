@@ -32,5 +32,4 @@ public:
 	CREATE_FUNC(Route1);
 	//void createPhysics();
 	void update(float);
-	void CreateLayerUI();
 };

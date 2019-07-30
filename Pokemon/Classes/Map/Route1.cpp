@@ -6,17 +6,15 @@
 #include "Town.h"
 #include "City.h"
 #include "Model.h"
-//#include "Joystick.h"
 
 using namespace CocosDenshion;
 Size route1VisibleSize;
 Size route1TileMapSize;
-//Joystick *joystick;
 
-//Layer *layer_UI_Route1;
+Layer *layer_UI_Route1;
 
 PhysicsBody* route1Body, *route1GateWay, *route1npcbody;
-Camera *route1Camera;
+Camera *route1Camera ;
 int Route1::previousScene = 0;
 
 Scene* Route1::createScene()
@@ -26,7 +24,6 @@ Scene* Route1::createScene()
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
-	//route1Camera->setCameraFlag(CameraFlag::USER2);
 	return scene;
 }
 
@@ -59,8 +56,6 @@ bool Route1::init()
 	addChild(map);
 	addChild(mapTree, 20);
 	addChild(mapTree1, 5);
-
-	//CreateLayerUI();
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -122,16 +117,6 @@ bool Route1::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
-		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
-		switch (jsevent->EVENT_JOYSTICK)
-		{
-			
-		default:
-			break;
-		}
-	});
-	_eventDispatcher->addEventListenerWithFixedPriority(_listener, 1);*/
 	scheduleUpdate();
 	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
 	auto scale_x = 0.7;
@@ -443,16 +428,3 @@ void Route1::update(float dt) {
 	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
 	//joystick->setPosition(Vec2(route1Camera->getPosition().x - 540, route1Camera->getPosition().y - 80));
 }
-
-//void Route1::CreateLayerUI() {
-//	layer_UI_Route1 = Layer::create();
-//	joystick = Joystick::create();
-//	cameraUIRoute1 = Camera::create();
-//	cameraUIRoute1->setCameraMask(2);
-//	cameraUIRoute1->setCameraFlag(CameraFlag::USER1);
-//	joystick->setCameraMask(2);
-//	layer_UI_Route1->addChild(cameraUIRoute1,2);
-//	layer_UI_Route1->addChild(joystick);
-//	this->addChild(layer_UI_Route1,100);
-//
-//}
