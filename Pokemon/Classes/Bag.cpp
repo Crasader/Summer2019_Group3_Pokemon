@@ -1,15 +1,5 @@
 #include "Bag.h"
 #include "Trainer.h"
-#include "Item\Potion.h"
-#include "Item\MaxPotion.h"
-#include "Item\SuperPotion.h"
-#include "Item\Revive.h"
-#include "Item\MaxRevive.h"
-#include "Item\Ether.h"
-#include "Item\LeafStone.h"
-#include "Item\FireStone.h"
-#include "Item\ThunderStone.h"
-#include "Item\WaterStone.h"
 
 Bag::Bag()
 {
@@ -59,9 +49,15 @@ vector<Item*> Bag::GetListItem()
 
 void Bag::AddPokemon(Pokemon* pokemon)
 {
-	if (this->m_pokemons.size() < 6)
+	if (this->GetCountPokemon() < 6)
 	{
-		this->m_pokemons.push_back(pokemon);
+		for (int i = 0; i < 6; i++)
+		{
+			if (this->m_pokemons.at(i) == nullptr)
+			{
+				this->m_pokemons.at(i) = pokemon;
+			}
+		}
 	}
 	else
 	{

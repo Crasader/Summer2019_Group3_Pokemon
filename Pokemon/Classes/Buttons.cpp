@@ -28,22 +28,6 @@ Buttons::Buttons()
 	m_right->setScale(0.4f);
 }
 
-void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
-{
-	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		if (type == Widget::TouchEventType::ENDED)
-		{
-			UICustom::Popup *popup = UICustom::Popup::CreateBagInBattle();
-			popup->removeFromParent();
-			popup->setAnchorPoint(Vec2(0.5, 0.5));
-			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
-				camera->getPosition().y - popup->getContentSize().height / 2);
-			layer->addChild(popup, 101);
-		}
-	});
-}
-
 //void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
 //{
 //	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)

@@ -67,6 +67,8 @@ public:
 
 	void DamageStepWithOpponentAttackFirst(float deltaTime);
 
+	void RestoreHealthStep(float deltaTime);
+
 	void ChangePokemonStep(float deltaTime);
 
 	void ReduceHpPlayer(float deltaTime);
@@ -105,6 +107,8 @@ public:
 	void HasNextBattle();
 
 	void BattlePhase(int idSkill);
+
+	void UseItem();
 
 	void TrainerChangePokemon();
 

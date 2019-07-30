@@ -739,27 +739,51 @@ namespace UICustom
 			buttonMaxPotion->addChild(labelMaxPotion2, 102);
 
 			
-			buttonPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((Potion*)(Bag::GetInstance()->GetListItem().at(0)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 
-			buttonSuperPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonSuperPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((SuperPotion*)(Bag::GetInstance()->GetListItem().at(1)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 
-			buttonMaxPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonMaxPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((MaxPotion*)(Bag::GetInstance()->GetListItem().at(2)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 

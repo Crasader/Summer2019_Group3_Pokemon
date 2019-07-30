@@ -212,6 +212,55 @@ void BattleScene::DamageStepWithOpponentAttackFirst(float deltaTime)
 	}
 }
 
+void BattleScene::RestoreHealthStep(float deltaTime)
+{
+	if (this->m_opponent->IsAlive() && this->m_player->IsAlive())
+	{
+		if (this->m_statePlayer == true && this->m_stateOpponent == true)
+		{
+			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+			this->ResetAllState();
+			this->unschedule(schedule_selector(BattleScene::RestoreHealthStep));
+		}
+		else
+		{
+			if (this->m_stateBattleMessage == true)
+			{
+				if (this->m_statePlayer == false)
+				{
+					Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
+					this->m_stateBattleMessage = false;
+					auto finished = CallFunc::create([this]() {
+						this->m_statePlayer = true;
+						this->m_player->SetState(true);
+					});
+					auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
+					auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpPlayer->getScaleY()), finished, nullptr);
+					this->m_hpPlayer->runAction(sq);
+				}
+				else
+				{
+					this->OpponentAttackPlayer();
+				}
+			}
+			else
+			{
+				if (this->m_statePlayer == true && this->m_player->GetState() == true)
+				{
+					this->m_player->SetState(false);
+					Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+					this->BattleMessage(this->m_opponent->GetName() + " used " + this->m_oppSkill->GetName() + ".");
+				}
+			}
+		}
+	}
+	else
+	{
+		this->HasNextBattle();
+		this->unschedule(schedule_selector(BattleScene::RestoreHealthStep));
+	}
+}
+
 void BattleScene::ChangePokemonStep(float deltaTime)
 {
 	if (this->m_opponent->IsAlive() && this->m_player->IsAlive())
@@ -600,6 +649,8 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill2->getString() == "Bag")
 			{
+				UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagItemInBattle();
+				this->addChild(popupPokemon, 1000);
 			}
 			else if (this->m_labelSkill2->getString() != "-")
 			{
@@ -872,6 +923,13 @@ void BattleScene::BattlePhase(int idSkill)
 		this->BattleMessage(this->m_opponent->GetName() + " used " + this->m_oppSkill->GetName() + ".");
 		this->schedule(schedule_selector(BattleScene::DamageStepWithOpponentAttackFirst), 0.1);
 	}
+}
+
+void BattleScene::UseItem()
+{
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
+	this->BattleMessage(this->m_player->GetName() + " restore health.");
+	this->schedule(schedule_selector(BattleScene::RestoreHealthStep), 0.1);
 }
 
 void BattleScene::TrainerChangePokemon()
