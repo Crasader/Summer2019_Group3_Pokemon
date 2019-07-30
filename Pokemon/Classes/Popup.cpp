@@ -340,11 +340,11 @@ namespace UICustom
 //			CC_SAFE_RETAIN(headerPO);
 //			CC_SAFE_RETAIN(headerMI);
 //
+
 			Button *buttonYP = ResourceManager::GetInstance()->GetButtonById(13);
 			buttonYP->setPosition(Vec2(winSize.width / 2 - buttonYP->getContentSize().width/1.2, winSize.height * 5 / 8));
 			node->addChild(buttonYP,2);
 			buttonYP->setScale(0.75);
-
 			Button *buttonPO = ResourceManager::GetInstance()->GetButtonById(14);
 			buttonPO->setScale(0.75);
 			buttonPO->setPosition(Vec2(winSize.width / 2, winSize.height * 5 / 8));
@@ -385,7 +385,7 @@ namespace UICustom
 					string level = "Level:" + to_string(list.at(i)->GetLevel());
 					auto sprite = list.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
-					sprite->setScale(1);
+					sprite->setScale(1.5);
 					sprite->setTag(i);
 					sprite->setPosition(button->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
 						button->getPosition().y + listView->getContentSize().height / 3);
@@ -500,23 +500,71 @@ namespace UICustom
 							Label *labelAttack = Label::createWithTTF("Attack: " + to_string(pokemon->GetAtk()), FONT::GAME_FONT, 20);
 							labelAttack->setColor(Color3B(0, 0, 0));
 							labelAttack->setAnchorPoint(Vec2(0, 0.5));
-							labelAttack->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 40));
+							labelAttack->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 35));
 
 							Label *labelDef = Label::createWithTTF("Defender: " + to_string(pokemon->GetDef()), FONT::GAME_FONT, 20);
 							labelDef->setColor(Color3B(0, 0, 0));
 							labelDef->setAnchorPoint(Vec2(0, 0.5));
-							labelDef->setPosition(Vec2(layout->getContentSize().width *3 / 5, layout->getContentSize().height * 2 / 3 - 40));
+							labelDef->setPosition(Vec2(layout->getContentSize().width *3 / 5, layout->getContentSize().height * 2 / 3 - 35));
 
 							Label *labelSpeed = Label::createWithTTF("Speed: " + to_string(pokemon->GetAtkSpeed()), FONT::GAME_FONT, 20);
 							labelSpeed->setColor(Color3B(0, 0, 0));
 							labelSpeed->setAnchorPoint(Vec2(0, 0.5));
-							labelSpeed->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 80));
+							labelSpeed->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 70));
 
 							Label *labelHp = Label::createWithTTF("Hp: " + to_string(pokemon->GetCurrentHP())+"/"+ to_string(pokemon->GetMaxHP()), FONT::GAME_FONT, 20);
 							labelHp->setColor(Color3B(0, 0, 0));
 							labelHp->setAnchorPoint(Vec2(0, 0.5));
-							labelHp->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3 - 80));
-
+							labelHp->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3 - 70));
+							
+							Button *buttonMove = ResourceManager::GetInstance()->GetButtonById(19);
+							buttonMove->setPosition(Vec2(layout->getContentSize().width / 3 - 10, layout->getContentSize().height/6));
+							buttonMove->addTouchEventListener([name,i,pokemon,layout, node, menu, winSize, listView, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+							{
+								if (type == ui::Widget::TouchEventType::ENDED)
+								{
+									if (Bag::GetInstance()->SizeOfListPokemon() > 1)
+									{
+										Bag::GetInstance()->RemovePokemonFormMyListToListOver(pokemon, i);
+										log("%d", Bag::GetInstance()->GetListPokemonOver().size());
+										buttonPO->setVisible(true);
+										buttonYI->setVisible(true);
+										buttonYP->setVisible(true);
+										listView->setVisible(true);
+										menu->setVisible(true);
+										layout->setVisible(false);
+									}
+									else
+									{
+										name->setString("Can't move");
+									}
+								}				
+							});
+							Button *buttonRelease = ResourceManager::GetInstance()->GetButtonById(20);
+							buttonRelease->setPosition(Vec2(layout->getContentSize().width *2/3 + 10, layout->getContentSize().height / 6));
+							buttonRelease->addTouchEventListener([name,i, layout, node, menu, winSize, listView, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+							{
+								if (type == ui::Widget::TouchEventType::ENDED)
+								{
+									if (Bag::GetInstance()->SizeOfListPokemon() > 1)
+									{
+										Bag::GetInstance()->ReleasePokemon(i);
+										log("%d", Bag::GetInstance()->GetListPokemon().at(i)->GetName());
+										buttonPO->setVisible(true);
+										buttonYI->setVisible(true);
+										buttonYP->setVisible(true);
+										listView->setVisible(true);
+										menu->setVisible(true);
+										layout->setVisible(false);
+									}
+									else
+									{
+										name->setString("Can't release");
+									}
+								}
+							});
+							layout->addChild(buttonRelease);
+							layout->addChild(buttonMove);
 							layout->addChild(labelHp);
 							layout->addChild(labelSpeed);
 							layout->addChild(labelDef);
@@ -548,31 +596,205 @@ namespace UICustom
 			{
 				ui::Button *buttonOver = ResourceManager::GetInstance()->GetButtonById(12);
 				buttonOver->setTag(i);
-				if (i < sizeOfPokemonOver)
+				if (listOver.size() != 0)
 				{
-					string name = listOver.at(i)->GetName();
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					auto sprite = listOver.at(i)->GetSpriteFront();
-					sprite->removeFromParentAndCleanup(false);
-					sprite->setScale(1);
-					sprite->setTag(i);
-					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
-						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
-					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
-					labelName->setString(name);
-					labelName->setColor(Color3B(0, 0, 0));
-					labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
-						buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
-					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
-					labelLv->setString(level);
-					labelLv->setColor(Color3B(0, 0, 0));
-					labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
-						buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
-					listViewPO->addChild(labelName, 202);
-					listViewPO->addChild(labelLv, 202);
-					listViewPO->addChild(sprite, 202);
-				}
+					if (listOver.at(i) != nullptr)
+					{
+						string name = listOver.at(i)->GetName();
+						string level = "Level:" + to_string(listOver.at(i)->GetLevel());
+						auto sprite = listOver.at(i)->GetSpriteFront();
+						sprite->removeFromParentAndCleanup(false);
+						sprite->setScale(1.5);
+						sprite->setTag(i);
+						sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
+							buttonOver->getContentSize().height / 3);
+						Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+						labelName->setString(name);
+						labelName->setColor(Color3B(0, 0, 0));
+						labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+							buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
+						Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+						labelLv->setString(level);
+						labelLv->setColor(Color3B(0, 0, 0));
+						labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+							buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
+						listViewPO->addChild(labelName, 202);
+						listViewPO->addChild(labelLv, 202);
+						listViewPO->addChild(sprite, 202);
+					}
+					else
+					{
+						buttonOver->setTouchEnabled(false);
+					}
+				}			
 				listViewPO->pushBackCustomItem(buttonOver);
+				buttonOver->addTouchEventListener([buttonOver, node, menu, winSize, listViewPO, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+				{
+					if (Bag::GetInstance()->GetListItem().at(buttonOver->getTag()) != nullptr)
+					{
+						if (type == ui::Widget::TouchEventType::ENDED)
+						{
+							listViewPO->setVisible(false);
+							buttonPO->setVisible(false);
+							buttonYI->setVisible(false);
+							buttonYP->setVisible(false);
+							listViewPO->setVisible(false);
+							menu->setVisible(false);
+
+							auto layout = Layout::create();
+							layout->setAnchorPoint(Vec2(0.5, 0.5));
+							layout->setPosition(Vec2(winSize.width / 2, winSize.height / 2.6));
+							layout->setContentSize(Size(350, 200));
+							layout->setBackGroundImage(IMAGEPATH::BACKGROUND_IMAGE);
+							layout->setBackGroundImageScale9Enabled(true);
+							node->addChild(layout);
+
+							MenuItemImage *noButton2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [buttonYP, buttonYI, buttonPO, menu, listViewPO, layout](Ref *sender)
+							{
+								buttonPO->setVisible(true);
+								buttonYI->setVisible(true);
+								buttonYP->setVisible(true);
+								layout->setVisible(false);
+								listViewPO->setVisible(true);
+								menu->setVisible(true);
+							});
+							Menu *menu2 = Menu::create(noButton2, NULL);
+							layout->addChild(menu2, 2);
+							menu2->setPosition(layout->getContentSize().width, layout->getContentSize().height);
+							int i = listViewPO->getCurSelectedIndex();
+							auto pokemon = Bag::GetInstance()->GetListPokemonOver().at(i);
+							string type;
+							switch (pokemon->GetType())
+							{
+							case 1:
+							{
+								type = "Normal";
+								break;
+							}
+							case 2:
+							{
+								type = "Fire";
+								break;
+							}
+							case 3:
+							{
+								type = "Water";
+								break;
+							}
+							case 4:
+							{
+								type = "Grass";
+								break;
+							}
+							case 5:
+							{
+								type = "Electric";
+								break;
+							}
+							case 6:
+							{
+								type = "Flying";
+								break;
+							}
+							case 7:
+							{
+								type = "Dragon";
+								break;
+							}
+							default:
+								break;
+							}
+							Label *name = Label::createWithTTF(pokemon->GetName(), FONT::GAME_FONT, FONT::TITLE_TEXT_SIZE);
+							name->setPosition(Vec2(layout->getContentSize().width / 2, layout->getContentSize().height * 5 / 6));
+
+							Label *labelType = Label::createWithTTF("Type: " + type, FONT::GAME_FONT, 20);
+							labelType->setAnchorPoint(Vec2(0, 0.5));
+							labelType->setColor(Color3B(0, 0, 0));
+							labelType->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3));
+
+							Label *labelLevel = Label::createWithTTF("Level: " + to_string(pokemon->GetLevel()), FONT::GAME_FONT, 20);
+							labelLevel->setColor(Color3B(0, 0, 0));
+							labelLevel->setAnchorPoint(Vec2(0, 0.5));
+							labelLevel->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3));
+
+							Label *labelAttack = Label::createWithTTF("Attack: " + to_string(pokemon->GetAtk()), FONT::GAME_FONT, 20);
+							labelAttack->setColor(Color3B(0, 0, 0));
+							labelAttack->setAnchorPoint(Vec2(0, 0.5));
+							labelAttack->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 35));
+
+							Label *labelDef = Label::createWithTTF("Defender: " + to_string(pokemon->GetDef()), FONT::GAME_FONT, 20);
+							labelDef->setColor(Color3B(0, 0, 0));
+							labelDef->setAnchorPoint(Vec2(0, 0.5));
+							labelDef->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3 - 35));
+
+							Label *labelSpeed = Label::createWithTTF("Speed: " + to_string(pokemon->GetAtkSpeed()), FONT::GAME_FONT, 20);
+							labelSpeed->setColor(Color3B(0, 0, 0));
+							labelSpeed->setAnchorPoint(Vec2(0, 0.5));
+							labelSpeed->setPosition(Vec2(layout->getContentSize().width / 5, layout->getContentSize().height * 2 / 3 - 70));
+
+							Label *labelHp = Label::createWithTTF("Hp: " + to_string(pokemon->GetCurrentHP()) + "/" + to_string(pokemon->GetMaxHP()), FONT::GAME_FONT, 20);
+							labelHp->setColor(Color3B(0, 0, 0));
+							labelHp->setAnchorPoint(Vec2(0, 0.5));
+							labelHp->setPosition(Vec2(layout->getContentSize().width * 3 / 5, layout->getContentSize().height * 2 / 3 - 70));
+							
+							Button *buttonMove = ResourceManager::GetInstance()->GetButtonById(19);
+							buttonMove->setPosition(Vec2(layout->getContentSize().width / 3 - 10, layout->getContentSize().height / 6));
+							buttonMove->addTouchEventListener([name,i,pokemon,layout, node, menu, winSize, listViewPO, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+							{
+								if (type == ui::Widget::TouchEventType::ENDED)
+								{
+									if (Bag::GetInstance()->SizeOfListPokemonOver() > 1)
+									{
+										Bag::GetInstance()->AddPokemonIntoMyList(pokemon, i);
+										buttonPO->setVisible(true);
+										buttonYI->setVisible(true);
+										buttonYP->setVisible(true);
+										listViewPO->setVisible(true);
+										menu->setVisible(true);
+										layout->setVisible(false);
+									}
+									else
+									{
+										name->setString("Can't move");
+									}
+								}
+							});
+							
+							Button *buttonRelease = ResourceManager::GetInstance()->GetButtonById(20);
+							buttonRelease->setPosition(Vec2(layout->getContentSize().width * 2 / 3 + 10, layout->getContentSize().height / 6));
+							buttonRelease->addTouchEventListener([name,i, pokemon, layout, node, menu, winSize, listViewPO, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+							{
+								if (type == ui::Widget::TouchEventType::ENDED)
+								{
+									if (Bag::GetInstance()->SizeOfListPokemonOver() > 1)
+									{
+										Bag::GetInstance()->ReleasePokemonOver(i);
+										buttonPO->setVisible(true);
+										buttonYI->setVisible(true);
+										buttonYP->setVisible(true);
+										listViewPO->setVisible(true);
+										menu->setVisible(true);
+										layout->setVisible(false);
+									}
+									else
+									{
+										name->setString("Can't release");
+									}
+								}
+							});
+
+							layout->addChild(buttonMove);
+							layout->addChild(buttonRelease);
+							layout->addChild(labelHp);
+							layout->addChild(labelSpeed);
+							layout->addChild(labelDef);
+							layout->addChild(labelAttack);
+							layout->addChild(labelLevel);
+							layout->addChild(labelType);
+							layout->addChild(name);
+						}
+					}
+				});
 			}
 #pragma endregion
 #pragma region Buton Your Item
@@ -616,9 +838,115 @@ namespace UICustom
 				listViewYI->addChild(labelNumber, 202);
 				listViewYI->addChild(sprite, 202);
 				listViewYI->pushBackCustomItem(buttonItem);
+				buttonItem->addTouchEventListener([buttonItem, node, menu, winSize, listViewYI, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
+				{
+					if (Bag::GetInstance()->GetListItem().at(buttonItem->getTag()) != nullptr)
+					{
+						if (type == ui::Widget::TouchEventType::ENDED)
+						{
+							listViewYI->setVisible(false);
+							buttonPO->setVisible(false);
+							buttonYI->setVisible(false);
+							buttonYP->setVisible(false);
+							listViewYI->setVisible(false);
+							menu->setVisible(false);
+
+							auto layout = Layout::create();
+							layout->setAnchorPoint(Vec2(0.5, 0.5));
+							layout->setPosition(Vec2(winSize.width / 2, winSize.height / 2.6));
+							layout->setContentSize(Size(350, 200));
+							layout->setBackGroundImage(IMAGEPATH::BACKGROUND_IMAGE);
+							layout->setBackGroundImageScale9Enabled(true);
+							node->addChild(layout);
+
+							MenuItemImage *noButton2 = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [buttonYP, buttonYI, buttonPO, menu, listViewYI, layout](Ref *sender)
+							{
+								buttonPO->setVisible(true);
+								buttonYI->setVisible(true);
+								buttonYP->setVisible(true);
+								layout->setVisible(false);
+								listViewYI->setVisible(true);
+								menu->setVisible(true);
+							});
+							Menu *menu2 = Menu::create(noButton2, NULL);
+							layout->addChild(menu2, 2);
+							menu2->setPosition(layout->getContentSize().width, layout->getContentSize().height);
+							int i = listViewYI->getCurSelectedIndex();
+							auto item = Bag::GetInstance()->GetListItem().at(i);
+						
+							Label *name = Label::createWithTTF(item->GetName(), FONT::GAME_FONT, FONT::TITLE_TEXT_SIZE);
+							name->setPosition(Vec2(layout->getContentSize().width / 2, layout->getContentSize().height * 5 / 6));
+
+							Label *labeDescribe = Label::createWithTTF(item->GetDescribe(), FONT::GAME_FONT, 20);
+							labeDescribe->setColor(Color3B(0, 0, 0));
+							labeDescribe->setWidth(250);
+							labeDescribe->setAnchorPoint(Vec2(0.5, 1));
+							labeDescribe->setPosition(Vec2(layout->getContentSize().width / 2, layout->getContentSize().height * 2 / 3));
+							labeDescribe->setAlignment(cocos2d::TextHAlignment::CENTER, cocos2d::TextVAlignment::CENTER);
+
+							Button* buttonUse = ResourceManager::GetInstance()->GetButtonById(21);
+							buttonUse->setPosition(Vec2(layout->getContentSize().width / 2, layout->getContentSize().height / 5));
+							buttonUse->setScaleX(0.7);
+							buttonUse->addTouchEventListener([buttonUse,name,layout, node, labeDescribe](Ref *ref, ui::Widget::TouchEventType type)
+							{
+								/*name->setVisible(false);
+								buttonUse->setVisible(false);
+								labeDescribe->setVisible(false);
+								auto listPokemon = ui::ListView::create();
+								listPokemon->setAnchorPoint(Vec2(0.5, 1));
+								listPokemon->setScale(0.8);
+								listPokemon->setDirection(ui::ScrollView::Direction::HORIZONTAL);
+								listPokemon->setAnchorPoint(Vec2(0.5, 0.5));
+								listPokemon->setContentSize(Size(280, 140));
+								listPokemon->setPosition(layout->getContentSize() / 2);
+								listPokemon->setClippingEnabled(true);
+								layout->addChild(listPokemon, 2);
+								auto list = Bag::GetInstance()->GetListPokemon();
+								auto sizeOfPokemon = list.size();
+								for (int i = 0; i < 6; i++)
+								{
+									ui::Button *button = ResourceManager::GetInstance()->GetButtonById(12);
+									button->setTag(i);
+									if (list.at(i) != nullptr)
+									{
+										string name = list.at(i)->GetName();
+										string level = "Level:" + to_string(list.at(i)->GetLevel());
+										auto sprite = list.at(i)->GetSpriteFront();
+										sprite->removeFromParentAndCleanup(false);
+										sprite->setScale(1);
+										sprite->setTag(i);
+										sprite->setPosition(button->getPosition().x + listPokemon->getContentSize().width* (i * 2 + 1) / 4,
+											button->getPosition().y + listPokemon->getContentSize().height / 3);
+										Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+										labelName->setString(name);
+										labelName->setColor(Color3B(0, 0, 0));
+										labelName->setPosition(button->getPosition().x + listPokemon->getContentSize().width* (i * 2 + 1) / 4,
+											button->getPosition().y + listPokemon->getContentSize().height * 4 / 5);
+										Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+										labelLv->setString(level);
+										labelLv->setColor(Color3B(0, 0, 0));
+										labelLv->setPosition(button->getPosition().x + listPokemon->getContentSize().width* (i * 2 + 1) / 4,
+											button->getPosition().y + listPokemon->getContentSize().height * 1 / 5);
+										listPokemon->addChild(sprite, 202);
+										listPokemon->addChild(labelName, 202);
+										listPokemon->addChild(labelLv, 202);
+									}
+									else
+									{
+										button->setTouchEnabled(false);
+									}
+								}*/
+								
+							});
+							layout->addChild(buttonUse);
+							layout->addChild(labeDescribe);
+							layout->addChild(name);
+						}
+					}
+				});
 			}
 #pragma endregion
-#pragma region Even Button 
+#pragma region Event Button 
 			buttonYP->addTouchEventListener([listView, listViewPO, listViewYI](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)

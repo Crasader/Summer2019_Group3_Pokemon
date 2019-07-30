@@ -7,7 +7,7 @@ ThunderStone::ThunderStone()
 	this->m_name = "Thunder Stone";
 	this->m_number = 0;
 	this->m_id = 8;
-	this->m_describe = "Evolution Thunder Pokémon";
+	this->m_describe = "Evolution Thunder Pokemon";
 }
 
 ThunderStone::~ThunderStone()

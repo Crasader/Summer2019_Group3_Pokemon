@@ -95,7 +95,7 @@ bool PokemonCenter::init()
 		if (type == Widget::TouchEventType::ENDED)
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
-			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			string str = "Your bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
 			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
