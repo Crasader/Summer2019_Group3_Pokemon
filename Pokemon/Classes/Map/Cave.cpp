@@ -130,7 +130,7 @@ bool Cave::init()
 	this->m_messageBox->setScaleY(scale_y);
 	this->m_messageBox->setVisible(false);
 	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
-	this->addChild(this->m_messageBox, 0);
+	this->addChild(this->m_messageBox, 10);
 	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelLog->setScale(1.5);
@@ -203,9 +203,8 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("Roar !");
-		this->m_stateLog = true;
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Enteiiiiii!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Cave::onTouchBegan, this);
@@ -329,27 +328,14 @@ void Cave::Log(string logg)
 
 bool Cave::onTouchBegan(Touch * touch, Event * e)
 {
-	if (m_stateLog == false) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Cave::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		removeChild(entei, true);
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		addChild(up, 100);
-
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Cave::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		scheduleUpdate();
+		this->unschedule(schedule_selector(Cave::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Cave::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
 	return true;
 }
@@ -382,6 +368,13 @@ void Cave::UpdatePlayer(float dt) {
 	}
 }
 
+bool Cave::onTouchEnd(Touch * t, Event * event)
+{
+	removeChild(entei, true);
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
+	return true;
+}
 
 void Cave::update(float dt)
 {

@@ -255,3 +255,23 @@ void Buttons::UpdateButton(float x, float y) {
 	m_bag->setPosition(Vec2(x + 400, y));
 	m_tips->setPosition(Vec2(x +200 -330, y +100 +150));
 }
+
+void Buttons::SetTouchEnable()
+{
+	Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonDown()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonLeft()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonRight()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonUp()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(true);
+}
+
+void Buttons::SetTouchDisable()
+{
+	Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonDown()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonLeft()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonRight()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonUp()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+}

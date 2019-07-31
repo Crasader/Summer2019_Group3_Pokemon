@@ -28,4 +28,6 @@ public:
 	Button *GetButtonTips();
 	void Remove();
 	void UpdateButton(float x, float y);
+	void SetTouchEnable();
+	void SetTouchDisable();
 };

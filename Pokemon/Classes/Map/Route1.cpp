@@ -135,7 +135,7 @@ bool Route1::init()
 	this->m_messageBox->setScaleY(scale_y);
 	this->m_messageBox->setVisible(false);
 	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
-	this->addChild(this->m_messageBox, 0);
+	this->addChild(this->m_messageBox, 100);
 	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelLog->setScale(1.5);
@@ -252,16 +252,14 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("nhao vo kiem an");
-		this->m_stateLog = true;
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		removeChild(m_route1npc, true);
-	}*/
-	
+		Model::ROUTE1NPC = false;
+	}
 	return true;
 }
 
@@ -327,6 +325,7 @@ void Route1::InitObject()
 			{
 				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
 				m_route1npc->setPosition(Vec2(posX, posY));
+				m_route1npc->setScale(0.8);
 				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				route1npcbody->setCollisionBitmask(Model::BITMASK_ROUTE1NPC);
 				route1npcbody->setContactTestBitmask(true);
@@ -385,6 +384,8 @@ void Route1::UpdateCamera() {
 
 void Route1::Log(string logg)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -394,31 +395,14 @@ void Route1::Log(string logg)
 
 bool Route1::onTouchBegan(Touch * touch, Event * e)
 {
-	Model::ROUTE1NPC = false;
-	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("res/Sound/Beep.mp3", false);
-	if (!m_stateLog) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Route1::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		addChild(up, 100);
-
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
-		scheduleUpdate();
+		this->unschedule(schedule_selector(Route1::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
 	return true;
 }
@@ -451,6 +435,13 @@ void Route1::UpdatePlayer(float dt) {
 	}
 }
 
+bool Route1::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	removeChild(m_route1npc, true);
+	Buttons::GetIntance()->SetTouchEnable();
+	return true;
+}
 
 void Route1::update(float dt) {
 	UpdateCamera();

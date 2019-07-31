@@ -17,7 +17,7 @@ Size pctileMapSize;
 PhysicsBody* pcbody, *pcgateWay, *nursebody, *shopbody;
 Camera *pccamera, *cameraUIPC;
 Layer *layer_UI_PC;
-
+int PokemonCenter::previousScene = 0;
 Scene* PokemonCenter::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -298,15 +298,19 @@ void PokemonCenter::InitObject()
 		float posY = properties.at("y").asFloat();
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
-			mPlayer = new Trainer(this);
-			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
-			pcbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-			pcbody->setCollisionBitmask(Model::BITMASK_PLAYER);
-			pcbody->setContactTestBitmask(true);
-			pcbody->setDynamic(true);
-			pcbody->setRotationEnable(false);
-			pcbody->setGravityEnable(false);
-			mPlayer->GetSpriteFront()->setPhysicsBody(pcbody);
+			int preScene = object.asValueMap().at("pre").asInt();
+			if (preScene == previousScene) {
+				mPlayer = new Trainer(this);
+				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				pcbody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				pcbody->setCollisionBitmask(Model::BITMASK_PLAYER);
+				pcbody->setContactTestBitmask(true);
+				pcbody->setDynamic(true);
+				pcbody->setRotationEnable(false);
+				pcbody->setGravityEnable(false);
+				mPlayer->GetSpriteFront()->setPhysicsBody(pcbody);
+			}
+			else continue;
 		}
 		else if (type== Model::MODLE_TYPE_NURSENPC)
 		{

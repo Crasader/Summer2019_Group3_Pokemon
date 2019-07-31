@@ -6,7 +6,7 @@
 #include "Town.h"
 #include "Popup.h"
 #include "Model.h"
-#include "Scene\BattleScene.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 Size labVisibleSize;
@@ -56,7 +56,8 @@ bool Lab::init()
 	popup = UICustom::Popup::ChoosePokemon();
 	popup->removeFromParent();
 	popup->setVisible(false);
-	this->addChild(popup,11);
+
+	this->addChild(popup, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -230,10 +231,9 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		}
 		else
 		{
-			Buttons::GetIntance()->Remove();
-			this->m_stateLog = true;
+			removeChild(popup, true);
 			this->m_messageBox->setVisible(true);
-			this->Log("To be the pokemon master ");
+			this->Log("Let's start your journey");
 		}
 	}
 	return true;
@@ -277,13 +277,14 @@ void Lab::InitObject()
 		else {
 			m_doctor = ResourceManager::GetInstance()->GetSpriteById(122);
 			m_doctor->setPosition(Vec2(posX, posY));
+			m_doctor->setScale(0.8);
 			doctorBody = PhysicsBody::createBox(m_doctor->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			doctorBody->setCollisionBitmask(Model::BITMASK_DOCTOR);
 			doctorBody->setContactTestBitmask(true);
 			doctorBody->setDynamic(false);
 			doctorBody->setGravityEnable(false);
 			m_doctor->setPhysicsBody(doctorBody);
-			this->addChild(m_doctor, 10);
+			this->addChild(m_doctor, 0);
 		}
 	}
 
@@ -334,6 +335,8 @@ void Lab::UpdateCamera() {
 }
 void Lab::Log(string logg)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -344,28 +347,21 @@ bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
 	auto audio = SimpleAudioEngine::getInstance();
 	audio->playEffect("res/Sound/Beep.mp3", false);
-	if(!m_stateLog){
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Lab::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		addChild(up, 100);
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Lab::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		
-		scheduleUpdate();
+		this->unschedule(schedule_selector(Lab::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+bool Lab::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 
@@ -396,8 +392,6 @@ void Lab::UpdatePlayer(float dt) {
 		labSum = 0;
 	}
 }
-
-
 void Lab::update(float dt) {
 	UpdatePlayer(dt);
 	UpdateCamera();

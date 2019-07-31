@@ -59,13 +59,13 @@ vector<Item*> Bag::GetListItem()
 
 void Bag::AddPokemon(Pokemon* pokemon)
 {
-	if (this->m_pokemons.size() < 6)
+	if (this->SizeOfListPokemon() < 6)
 	{
-		this->m_pokemons.push_back(pokemon);
+		this->m_pokemons.at(this->SizeOfListPokemon()) = pokemon;
 	}
 	else
 	{
-		this->m_pokemons_over.push_back(pokemon);
+		this->m_pokemons_over.at(this->SizeOfListPokemonOver()) = pokemon;
 	}
 }
 
@@ -108,29 +108,63 @@ void Bag::AddItem(Item * item)
 	this->m_items.push_back(item);
 }
 
-void Bag::AddPokemonIntoMyList(int index)
+void Bag::AddPokemonIntoMyList(Pokemon *pokemon, int index)
 {
-	if (this->m_pokemons.size() > 6)
+	for (int i = 0; i < 6; i++)
 	{
-		CCLOG("My list pokemon full 6 slot");
+		if (this->m_pokemons.at(i) == nullptr)
+		{
+			this->m_pokemons.at(i) = pokemon;
+			break;
+		}
 	}
-	else
-	{
-		this->m_pokemons.push_back(this->m_pokemons_over.at(index));
-		//this->m_pokemons_over.erase.at(index);
-	}
+	this->m_pokemons_over.at(index) = nullptr;
+	this->SortList();
 }
 
-void Bag::RemovePokemonFormMyListIntoListOver(int index)
+void Bag::ReleasePokemonOver(int index)
 {
-	if (this->m_pokemons.size() > 10)
+	this->m_pokemons_over.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::ReleasePokemon(int index)
+{
+	this->m_pokemons.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon, int index)
+{
+	for (int i = 0; i < 10; i++)
 	{
-		CCLOG("List pokemon over full 10 slot");
+		if (this->m_pokemons_over.at(i) == nullptr)
+		{
+			this->m_pokemons_over.at(i) = pokemon;
+			break;
+		}
 	}
-	else
+	this->m_pokemons.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::SortList()
+{
+	for (int i = 0; i < this->m_pokemons.size() - 1; i++)
 	{
-		this->m_pokemons_over.push_back(this->m_pokemons.at(index));
-		//this->m_pokemons.erase.at(index);
+		if (this->m_pokemons.at(i) == nullptr)
+		{
+			this->m_pokemons.at(i) = this->m_pokemons.at(i + 1);
+			this->m_pokemons.at(i + 1) = nullptr;
+		}
+	}
+	for (int j = 0; j < this->m_pokemons_over.size() - 1; j++)
+	{
+		if (this->m_pokemons_over.at(j) == nullptr)
+		{
+			this->m_pokemons_over.at(j) = this->m_pokemons_over.at(j + 1);
+			this->m_pokemons_over.at(j + 1) = nullptr;
+		}
 	}
 }
 
@@ -156,4 +190,29 @@ void Bag::CreateListItem()
 	this->m_items.push_back(thunderStone);
 	WaterStone *waterStone = new WaterStone();
 	this->m_items.push_back(waterStone);
+}
+
+int Bag::SizeOfListPokemon()
+{
+	int cout = 0;
+	for (int i = 0; i < this->m_pokemons.size(); i++)
+	{
+		if (this->m_pokemons.at(i) != nullptr)
+		{
+			cout++;
+		}
+	}
+	return cout;
+}
+int Bag::SizeOfListPokemonOver()
+{
+	int cout = 0;
+	for (int i = 0; i < this->m_pokemons_over.size(); i++)
+	{
+		if (this->m_pokemons_over.at(i) != nullptr)
+		{
+			cout++;
+		}
+	}
+	return cout;
 }

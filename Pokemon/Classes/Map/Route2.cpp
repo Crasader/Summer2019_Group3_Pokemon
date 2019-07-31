@@ -12,8 +12,8 @@ Size route2VisibleSize;
 Size route2TileMapSize;
 
 Layer *layer_UI_Route2;
-PhysicsBody* route2Body, *route2GateWay;
 Camera *route2Camera, *cameraUIRoute2;
+PhysicsBody* route2Body, *route2GateWay, *raikoubody, *roadnpcbody;
 int Route2::previousScene = 0;
 
 Scene* Route2::createScene()
@@ -24,6 +24,37 @@ Scene* Route2::createScene()
 	scene->addChild(layer);
 	route2Camera = scene->getDefaultCamera();
 	return scene;
+}
+
+void Route2::TypeWriter(float deltaTime)
+{
+	if (writing < this->m_labelLog->getStringLength())
+	{
+		auto letter = this->m_labelLog->getLetter(writing);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(255);
+		}
+		writing++;
+	}
+	else
+	{
+		writing = 0;
+		this->m_labelLog->setOpacity(255);
+		this->unschedule(schedule_selector(Route2::TypeWriter));
+	}
+}
+
+void Route2::LogSetOpacity(GLubyte opacity)
+{
+	for (int i = 0; i < this->m_labelLog->getStringLength(); i++)
+	{
+		auto letter = this->m_labelLog->getLetter(i);
+		if (letter != nullptr)
+		{
+			letter->setOpacity(opacity);
+		}
+	}
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -123,6 +154,20 @@ bool Route2::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	scheduleUpdate();
+	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
+	auto scale_x = 0.7;
+	auto scale_y = 0.7;
+	this->m_messageBox->setScaleX(scale_x);
+	this->m_messageBox->setScaleY(scale_y);
+	this->m_messageBox->setVisible(false);
+	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
+	this->addChild(this->m_messageBox, 10);
+	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
+	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
+	this->m_labelLog->setScale(1.5);
+	this->m_labelLog->setTextColor(Color4B::BLACK);
+	this->m_labelLog->setPosition(this->m_messageBox->getContentSize().width * scale_x / 10, this->m_messageBox->getContentSize().height * scale_y / 1.2);
+	this->m_messageBox->addChild(this->m_labelLog);
 	return true;
 }
 
@@ -178,6 +223,68 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		default:
 			break;
 		}
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_RAIKOU)
+		|| a->getCollisionBitmask() == Model::BITMASK_RAIKOU && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Rararaiiiii!");
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::RAIKOU = false;
+		removeChild(m_raikou, true);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROADNPC)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROADNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	{
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->StopWalkUp();
+			break;
+		case 2:
+			mPlayer->StopWalkRight();
+			break;
+		case 3:
+			mPlayer->StopWalkLeft();
+			break;
+		case 4:
+			mPlayer->StopWalkDown();
+			break;
+		default:
+			break;
+		}
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("Beep.mp3", false);
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle!");
+		this->m_messageBox->setVisible(true);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::ROADNPC = false;
+		removeChild(m_roadnpc, true);
 	}
 	return true;
 
@@ -238,6 +345,43 @@ void Route2::InitObject()
 			mGateWay->setPhysicsBody(route2GateWay);
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
+		}
+		else if (type == Model::MODLE_TYPE_RAIKOU)
+		{
+			if (Model::RAIKOU == true)
+			{
+				m_raikou = ResourceManager::GetInstance()->GetSpriteById(150);
+				m_raikou->setPosition(Vec2(posX, posY));
+				m_raikou->setScale(2);
+				raikoubody = PhysicsBody::createBox(m_raikou->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				raikoubody->setCollisionBitmask(Model::BITMASK_RAIKOU);
+				raikoubody->setContactTestBitmask(true);
+				raikoubody->setDynamic(false);
+				raikoubody->setGravityEnable(false);
+				m_raikou->setPhysicsBody(raikoubody);
+				this->addChild(m_raikou, 10);
+			}
+			else
+			{
+			}
+		}
+		else if (type == Model::MODLE_TYPE_ROADNPC)
+		{
+			if (Model::ROADNPC == true)
+			{
+				m_roadnpc = ResourceManager::GetInstance()->GetSpriteById(129);
+				m_roadnpc->setPosition(Vec2(posX, posY));
+				roadnpcbody = PhysicsBody::createBox(m_roadnpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				roadnpcbody->setCollisionBitmask(Model::BITMASK_ROADNPC);
+				roadnpcbody->setContactTestBitmask(true);
+				roadnpcbody->setDynamic(false);
+				roadnpcbody->setGravityEnable(false);
+				m_roadnpc->setPhysicsBody(roadnpcbody);
+				this->addChild(m_roadnpc, 10);
+			}
+			else
+			{
+			}
 		}
 	}
 }
@@ -314,6 +458,37 @@ void Route2::UpdatePlayer(float dt) {
 	}
 }
 
+void Route2::Log(string logg)
+{
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
+	this->m_labelLog->setString(logg);
+	this->LogSetOpacity(0);
+	this->m_labelLog->setOpacity(0);
+	writing = 0;
+	this->schedule(schedule_selector(Route2::TypeWriter), 0.05);
+}
+
+bool Route2::onTouchBegan(Touch * touch, Event * e)
+{
+	if (this->m_labelLog->getOpacity() == 0)
+	{
+		this->unschedule(schedule_selector(Route2::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+	}
+	return true;
+}
+
+bool Route2::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
+	return true;
+}
 
 void Route2::update(float dt) {
 	UpdatePlayer(dt);

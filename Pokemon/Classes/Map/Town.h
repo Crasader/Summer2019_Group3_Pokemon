@@ -20,7 +20,6 @@ public:
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
-	static void InitArray();
 	CREATE_FUNC(Town);
 	void UpdatePlayer(float dt);
 	void update(float);
