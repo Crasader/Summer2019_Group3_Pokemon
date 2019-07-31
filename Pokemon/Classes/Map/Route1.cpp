@@ -11,10 +11,10 @@ using namespace CocosDenshion;
 Size route1VisibleSize;
 Size route1TileMapSize;
 
-//Layer *layer_UI_Route1;
+Layer *layer_UI_Route1;
 
 PhysicsBody* route1Body, *route1GateWay, *route1npcbody;
-Camera *route1Camera;
+Camera *route1Camera, *cameraUIRoute1;
 int Route1::previousScene = 0;
 
 Scene* Route1::createScene()
@@ -103,14 +103,24 @@ bool Route1::init()
 	}
 
 	InitObject();
+	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_Route1 = Layer::create();
+	cameraUIRoute1 = Camera::create();
+	cameraUIRoute1->setCameraMask(2);
+	cameraUIRoute1->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Route1->addChild(cameraUIRoute1, 2);
+	layer_UI_Route1->addChild(up);
+	layer_UI_Route1->addChild(bag);
+	layer_UI_Route1->addChild(tips);
+	this->addChild(layer_UI_Route1, 100);
+
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -400,13 +410,8 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
 		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
 		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
+
 		Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 		auto contactListener = EventListenerPhysicsContact::create();
@@ -418,8 +423,36 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 	return true;
 }
 
+int route1Sum = 0;
+
+void Route1::UpdatePlayer(float dt) {
+	route1Sum++;
+	if (route1Sum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		route1Sum = 0;
+	}
+}
+
+
 void Route1::update(float dt) {
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
-	//joystick->setPosition(Vec2(route1Camera->getPosition().x - 540, route1Camera->getPosition().y - 80));
+	UpdatePlayer(dt);
 }

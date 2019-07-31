@@ -12,22 +12,18 @@ private:
 	Buttons();
 	static Buttons *m_button;
 	Button *m_up;
-	Button *m_right;
-	Button *m_left;
-	Button *m_down;
 	Button *m_bag;
 	Button *m_tips;
 public:
 	~Buttons();
 	static int state;
 	static Buttons* GetIntance();
+	int IsContainUp(Vec2 t, Trainer *mPlayer);
 	void ButtonListener(Trainer *&mPlayer);
+	float Cos(Vec2 a, Vec2 b);
 	//void ButtonBagListener(Layer * layer, Camera* camera);
 	//void ButtonTipListener(Layer * layer, Camera * camera);
 	Button *GetButtonUp();
-	Button *GetButtonLeft();
-	Button *GetButtonRight();
-	Button *GetButtonDown();
 	Button *GetButtonBag();
 	Button *GetButtonTips();
 	void Remove();

@@ -11,8 +11,8 @@ Size lakevisibleSize;
 Size laketileMapSize;
 
 PhysicsBody* lakebody, *lakegateWay, *suicuneBody;
-Camera *lakecamera;
-
+Camera *lakecamera, *cameraUILake;
+Layer *layer_UI_Lake;
 
 
 Scene* Lake::createScene()
@@ -103,16 +103,22 @@ bool Lake::init()
 
 	InitObject();
 	
-	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
+	layer_UI_Lake = Layer::create();
+	cameraUILake = Camera::create();
+	cameraUILake->setCameraMask(2);
+	cameraUILake->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Lake->addChild(cameraUILake, 2);
+	layer_UI_Lake->addChild(up);
+	layer_UI_Lake->addChild(bag);
+	layer_UI_Lake->addChild(tips);
+	this->addChild(layer_UI_Lake, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	
@@ -348,13 +354,7 @@ bool Lake::onTouchBegan(Touch * touch, Event * e)
 		this->m_messageBox->setVisible(false);
 		//removeChild(suicune, true);
 		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
 		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
 
 		Buttons::GetIntance()->ButtonListener(this->mPlayer);
 		auto contactListener = EventListenerPhysicsContact::create();
@@ -364,7 +364,36 @@ bool Lake::onTouchBegan(Touch * touch, Event * e)
 	}
 	return true;
 }
+
+int lakeSum = 0;
+
+void Lake::UpdatePlayer(float dt) {
+	lakeSum++;
+	if (lakeSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		lakeSum = 0;
+	}
+}
+
 void Lake::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(lakecamera->getPosition().x - 200, lakecamera->getPosition().y - 100);
 }

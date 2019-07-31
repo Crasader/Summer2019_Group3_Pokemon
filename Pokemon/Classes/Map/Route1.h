@@ -30,6 +30,7 @@ public:
 	bool onTouchBegan(Touch* touch, Event* e);
 	//void CreateButon();
 	CREATE_FUNC(Route1);
+	void UpdatePlayer(float dt);
 	//void createPhysics();
 	void update(float);
 };

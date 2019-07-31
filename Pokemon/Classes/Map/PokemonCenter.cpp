@@ -15,7 +15,8 @@ Size pcvisibleSize;
 Size pctileMapSize;
 
 PhysicsBody* pcbody, *pcgateWay, *nursebody, *shopbody;
-Camera *pccamera;
+Camera *pccamera, *cameraUIPC;
+Layer *layer_UI_PC;
 
 Scene* PokemonCenter::createScene()
 {
@@ -74,21 +75,21 @@ bool PokemonCenter::init()
 	InitObject();
 	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
 	Button *bag = Buttons::GetIntance()->GetButtonBag();
-	bag->removeFromParent();
-	addChild(bag, 100);
-	up->removeFromParent();
-	right->removeFromParent();
-	left->removeFromParent();
-	down->removeFromParent();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
+	layer_UI_PC = Layer::create();
+	cameraUIPC = Camera::create();
+	cameraUIPC->setCameraMask(2);
+	cameraUIPC->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_PC->addChild(cameraUIPC, 2);
+	layer_UI_PC->addChild(up);
+	layer_UI_PC->addChild(bag);
+	layer_UI_PC->addChild(tips);
+	this->addChild(layer_UI_PC, 100);
 
 	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
@@ -416,13 +417,7 @@ bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
 		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
 		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
 		Button *bag = Buttons::GetIntance()->GetButtonBag();
 		bag->removeFromParent();
 		addChild(bag, 100);
@@ -436,8 +431,38 @@ bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 	}
 	return true;
 }
+
+int pcSum = 0;
+
+void PokemonCenter::UpdatePlayer(float dt) {
+	pcSum++;
+	if (pcSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		pcSum = 0;
+	}
+}
+
+
 void PokemonCenter::update(float dt)
 {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(pccamera->getPosition().x - 200, pccamera->getPosition().y - 100);
 }

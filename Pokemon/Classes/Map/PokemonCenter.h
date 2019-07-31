@@ -28,6 +28,7 @@ public:
 	void Log(string logg);
 	bool onTouchBegan(Touch* touch, Event* e);
     CREATE_FUNC(PokemonCenter);
+	void UpdatePlayer(float dt);
 	void update(float);
 };
 

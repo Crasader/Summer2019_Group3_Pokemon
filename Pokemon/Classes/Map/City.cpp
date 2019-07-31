@@ -15,8 +15,10 @@ USING_NS_CC;
 Size cityVisibleSize;
 Size cityTileMapSize;
 
+Layer *layer_UI_City;
+
 PhysicsBody* cityBody, *cityGateWay;
-Camera *cityCamera;
+Camera *cityCamera, *cameraUICity;
 int City::previousScene = 0;
 
 
@@ -77,17 +79,22 @@ bool City::init()
 
 	InitObject();
 
-
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
-
+	layer_UI_City = Layer::create();
+	cameraUICity = Camera::create();
+	cameraUICity->setCameraMask(2);
+	cameraUICity->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_City->addChild(cameraUICity, 2);
+	layer_UI_City->addChild(up);
+	layer_UI_City->addChild(bag);
+	layer_UI_City->addChild(tips);
+	this->addChild(layer_UI_City, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -341,7 +348,36 @@ void City::UpdateCamera() {
 		}
 	}
 }
+
+int citySum = 0;
+void City::UpdatePlayer(float dt) {
+	citySum++;
+	if (citySum  >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		citySum = 0;
+	}
+}
+
+
 void City::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(cityCamera->getPosition().x - 200, cityCamera->getPosition().y - 100);
 }

@@ -19,6 +19,7 @@ public:
 	void UpdateCamera();
 	//void CreateButon();
 	CREATE_FUNC(League);
+	void UpdatePlayer(float dt);
 	//void createPhysics();
 	void update(float);
 };

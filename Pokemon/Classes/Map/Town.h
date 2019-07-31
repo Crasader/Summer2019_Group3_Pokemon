@@ -21,10 +21,8 @@ public:
 	void InitObject();
 	void UpdateCamera();
 	static void InitArray();
-	//void InitGrass();
-	//void CreateButon();
 	CREATE_FUNC(Town);
-	//void createPhysics();
+	void UpdatePlayer(float dt);
 	void update(float);
 	void DeleteGrassHasPokemon();
 };

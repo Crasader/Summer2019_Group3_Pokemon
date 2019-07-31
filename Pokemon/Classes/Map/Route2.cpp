@@ -11,8 +11,9 @@ using namespace CocosDenshion;
 Size route2VisibleSize;
 Size route2TileMapSize;
 
+Layer *layer_UI_Route2;
 PhysicsBody* route2Body, *route2GateWay;
-Camera *route2Camera;
+Camera *route2Camera, *cameraUIRoute2;
 int Route2::previousScene = 0;
 
 Scene* Route2::createScene()
@@ -99,13 +100,21 @@ bool Route2::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_Route2 = Layer::create();
+	cameraUIRoute2 = Camera::create();
+	cameraUIRoute2->setCameraMask(2);
+	cameraUIRoute2->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Route2->addChild(cameraUIRoute2, 2);
+	layer_UI_Route2->addChild(up);
+	layer_UI_Route2->addChild(bag);
+	layer_UI_Route2->addChild(tips);
+	this->addChild(layer_UI_Route2, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -277,7 +286,36 @@ void Route2::UpdateCamera() {
 	}
 }
 
+int route2Sum = 0;
+
+void Route2::UpdatePlayer(float dt) {
+	route2Sum++;
+	if (route2Sum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		route2Sum = 0;
+	}
+}
+
+
 void Route2::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(route2Camera->getPosition().x - 200, route2Camera->getPosition().y - 100);
 }

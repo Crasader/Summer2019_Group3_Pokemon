@@ -12,8 +12,10 @@ USING_NS_CC;
 Size houseVisibleSize;
 Size houseTileMapSize;
 
+Layer *layer_UI_House;
+
 PhysicsBody* houseBody, *houseGateWay;
-Camera *houseCamera;
+Camera *houseCamera, *cameraUIHouse;
 
 Scene * House::createScene()
 {
@@ -68,17 +70,21 @@ bool House::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
 	Button *bag = Buttons::GetIntance()->GetButtonBag();
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
-	addChild(tips, 100);
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
-	addChild(bag, 100);
+
+	layer_UI_House = Layer::create();
+	cameraUIHouse = Camera::create();
+	cameraUIHouse->setCameraMask(2);
+	cameraUIHouse->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	tips->setCameraMask(2);
+	bag->setCameraMask(2);
+	layer_UI_House->addChild(cameraUIHouse, 2);
+	layer_UI_House->addChild(up);
+	layer_UI_House->addChild(tips);
+	layer_UI_House->addChild(bag);
+	this->addChild(layer_UI_House, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	
@@ -270,26 +276,30 @@ void House::UpdateCamera() {
 		}
 	}
 }
-float sum = 0;
+int houseSum = 0;
 void House::UpdatePlayer(float dt) {
-	sum += dt;
-	if (sum >= 1000.0f) {
+	houseSum ++;
+	if (houseSum >30) {
 		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
 			mPlayer->WalkDown();
 		}
 		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
 			mPlayer->WalkLeft();
 		}
 		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
 			mPlayer->WalkUp();
 		}
 		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
 			mPlayer->WalkRight();
 		}
 		else
 		{
 		}
-		sum = 0;
+		houseSum = 0;
 	}
 }
 
@@ -297,5 +307,4 @@ void House::update(float dt)
 {
 	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(houseCamera->getPosition().x - 200, houseCamera->getPosition().y - 100);
 }

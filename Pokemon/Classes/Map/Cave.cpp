@@ -11,8 +11,9 @@ USING_NS_CC;
 Size caveVisibleSize;
 Size caveTileMapSize;
 
+Layer *layer_UI_Cave;
 PhysicsBody* caveBody, *caveGateWay, *enteiBody;
-Camera *caveCamera;
+Camera *caveCamera, *cameraUICave;
 
 Scene * Cave::createScene()
 {
@@ -99,14 +100,21 @@ bool Cave::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
+	layer_UI_Cave = Layer::create();
+	cameraUICave = Camera::create();
+	cameraUICave->setCameraMask(2);
+	cameraUICave->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Cave->addChild(cameraUICave, 2);
+	layer_UI_Cave->addChild(up);
+	layer_UI_Cave->addChild(bag);
+	layer_UI_Cave->addChild(tips);
+	this->addChild(layer_UI_Cave, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -335,13 +343,7 @@ bool Cave::onTouchBegan(Touch * touch, Event * e)
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
 		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
 		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
 
 		Buttons::GetIntance()->ButtonListener(this->mPlayer);
 		auto contactListener = EventListenerPhysicsContact::create();
@@ -352,8 +354,37 @@ bool Cave::onTouchBegan(Touch * touch, Event * e)
 	return true;
 }
 
+int caveSum = 0;
+
+void Cave::UpdatePlayer(float dt) {
+	caveSum++;
+	if (caveSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		caveSum = 0;
+	}
+}
+
+
 void Cave::update(float dt)
 {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(caveCamera->getPosition().x - 200, caveCamera->getPosition().y - 100);
 }

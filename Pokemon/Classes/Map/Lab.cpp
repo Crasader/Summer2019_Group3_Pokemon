@@ -13,8 +13,9 @@ Size labVisibleSize;
 Size labTileMapSize;
 int count = 0;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
-Camera *labCamera;
+Camera *labCamera, *cameraUILab;
 UICustom::Popup *popup;
+Layer *layer_UI_Lab;
 
 Scene* Lab::createScene()
 {
@@ -77,14 +78,23 @@ bool Lab::init()
 	}
 
 	InitObject();
+
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+	
+	layer_UI_Lab = Layer::create();
+	cameraUILab = Camera::create();
+	cameraUILab->setCameraMask(2);
+	cameraUILab->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Lab->addChild(cameraUILab, 2);
+	layer_UI_Lab->addChild(up);
+	layer_UI_Lab->addChild(bag);
+	layer_UI_Lab->addChild(tips);
+	this->addChild(layer_UI_Lab, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -347,13 +357,7 @@ bool Lab::onTouchBegan(Touch * touch, Event * e)
 		m_stateLog = false;
 		this->m_messageBox->setVisible(false);
 		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
 		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
 		Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 		auto contactListener = EventListenerPhysicsContact::create();
@@ -364,7 +368,37 @@ bool Lab::onTouchBegan(Touch * touch, Event * e)
 	}
 	return true;
 }
+
+int labSum = 0;
+
+void Lab::UpdatePlayer(float dt) {
+	labSum++;
+	if (labSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		labSum = 0;
+	}
+}
+
+
 void Lab::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(labCamera->getPosition().x - 200, labCamera->getPosition().y - 100);
 }

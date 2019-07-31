@@ -29,6 +29,7 @@ public:
 	bool onTouchBegan(Touch* touch, Event* e);
 	//void CreateButon();
     CREATE_FUNC(Lake);
+	void UpdatePlayer(float dt);
 	//void createPhysics();
 	void update(float);
 };

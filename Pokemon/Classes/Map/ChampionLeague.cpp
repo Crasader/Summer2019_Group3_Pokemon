@@ -10,8 +10,9 @@ USING_NS_CC;
 Size leagueVisibleSize;
 Size leagueTileMapSize;
 
+Layer *layer_UI_League;
 PhysicsBody* leagueBody;
-Camera *leagueCamera;
+Camera *leagueCamera, *cameraUILeague;
 
 Scene * League::createScene()
 {
@@ -67,13 +68,21 @@ bool League::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_League = Layer::create();
+	cameraUILeague = Camera::create();
+	cameraUILeague->setCameraMask(2);
+	cameraUILeague->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_League->addChild(cameraUILeague, 2);
+	layer_UI_League->addChild(up);
+	layer_UI_League->addChild(bag);
+	layer_UI_League->addChild(tips);
+	this->addChild(layer_UI_League, 100);
 
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
@@ -191,8 +200,37 @@ void League::UpdateCamera() {
 	}
 }
 
+int leagueSum = 0;
+
+void League::UpdatePlayer(float dt) {
+	leagueSum++;
+	if (leagueSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		leagueSum = 0;
+	}
+}
+
+
 void League::update(float dt)
 {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(leagueCamera->getPosition().x - 200, leagueCamera->getPosition().y - 100);
 }
