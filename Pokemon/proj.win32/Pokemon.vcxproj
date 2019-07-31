@@ -152,7 +152,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Bag.cpp" />
     <ClCompile Include="..\Classes\Buttons.cpp" />
-    <ClCompile Include="..\Classes\Conversation.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Item.cpp" />
     <ClCompile Include="..\Classes\Item\Ether.cpp" />
@@ -277,7 +276,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Bag.h" />
     <ClInclude Include="..\Classes\Buttons.h" />
-    <ClInclude Include="..\Classes\Conversation.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\include_pokemon.h" />
     <ClInclude Include="..\Classes\include_skill.h" />

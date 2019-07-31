@@ -549,7 +549,6 @@ namespace UICustom
 									if (Bag::GetInstance()->SizeOfListPokemon() > 1)
 									{
 										Bag::GetInstance()->ReleasePokemon(i);
-										log("%d", Bag::GetInstance()->GetListPokemon().at(i)->GetName());
 										buttonPO->setVisible(true);
 										buttonYI->setVisible(true);
 										buttonYP->setVisible(true);

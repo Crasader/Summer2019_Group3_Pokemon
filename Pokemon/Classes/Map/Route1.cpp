@@ -444,22 +444,23 @@ void Route1::update(float dt)
 	{
 		vector<Pokemon*> wildPokemon;
 		int index = rand() % 5 + 1;
+		int level = rand() % 3 + 3;
 		switch (index)
 		{
 		case 1:
-			wildPokemon.push_back(new Electrike());
+			wildPokemon.push_back(new Electrike(level));
 			break;
 		case 2:
-			wildPokemon.push_back(new Voltorb());
+			wildPokemon.push_back(new Voltorb(level));
 			break;
 		case 3:
-			wildPokemon.push_back(new Vulpix());
+			wildPokemon.push_back(new Vulpix(level));
 			break;
 		case 4:
-			wildPokemon.push_back(new Ponyta());
+			wildPokemon.push_back(new Ponyta(level));
 			break;
 		case 5:
-			wildPokemon.push_back(new Beautifly());
+			wildPokemon.push_back(new Beautifly(level));
 			break;
 		default:
 			break;

@@ -906,10 +906,10 @@ void BattleScene::HasNextBattle()
 		this->runAction(rp);
 		auto finished = CallFunc::create([this]() {
 			Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
-			int xp = this->m_player->GetCurrentExp() + (this->m_opponent->GetLevel() / this->m_player->GetLevel() + 2);
+			int xp = this->m_player->GetCurrentExp() + (this->m_opponent->GetLevel() * 2);
 			this->m_player->SetCurrentExp(xp);
 			this->BattleMessage(this->m_opponent->GetName() + " fainted. " + this->m_player->GetName() + " gain "
-				+ to_string((this->m_opponent->GetLevel() / this->m_player->GetLevel() + 2)) + " exp.");
+				+ to_string((this->m_opponent->GetLevel() * 2)) + " exp.");
 		});
 		auto scaleTo = ScaleTo::create(1, 0);
 		this->m_opponent->GetSpriteFront()->runAction(Sequence::create(scaleTo, finished, nullptr));
@@ -1027,16 +1027,16 @@ void BattleScene::StandByPhase()
 
 void BattleScene::EndBattle()
 {
-	bool is_winner;
-	auto listener = CallFunc::create([this, is_winner]() {
+	auto listener = CallFunc::create([this]() {
 		if (this->m_stateBattleMessage == true)
 		{
+			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 			this->m_stateBattleMessage = false;
 			this->ReleaseChildren();
 			this->getParent()->scheduleUpdate();
 			Buttons::GetIntance()->SetEnabled(true);
 			this->removeFromParent();
-			if (!is_winner)
+			if (Bag::GetInstance()->GetCountPokemon() <= 0)
 			{
 				Director::getInstance()->getRunningScene()->pause();
 				Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
@@ -1049,12 +1049,10 @@ void BattleScene::EndBattle()
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You lose!");
-		is_winner = false;
 	}
 	else
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You win!");
-		is_winner = true;
 	}
 }

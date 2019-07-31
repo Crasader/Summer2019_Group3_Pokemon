@@ -5,5 +5,6 @@ class Snorlax : public Pokemon
 {
 public:
 	Snorlax();
+	Snorlax(int level);
 	~Snorlax();
 };

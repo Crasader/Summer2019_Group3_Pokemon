@@ -42,8 +42,8 @@ public:
 	int SizeOfListPokemonOver();
 private:
 	static Bag* m_instance;
-	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(), nullptr, nullptr, nullptr };
-	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr};
+	vector<Pokemon*> m_pokemons = { new Charmander(5), new Squirtle(5), new Chikorita(5), nullptr, nullptr, nullptr };
+	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 	vector<Item*> m_items;
 	int my_gold;
 };

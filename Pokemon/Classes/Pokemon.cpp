@@ -17,6 +17,19 @@ Pokemon::Pokemon()
 {
 }
 
+Pokemon::Pokemon(int level)
+{
+	for (int i = 1; i < level; i++)
+	{
+		this->m_level += 1;
+		this->m_maxHealth += 10;
+		this->m_currentHealth = this->m_maxHealth;
+		this->m_attack += 2;
+		this->m_defense += 4;
+		this->m_attackSpeed += 1;
+		this->m_maxExp += 2;
+	}
+}
 
 Pokemon::~Pokemon()
 {
@@ -69,11 +82,6 @@ void Pokemon::Update(float deltaTime)
 Pokemon * Pokemon::Evolve()
 {
 	return nullptr;
-}
-
-int Pokemon::GetID()
-{
-	return this->m_id;
 }
 
 void Pokemon::LevelUp()

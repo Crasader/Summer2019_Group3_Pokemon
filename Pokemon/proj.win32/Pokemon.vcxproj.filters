@@ -45,9 +45,6 @@
     <ClCompile Include="..\Classes\Buttons.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Conversation.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Item.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -414,9 +411,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Buttons.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Conversation.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include_pokemon.h">

@@ -238,20 +238,6 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 				ListYP.at(i)->Restore();
 			}
 		}
-		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
-		for (int i = 0; i < ListPO.size(); i++)
-		{
-			ListPO.at(i)->SetCurrentHP(ListPO.at(i)->GetMaxHP());
-			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
-			if (ListPO.at(i)->GetSkillById(1) != nullptr)
-			{
-				ListPO.at(i)->GetSkillById(1)->SetCurrentPP(ListPO.at(i)->GetSkillById(1)->GetMaxPP());
-				if (ListPO.at(i)->GetSkillById(2) != nullptr)
-				{
-					ListPO.at(i)->GetSkillById(2)->SetCurrentPP(ListPO.at(i)->GetSkillById(2)->GetMaxPP());
-				}
-			}
-		}
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_SHOPNPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_SHOPNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)

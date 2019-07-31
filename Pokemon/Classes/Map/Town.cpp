@@ -402,25 +402,26 @@ void Town::update(float dt)
 	{
 		vector<Pokemon*> wildPokemon;
 		int index = rand() % 6 + 1;
+		int level = rand() % 2 + 1;
 		switch (index)
 		{
 		case 1:
-			wildPokemon.push_back(new Meowth());
+			wildPokemon.push_back(new Meowth(level));
 			break;
 		case 2:
-			wildPokemon.push_back(new Ralts());
+			wildPokemon.push_back(new Ralts(level));
 			break;
 		case 3:
-			wildPokemon.push_back(new Pikachu());
+			wildPokemon.push_back(new Pikachu(level));
 			break;
 		case 4:
-			wildPokemon.push_back(new Pidgey());
+			wildPokemon.push_back(new Pidgey(level));
 			break;
 		case 5:
-			wildPokemon.push_back(new Taillow());
+			wildPokemon.push_back(new Taillow(level));
 			break;
 		case 6:
-			wildPokemon.push_back(new Farfetchd());
+			wildPokemon.push_back(new Farfetchd(level));
 			break;
 		default:
 			break;

@@ -9,16 +9,13 @@ RouteNPC::RouteNPC()
 {
 	this->Init();
 
-	auto pidgey = new Pidgey();
-	pidgey->SetLevel(5);
+	auto pidgey = new Pidgey(5);
 	this->m_pokemons.push_back(pidgey);
 
-	auto ralts = new Ralts();
-	ralts->SetLevel(5);
+	auto ralts = new Ralts(5);
 	this->m_pokemons.push_back(ralts);
 
-	auto pikachu = new Pikachu();
-	pikachu->SetLevel(6);
+	auto pikachu = new Pikachu(6);
 	this->m_pokemons.push_back(pikachu);
 }
 

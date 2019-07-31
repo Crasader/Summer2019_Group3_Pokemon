@@ -5,5 +5,6 @@ class Beautifly : public Pokemon
 {
 public:
 	Beautifly();
+	Beautifly(int level);
 	~Beautifly();
 };
