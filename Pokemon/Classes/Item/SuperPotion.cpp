@@ -7,7 +7,7 @@ SuperPotion::SuperPotion()
 	this->m_gold = 10;
 	this->hpRevice = 100;
 	this->m_name = "Super Potion";
-	this->m_number = 1;
+	this->m_number = 999;
 	this->m_describe = "Restores 100 HP.";
 }
 

@@ -19,19 +19,18 @@ Size townVisibleSize;
 Size townTileMapSize;
 TMXLayer* grass;
 Sprite* tilePokemon;
-PhysicsBody* pokemon;
-//Joystick *joystickTown;
+
+Layer *layer_UI_Town;
 vector<Vec2> point;
 float tick = 0;
-//Layer *layer_UI;
 PhysicsBody* townBody, *townGateWay;
-Camera *townCamera;
+Camera *townCamera, *cameraUITown;
 int Town::previousScene = 0;
 
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
 	townCamera = scene->getDefaultCamera();
@@ -89,19 +88,22 @@ bool Town::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
 	Button *bag = Buttons::GetIntance()->GetButtonBag();
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
-	addChild(tips, 100);
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
-	addChild(bag, 100);
+	
+	layer_UI_Town = Layer::create();
+	cameraUITown = Camera::create();
+	cameraUITown->setCameraMask(2);
+	cameraUITown->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Town->addChild(cameraUITown, 2);
+	layer_UI_Town->addChild(up);
+	layer_UI_Town->addChild(bag);
+	layer_UI_Town->addChild(tips);
+	this->addChild(layer_UI_Town, 100);
 
-	//CreateLayerUI();
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -111,7 +113,7 @@ bool Town::init()
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
 			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
-			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,
@@ -137,24 +139,9 @@ bool Town::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(Town::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
-		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
-		log("--------------got joystick event, %p,  angle=%f", jsevent, jsevent->mAnagle);
-	}
-	);*/
 	scheduleUpdate();
 	return true;
 }
-
-//void Town::CreateLayerUI() {
-//	layer_UI = Layer::create();
-//	joystickTown = Joystick::create();
-//	cameraUI = Camera::create();
-//	layer_UI->addChild(cameraUI, 100);
-//	layer_UI->addChild(joystickTown, 100);
-//	this->addChild(layer_UI, 100);
-//	
-//}
 
 bool Town::onContactBegin(PhysicsContact& contact)
 
@@ -361,14 +348,33 @@ void Town::UpdateCamera() {
 	}
 }
 
-//void Town::InitArray()
-//{
-//	for (int i = 0; i < 32; i++) {
-//		for (int j = 0; j < 32; j++) {
-//			arrayOfTile[i][j] = 0;
-//		}
-//	}
-//}
+int townSum = 0;
+
+void Town::UpdatePlayer(float dt) {
+	townSum++;
+	if (townSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		townSum = 0;
+	}
+}
 
 void Town::InitGrass()
 {
@@ -390,6 +396,7 @@ void Town::InitGrass()
 
 void Town::update(float dt)
 {
+	UpdatePlayer(dt);
 	for (int i = 0; i < point.size(); i++)
 	{
 		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(point.at(i)) && Buttons::state != 0)
@@ -433,5 +440,4 @@ void Town::update(float dt)
 		tick = 0;
 	}
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
 }

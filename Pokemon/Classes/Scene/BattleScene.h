@@ -117,6 +117,8 @@ public:
 
 	void StandByPhase();
 
+	void NextBattle();
+
 	void EndBattle();
 
 	CREATE_FUNC(BattleScene);

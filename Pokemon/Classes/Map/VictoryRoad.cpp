@@ -10,9 +10,9 @@
 using namespace CocosDenshion;
 Size roadVisibleSize;
 Size roadTileMapSize;
-
+Layer *layer_UI_Road;
 PhysicsBody* roadBody, *roadGateWay;
-Camera *roadCamera;
+Camera *roadCamera, *cameraUIRoad;
 
 Scene* Road::createScene()
 {
@@ -72,13 +72,21 @@ bool Road::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_Road = Layer::create();
+	cameraUIRoad = Camera::create();
+	cameraUIRoad->setCameraMask(2);
+	cameraUIRoad->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Road->addChild(cameraUIRoad, 2);
+	layer_UI_Road->addChild(up);
+	layer_UI_Road->addChild(bag);
+	layer_UI_Road->addChild(tips);
+	this->addChild(layer_UI_Road, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
@@ -240,7 +248,36 @@ void Road::UpdateCamera() {
 	}
 }
 
+int roadSum = 0;
+
+void Road::UpdatePlayer(float dt) {
+	roadSum++;
+	if (roadSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		roadSum = 0;
+	}
+}
+
+
 void Road::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(roadCamera->getPosition().x - 200, roadCamera->getPosition().y - 100);
 }

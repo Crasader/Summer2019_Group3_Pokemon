@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{14,14}</string>
                 <key>textureRect</key>
-                <string>{{34,17},{14,14}}</string>
+                <string>{{0,0},{14,14}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{13,10}</string>
                 <key>textureRect</key>
-                <string>{{50,17},{13,10}}</string>
+                <string>{{14,0},{13,10}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>2.png</key>
             <dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{14,22}</string>
                 <key>textureRect</key>
-                <string>{{34,1},{14,22}}</string>
+                <string>{{0,14},{14,22}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>3.png</key>
             <dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{31,29}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{31,29}}</string>
+                <string>{{0,36},{31,29}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -76,9 +76,9 @@
             <key>realTextureFileName</key>
             <string>Pokeball.png</string>
             <key>size</key>
-            <string>{61,32}</string>
+            <string>{31,65}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5fbe30591b96b3ac80ea49b35b27eeff:a25a85e7d342d4b64dae13b6f9a26cde:e5604a086c617c6cb7cff3aa3687edcb$</string>
+            <string>$TexturePacker:SmartUpdate:b630c56e4ea8c19e97d6b4b611369635:a25a85e7d342d4b64dae13b6f9a26cde:e5604a086c617c6cb7cff3aa3687edcb$</string>
             <key>textureFileName</key>
             <string>Pokeball.png</string>
         </dict>

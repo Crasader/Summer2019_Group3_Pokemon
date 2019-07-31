@@ -40,6 +40,7 @@ public:
 	void CreateListItem();
 	int SizeOfListPokemon();
 	int SizeOfListPokemonOver();
+	void HealthPokemon(int index, Pokemon* pokemon);
 private:
 	static Bag* m_instance;
 	vector<Pokemon*> m_pokemons = { new Charmander(5), new Squirtle(5), new Chikorita(5), nullptr, nullptr, nullptr };

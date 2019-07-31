@@ -12,13 +12,13 @@
 using namespace CocosDenshion;
 Size route1VisibleSize;
 Size route1TileMapSize;
-//Joystick *joystick;
 vector<Vec2> route1_point;
 float route1_tick = 0;
-//Layer *layer_UI_Route1;
+
+Layer *layer_UI_Route1;
 
 PhysicsBody* route1Body, *route1GateWay, *route1npcbody;
-Camera *route1Camera;
+Camera *route1Camera, *cameraUIRoute1;
 int Route1::previousScene = 0;
 
 Scene* Route1::createScene()
@@ -28,7 +28,6 @@ Scene* Route1::createScene()
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
-	//route1Camera->setCameraFlag(CameraFlag::USER2);
 	return scene;
 }
 
@@ -62,8 +61,6 @@ bool Route1::init()
 	addChild(mapTree, 20);
 	addChild(mapTree1, 5);
 
-	//CreateLayerUI();
-
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
 	for (int i = 0; i < layerSize.width; i++)
@@ -86,31 +83,30 @@ bool Route1::init()
 	InitGrass();
 
 	InitObject();
-
+	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_Route1 = Layer::create();
+	cameraUIRoute1 = Camera::create();
+	cameraUIRoute1->setCameraMask(2);
+	cameraUIRoute1->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Route1->addChild(cameraUIRoute1, 2);
+	layer_UI_Route1->addChild(up);
+	layer_UI_Route1->addChild(bag);
+	layer_UI_Route1->addChild(tips);
+	this->addChild(layer_UI_Route1, 100);
+
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
-	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
-		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
-		switch (jsevent->EVENT_JOYSTICK)
-		{
-			
-		default:
-			break;
-		}
-	});
-	_eventDispatcher->addEventListenerWithFixedPriority(_listener, 1);*/
 	scheduleUpdate();
 	this->m_messageBox = ResourceManager::GetInstance()->GetSpriteById(130);
 	auto scale_x = 0.7;
@@ -119,7 +115,7 @@ bool Route1::init()
 	this->m_messageBox->setScaleY(scale_y);
 	this->m_messageBox->setVisible(false);
 	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
-	this->addChild(this->m_messageBox, 0);
+	this->addChild(this->m_messageBox, 100);
 	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelLog->setScale(1.5);
@@ -236,16 +232,16 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("nhao vo kiem an");
-		this->m_stateLog = true;
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		Model::ROUTE1NPC = false;
+	}
 		removeChild(m_route1npc, true);
 	}*/
-	
 	return true;
 }
 
@@ -329,6 +325,7 @@ void Route1::InitObject()
 			{
 				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
 				m_route1npc->setPosition(Vec2(posX, posY));
+				m_route1npc->setScale(0.8);
 				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				route1npcbody->setCollisionBitmask(Model::BITMASK_ROUTE1NPC);
 				route1npcbody->setContactTestBitmask(true);
@@ -387,6 +384,8 @@ void Route1::UpdateCamera() {
 
 void Route1::Log(string logg)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -396,37 +395,51 @@ void Route1::Log(string logg)
 
 bool Route1::onTouchBegan(Touch * touch, Event * e)
 {
-	Model::ROUTE1NPC = false;
-	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("res/Sound/Beep.mp3", false);
-	if (!m_stateLog) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Route1::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
-		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
-		scheduleUpdate();
+		this->unschedule(schedule_selector(Route1::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+
+int route1Sum = 0;
+
+void Route1::UpdatePlayer(float dt) {
+	route1Sum++;
+	if (route1Sum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		route1Sum = 0;
+	}
+}
+
+bool Route1::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	removeChild(m_route1npc, true);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 
@@ -474,19 +487,5 @@ void Route1::update(float dt)
 		route1_tick = 0;
 	}
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(route1Camera->getPosition().x - 200, route1Camera->getPosition().y - 100);
-	//joystick->setPosition(Vec2(route1Camera->getPosition().x - 540, route1Camera->getPosition().y - 80));
+	UpdatePlayer(dt);
 }
-
-//void Route1::CreateLayerUI() {
-//	layer_UI_Route1 = Layer::create();
-//	joystick = Joystick::create();
-//	cameraUIRoute1 = Camera::create();
-//	cameraUIRoute1->setCameraMask(2);
-//	cameraUIRoute1->setCameraFlag(CameraFlag::USER1);
-//	joystick->setCameraMask(2);
-//	layer_UI_Route1->addChild(cameraUIRoute1,2);
-//	layer_UI_Route1->addChild(joystick);
-//	this->addChild(layer_UI_Route1,100);
-//
-//}

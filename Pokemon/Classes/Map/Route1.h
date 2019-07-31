@@ -17,7 +17,6 @@ private:
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;
-	bool m_stateLog = false;
 public:
 	static cocos2d::Scene* createScene();
 	static int previousScene;
@@ -30,9 +29,10 @@ public:
 	void UpdateCamera();
 	void Log(string logg);
 	bool onTouchBegan(Touch* touch, Event* e);
+	bool onTouchEnd(Touch* t, Event* event);
 	//void CreateButon();
 	CREATE_FUNC(Route1);
+	void UpdatePlayer(float dt);
 	//void createPhysics();
 	void update(float);
-	void CreateLayerUI();
 };

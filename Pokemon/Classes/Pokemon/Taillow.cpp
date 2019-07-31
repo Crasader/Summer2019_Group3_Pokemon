@@ -1,7 +1,7 @@
 #include "Taillow.h"
 #include "Swellow.h"
 #define hp 40
-#define atk 55
+#define atk 45
 #define def 30
 #define speed 85
 

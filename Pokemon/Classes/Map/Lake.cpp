@@ -11,8 +11,8 @@ Size lakevisibleSize;
 Size laketileMapSize;
 
 PhysicsBody* lakebody, *lakegateWay, *suicuneBody;
-Camera *lakecamera;
-
+Camera *lakecamera, *cameraUILake;
+Layer *layer_UI_Lake;
 
 
 Scene* Lake::createScene()
@@ -103,16 +103,22 @@ bool Lake::init()
 
 	InitObject();
 	
-	
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
+	layer_UI_Lake = Layer::create();
+	cameraUILake = Camera::create();
+	cameraUILake->setCameraMask(2);
+	cameraUILake->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Lake->addChild(cameraUILake, 2);
+	layer_UI_Lake->addChild(up);
+	layer_UI_Lake->addChild(bag);
+	layer_UI_Lake->addChild(tips);
+	this->addChild(layer_UI_Lake, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	
@@ -128,7 +134,7 @@ bool Lake::init()
 	this->m_messageBox->setScaleY(scale_y);
 	this->m_messageBox->setVisible(false);
 	this->m_messageBox->setPosition(Director::getInstance()->getVisibleSize().width / 1.76, Director::getInstance()->getVisibleSize().height / 1.5);
-	this->addChild(this->m_messageBox, 0);
+	this->addChild(this->m_messageBox, 10);
 	this->m_labelLog = ResourceManager::GetInstance()->GetLabelById(0);
 	this->m_labelLog->setAnchorPoint(Vec2::ZERO);
 	this->m_labelLog->setScale(1.5);
@@ -203,14 +209,13 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("Meow ?");
-		this->m_stateLog = true;
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("Suisuiiiii!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		
+		Model::SUICUNE = false;
 		if (Model::SUICUNE == false)
 		{
 			this->Log("really nigga");
@@ -333,38 +338,54 @@ void Lake::Log(string logg)
 }
 bool Lake::onTouchBegan(Touch * touch, Event * e)
 {
-	Model::SUICUNE = false;
-	if (m_stateLog == false) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Lake::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		//removeChild(suicune, true);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		Button *right = Buttons::GetIntance()->GetButtonRight();
-		Button *left = Buttons::GetIntance()->GetButtonLeft();
-		Button *down = Buttons::GetIntance()->GetButtonDown();
-		addChild(up, 100);
-		addChild(right, 100);
-		addChild(left, 100);
-		addChild(down, 100);
-
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-		scheduleUpdate();
+		this->unschedule(schedule_selector(Lake::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
 	return true;
 }
+
+int lakeSum = 0;
+
+void Lake::UpdatePlayer(float dt) {
+	lakeSum++;
+	if (lakeSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		lakeSum = 0;
+	}
+}
+
+bool Lake::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	removeChild(suicune, true);
+	Buttons::GetIntance()->SetTouchEnable();
+	return true;
+}
 void Lake::update(float dt) {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(lakecamera->getPosition().x - 200, lakecamera->getPosition().y - 100);
 }

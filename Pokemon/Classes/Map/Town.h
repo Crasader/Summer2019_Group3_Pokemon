@@ -18,6 +18,7 @@ public:
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
+	void UpdatePlayer(float dt);
 	void InitGrass();
 	//void CreateButon();
 	CREATE_FUNC(Town);
