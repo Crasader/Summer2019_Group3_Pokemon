@@ -6,7 +6,7 @@ MaxPotion::MaxPotion()
 	this->m_id = 2;
 	this->m_gold = 30;
 	this->m_name = "Max Potion";
-	this->m_number = 0;
+	this->m_number = 999;
 	this->m_describe = "Fully restores HP.";
 }
 
