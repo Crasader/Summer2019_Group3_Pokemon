@@ -1,4 +1,4 @@
-#include "Buttons.h"
+﻿#include "Buttons.h"
 #include "ResourceManager.h"
 #include "Popup.h"
 
@@ -12,35 +12,57 @@ Buttons::Buttons()
 	m_left = ResourceManager::GetInstance()->GetButtonById(2);
 	m_right = ResourceManager::GetInstance()->GetButtonById(3);
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
+	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
+
+	m_tips->setPosition(Vec2(30, 330));
 	m_down->setPosition(Vec2(100, 70));
 	m_up->setPosition(Vec2(100, 130));
 	m_left->setPosition(Vec2(70, 100));
 	m_right->setPosition(Vec2(130, 100));
 	m_bag->setPosition(Vec2(500,100));
+
+	m_tips->setScale(0.2f);
 	m_down->setScale(0.4f);
 	m_up->setScale(0.4f);
 	m_left->setScale(0.4f);
 	m_right->setScale(0.4f);
 }
 
-void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
-{
-	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		if (type == Widget::TouchEventType::ENDED)
-		{
-			UICustom::Popup *popup = UICustom::Popup::CreateBagInBattle();
-			popup->removeFromParent();
-			popup->setAnchorPoint(Vec2(0.5, 0.5));
-			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
-				camera->getPosition().y - popup->getContentSize().height / 2);
-			layer->addChild(popup, 101);
-		}
-	});
-}
+//void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
+//{
+//	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+//	{
+//
+//		if (type == Widget::TouchEventType::ENDED)
+//		{
+//			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Tips!", "Chạy tới nhà tiến sĩ để lấy pokemon.");
+//			popup->removeFromParent();
+//			popup->setAnchorPoint(Vec2(0.5, 0.5));
+//			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
+//				camera->getPosition().y - popup->getContentSize().height / 2);
+//			layer->addChild(popup, 101);
+//		}
+//	});
+//}
+//
+//void Buttons::ButtonTipListener(Layer *layer, Camera* camera)
+//{
+//	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+//	{
+//
+//		if (type == Widget::TouchEventType::ENDED)
+//		{
+//			UICustom::Popup *popup = UICustom::Popup::createBag("Bag");
+//			popup->removeFromParent();
+//			popup->setAnchorPoint(Vec2(0.5, 0.5));
+//			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
+//				camera->getPosition().y - popup->getContentSize().height / 2);
+//			layer->addChild(popup, 101);
+//		}
+//	});
+//}
 
-void Buttons ::ButtonListener(Trainer *&mPlayer)
-
+void Buttons::ButtonListener(Trainer *&mPlayer)
 {
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
 
@@ -184,12 +206,25 @@ Button * Buttons::GetButtonDown()
 	return m_down;
 }
 
-
 Button * Buttons::GetButtonBag()
 {
 	return m_bag;
 }
 
+Button * Buttons::GetButtonTips()
+{
+	return m_tips;
+}
+
+void Buttons::SetEnabled(bool enable)
+{
+	this->m_up->setEnabled(enable);
+	this->m_down->setEnabled(enable);
+	this->m_left->setEnabled(enable);
+	this->m_right->setEnabled(enable);
+	this->m_bag->setEnabled(enable);
+	this->m_tips->setEnabled(enable);
+}
 
 void Buttons::Remove()
 {
@@ -198,26 +233,30 @@ void Buttons::Remove()
 	m_left->removeFromParentAndCleanup(true);
 	m_right->removeFromParentAndCleanup(true);
 	m_bag->removeFromParentAndCleanup(true);
+	m_tips->removeFromParentAndCleanup(true);
 	m_up->release();
 	m_down->release();
 	m_left->release();
 	m_right->release();
 	m_bag->release();
+	m_tips->release();
 	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_left = ResourceManager::GetInstance()->GetButtonById(2);
 	m_right = ResourceManager::GetInstance()->GetButtonById(3);
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
+	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
 	m_down->setPosition(Vec2(100, 70));
 	m_up->setPosition(Vec2(100, 130));
 	m_left->setPosition(Vec2(70, 100));
 	m_right->setPosition(Vec2(130, 100));
 	m_bag->setPosition(Vec2(100, 600));
+	m_tips->setPosition(Vec2(30, 330));
 	m_down->setScale(0.4f);
 	m_up->setScale(0.4f);
 	m_left->setScale(0.4f);
 	m_right->setScale(0.4f);
-	//m_bag->setScale();
+	m_tips->setScale(0.2f);
 }
 
 void Buttons::UpdateButton(float x, float y) {
@@ -226,5 +265,5 @@ void Buttons::UpdateButton(float x, float y) {
 	m_up->setPosition(Vec2(x , y +30));
 	m_down->setPosition(Vec2(x , y -30));
 	m_bag->setPosition(Vec2(x + 400, y));
-
+	m_tips->setPosition(Vec2(x +200 -330, y +100 +150));
 }

@@ -115,7 +115,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_PC)
 		|| (a->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_PC && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -125,7 +125,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_CAVE)
 		|| (a->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_CAVE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -135,7 +135,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Cave::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_LAKE)
 		|| (a->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_LAKE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -145,7 +145,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lake::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_ROUTE2)
 		|| (a->getCollisionBitmask() == Model::BITMASK_CITY_GATE_TO_ROUTE2 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -155,13 +155,13 @@ bool City::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route2::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:

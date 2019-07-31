@@ -171,13 +171,13 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -221,7 +221,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("recovery.wav", false);
+		audio->playEffect("res/Sound/recovery.wav", false);
 		Buttons::GetIntance()->Remove();
 		this->Log("pokemon cua ban da duoc phuc hoi");
 		this->m_stateLog = true;
@@ -245,6 +245,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 						ListYP.at(i)->GetSkillById(2)->SetCurrentPP(ListYP.at(i)->GetSkillById(2)->GetMaxPP());
 					}
 				}
+				ListYP.at(i)->Restore();
 			}
 		}
 		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
@@ -283,7 +284,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -411,7 +412,7 @@ void PokemonCenter::Log(string logg)
 bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	if (!m_stateLog) {
 		if (this->m_labelLog->getOpacity() == 0)
 		{

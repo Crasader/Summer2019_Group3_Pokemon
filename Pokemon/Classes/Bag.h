@@ -4,6 +4,16 @@
 #include "Pokemon.h"
 #include "Item.h"
 #include "include_pokemon.h"
+#include "Item\Potion.h"
+#include "Item\MaxPotion.h"
+#include "Item\SuperPotion.h"
+#include "Item\Revive.h"
+#include "Item\MaxRevive.h"
+#include "Item\Ether.h"
+#include "Item\LeafStone.h"
+#include "Item\FireStone.h"
+#include "Item\ThunderStone.h"
+#include "Item\WaterStone.h"
 
 class Bag :public MyObject
 {

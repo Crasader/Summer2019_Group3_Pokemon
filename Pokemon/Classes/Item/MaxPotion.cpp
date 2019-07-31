@@ -17,4 +17,5 @@ MaxPotion::~MaxPotion()
 void MaxPotion::ReviceHealthPokemon(Pokemon * pokemon)
 {
 	pokemon->SetCurrentHP(pokemon->GetMaxHP());
+	this->m_number--;
 }

@@ -47,7 +47,7 @@ bool Route2::init()
 	route2VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Route2.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(10);
 	route2TileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -131,7 +131,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		Route2::previousScene = Model::PRESCENE_CITY_TO_ROUTE2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2_GATE_TO_ROAD)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2_GATE_TO_ROAD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -141,13 +141,13 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Road::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -176,7 +176,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 
 void Route2::InitObject()
 {
-	auto map = TMXTiledMap::create("res/Map/Route2.tmx");
+	auto map = ResourceManager::GetInstance()->GetTiledMapById(10);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -281,4 +281,3 @@ void Route2::update(float dt) {
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(route2Camera->getPosition().x - 200, route2Camera->getPosition().y - 100);
 }
-

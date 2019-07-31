@@ -127,7 +127,7 @@ int Skill::GetPower()
 	return m_power;
 }
 
-int Skill::GetPP()
+int Skill::GetCurrentPP()
 {
 	return m_pp;
 }

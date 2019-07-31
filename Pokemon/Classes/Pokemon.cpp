@@ -78,19 +78,13 @@ int Pokemon::GetID()
 
 void Pokemon::LevelUp()
 {
-	if (this->m_level < 20)
-	{
-		if (this->m_currentExp >= this->m_maxExp)
-		{
-			this->m_level += 1;
-			this->m_maxHealth += 12;
-			this->m_attack += 2;
-			this->m_defense += 4;
-			this->m_attackSpeed += 1;
-			this->m_currentExp = 0;
-			this->m_maxExp += 2;
-		}
-	}
+	this->m_level += 1;
+	this->m_maxHealth += 12;
+	this->m_attack += 2;
+	this->m_defense += 4;
+	this->m_attackSpeed += 1;
+	this->m_currentExp = 0;
+	this->m_maxExp += 2;
 }
 
 string Pokemon::GetName()
@@ -123,6 +117,10 @@ void Pokemon::SetCurrentHP(int health)
 	if (health == 0)
 	{
 		this->m_alive = false;
+	}
+	else
+	{
+		this->m_alive = true;
 	}
 	this->m_currentHealth = health;
 }
@@ -184,8 +182,16 @@ int Pokemon::GetCurrentExp()
 
 void Pokemon::SetCurrentExp(int exp)
 {
-	this->m_currentExp = exp;
-	this->LevelUp();
+	if (this->m_level < 20)
+	{
+		this->m_currentExp = exp;
+		if (this->m_currentExp >= this->m_maxExp)
+		{
+			int xp = this->m_currentExp - this->m_maxExp;
+			this->LevelUp();
+			this->SetCurrentExp(this->m_currentExp + xp);
+		}
+	}
 }
 
 int Pokemon::GetMaxExp()
@@ -233,6 +239,7 @@ void Pokemon::SetScale(float scale)
 
 void Pokemon::RemoveFromParent()
 {
+	this->m_state = false;
 	this->m_spriteFront->removeFromParentAndCleanup(false);
 	this->m_spriteBack->removeFromParentAndCleanup(false);
 	for (int i = 0; i < length; i++)
@@ -247,6 +254,18 @@ void Pokemon::RemoveFromParent()
 Vec2 Pokemon::GetPosition()
 {
 	return this->m_spriteBack->getPosition();
+}
+
+void Pokemon::LearnSkill(Skill * skill)
+{
+	for (int i = 0; i < length; i++)
+	{
+		if (this->m_listSkill.at(i) == nullptr)
+		{
+			this->m_listSkill.at(i) = skill;
+			break;
+		}
+	}
 }
 
 Skill * Pokemon::GetSkillById(int id)
@@ -274,7 +293,7 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 		{
 			float type = 1;
 			auto audio = SimpleAudioEngine::getInstance();
-			audio->playEffect("Damage.mp3", false);
+			audio->playEffect("res/Sound/Damage.mp3", false);
 			if (skill->GetIdType() == target->GetType())
 			{
 				type = 0.5;
@@ -285,13 +304,13 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 0.5;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("NotVeryEffective.mp3", false);
+					audio->playEffect("res/Sound/NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_WATER)
@@ -300,13 +319,13 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_ELECTRIC || target->GetType() == MyObject::TYPE_GRASS)
 				{
 					type = 0.5;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("NotVeryEffective.mp3", false);
+					audio->playEffect("res/Sound/NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_GRASS)
@@ -315,13 +334,13 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_ELECTRIC)
 				{
 					type = 0.5;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("NotVeryEffective.mp3", false);
+					audio->playEffect("res/Sound/NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_ELECTRIC)
@@ -330,13 +349,13 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_FIRE || target->GetType() == MyObject::TYPE_FLYING)
 				{
 					type = 0.5;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("NotVeryEffective.mp3", false);
+					audio->playEffect("res/Sound/NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_FLYING)
@@ -345,13 +364,13 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 				else if (target->GetType() == MyObject::TYPE_WATER || target->GetType() == MyObject::TYPE_GRASS)
 				{
 					type = 0.5;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("NotVeryEffective.mp3", false);
+					audio->playEffect("res/Sound/NotVeryEffective.mp3", false);
 				}
 			}
 			else if (skill->GetIdType() == MyObject::TYPE_DRAGON)
@@ -360,7 +379,7 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				{
 					type = 2;
 					auto audio = SimpleAudioEngine::getInstance();
-					audio->playEffect("SuperEffective.mp3", false);
+					audio->playEffect("res/Sound/SuperEffective.mp3", false);
 				}
 			}
 			float crit = this->RandomFloatNumber(1, 1.5);
@@ -375,6 +394,7 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 				target->SetCurrentHP(target->GetCurrentHP() - damage);
 			}
 			skill->SetState(false);
+			skill->SetCurrentPP(skill->GetCurrentPP() - 1);
 			this->m_state = true;
 			skill->GetSpriteFront()->stopActionByTag(11);
 		}
@@ -383,4 +403,16 @@ void Pokemon::Attack(Pokemon * target, Skill * skill)
 	rp->setTag(11);
 	skill->GetSpriteFront()->runAction(rp);
 	skill->Run(target->GetPosition());
+}
+
+void Pokemon::Restore()
+{
+	this->SetCurrentHP(this->m_maxHealth);
+	for (int i = 0; i < length; i++)
+	{
+		if (this->m_listSkill.at(i) != nullptr)
+		{
+			this->m_listSkill.at(i)->SetCurrentPP(this->m_listSkill.at(i)->GetMaxPP());
+		}
+	}
 }

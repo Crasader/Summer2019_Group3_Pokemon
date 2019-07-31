@@ -22,4 +22,5 @@ void SuperPotion::ReviceHealthPokemon(Pokemon * pokemon)
 	{
 		pokemon->SetCurrentHP(pokemon->GetMaxHP());
 	}
+	this->m_number--;
 }

@@ -12,7 +12,7 @@ Charmander::Charmander()
 	//
 	this->m_name = "Charmander";
 	this->m_type = MyObject::TYPE_FIRE;
-	this->m_listSkill = { new Spark(), new BlastBurn(), nullptr };
+	this->LearnSkill(new Ember());
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
@@ -30,8 +30,9 @@ Charmander::~Charmander()
 
 Pokemon * Charmander::Evolve()
 {
-	if (this->m_level >= 10)
+	if (this->m_level >= 8)
 	{
+		this->LearnSkill(new FireBlast());
 		this->m_evolved = true;
 		return new Charmeleon(this);
 	}

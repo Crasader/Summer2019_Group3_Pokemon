@@ -1,15 +1,5 @@
 #include "Bag.h"
 #include "Trainer.h"
-#include "Item\Potion.h"
-#include "Item\MaxPotion.h"
-#include "Item\SuperPotion.h"
-#include "Item\Revive.h"
-#include "Item\MaxRevive.h"
-#include "Item\Ether.h"
-#include "Item\LeafStone.h"
-#include "Item\FireStone.h"
-#include "Item\ThunderStone.h"
-#include "Item\WaterStone.h"
 
 Bag::Bag()
 {

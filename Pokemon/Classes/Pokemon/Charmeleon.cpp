@@ -39,6 +39,7 @@ Pokemon * Charmeleon::Evolve()
 {
 	if (this->m_level >= 15)
 	{
+		this->LearnSkill(new BlastBurn());
 		this->m_evolved = true;
 		return new Charizard(this);
 	}

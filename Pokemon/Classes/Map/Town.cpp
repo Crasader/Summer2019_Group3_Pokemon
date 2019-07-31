@@ -8,18 +8,60 @@
 #include "House.h"
 #include "Model.h"
 #include "Scene\BattleScene.h"
+#include "Popup.h"
+#include "Bag.h"
+//#include "Joystick.h"
 #include <cstdlib>
 
 using namespace CocosDenshion;
 USING_NS_CC;
 Size townVisibleSize;
 Size townTileMapSize;
-
+TMXLayer* grass;
+Sprite* tilePokemon;
+PhysicsBody* pokemon;
+//Joystick *joystickTown;
+vector<Vec2> point;
+float tick = 0;
+//Layer *layer_UI;
 PhysicsBody* townBody, *townGateWay;
 Camera *townCamera;
 int Town::previousScene = 0;
 
-
+int Town::arrayGrassHasPokemon[32][16] = { 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+	-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	 };
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -30,7 +72,18 @@ Scene* Town::createScene()
 	return scene;
 }
 
-
+int Town::Check(int x, int y) {
+	int i = 0, j = 0;
+	for ( i = 0; i < 32; i++) {
+		for (j = 0; j < 16; j++) {
+			if ((abs(i - x) <= 2) && (abs(j - y) <= 2)) {
+				if (arrayGrassHasPokemon[i][j] ==1)
+					return 1;
+			}
+		}
+	}
+	return 0;
+}
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
@@ -53,7 +106,7 @@ bool Town::init()
 	townVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
+	map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	townTileMapSize = map->getContentSize();
 	addChild(map);
 	auto mapHouse = ResourceManager::GetInstance()->GetTiledMapById(3);
@@ -77,31 +130,7 @@ bool Town::init()
 		}
 	}
 
-	auto grass = map->getLayer("grass");
-	int count = 0;
-	Size layerSize2 = grass->getLayerSize();
-	for (int i = 0; i < layerSize.width; i++)
-	{
-		for (int j = 0; j < layerSize2.height; j++)
-		{
-			auto tilePokemon = grass->getTileAt(Vec2(i, j));
-			if (tilePokemon != NULL)
-			{
-				if (count < 3) {
-					int _random = rand() % 4;
-					if (!_random) {
-						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
-						pokemon->setContactTestBitmask(true);
-						pokemon->setDynamic(false);
-						pokemon->setGravityEnable(false);
-						tilePokemon->setPhysicsBody(pokemon);
-						count++;
-					}
-				}
-			}
-		}
-	}
+	InitGrass();
 
 	InitObject();
 
@@ -109,19 +138,69 @@ bool Town::init()
 	Button *right = Buttons::GetIntance()->GetButtonRight();
 	Button *left = Buttons::GetIntance()->GetButtonLeft();
 	Button *down = Buttons::GetIntance()->GetButtonDown();
-
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+	addChild(tips, 100);
 	addChild(up, 100);
 	addChild(right, 100);
 	addChild(left, 100);
 	addChild(down, 100);
+	addChild(bag, 100);
+
+	//CreateLayerUI();
+
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
+
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,
+			townCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,
+			townCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Town::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	/*auto _listener = EventListenerCustom::create(JoystickEvent::EVENT_JOYSTICK, [=](EventCustom* event) {
+		JoystickEvent* jsevent = static_cast<JoystickEvent*>(event->getUserData());
+		log("--------------got joystick event, %p,  angle=%f", jsevent, jsevent->mAnagle);
+	}
+	);*/
 	scheduleUpdate();
 	return true;
 }
+
+//void Town::CreateLayerUI() {
+//	layer_UI = Layer::create();
+//	joystickTown = Joystick::create();
+//	cameraUI = Camera::create();
+//	layer_UI->addChild(cameraUI, 100);
+//	layer_UI->addChild(joystickTown, 100);
+//	this->addChild(layer_UI, 100);
+//	
+//}
 
 bool Town::onContactBegin(PhysicsContact& contact)
 
@@ -137,13 +216,13 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -174,7 +253,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
@@ -184,17 +263,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
-	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_POKEMON)
-		|| (a->getCollisionBitmask() == Model::BITMASK_POKEMON && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
-	{
-		//int idPokemon = random();
-		//new Pokemon with id
-		//chuyen scene chien dau
-		auto layer = BattleScene::create();
-		this->addChild(layer, 1000);
-		CCLOG("Has Pokemon");
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
@@ -203,19 +272,19 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -227,7 +296,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 
 void Town::InitObject()
 {
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(2);
 	auto m_objectGroup = map->getObjectGroup("Object");
 	auto objects = m_objectGroup->getObjects();
 	for (int i = 0; i < objects.size(); i++) {
@@ -338,7 +406,77 @@ void Town::UpdateCamera() {
 		}
 	}
 }
-void Town::update(float dt) {
+
+//void Town::InitArray()
+//{
+//	for (int i = 0; i < 32; i++) {
+//		for (int j = 0; j < 32; j++) {
+//			arrayOfTile[i][j] = 0;
+//		}
+//	}
+//}
+
+void Town::InitGrass()
+{
+	grass = map->getLayer("grass");
+	int width = grass->getLayerSize().width;
+	int height = grass->getLayerSize().height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				point.push_back(tilePokemon->getPosition());
+			}
+		}
+	}
+}
+
+void Town::update(float dt)
+{
+	for (int i = 0; i < point.size(); i++)
+	{
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(point.at(i)) && Buttons::state != 0)
+		{
+			tick += dt;
+			break;
+		}
+	}
+	if (tick >= 2.5)
+	{
+		vector<Pokemon*> wildPokemon;
+		int index = rand() % 6 + 1;
+		switch (index)
+		{
+		case 1:
+			wildPokemon.push_back(new Meowth());
+			break;
+		case 2:
+			wildPokemon.push_back(new Ralts());
+			break;
+		case 3:
+			wildPokemon.push_back(new Pikachu());
+			break;
+		case 4:
+			wildPokemon.push_back(new Pidgey());
+			break;
+		case 5:
+			wildPokemon.push_back(new Taillow());
+			break;
+		case 6:
+			wildPokemon.push_back(new Farfetchd());
+			break;
+		default:
+			break;
+		}
+		Buttons::GetIntance()->SetEnabled(false);
+		auto layer = BattleScene::CreateLayer(wildPokemon);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		tick = 0;
+	}
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(townCamera->getPosition().x - 200, townCamera->getPosition().y - 100);
 }

@@ -11,7 +11,8 @@ Ralts::Ralts()
 	//
 	this->m_name = "Ralts";
 	this->m_type = MyObject::TYPE_GRASS;
-	this->m_level = 5;
+	this->LearnSkill(new LeechSeed());
+	this->m_level = rand() % 2 + 1;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);
@@ -29,6 +30,7 @@ Pokemon * Ralts::Evolve()
 {
 	if (true)
 	{
+		this->LearnSkill(new EnergyBall());
 		this->m_evolved = true;
 		return new Kirlia(this);
 	}

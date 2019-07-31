@@ -382,7 +382,7 @@ namespace UICustom
 				if (list.at(i) != nullptr)
 				{
 					string name = list.at(i)->GetName();
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
 					auto sprite = list.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
 					sprite->setScale(1.5);
@@ -598,6 +598,7 @@ namespace UICustom
 				buttonOver->setTag(i);
 				if (listOver.size() != 0)
 				{
+<<<<<<< HEAD
 					if (listOver.at(i) != nullptr)
 					{
 						string name = listOver.at(i)->GetName();
@@ -627,6 +628,30 @@ namespace UICustom
 						buttonOver->setTouchEnabled(false);
 					}
 				}			
+=======
+					string name = listOver.at(i)->GetName();
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
+					auto sprite = listOver.at(i)->GetSpriteFront();
+					sprite->removeFromParentAndCleanup(false);
+					sprite->setScale(1);
+					sprite->setTag(i);
+					sprite->setPosition(buttonOver->getPosition().x + listViewPO->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listViewPO->getContentSize().height / 2);
+					Label* labelName = ResourceManager::GetInstance()->GetLabelById(0);
+					labelName->setString(name);
+					labelName->setColor(Color3B(0, 0, 0));
+					labelName->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listView->getContentSize().height * 4 / 5);
+					Label* labelLv = ResourceManager::GetInstance()->GetLabelById(0);
+					labelLv->setString(level);
+					labelLv->setColor(Color3B(0, 0, 0));
+					labelLv->setPosition(buttonOver->getPosition().x + listView->getContentSize().width* (i * 2 + 1) / 4,
+						buttonOver->getPosition().y + listView->getContentSize().height * 1 / 5);
+					listViewPO->addChild(labelName, 202);
+					listViewPO->addChild(labelLv, 202);
+					listViewPO->addChild(sprite, 202);
+				}
+>>>>>>> TanNgoc
 				listViewPO->pushBackCustomItem(buttonOver);
 				buttonOver->addTouchEventListener([buttonOver, node, menu, winSize, listViewPO, buttonPO, buttonYI, buttonYP](Ref * ref, ui::Widget::TouchEventType type)
 				{
@@ -975,7 +1000,19 @@ namespace UICustom
 				}
 			});
 			//listView->addEventListener((ListView::ccListViewCallback)CC_CALLBACK_2(Popup::SelectedItemEvent, node));
-			
+			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				auto list = Bag::GetInstance()->GetListPokemon();
+				for (int i = 0; i < 6; i++)
+				{
+					if (list.at(i) != nullptr)
+					{
+						auto sprite = list.at(i)->GetSpriteFront();
+						sprite->removeFromParentAndCleanup(false);
+					}
+				}
+				node->dismiss(true);
+				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+			});
 #pragma endregion
 			
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 250);
@@ -1186,27 +1223,51 @@ namespace UICustom
 			buttonMaxPotion->addChild(labelMaxPotion2, 102);
 
 			
-			buttonPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((Potion*)(Bag::GetInstance()->GetListItem().at(0)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 
-			buttonSuperPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonSuperPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((SuperPotion*)(Bag::GetInstance()->GetListItem().at(1)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 
-			buttonMaxPotion->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+			buttonMaxPotion->addTouchEventListener([node](Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED)
 				{
-					
+					auto scene = ((BattleScene*)(node->getParent()));
+					auto item = ((MaxPotion*)(Bag::GetInstance()->GetListItem().at(2)));
+					if (scene->GetTrainerPokemon()->GetCurrentHP() < scene->GetTrainerPokemon()->GetMaxHP() && item->GetNumber() > 0)
+					{
+						scene->SetButtonVisible(false);
+						item->ReviceHealthPokemon(scene->GetTrainerPokemon());
+						scene->UseItem();
+						node->dismiss(true);
+					}
 				}
 			});
 
@@ -1238,10 +1299,7 @@ namespace UICustom
 			listViewPokemon->setPosition(Vec2(winSize.width/2,winSize.height/2-listViewPokemon->getContentSize().height/4));
 			listViewPokemon->setClippingEnabled(true);
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
-				if (!((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
-				{
-				}
-				else
+				if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
 				{
 					auto list = Bag::GetInstance()->GetListPokemon();
 					for (int i = 0; i < 6; i++)
@@ -1266,8 +1324,8 @@ namespace UICustom
 				{
 					string name = list.at(i)->GetName();
 					string percentHP = to_string(list.at(i)->GetCurrentHP() * 100 / list.at(i)->GetMaxHP());
-					string level = "Level:" + to_string(list.at(i)->GetLevel());
-					string hp = "HP: " + percentHP + " %";
+					string level = "Level: " + to_string(list.at(i)->GetLevel());
+					string hp = "HP: " + percentHP + "%";
 					auto sprite = list.at(i)->GetSpriteFront();
 					sprite->removeFromParentAndCleanup(false);
 					sprite->setScale(1);
@@ -1311,7 +1369,7 @@ namespace UICustom
 									if (((BattleScene*)(node->getParent()))->GetTrainerPokemon()->IsAlive())
 									{
 										Bag::GetInstance()->ChangePokemon(tag);
-										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->TrainerChangePokemon();
 										((BattleScene*)(node->getParent()))->SetButtonVisible(false);
 										for (int i = 0; i < 6; i++)
 										{
@@ -1326,7 +1384,7 @@ namespace UICustom
 									else
 									{
 										Bag::GetInstance()->ChangePokemon(tag);
-										((BattleScene*)(node->getParent()))->ChangePokemon();
+										((BattleScene*)(node->getParent()))->TrainerChangePokemon();
 										((BattleScene*)(node->getParent()))->StartBattle();
 										for (int i = 0; i < 6; i++)
 										{
@@ -1652,6 +1710,7 @@ namespace UICustom
 			{
 				MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
 					node->dismiss(true);
+					Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(true);
 				});
 				Menu *menu = Menu::create(noButton, NULL);
 				node->addChild(menu, 2);
