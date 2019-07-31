@@ -10,7 +10,9 @@ Vulpix::Vulpix()
 	//
 	this->m_name = "Vulpix";
 	this->m_type = MyObject::TYPE_FIRE;
-	this->m_level = 5;
+	this->LearnSkill(new Scratch());
+	this->LearnSkill(new Ember());
+	this->m_level = rand() % 3 + 3;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);

@@ -10,7 +10,9 @@ Voltorb::Voltorb()
 	//
 	this->m_name = "Voltorb";
 	this->m_type = MyObject::TYPE_ELECTRIC;
-	this->m_level = 5;
+	this->LearnSkill(new ThunderShock());
+	this->LearnSkill(new Thunderbolt());
+	this->m_level = rand() % 3 + 3;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);

@@ -11,6 +11,7 @@ class Route1 : public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
+	TMXTiledMap* map;
 	Sprite * mGateWay;
 	Sprite * m_route1npc;
 	Label* m_labelLog;
@@ -24,6 +25,7 @@ public:
 	void TypeWriter(float deltaTime);
 	void LogSetOpacity(GLubyte opacity);
 	bool onContactBegin(PhysicsContact & contact);
+	void InitGrass();
 	void InitObject();
 	void UpdateCamera();
 	void Log(string logg);

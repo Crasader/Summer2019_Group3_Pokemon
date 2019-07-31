@@ -12,6 +12,7 @@ Gust::~Gust()
 void Gust::Init()
 {
 	this->AddAnimation(102);
+	this->GetAnimation()->setDelayPerUnit(0.08);
 	this->SetScale(1.5);
 	Skill::SetName("Gust");
 	Skill::SetTypeName("Flying");

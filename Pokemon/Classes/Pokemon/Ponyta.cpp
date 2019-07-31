@@ -1,6 +1,6 @@
 #include "Ponyta.h"
 #define hp 50
-#define atk 85
+#define atk 50
 #define def 55
 #define speed 90
 
@@ -10,7 +10,9 @@ Ponyta::Ponyta()
 	//
 	this->m_name = "Ponyta";
 	this->m_type = MyObject::TYPE_FIRE;
-	this->m_level = 5;
+	this->LearnSkill(new Ember());
+	this->LearnSkill(new FirePunch());
+	this->m_level = rand() % 3 + 3;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);

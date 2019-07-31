@@ -9,12 +9,14 @@ class Route2 : public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
+	TMXTiledMap* map;
 	Sprite * mGateWay;
 public:
 	static cocos2d::Scene* createScene();
 	static int previousScene;
 	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
+	void InitGrass();
 	void InitObject();
 	void UpdateCamera();
 	//void CreateButon();

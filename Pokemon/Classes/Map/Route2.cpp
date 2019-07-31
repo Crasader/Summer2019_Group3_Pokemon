@@ -5,12 +5,14 @@
 #include "Buttons.h"
 #include "City.h"
 #include "Model.h"
+#include "Scene\BattleScene.h"
 #include "VictoryRoad.h"
 
 using namespace CocosDenshion;
 Size route2VisibleSize;
 Size route2TileMapSize;
-
+vector<Vec2> route2_point;
+float route2_tick = 0;
 PhysicsBody* route2Body, *route2GateWay;
 Camera *route2Camera;
 int Route2::previousScene = 0;
@@ -47,7 +49,7 @@ bool Route2::init()
 	route2VisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(10);
+	map = ResourceManager::GetInstance()->GetTiledMapById(10);
 	route2TileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -70,31 +72,7 @@ bool Route2::init()
 		}
 	}
 
-	auto grass = map->getLayer("grass");
-	int count = 0;
-	Size layerSize2 = grass->getLayerSize();
-	for (int i = 0; i < layerSize.width; i++)
-	{
-		for (int j = 0; j < layerSize2.height; j++)
-		{
-			auto tilePokemon = grass->getTileAt(Vec2(i, j));
-			if (tilePokemon != NULL)
-			{
-				if (count < 10) {
-					int _random = rand() % 15;
-					if (!_random) {
-						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
-						pokemon->setContactTestBitmask(true);
-						pokemon->setDynamic(false);
-						pokemon->setGravityEnable(false);
-						tilePokemon->setPhysicsBody(pokemon);
-						count++;
-					}
-				}
-			}
-		}
-	}
+	InitGrass();
 
 	InitObject();
 
@@ -152,19 +130,19 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -172,6 +150,24 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 	}
 	return true;
 
+}
+
+void Route2::InitGrass()
+{
+	auto grass = map->getLayer("grass");
+	int width = grass->getLayerSize().width;
+	int height = grass->getLayerSize().height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				route2_point.push_back(tilePokemon->getPosition());
+			}
+		}
+	}
 }
 
 void Route2::InitObject()
@@ -277,7 +273,48 @@ void Route2::UpdateCamera() {
 	}
 }
 
-void Route2::update(float dt) {
+void Route2::update(float dt)
+{
+	for (int i = 0; i < route2_point.size(); i++)
+	{
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(route2_point.at(i)) && Buttons::state != 0)
+		{
+			route2_tick += dt;
+			break;
+		}
+	}
+	if (route2_tick >= 2.5)
+	{
+		vector<Pokemon*> wildPokemon;
+		int index = rand() % 5 + 1;
+		switch (index)
+		{
+		case 1:
+			wildPokemon.push_back(new Electrike());
+			break;
+		case 2:
+			wildPokemon.push_back(new Voltorb());
+			break;
+		case 3:
+			wildPokemon.push_back(new Vulpix());
+			break;
+		case 4:
+			wildPokemon.push_back(new Ponyta());
+			break;
+		case 5:
+			wildPokemon.push_back(new Beautifly());
+			break;
+		default:
+			break;
+		}
+		Buttons::GetIntance()->SetEnabled(false);
+		auto layer = BattleScene::CreateLayer(wildPokemon);
+		layer->setPosition(route2Camera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			route2Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		route2_tick = 0;
+	}
 	UpdateCamera();
 	Buttons::GetIntance()->UpdateButton(route2Camera->getPosition().x - 200, route2Camera->getPosition().y - 100);
 }

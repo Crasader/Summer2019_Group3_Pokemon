@@ -10,7 +10,10 @@ Electrike::Electrike()
 	this->Init(14, 15);
 	//
 	this->m_name = "Electrike";
-	this->m_level = 5;
+	this->m_type = MyObject::TYPE_ELECTRIC;
+	this->LearnSkill(new QuickAttack());
+	this->LearnSkill(new Spark());
+	this->m_level = rand() % 3 + 3;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);
@@ -26,8 +29,9 @@ Electrike::~Electrike()
 
 Pokemon * Electrike::Evolve()
 {
-	if (true)
+	if (this->m_level >= 10)
 	{
+		this->LearnSkill(new Thunder());
 		this->m_evolved = true;
 		return new Manectric(this);
 	}

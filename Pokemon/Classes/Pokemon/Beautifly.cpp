@@ -2,14 +2,17 @@
 #define hp 45
 #define atk 45
 #define def 35
-#define speed 20
+#define speed 60
 
 Beautifly::Beautifly()
 {
 	this->Init(60, 61);
 	//
 	this->m_name = "Beautifly";
-	this->m_level = 5;
+	this->m_type = MyObject::TYPE_FLYING;
+	this->LearnSkill(new EnergyBall());
+	this->LearnSkill(new Gust());
+	this->m_level = rand() % 3 + 3;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);

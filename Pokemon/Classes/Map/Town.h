@@ -12,9 +12,7 @@ private:
 	Sprite * mGateWay;
 	TMXTiledMap* map;
 public:
-	static int arrayGrassHasPokemon[32][16];
 	static cocos2d::Scene* createScene();
-	int Check(int x, int y);
 	static int previousScene;
 	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);

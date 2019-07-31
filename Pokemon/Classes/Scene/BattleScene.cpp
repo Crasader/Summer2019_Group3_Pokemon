@@ -940,6 +940,8 @@ void BattleScene::BattlePhase(int idSkill)
 
 void BattleScene::UseItem()
 {
+	int id = rand() % this->m_opponent->GetCountSkills();
+	this->m_oppSkill = this->m_opponent->GetSkillById(id);
 	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 	this->BattleMessage(this->m_player->GetName() + " restore health.");
 	this->schedule(schedule_selector(BattleScene::RestoreHealthStep), 0.1);
