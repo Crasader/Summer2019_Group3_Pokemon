@@ -4,7 +4,7 @@
 #include "Scene\Loading.h"
 #include "Scene\BattleScene.h"
 #include "HelloWorldScene.h"
-#include "Map\Lab.h"
+#include "Map\City.h"
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
@@ -100,7 +100,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto resourceManager = ResourceManager::GetInstance();
 
     // create a scene. it's an autorelease object
-	auto scene = Lab::createScene();
+	auto scene = City::createScene();
     // run
     director->runWithScene(scene);
 

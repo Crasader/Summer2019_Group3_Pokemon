@@ -327,6 +327,8 @@ void Lab::UpdateCamera() {
 }
 void Lab::Log(string logg)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -335,6 +337,8 @@ void Lab::Log(string logg)
 }
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playEffect("Beep.mp3", false);
 	if (this->m_labelLog->getOpacity() == 0)
 	{
 		this->unschedule(schedule_selector(Lab::TypeWriter));

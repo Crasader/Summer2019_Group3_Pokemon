@@ -283,7 +283,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("Let's battle!");
+		this->Log("ZzzzZzzzZZzz");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
@@ -457,7 +457,7 @@ void City::InitObject()
 			{
 				m_cavenpc = ResourceManager::GetInstance()->GetSpriteById(125);
 				m_cavenpc->setPosition(Vec2(posX, posY));
-				m_cavenpc->setScale(0.8);
+				m_cavenpc->setScale(1.2);
 				cavenpcbody = PhysicsBody::createBox(m_cavenpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				cavenpcbody->setCollisionBitmask(Model::BITMASK_CAVENPC);
 				cavenpcbody->setContactTestBitmask(true);
