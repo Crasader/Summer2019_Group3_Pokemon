@@ -2,6 +2,9 @@
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"
+#include "NPC\CaveNPC.h"
+#include "NPC\LakeNPC.h"
+#include "NPC\Route2NPC.h"
 #include <math.h>
 using namespace cocos2d;
 using namespace std;
@@ -10,9 +13,10 @@ class City : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
-	Sprite * m_cavenpc;
-	Sprite * m_lakenpc;
-	Sprite * m_route2npc;
+	CaveNPC * m_cavenpc;
+	LakeNPC * m_lakenpc;
+	Route2NPC * m_route2npc;
+	EventListenerTouchOneByOne* touchListener;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;

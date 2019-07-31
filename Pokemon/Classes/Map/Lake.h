@@ -11,6 +11,7 @@ class Lake: public cocos2d::Layer
 {
 private:
 	Trainer * mPlayer;
+	TMXTiledMap* map;
 	Sprite * mGateWay;
 	Sprite * suicune;
 	Label* m_labelLog;
@@ -23,6 +24,7 @@ public:
     virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
+	void InitGrass();
 	void UpdateCamera();
 	void Log(string logg);
 	bool onTouchBegan(Touch* touch, Event* e);

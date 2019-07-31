@@ -29,6 +29,7 @@ public:
 	void AddPokemon(Pokemon* pokemon);
 	int GetCountPokemon();
 	void ChangePokemon(int index);
+	void CheckPokemonEvolve();
 	void SetGold(int gold);
 	int GetGold();
 	void AddItem(Item* item);
@@ -43,7 +44,7 @@ public:
 	void HealthPokemon(int index, Pokemon* pokemon);
 private:
 	static Bag* m_instance;
-	vector<Pokemon*> m_pokemons = { new Charmander(5), new Squirtle(5), new Chikorita(5), nullptr, nullptr, nullptr };
+	vector<Pokemon*> m_pokemons = { new Squirtle(5), new Charmander(5), new Chikorita(5), nullptr, nullptr, nullptr };
 	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 	vector<Item*> m_items;
 	int my_gold;

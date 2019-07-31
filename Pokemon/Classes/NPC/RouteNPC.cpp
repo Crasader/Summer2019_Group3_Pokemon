@@ -31,3 +31,8 @@ void RouteNPC::Init()
 void RouteNPC::Update(float deltaTime)
 {
 }
+
+vector<Pokemon*> RouteNPC::GetListPokemon()
+{
+	return this->m_pokemons;
+}

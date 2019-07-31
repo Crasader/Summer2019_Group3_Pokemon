@@ -3,13 +3,15 @@
 #include "SimpleAudioEngine.h"
 #include "Buttons.h"
 #include "City.h"
+#include "Scene\BattleScene.h"
 #include "Model.h"
 
 using namespace CocosDenshion;
 USING_NS_CC;
 Size lakevisibleSize;
 Size laketileMapSize;
-
+vector<Vec2> lake_point;
+float lake_tick = 0;
 PhysicsBody* lakebody, *lakegateWay, *suicuneBody;
 Camera *lakecamera, *cameraUILake;
 Layer *layer_UI_Lake;
@@ -78,7 +80,7 @@ bool Lake::init()
 	lakevisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(9);
+	map = ResourceManager::GetInstance()->GetTiledMapById(9);
 	laketileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -100,6 +102,8 @@ bool Lake::init()
 			}
 		}
 	}
+
+	InitGrass();
 
 	InitObject();
 	
@@ -147,7 +151,6 @@ bool Lake::init()
 bool Lake::onContactBegin(PhysicsContact& contact)
 
 {
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
@@ -238,6 +241,7 @@ void Lake::InitObject()
 		int type = object.asValueMap().at("type").asInt();
 		if (type == Model::MODLE_TYPE_MAIN_CHARACTER) {
 			mPlayer = new Trainer(this);
+			mPlayer->GetSpriteFront()->setScale(1.5);
 			mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 			lakebody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 			lakebody->setCollisionBitmask(Model::BITMASK_PLAYER);
@@ -281,6 +285,24 @@ void Lake::InitObject()
 		}
 	}
 
+}
+
+void Lake::InitGrass()
+{
+	auto grass = map->getLayer("grass");
+	int width = grass->getLayerSize().width;
+	int height = grass->getLayerSize().height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				lake_point.push_back(tilePokemon->getPosition());
+			}
+		}
+	}
 }
 
 void Lake::UpdateCamera() {
@@ -385,7 +407,52 @@ bool Lake::onTouchEnd(Touch * t, Event * event)
 	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
-void Lake::update(float dt) {
+void Lake::update(float dt)
+{
+	for (int i = 0; i < lake_point.size(); i++)
+	{
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(lake_point.at(i)) && Buttons::state != 0)
+		{
+			lake_tick += dt;
+			break;
+		}
+	}
+	if (lake_tick >= 2.5)
+	{
+		vector<Pokemon*> wildPokemon;
+		int index = rand() % 6 + 1;
+		int level = rand() % 4 + 7;
+		switch (index)
+		{
+		case 1:
+			wildPokemon.push_back(new Shaymin(level));
+			break;
+		case 2:
+			wildPokemon.push_back(new Pidgeotto(level));
+			break;
+		case 3:
+			wildPokemon.push_back(new Kirlia(level));
+			break;
+		case 4:
+			wildPokemon.push_back(new Feebas(level));
+			break;
+		case 5:
+			wildPokemon.push_back(new Dragonair(level));
+			break;
+		case 6:
+			wildPokemon.push_back(new Meowth(level));
+			break;
+		default:
+			break;
+		}
+		Buttons::GetIntance()->SetVisible(false);
+		auto layer = BattleScene::CreateLayer(wildPokemon);
+		layer->setPosition(lakecamera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			lakecamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		lake_tick = 0;
+	}
 	UpdatePlayer(dt);
 	UpdateCamera();
 }

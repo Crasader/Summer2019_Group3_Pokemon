@@ -15,6 +15,8 @@ Dragonair::Dragonair(int level) : Pokemon(level)
 	//
 	this->m_name = "Dragonair";
 	this->m_type = MyObject::TYPE_DRAGON;
+	this->LearnSkill(new WaterGun());
+	this->LearnSkill(new DragonCut());
 	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack += atk;
@@ -29,8 +31,9 @@ Dragonair::~Dragonair()
 
 Pokemon * Dragonair::Evolve()
 {
-	if (true)
+	if (this->m_level >= 15)
 	{
+		this->LearnSkill(new DragonClaw());
 		this->m_evolved = true;
 		return new Dragonite(this);
 	}

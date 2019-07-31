@@ -6,6 +6,7 @@ class Wartortle : public Pokemon
 {
 public:
 	Wartortle();
+	Wartortle(int level);
 	Wartortle(Squirtle* it);
 	~Wartortle();
 	Pokemon* Evolve() override;

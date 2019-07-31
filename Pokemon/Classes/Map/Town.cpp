@@ -168,19 +168,19 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -433,7 +433,7 @@ void Town::update(float dt)
 		default:
 			break;
 		}
-		Buttons::GetIntance()->SetEnabled(false);
+		Buttons::GetIntance()->SetVisible(false);
 		auto layer = BattleScene::CreateLayer(wildPokemon);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();

@@ -9,6 +9,22 @@ Kirlia::Kirlia()
 {
 }
 
+Kirlia::Kirlia(int level) : Pokemon(level)
+{
+	this->Init(70, 71);
+	//
+	this->m_name = "Kirlia";
+	this->m_type = MyObject::TYPE_GRASS;
+	this->LearnSkill(new LeechSeed());
+	this->LearnSkill(new EnergyBall());
+	this->m_maxHealth += hp;
+	this->m_currentHealth = this->m_maxHealth;
+	this->m_attack += atk;
+	this->m_defense += def;
+	this->m_attackSpeed += speed;
+	this->m_maxExp += 2;
+}
+
 Kirlia::Kirlia(Ralts * it)
 {
 	this->Init(70, 71);
@@ -33,7 +49,7 @@ Kirlia::~Kirlia()
 
 Pokemon * Kirlia::Evolve()
 {
-	if (true)
+	if (this->m_level >= 14)
 	{
 		this->LearnSkill(new RazorLeaf());
 		this->m_evolved = true;

@@ -30,7 +30,7 @@ Ralts::~Ralts()
 
 Pokemon * Ralts::Evolve()
 {
-	if (true)
+	if (this->m_level >= 7)
 	{
 		this->LearnSkill(new EnergyBall());
 		this->m_evolved = true;

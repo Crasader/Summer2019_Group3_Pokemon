@@ -4,7 +4,7 @@
 #include "Pokemon.h"
 #include "Trainer.h"
 #include <math.h>
-#include <NPC\RouteNPC.h>
+#include "NPC\RouteNPC.h"
 using namespace cocos2d;
 using namespace std;
 class Route1 : public cocos2d::Layer
@@ -13,7 +13,8 @@ private:
 	Trainer * mPlayer;
 	TMXTiledMap* map;
 	Sprite * mGateWay;
-	Sprite * m_route1npc;
+	RouteNPC * m_route1npc;
+	EventListenerTouchOneByOne* touchListener;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;

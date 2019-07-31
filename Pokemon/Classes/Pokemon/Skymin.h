@@ -5,5 +5,6 @@ class Skymin : public Pokemon
 {
 public:
 	Skymin();
+	Skymin(int level);
 	~Skymin();
 };

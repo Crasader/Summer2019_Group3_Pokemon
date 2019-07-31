@@ -231,11 +231,11 @@ Button * Buttons::GetButtonTips()
 	return m_tips;
 }
 
-void Buttons::SetEnabled(bool enable)
+void Buttons::SetVisible(bool enable)
 {
-	this->m_up->setEnabled(enable);
-	this->m_bag->setEnabled(enable);
-	this->m_tips->setEnabled(enable);
+	this->m_up->setVisible(enable);
+	this->m_bag->setVisible(enable);
+	this->m_tips->setVisible(enable);
 }
 
 void Buttons::Remove()

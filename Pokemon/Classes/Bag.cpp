@@ -90,6 +90,21 @@ void Bag::ChangePokemon(int index)
 	this->m_pokemons.at(index) = temp;
 }
 
+void Bag::CheckPokemonEvolve()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (this->m_pokemons.at(i) != nullptr)
+		{
+			auto evolve = this->m_pokemons.at(i)->Evolve();
+			if (evolve != nullptr)
+			{
+				this->m_pokemons.at(i) = evolve;
+			}
+		}
+	}
+}
+
 void Bag::SetGold(int gold)
 {
 	this->my_gold = gold;

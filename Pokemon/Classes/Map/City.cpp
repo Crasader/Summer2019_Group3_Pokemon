@@ -8,13 +8,14 @@
 #include "Cave.h"
 #include "Route2.h"
 #include "Model.h"
+#include "Scene\BattleScene.h"
 #include <cstdlib>
 
 using namespace CocosDenshion;
 USING_NS_CC;
 Size cityVisibleSize;
 Size cityTileMapSize;
-
+vector<Pokemon*> listNpcPokemon;
 Layer *layer_UI_City;
 Camera *cityCamera, *cameraUICity;
 PhysicsBody* cityBody, *cityGateWay, *lakenpcbody, *cavenpcbody, *route2npcbody;
@@ -153,8 +154,6 @@ bool City::init()
 bool City::onContactBegin(PhysicsContact& contact)
 
 {
-
-
 	PhysicsBody* a = contact.getShapeA()->getBody();
 	PhysicsBody* b = contact.getShapeB()->getBody();
 
@@ -217,19 +216,19 @@ bool City::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -256,13 +255,14 @@ bool City::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		listNpcPokemon = this->m_lakenpc->GetListPokemon();
 		Model::LAKENPC = false;
 		//removeChild(m_lakenpc, true);
 	}
@@ -287,13 +287,14 @@ bool City::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("ZzzzZzzzZZzz");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		listNpcPokemon = this->m_cavenpc->GetListPokemon();
 		Model::CAVENPC = false;
 		//removeChild(m_cavenpc, true);
 	}
@@ -318,13 +319,14 @@ bool City::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
+		audio->playEffect("res/Sound/Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		listNpcPokemon = this->m_route2npc->GetListPokemon();
 		Model::ROUTE2NPC = false;
 		//removeChild(m_route2npc, true);
 	}
@@ -442,57 +444,48 @@ void City::InitObject()
 		{
 			if (Model::LAKENPC == true)
 			{
-				m_lakenpc = ResourceManager::GetInstance()->GetSpriteById(124);
-				m_lakenpc->setPosition(Vec2(posX, posY));
-				m_lakenpc->setScale(0.8);
-				lakenpcbody = PhysicsBody::createBox(m_lakenpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				m_lakenpc = new LakeNPC();
+				m_lakenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				m_lakenpc->GetSpriteFront()->setScale(0.8);
+				lakenpcbody = PhysicsBody::createBox(m_lakenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				lakenpcbody->setCollisionBitmask(Model::BITMASK_LAKENPC);
 				lakenpcbody->setContactTestBitmask(true);
 				lakenpcbody->setDynamic(false);
 				lakenpcbody->setGravityEnable(false);
-				m_lakenpc->setPhysicsBody(lakenpcbody);
-				this->addChild(m_lakenpc, 10);
-			}
-			else
-			{
+				m_lakenpc->GetSpriteFront()->setPhysicsBody(lakenpcbody);
+				this->addChild(m_lakenpc->GetSpriteFront(), 10);
 			}
 		}
 		else if (type == Model::MODLE_TYPE_CAVENPC)
 		{
 			if (Model::CAVENPC == true)
 			{
-				m_cavenpc = ResourceManager::GetInstance()->GetSpriteById(125);
-				m_cavenpc->setPosition(Vec2(posX, posY));
-				m_cavenpc->setScale(1.2);
-				cavenpcbody = PhysicsBody::createBox(m_cavenpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				m_cavenpc = new CaveNPC();
+				m_cavenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				m_cavenpc->GetSpriteFront()->setScale(1.2);
+				cavenpcbody = PhysicsBody::createBox(m_cavenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				cavenpcbody->setCollisionBitmask(Model::BITMASK_CAVENPC);
 				cavenpcbody->setContactTestBitmask(true);
 				cavenpcbody->setDynamic(false);
 				cavenpcbody->setGravityEnable(false);
-				m_cavenpc->setPhysicsBody(cavenpcbody);
-				this->addChild(m_cavenpc, 10);
-			}
-			else
-			{
+				m_cavenpc->GetSpriteFront()->setPhysicsBody(cavenpcbody);
+				this->addChild(m_cavenpc->GetSpriteFront(), 10);
 			}
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE2NPC)
 		{
 			if (Model::CAVENPC == true)
 			{
-				m_route2npc = ResourceManager::GetInstance()->GetSpriteById(128);
-				m_route2npc->setPosition(Vec2(posX, posY));
-				m_route2npc->setScale(0.8);
-				route2npcbody = PhysicsBody::createBox(m_route2npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				m_route2npc = new Route2NPC();
+				m_route2npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				m_route2npc->GetSpriteFront()->setScale(0.8);
+				route2npcbody = PhysicsBody::createBox(m_route2npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				route2npcbody->setCollisionBitmask(Model::BITMASK_ROUTE2NPC);
 				route2npcbody->setContactTestBitmask(true);
 				route2npcbody->setDynamic(false);
 				route2npcbody->setGravityEnable(false);
-				m_route2npc->setPhysicsBody(route2npcbody);
-				this->addChild(m_route2npc, 10);
-			}
-			else
-			{
+				m_route2npc->GetSpriteFront()->setPhysicsBody(route2npcbody);
+				this->addChild(m_route2npc->GetSpriteFront(), 10);
 			}
 		}
 	}
@@ -580,6 +573,7 @@ void City::Log(string logg)
 	writing = 0;
 	this->schedule(schedule_selector(City::TypeWriter), 0.05);
 }
+
 bool City::onTouchBegan(Touch * touch, Event * e)
 {
 	if (this->m_labelLog->getOpacity() == 0)
@@ -587,18 +581,31 @@ bool City::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(City::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		auto layer = BattleScene::CreateLayer(listNpcPokemon);
+		layer->setPosition(cityCamera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			cityCamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		Buttons::GetIntance()->SetVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
+
 bool City::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
-	Buttons::GetIntance()->SetTouchEnable();
+	/*this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }
+
 void City::update(float dt) {
 	UpdatePlayer(dt);
 	UpdateCamera();

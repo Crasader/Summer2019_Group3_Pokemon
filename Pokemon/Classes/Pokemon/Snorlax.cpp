@@ -14,7 +14,7 @@ Snorlax::Snorlax(int level) : Pokemon(level)
 	//
 	this->m_name = "Snorlax";
 	this->m_type = MyObject::TYPE_NORMAL;
-	this->m_listSkill = { new Tackle(), new Thunderbolt(), nullptr };
+	this->m_listSkill = { new Tackle(), new BodySlam(), new FirePunch() };
 	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack += atk;

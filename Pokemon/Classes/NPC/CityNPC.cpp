@@ -1,22 +1,17 @@
 #include "CityNPC.h"
 #include "Pokemon.h"
-#include "Pokemon\Pidgey.h"
-#include "Pokemon\Ralts.h"
-#include "Pokemon\Pikachu.h"
+#include "include_pokemon.h"
 
 
 CityNPC::CityNPC()
 {
-	auto pidgey = new Pidgey();
-	pidgey->SetLevel(5);
-	this->m_pokemons.push_back(pidgey);
+	auto ponyta = new Ponyta(8);
+	this->m_pokemons.push_back(ponyta);
 
-	auto ralts = new Ralts();
-	ralts->SetLevel(5);
-	this->m_pokemons.push_back(ralts);
+	auto shaymin = new Shaymin(8);
+	this->m_pokemons.push_back(shaymin);
 
-	auto pikachu = new Pikachu();
-	pikachu->SetLevel(6);
+	auto pikachu = new Kirlia(10);
 	this->m_pokemons.push_back(pikachu);
 }
 

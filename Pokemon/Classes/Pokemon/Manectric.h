@@ -6,6 +6,7 @@ class Manectric : public Pokemon
 {
 public:
 	Manectric();
+	Manectric(int level);
 	Manectric(Electrike* it);
 	~Manectric();
 };

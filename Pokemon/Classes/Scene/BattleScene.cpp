@@ -51,10 +51,12 @@ void BattleScene::update(float deltaTime)
 }
 
 vector<Pokemon*> listOpponentPokemon;
+int countOppPokemons = 0;
 
 Layer * BattleScene::CreateLayer(vector<Pokemon*> pokemons)
 {
 	listOpponentPokemon = pokemons;
+	countOppPokemons = listOpponentPokemon.size();
 	auto layer = BattleScene::create();
 	return layer;
 }
@@ -718,10 +720,13 @@ void BattleScene::AddEventListener()
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			if (this->m_labelSkill4->getString() == "Run")
 			{
-				this->ReleaseChildren();
-				this->getParent()->scheduleUpdate();
-				Buttons::GetIntance()->SetEnabled(true);
-				this->removeFromParent();
+				if (countOppPokemons < 2)
+				{
+					this->ReleaseChildren();
+					this->getParent()->scheduleUpdate();
+					Buttons::GetIntance()->SetVisible(true);
+					this->removeFromParent();
+				}
 			}
 			else
 			{
@@ -888,8 +893,17 @@ void BattleScene::HasNextBattle()
 						this->m_levelUp->setVisible(false);
 					}), nullptr));
 				}
-				delete this->m_opponent;
-				listOpponentPokemon.erase(listOpponentPokemon.begin());
+				if (countOppPokemons < 2)
+				{
+					listOpponentPokemon.erase(listOpponentPokemon.begin());
+					Bag::GetInstance()->AddPokemon(this->m_opponent);
+					this->m_opponent->RemoveFromParent();
+				}
+				else
+				{
+					delete this->m_opponent;
+					listOpponentPokemon.erase(listOpponentPokemon.begin());
+				}
 				if (listOpponentPokemon.size() > 0)
 				{
 					this->OpponentChangePokemon();
@@ -1033,8 +1047,9 @@ void BattleScene::EndBattle()
 			Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
 			this->m_stateBattleMessage = false;
 			this->ReleaseChildren();
+			Bag::GetInstance()->CheckPokemonEvolve();
 			this->getParent()->scheduleUpdate();
-			Buttons::GetIntance()->SetEnabled(true);
+			Buttons::GetIntance()->SetVisible(true);
 			this->removeFromParent();
 			if (Bag::GetInstance()->GetCountPokemon() <= 0)
 			{

@@ -5,5 +5,6 @@ class Shaymin : public Pokemon
 {
 public:
 	Shaymin();
+	Shaymin(int level);
 	~Shaymin();
 };

@@ -183,19 +183,19 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
@@ -223,10 +223,10 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/recovery.wav", false);
-		Buttons::GetIntance()->Remove();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("pokemon cua ban da duoc phuc hoi");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		
@@ -261,7 +261,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		UICustom::Popup *popupShop = UICustom::Popup::CreateShop();
@@ -396,17 +396,23 @@ bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(PokemonCenter::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		Buttons::GetIntance()->SetVisible(true);
+		this->m_messageBox->setVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
 
 bool PokemonCenter::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
-	Buttons::GetIntance()->SetTouchEnable();
+	/*this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }
 

@@ -11,6 +11,7 @@ class PokemonCenter : public cocos2d::Layer
 private:
 	Trainer *mPlayer;
 	Sprite * mGateWay;
+	EventListenerTouchOneByOne* touchListener;
 	Sprite * m_nurse;
 	Sprite * m_shop;
 	Label* m_labelLog;

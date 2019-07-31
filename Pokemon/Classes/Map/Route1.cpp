@@ -192,25 +192,25 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		{
 		case 1:
 			mPlayer->GetSpriteFront()->stopActionByTag(0);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
 			break;
 		case 2:
 			mPlayer->GetSpriteFront()->stopActionByTag(6);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
 			break;
 		case 3:
 			mPlayer->GetSpriteFront()->stopActionByTag(4);
-			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 1);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
 			break;
 		case 4:
 			mPlayer->GetSpriteFront()->stopActionByTag(2);
-			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 1);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
 			break;
 		default:
 			break;
 		}
 	}
-	/*else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		switch (Buttons::state)
@@ -231,17 +231,16 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		audio->playEffect("res/Sound/Beep.mp3", false);
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		//this->mPlayer->GetSpriteFront()->stopAllActions();
 		Model::ROUTE1NPC = false;
 	}
-		removeChild(m_route1npc, true);
-	}*/
 	return true;
 }
 
@@ -319,22 +318,22 @@ void Route1::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		/*else if (type == Model::MODLE_TYPE_ROUTE1NPC)
+		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
 			if (Model::ROUTE1NPC == true)
 			{
-				m_route1npc = ResourceManager::GetInstance()->GetSpriteById(123);
-				m_route1npc->setPosition(Vec2(posX, posY));
-				m_route1npc->setScale(0.8);
-				route1npcbody = PhysicsBody::createBox(m_route1npc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				m_route1npc = new RouteNPC();
+				m_route1npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				m_route1npc->GetSpriteFront()->setScale(0.8);
+				route1npcbody = PhysicsBody::createBox(m_route1npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				route1npcbody->setCollisionBitmask(Model::BITMASK_ROUTE1NPC);
 				route1npcbody->setContactTestBitmask(true);
 				route1npcbody->setDynamic(false);
 				route1npcbody->setGravityEnable(false);
-				m_route1npc->setPhysicsBody(route1npcbody);
-				this->addChild(m_route1npc, 10);
+				m_route1npc->GetSpriteFront()->setPhysicsBody(route1npcbody);
+				this->addChild(m_route1npc->GetSpriteFront(), 10);
 			}
-		}*/
+		}
 	}
 }
 
@@ -385,7 +384,7 @@ void Route1::UpdateCamera() {
 void Route1::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -400,9 +399,18 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(Route1::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
-		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		auto layer = BattleScene::CreateLayer(m_route1npc->GetListPokemon());
+		layer->setPosition(route1Camera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			route1Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		m_route1npc->GetSpriteFront()->removeFromParent();
+		Buttons::GetIntance()->SetVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
@@ -437,9 +445,6 @@ void Route1::UpdatePlayer(float dt) {
 
 bool Route1::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
-	removeChild(m_route1npc, true);
-	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 
@@ -478,7 +483,7 @@ void Route1::update(float dt)
 		default:
 			break;
 		}
-		Buttons::GetIntance()->SetEnabled(false);
+		Buttons::GetIntance()->SetVisible(false);
 		auto layer = BattleScene::CreateLayer(wildPokemon);
 		layer->setPosition(route1Camera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
 			               route1Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);

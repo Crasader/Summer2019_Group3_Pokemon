@@ -15,6 +15,8 @@ Feebas::Feebas(int level) : Pokemon(level)
 	//
 	this->m_name = "Feebas";
 	this->m_type = MyObject::TYPE_WATER;
+	this->LearnSkill(new Bubble());
+	this->LearnSkill(new WaterPulse());
 	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack += atk;
@@ -29,8 +31,9 @@ Feebas::~Feebas()
 
 Pokemon * Feebas::Evolve()
 {
-	if (true)
+	if (this->m_level >= 14)
 	{
+		this->LearnSkill(new DragonClaw());
 		this->m_evolved = true;
 		return new Milotic(this);
 	}

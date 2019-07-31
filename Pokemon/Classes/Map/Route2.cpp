@@ -14,8 +14,6 @@ Size route2TileMapSize;
 
 vector<Vec2> route2_point;
 float route2_tick = 0;
-PhysicsBody* route2Body, *route2GateWay;
-Camera *route2Camera;
 
 Layer *layer_UI_Route2;
 Camera *route2Camera, *cameraUIRoute2;
@@ -466,7 +464,7 @@ void Route2::update(float dt)
 		default:
 			break;
 		}
-		Buttons::GetIntance()->SetEnabled(false);
+		Buttons::GetIntance()->SetVisible(false);
 		auto layer = BattleScene::CreateLayer(wildPokemon);
 		layer->setPosition(route2Camera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
 			route2Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);

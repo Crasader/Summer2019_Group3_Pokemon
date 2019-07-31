@@ -1,27 +1,29 @@
 #include "CaveNPC.h"
 #include "Pokemon.h"
-#include "Pokemon\Ponyta.h"
+#include "Pokemon\Snorlax.h"
 #include "Pokemon\Vulpix.h"
 #include "Pokemon\Charmeleon.h"
 CaveNPC::CaveNPC()
 {
-	auto ponyta = new Ponyta();
-	ponyta->SetLevel(10);
-	this->m_pokemons.push_back(ponyta);
-
-	auto vulpix = new Vulpix();
-	vulpix->SetLevel(10);
-	this->m_pokemons.push_back(vulpix);
-
-	auto charmeleon = new Charmeleon();
-	charmeleon->SetLevel(11);
-	this->m_pokemons.push_back(charmeleon);
+	this->Init();
+	auto snorlax = new Snorlax(10);
+	this->m_pokemons.push_back(snorlax);
 }
 
 CaveNPC::~CaveNPC()
 {
 }
 
+void CaveNPC::Init()
+{
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(125);
+}
+
 void CaveNPC::Update(float deltaTime)
 {
+}
+
+vector<Pokemon*> CaveNPC::GetListPokemon()
+{
+	return this->m_pokemons;
 }
