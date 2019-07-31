@@ -11,7 +11,9 @@ Taillow::Taillow()
 	//
 	this->m_name = "Taillow";
 	this->m_type = MyObject::TYPE_FLYING;
-	this->m_level = 5;
+	this->LearnSkill(new Peck());
+	this->LearnSkill(new Gust());
+	this->m_level = rand() % 2 + 1;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);
@@ -29,6 +31,7 @@ Pokemon * Taillow::Evolve()
 {
 	if (this->m_level >= 10)
 	{
+		this->LearnSkill(new WingAttack());
 		this->m_evolved = true;
 		return new Swellow(this);
 	}

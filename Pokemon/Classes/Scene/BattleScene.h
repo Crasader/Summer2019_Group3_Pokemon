@@ -9,6 +9,7 @@ class BattleScene : public Layer
 private:
 	Sprite* m_pokeball;
 	Animation* m_animationPokeball;
+	Sprite* m_levelUp;
 
 	Sprite* m_background;
 	Sprite* m_messageBox;
@@ -33,9 +34,9 @@ private:
 	TMXTiledMap* m_tiledmap;
 
 	Pokemon* m_player;
-	Skill* playerSkill;
+	Skill* m_playerSkill;
 	Pokemon* m_opponent;
-	Skill* oppSkill;
+	Skill* m_oppSkill;
 	int writing = 0;
 	bool m_stateBattleMessage = false;
 	bool m_statePlayer = false;
@@ -49,6 +50,8 @@ public:
 
 	void update(float deltaTime) override;
 
+	static Layer* CreateLayer(vector<Pokemon*> pokemons);
+
 	void ReleaseChildren();
 
 	void TypeWriter(float deltaTime);
@@ -57,9 +60,15 @@ public:
 
 	Pokemon* GetTrainerPokemon();
 
+	void PlayerAttackOpponent();
+
+	void OpponentAttackPlayer();
+
 	void DamageStepWithPlayerAttackFirst(float deltaTime);
 
 	void DamageStepWithOpponentAttackFirst(float deltaTime);
+
+	void RestoreHealthStep(float deltaTime);
 
 	void ChangePokemonStep(float deltaTime);
 
@@ -72,6 +81,10 @@ public:
 	void LoadPlayerPosition();
 
 	void LoadPlayerHpBar();
+
+	void LoadOpponentPosition();
+
+	void LoadOpponentHpBar();
 
 	void InitTiledMap();
 
@@ -92,9 +105,17 @@ public:
 
 	void StartBattle();
 
+	void HasNextBattle();
+
 	void BattlePhase(int idSkill);
 
-	void ChangePokemon();
+	void UseItem();
+
+	void TrainerChangePokemon();
+
+	void OpponentChangePokemon();
+
+	void StandByPhase();
 
 	void NextBattle();
 

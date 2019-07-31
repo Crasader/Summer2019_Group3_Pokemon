@@ -1,15 +1,5 @@
 #include "Bag.h"
 #include "Trainer.h"
-#include "Item\Potion.h"
-#include "Item\MaxPotion.h"
-#include "Item\SuperPotion.h"
-#include "Item\Revive.h"
-#include "Item\MaxRevive.h"
-#include "Item\Ether.h"
-#include "Item\LeafStone.h"
-#include "Item\FireStone.h"
-#include "Item\ThunderStone.h"
-#include "Item\WaterStone.h"
 
 Bag::Bag()
 {
@@ -108,7 +98,7 @@ void Bag::AddItem(Item * item)
 	this->m_items.push_back(item);
 }
 
-void Bag::AddPokemonIntoMyList(Pokemon *pokemon, int index)
+void Bag::AddPokemonIntoMyList(Pokemon *pokemon,int index)
 {
 	for (int i = 0; i < 6; i++)
 	{
@@ -134,7 +124,7 @@ void Bag::ReleasePokemon(int index)
 	this->SortList();
 }
 
-void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon, int index)
+void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon,int index)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -150,7 +140,7 @@ void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon, int index)
 
 void Bag::SortList()
 {
-	for (int i = 0; i < this->m_pokemons.size() - 1; i++)
+	for (int i=0; i < this->m_pokemons.size()-1; i++)
 	{
 		if (this->m_pokemons.at(i) == nullptr)
 		{
@@ -194,7 +184,7 @@ void Bag::CreateListItem()
 
 int Bag::SizeOfListPokemon()
 {
-	int cout = 0;
+	int cout=0;
 	for (int i = 0; i < this->m_pokemons.size(); i++)
 	{
 		if (this->m_pokemons.at(i) != nullptr)
@@ -215,4 +205,26 @@ int Bag::SizeOfListPokemonOver()
 		}
 	}
 	return cout;
+}
+
+void Bag::HealthPokemon(int index, Pokemon * pokemon)
+{
+	if (index == 0)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 50, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 1)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 100, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 2||index==5)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP());
+	}
+	if (index == 4)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP() / 2);
+	}
 }

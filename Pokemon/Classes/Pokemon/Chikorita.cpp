@@ -11,7 +11,7 @@ Chikorita::Chikorita()
 	//
 	this->m_name = "Chikorita";
 	this->m_type = MyObject::TYPE_GRASS;
-	this->m_listSkill = { new LeafStorm(), new LeechSeed(), nullptr };
+	this->LearnSkill(new LeechSeed());
 	this->m_level = 5;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
@@ -28,8 +28,9 @@ Chikorita::~Chikorita()
 
 Pokemon * Chikorita::Evolve()
 {
-	if (this->m_level >= 10)
+	if (this->m_level >= 8)
 	{
+		this->LearnSkill(new RazorLeaf());
 		this->m_evolved = true;
 		return new Bayleef(this);
 	}

@@ -31,6 +31,7 @@ Pokemon * Bayleef::Evolve()
 {
 	if (this->m_level >= 15)
 	{
+		this->LearnSkill(new LeafStorm());
 		this->m_evolved = true;
 		return new Meganium(this);
 	}

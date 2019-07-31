@@ -190,7 +190,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -201,13 +201,13 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -230,7 +230,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
+	/*else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		switch (Buttons::state)
@@ -260,8 +260,9 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		Model::ROUTE1NPC = false;
 	}
+		removeChild(m_route1npc, true);
+	}*/
 	return true;
-
 }
 
 void Route1::InitObject()
@@ -320,7 +321,7 @@ void Route1::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
+		/*else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
 			if (Model::ROUTE1NPC == true)
 			{
@@ -335,11 +336,7 @@ void Route1::InitObject()
 				m_route1npc->setPhysicsBody(route1npcbody);
 				this->addChild(m_route1npc, 10);
 			}
-			else
-			{
-
-			}
-		}
+		}*/
 	}
 }
 

@@ -13,7 +13,7 @@ protected:
 	string m_name;
 	Animation* animationFront;
 	Animation* animationBack;
-	vector<Skill*> m_listSkill;
+	vector<Skill*> m_listSkill = { nullptr, nullptr, nullptr };
 	int m_type;
 	int m_maxHealth;
 	int m_currentHealth;
@@ -66,6 +66,7 @@ public:
 	void SetScale(float scale);
 	void RemoveFromParent();
 	Vec2 GetPosition();
+	void LearnSkill(Skill* skill);
 	Skill* GetSkillById(int id);
 	int GetCountSkills();
 	void Attack(Pokemon* target, Skill* skill);

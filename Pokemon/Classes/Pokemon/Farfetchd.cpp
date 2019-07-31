@@ -1,6 +1,6 @@
 #include "Farfetchd.h"
 #define hp 52
-#define atk 90
+#define atk 45
 #define def 55
 #define speed 60
 
@@ -10,8 +10,9 @@ Farfetchd::Farfetchd()
 	//
 	this->m_name = "Farfetchd";
 	this->m_type = MyObject::TYPE_NORMAL;
-	this->m_level = 5;
-	this->m_id = 0;
+	this->LearnSkill(new Tackle());
+	this->LearnSkill(new QuickAttack());
+	this->m_level = rand() % 2 + 1;
 	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack = atk + ((this->m_level - 1) * 2);

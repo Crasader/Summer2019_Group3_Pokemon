@@ -26,6 +26,7 @@ public:
 	Button *GetButtonUp();
 	Button *GetButtonBag();
 	Button *GetButtonTips();
+	void SetEnabled(bool enable);
 	void Remove();
 	void UpdateButton(float x, float y);
 	void SetTouchEnable();

@@ -35,6 +35,7 @@ Pokemon * Pidgeotto::Evolve()
 {
 	if (true)
 	{
+		this->LearnSkill(new WingAttack());
 		this->m_evolved = true;
 		return new Pidgeot(this);
 	}

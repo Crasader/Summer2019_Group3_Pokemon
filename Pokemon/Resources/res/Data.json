@@ -177,7 +177,7 @@
     "151": "res/NPC/10.png"
   },
   "BUTTON": {
-    "size": 19,
+    "size": 22,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -253,6 +253,18 @@
     "18": {
       "normal": "res/UI/Button/buy.png",
       "pressed": "res/UI/Button/buy.png"
+    },
+    "19": {
+      "normal": "res/UI/Button/move_1.png",
+      "pressed": "res/UI/Button/move_2.png"
+    },
+    "20": {
+      "normal": "res/UI/Button/release_1.png",
+      "pressed": "res/UI/Button/release_2.png"
+    },
+     "21": {
+      "normal": "res/UI/Button/use_1.png",
+      "pressed": "res/UI/Button/use_2.png"
     }
   },
   "FONT": {

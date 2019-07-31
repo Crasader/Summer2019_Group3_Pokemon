@@ -20,8 +20,16 @@ public:
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
+<<<<<<< HEAD
 	CREATE_FUNC(Town);
 	void UpdatePlayer(float dt);
 	void update(float);
 	void DeleteGrassHasPokemon();
+=======
+	void InitGrass();
+	//void CreateButon();
+	CREATE_FUNC(Town);
+	//void createPhysics();
+	void update(float dt);
+>>>>>>> TanTai
 };

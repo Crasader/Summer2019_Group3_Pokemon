@@ -236,13 +236,23 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		{
 			if (ListYP.at(i) != nullptr)
 			{
+				ListYP.at(i)->SetCurrentHP(ListYP.at(i)->GetMaxHP());
+				ListYP.at(i)->GetSkillById(0)->SetCurrentPP(ListYP.at(i)->GetSkillById(0)->GetMaxPP());
+				if (ListYP.at(i)->GetSkillById(1) != nullptr)
+				{
+					ListYP.at(i)->GetSkillById(1)->SetCurrentPP(ListYP.at(i)->GetSkillById(1)->GetMaxPP());
+					if (ListYP.at(i)->GetSkillById(2) != nullptr)
+					{
+						ListYP.at(i)->GetSkillById(2)->SetCurrentPP(ListYP.at(i)->GetSkillById(2)->GetMaxPP());
+					}
+				}
 				ListYP.at(i)->Restore();
 			}
 		}
 		auto ListPO = Bag::GetInstance()->GetListPokemonOver();
 		for (int i = 0; i < ListPO.size(); i++)
 		{
-			ListPO.at(i)->SetCurrentHP(ListPO.at(1)->GetMaxHP());
+			ListPO.at(i)->SetCurrentHP(ListPO.at(i)->GetMaxHP());
 			ListPO.at(i)->GetSkillById(0)->SetCurrentPP(ListPO.at(i)->GetSkillById(0)->GetMaxPP());
 			if (ListPO.at(i)->GetSkillById(1) != nullptr)
 			{
