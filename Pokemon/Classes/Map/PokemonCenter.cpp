@@ -225,7 +225,6 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		audio->playEffect("res/Sound/recovery.wav", false);
 		Buttons::GetIntance()->Remove();
 		this->Log("pokemon cua ban da duoc phuc hoi");
-		this->m_stateLog = true;
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
@@ -416,33 +415,22 @@ void PokemonCenter::Log(string logg)
 }
 bool PokemonCenter::onTouchBegan(Touch * touch, Event * e)
 {
-	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("res/Sound/Beep.mp3", false);
-	if (!m_stateLog) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(PokemonCenter::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Button *up = Buttons::GetIntance()->GetButtonUp();
-		addChild(up, 100);
-		Button *bag = Buttons::GetIntance()->GetButtonBag();
-		bag->removeFromParent();
-		addChild(bag, 100);
-		Buttons::GetIntance()->ButtonListener(this->mPlayer);
-
-		auto contactListener = EventListenerPhysicsContact::create();
-		contactListener->onContactBegin = CC_CALLBACK_1(PokemonCenter::onContactBegin, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
-
-		scheduleUpdate();
+		this->unschedule(schedule_selector(PokemonCenter::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+
+bool PokemonCenter::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 

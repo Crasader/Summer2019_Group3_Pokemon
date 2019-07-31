@@ -15,11 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{14,14}</string>
                 <key>textureRect</key>
-<<<<<<< HEAD
-                <string>{{0,0},{14,14}}</string>
-=======
                 <string>{{34,17},{14,14}}</string>
->>>>>>> TanTai
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -34,15 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{13,10}</string>
                 <key>textureRect</key>
-<<<<<<< HEAD
-                <string>{{14,0},{13,10}}</string>
-                <key>textureRotated</key>
-                <false/>
-=======
                 <string>{{50,17},{13,10}}</string>
                 <key>textureRotated</key>
                 <true/>
->>>>>>> TanTai
             </dict>
             <key>2.png</key>
             <dict>
@@ -55,15 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{14,22}</string>
                 <key>textureRect</key>
-<<<<<<< HEAD
-                <string>{{0,14},{14,22}}</string>
-                <key>textureRotated</key>
-                <false/>
-=======
                 <string>{{34,1},{14,22}}</string>
                 <key>textureRotated</key>
                 <true/>
->>>>>>> TanTai
             </dict>
             <key>3.png</key>
             <dict>
@@ -76,11 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{31,29}</string>
                 <key>textureRect</key>
-<<<<<<< HEAD
-                <string>{{0,36},{31,29}}</string>
-=======
                 <string>{{1,1},{31,29}}</string>
->>>>>>> TanTai
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -94,15 +74,6 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-<<<<<<< HEAD
-            <string>PokeBall.png</string>
-            <key>size</key>
-            <string>{31,65}</string>
-            <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:77a0c5200a0b5a9b791bb22b26dbde80:a25a85e7d342d4b64dae13b6f9a26cde:39a3aa9380c23abaad44298bb0a3c412$</string>
-            <key>textureFileName</key>
-            <string>PokeBall.png</string>
-=======
             <string>Pokeball.png</string>
             <key>size</key>
             <string>{61,32}</string>
@@ -110,7 +81,6 @@
             <string>$TexturePacker:SmartUpdate:5fbe30591b96b3ac80ea49b35b27eeff:a25a85e7d342d4b64dae13b6f9a26cde:e5604a086c617c6cb7cff3aa3687edcb$</string>
             <key>textureFileName</key>
             <string>Pokeball.png</string>
->>>>>>> TanTai
         </dict>
     </dict>
 </plist>
