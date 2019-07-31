@@ -26,6 +26,7 @@ protected:
 	int m_id;
 	bool m_alive = true;
 	bool m_state = false;
+	bool m_evolved = false;
 public:
 	Pokemon();
 	~Pokemon();
@@ -62,6 +63,7 @@ public:
 	bool GetState();
 	void SetPosition(float xx, float yy);
 	void SetPosition(Vec2 position);
+	void SetScale(float scale);
 	void RemoveFromParent();
 	Vec2 GetPosition();
 	Skill* GetSkillById(int id);

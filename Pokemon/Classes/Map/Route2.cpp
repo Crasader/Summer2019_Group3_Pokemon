@@ -238,8 +238,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("ROAR !");
-		this->m_stateLog = true;
+		this->Log("Rararaiiiii!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
@@ -270,8 +269,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("Let's battle !");
-		this->m_stateLog = true;
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
@@ -436,20 +434,22 @@ void Route2::Log(string logg)
 
 bool Route2::onTouchBegan(Touch * touch, Event * e)
 {
-	if (m_stateLog == false) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Route2::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Buttons::GetIntance()->SetTouchEnable();
+		this->unschedule(schedule_selector(Route2::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+
+bool Route2::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 

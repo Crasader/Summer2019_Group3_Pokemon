@@ -20,8 +20,7 @@ public:
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
-	static void InitArray();
-	//void InitGrass();
+	void InitGrass();
 	//void CreateButon();
 	CREATE_FUNC(Town);
 	//void createPhysics();

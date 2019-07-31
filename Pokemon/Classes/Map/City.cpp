@@ -252,14 +252,13 @@ bool City::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("Let's battle");
-		this->m_stateLog = true;
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		Model::LAKENPC = false;
-		removeChild(m_lakenpc, true);
+		//removeChild(m_lakenpc, true);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CAVENPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_CAVENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -284,14 +283,13 @@ bool City::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("Let's battle");
-		this->m_stateLog = true;
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		Model::CAVENPC = false;
-		removeChild(m_cavenpc, true);
+		//removeChild(m_cavenpc, true);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -316,14 +314,13 @@ bool City::onContactBegin(PhysicsContact& contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("Let's battle");
-		this->m_stateLog = true;
+		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		Model::ROUTE2NPC = false;
-		removeChild(m_route2npc, true);
+		//removeChild(m_route2npc, true);
 	}
 	return true;
 }
@@ -550,20 +547,21 @@ void City::Log(string logg)
 }
 bool City::onTouchBegan(Touch * touch, Event * e)
 {
-	if (m_stateLog == false) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(City::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Buttons::GetIntance()->SetTouchEnable();
+		this->unschedule(schedule_selector(City::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+bool City::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 void City::update(float dt) {

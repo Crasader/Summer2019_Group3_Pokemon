@@ -5,7 +5,7 @@
 #include "Buttons.h"
 #include "Town.h"
 #include "Model.h"
-#include "Scene\BattleScene.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 Size labVisibleSize;
@@ -13,6 +13,7 @@ Size labTileMapSize;
 int count = 0;
 PhysicsBody* labBody, *labGateWay, *doctorBody;
 Camera *labCamera;
+UICustom::Popup *popup;
 
 Scene* Lab::createScene()
 {
@@ -49,6 +50,11 @@ bool Lab::init()
 	auto map = ResourceManager::GetInstance()->GetTiledMapById(7);
 	labTileMapSize = map->getContentSize();
 	addChild(map);
+
+	popup = UICustom::Popup::ChoosePokemon();
+	popup->removeFromParent();
+	popup->setVisible(false);
+	this->addChild(popup, 11);
 
 	auto mPhysicsLayer = map->getLayer("physics");
 	Size layerSize = mPhysicsLayer->getLayerSize();
@@ -205,13 +211,22 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
-		this->Log("fix ho bo may cai");
-		this->m_stateLog = true;
-		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		
+		if (Model::DOCTOR == true)
+		{
+			popup->setVisible(true);
+			Model::stateGame = 1;
+			Model::DOCTOR = false;
+		}
+		else
+		{
+			removeChild(popup, true);
+			this->m_messageBox->setVisible(true);
+			this->Log("Let's start your journey");
+		}
 	}
 	return true;
 
@@ -320,20 +335,21 @@ void Lab::Log(string logg)
 }
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
-	if(!m_stateLog){
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(Lab::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Buttons::GetIntance()->SetTouchEnable();
+		this->unschedule(schedule_selector(Lab::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+bool Lab::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 void Lab::update(float dt) {

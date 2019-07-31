@@ -126,36 +126,7 @@ bool Town::init()
 			}
 		}
 	}
-
-	//InitGrass();
-	grass = map->getLayer("grass");
-	int count = 0;
-	int width = layerSize.width;
-	int height = layerSize.height;
-	for (int i = 0; i < width; i++)
-	{
-		for (int j = 0; j < height; j++)
-		{
-			auto tilePokemon = grass->getTileAt(Vec2(i, j));
-			if (tilePokemon != NULL)
-			{
-				if (count < 3) {
-					int _random = rand() % 4;
-					if (!_random && !Check(i, j)) {
-						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
-						pokemon->setContactTestBitmask(true);
-						pokemon->setDynamic(false);
-						pokemon->setGravityEnable(false);
-						tilePokemon->setPhysicsBody(pokemon);
-						tilePokemon->setName("physics");
-						arrayGrassHasPokemon[i][j] = 1;
-						count++;
-					}
-				}
-			}
-		}
-	}
+	InitGrass();
 
 	InitObject();
 
@@ -441,6 +412,39 @@ void Town::UpdateCamera() {
 			}
 			else {
 				townCamera->setPosition(mPlayer->GetSpriteFront()->getPosition());
+			}
+		}
+	}
+}
+void Town::InitGrass()
+{
+	auto mPhysicsLayer = map->getLayer("physics");
+	Size layerSize = mPhysicsLayer->getLayerSize();
+	grass = map->getLayer("grass");
+	int count = 0;
+	int width = layerSize.width;
+	int height = layerSize.height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				if (count < 3) {
+					int _random = rand() % 4;
+					if (!_random && !Check(i, j)) {
+						auto pokemon = PhysicsBody::createBox(tilePokemon->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+						pokemon->setCollisionBitmask(Model::BITMASK_POKEMON);
+						pokemon->setContactTestBitmask(true);
+						pokemon->setDynamic(false);
+						pokemon->setGravityEnable(false);
+						tilePokemon->setPhysicsBody(pokemon);
+						tilePokemon->setName("physics");
+						arrayGrassHasPokemon[i][j] = 1;
+						count++;
+					}
+				}
 			}
 		}
 	}
