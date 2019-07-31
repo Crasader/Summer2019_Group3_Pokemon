@@ -234,6 +234,7 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 			removeChild(popup, true);
 			this->m_messageBox->setVisible(true);
 			this->Log("Let's start your journey");
+			Buttons::GetIntance()->SetTouchDisable();
 		}
 	}
 	return true;

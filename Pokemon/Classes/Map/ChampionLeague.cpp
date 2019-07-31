@@ -293,7 +293,6 @@ void League::UpdateCamera() {
 	}
 }
 
-<<<<<<< HEAD
 int leagueSum = 0;
 
 void League::UpdatePlayer(float dt) {
@@ -323,7 +322,6 @@ void League::UpdatePlayer(float dt) {
 }
 
 
-=======
 void League::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
@@ -354,7 +352,6 @@ bool League::onTouchBegan(Touch * touch, Event * e)
 	return true;
 }
 
->>>>>>> 528d82fbbf34eb80a8aca8a1c2db20f6f80cdb60
 void League::update(float dt)
 {
 	UpdatePlayer(dt);

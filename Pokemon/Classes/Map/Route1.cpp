@@ -230,7 +230,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 	}
-	/*else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		switch (Buttons::state)
@@ -261,6 +261,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		Model::ROUTE1NPC = false;
 	}
 	return true;
+
 }
 
 void Route1::InitObject()
@@ -319,7 +320,7 @@ void Route1::InitObject()
 			mGateWay->setVisible(false);
 			this->addChild(mGateWay, 10);
 		}
-		/*else if (type == Model::MODLE_TYPE_ROUTE1NPC)
+		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
 			if (Model::ROUTE1NPC == true)
 			{
@@ -334,7 +335,11 @@ void Route1::InitObject()
 				m_route1npc->setPhysicsBody(route1npcbody);
 				this->addChild(m_route1npc, 10);
 			}
-		}*/
+			else
+			{
+
+			}
+		}
 	}
 }
 
