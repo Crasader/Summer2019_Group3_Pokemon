@@ -178,7 +178,6 @@ bool League::onContactBegin(PhysicsContact & contact)
 		audio->playEffect("Beep.mp3", false);
 		Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Congratulation !");
-		this->m_stateLog = true;
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(League::onTouchBegan, this);
@@ -335,20 +334,22 @@ void League::Log(string logg)
 
 bool League::onTouchBegan(Touch * touch, Event * e)
 {
-	if (m_stateLog == false) {
-		if (this->m_labelLog->getOpacity() == 0)
-		{
-			this->unschedule(schedule_selector(League::TypeWriter));
-			this->LogSetOpacity(255);
-			this->m_labelLog->setOpacity(255);
-		}
-	}
-	else
+	if (this->m_labelLog->getOpacity() == 0)
 	{
-		m_stateLog = false;
-		this->m_messageBox->setVisible(false);
-		Buttons::GetIntance()->SetTouchEnable();
+		this->unschedule(schedule_selector(League::TypeWriter));
+		this->LogSetOpacity(255);
+		this->m_labelLog->setOpacity(255);
+		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener->onTouchBegan = CC_CALLBACK_2(League::onTouchEnd, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 	}
+	return true;
+}
+
+bool League::onTouchEnd(Touch * t, Event * event)
+{
+	this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();
 	return true;
 }
 

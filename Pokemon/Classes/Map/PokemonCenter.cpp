@@ -223,8 +223,8 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/recovery.wav", false);
-		Buttons::GetIntance()->Remove();
-		this->Log("pokemon cua ban da duoc phuc hoi");
+		Buttons::GetIntance()->SetTouchDisable();
+		this->Log("We've restored your pokemon to full health.");
 		this->m_messageBox->setVisible(true);
 		auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);
