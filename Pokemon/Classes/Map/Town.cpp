@@ -65,7 +65,7 @@ int Town::arrayGrassHasPokemon[32][16] = {
 Scene* Town::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Town::create();
 	scene->addChild(layer);
 	townCamera = scene->getDefaultCamera();
@@ -157,7 +157,7 @@ bool Town::init()
 		{
 			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
 			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
-			UICustom::Popup *popup = UICustom::Popup::CreateShop();
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(townCamera->getPosition().x - popup->getContentSize().width / 2,

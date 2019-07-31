@@ -40,10 +40,11 @@ public:
 	void CreateListItem();
 	int SizeOfListPokemon();
 	int SizeOfListPokemonOver();
+	void HealthPokemon(int index, Pokemon* pokemon);
 private:
 	static Bag* m_instance;
-	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(), nullptr, nullptr, nullptr };
-	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr};
+	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(),  new Charmander(),  new Charmander(),  new Charmander() };
+	vector<Pokemon*> m_pokemons_over = { new Charmander(), nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr, nullptr, nullptr ,nullptr};
 	vector<Item*> m_items;
 	int my_gold;
 };

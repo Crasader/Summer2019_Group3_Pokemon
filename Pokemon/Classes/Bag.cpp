@@ -206,3 +206,25 @@ int Bag::SizeOfListPokemonOver()
 	}
 	return cout;
 }
+
+void Bag::HealthPokemon(int index, Pokemon * pokemon)
+{
+	if (index == 0)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 50, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 1)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 100, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 2||index==5)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP());
+	}
+	if (index == 4)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP() / 2);
+	}
+}
