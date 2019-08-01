@@ -88,6 +88,7 @@ bool MainMenu::init()
 	//buttonExit->setScale(0.1f);
 	buttonExit->setPosition(Vec2(visibleSize.width * 19 / 20, visibleSize.height * 9 / 10));
 	addChild(buttonExit, -1);
+	buttonExit->setVisible(false);
 	buttonExit->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)

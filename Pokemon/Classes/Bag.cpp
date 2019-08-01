@@ -4,7 +4,7 @@
 Bag::Bag()
 {
 	this->Init();
-	this->my_gold = 100;
+	this->my_gold = 8888;
 	this->CreateListItem();
 }
 
