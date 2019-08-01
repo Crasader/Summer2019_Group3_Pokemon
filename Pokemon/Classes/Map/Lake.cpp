@@ -155,6 +155,7 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_LAKE_GATE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
+		City::previousScene = Model::PRESCENE_LAKE_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
@@ -216,10 +217,6 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		Model::SUICUNE = false;
-		if (Model::SUICUNE == false)
-		{
-			this->Log("really nigga");
-		}
 	}
 	return true;
 

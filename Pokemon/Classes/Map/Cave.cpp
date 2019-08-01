@@ -149,6 +149,7 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CAVE_GATE))
 	{
 		Buttons::GetIntance()->Remove();
+		City::previousScene = Model::PRESCENE_CAVE_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();

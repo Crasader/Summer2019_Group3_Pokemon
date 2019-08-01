@@ -199,7 +199,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_HOUSE && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, House::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
@@ -236,7 +235,6 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_LAB && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Lab::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
@@ -246,7 +244,7 @@ bool Town::onContactBegin(PhysicsContact& contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_TOWN_GATE_TO_ROUTE1 && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
-		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
+		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route1::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();

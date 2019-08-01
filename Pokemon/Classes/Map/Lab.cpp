@@ -164,8 +164,8 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_TOWN && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
-		Director::getInstance()->getRunningScene()->pause();
 		Town::previousScene = Model::PRESCENE_LAB_TO_TOWN;
+		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/ExitRoom.mp3", false);

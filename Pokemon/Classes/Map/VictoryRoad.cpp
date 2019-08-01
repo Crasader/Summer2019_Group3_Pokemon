@@ -108,6 +108,7 @@ bool Road::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROAD_GATE_TO_ROUTE2 && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
+		Route2::previousScene = Model::PRESCENE_ROAD_TO_ROUTE2;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route2::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();

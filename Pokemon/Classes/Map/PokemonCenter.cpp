@@ -169,6 +169,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		|| (a->getCollisionBitmask() == Model::BITMASK_GATEWAY_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER))
 	{
 		Buttons::GetIntance()->Remove();
+		City::previousScene = Model::PRESCENE_PC_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();

@@ -181,8 +181,8 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == Model::MODLE_TYPE_ROUTE2_GATE_TO_CITY && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
+		City::previousScene = Model::PRESCENE_ROUTE2_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
-		Route2::previousScene = Model::PRESCENE_CITY_TO_ROUTE2;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/ExitRoom.mp3", false);
@@ -191,7 +191,6 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2_GATE_TO_ROAD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 	{
 		Buttons::GetIntance()->Remove();
-		Route2::previousScene = Model::PRESCENE_ROAD_TO_ROUTE2;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Road::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();

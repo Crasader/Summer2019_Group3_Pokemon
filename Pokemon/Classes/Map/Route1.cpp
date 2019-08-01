@@ -187,7 +187,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	{
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
-		Route1::previousScene = Model::PRESCENE_TOWN_TO_ROUTE1;
+		Town::previousScene = Model::PRESCENE_ROUTE1_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/ExitRoom.mp3", false);
@@ -197,7 +197,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 	{
 
 		Buttons::GetIntance()->Remove();
-		Route1::previousScene = Model::PRESCENE_CITY_TO_ROUTE1;
+		City::previousScene = Model::PRESCENE_ROUTE1_TO_CITY;
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
