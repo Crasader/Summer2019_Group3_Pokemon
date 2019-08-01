@@ -1456,6 +1456,7 @@ namespace UICustom
 			node->addChild(buttonMaxPotion, 100);
 
 			MenuItemImage *noButton = MenuItemImage::create(IMAGEPATH::CANCEL_BUTTON, IMAGEPATH::CANCEL_BUTTON_PRESSED, [node](Ref *sender) {
+				((BattleScene*)(node->getParent()))->SetButtonVisible(true);
 				node->dismiss(true);
 			});
 

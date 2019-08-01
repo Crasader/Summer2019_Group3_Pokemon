@@ -28,7 +28,7 @@ bool npc_state = true;
 Scene* City::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = City::create();
 	scene->addChild(layer);
 	cityCamera = scene->getDefaultCamera();

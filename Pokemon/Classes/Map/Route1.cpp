@@ -25,7 +25,7 @@ int Route1::previousScene = 0;
 Scene* Route1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();

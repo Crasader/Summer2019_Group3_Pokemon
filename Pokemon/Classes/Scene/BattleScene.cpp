@@ -682,6 +682,7 @@ void BattleScene::AddEventListener()
 			{
 				UICustom::Popup* popupPokemon = UICustom::Popup::CreateBagItemInBattle();
 				this->addChild(popupPokemon, 1000);
+				this->SetButtonVisible(false);
 			}
 			else if (this->m_labelSkill2->getString() != "-")
 			{

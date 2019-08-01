@@ -26,7 +26,7 @@ vector<Pokemon*> listPokemon;
 Scene* Route2::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route2::create();
 	scene->addChild(layer);
 	route2Camera = scene->getDefaultCamera();
