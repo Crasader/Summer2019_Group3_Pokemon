@@ -12,6 +12,7 @@ private:
 	Sprite * mGateWay;
 	Sprite * mNpc;
 	Sprite * entei;
+	EventListenerTouchOneByOne* touchListener;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;

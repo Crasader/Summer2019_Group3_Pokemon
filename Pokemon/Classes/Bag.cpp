@@ -250,3 +250,15 @@ void Bag::HealthPokemon(int index, Pokemon * pokemon)
 		pokemon->SetCurrentHP(pokemon->GetMaxHP() / 2);
 	}
 }
+
+bool Bag::GetlistAlive()
+{
+	for (int i = 0; i < this->m_pokemons.size(); i++)
+	{
+		if (this->m_pokemons.at(i)->IsAlive() == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}

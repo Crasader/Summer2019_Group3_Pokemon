@@ -121,6 +121,15 @@ bool House::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+	auto ListYP = Bag::GetInstance()->GetListPokemon();
+	for (int i = 0; i < ListYP.size(); i++)
+	{
+		if (ListYP.at(i) != nullptr)
+		{
+			ListYP.at(i)->Restore();
+		}
+	}
+
 	scheduleUpdate();
 	return true;
 }

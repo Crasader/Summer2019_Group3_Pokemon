@@ -250,6 +250,8 @@ void BattleScene::RestoreHealthStep(float deltaTime)
 					auto index = ((float)this->m_player->GetMaxHP() / this->m_player->GetCurrentHP());
 					auto sq = Sequence::create(ScaleTo::create(0.5, scale_hpBar / index, this->m_hpPlayer->getScaleY()), finished, nullptr);
 					this->m_hpPlayer->runAction(sq);
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("res/Sound/UseItemRecoverHP.mp3", false);
 				}
 				else
 				{
@@ -726,6 +728,8 @@ void BattleScene::AddEventListener()
 					this->getParent()->scheduleUpdate();
 					Buttons::GetIntance()->SetVisible(true);
 					this->removeFromParent();
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playBackgroundMusic("res/Sound/Town.mp3", true);
 				}
 			}
 			else
@@ -885,6 +889,8 @@ void BattleScene::HasNextBattle()
 				this->m_stateBattleMessage = false;
 				if (this->m_player->GetLevel() - stoi(this->m_labelPlayerLevel->getString()) > 0)
 				{
+					auto audio = SimpleAudioEngine::getInstance();
+					audio->playEffect("res/Sound/LevelUp.mp3", false);
 					this->m_levelUp->setVisible(true);
 					this->m_levelUp->runAction(Sequence::create(DelayTime::create(1.5), CallFunc::create([this]() {
 						this->m_player->RemoveFromParent();
@@ -1051,11 +1057,8 @@ void BattleScene::EndBattle()
 			this->getParent()->scheduleUpdate();
 			Buttons::GetIntance()->SetVisible(true);
 			this->removeFromParent();
-			if (Bag::GetInstance()->GetCountPokemon() <= 0)
-			{
-				Director::getInstance()->getRunningScene()->pause();
-				Director::getInstance()->replaceScene(TransitionFade::create(1.0f, PokemonCenter::createScene()));
-			}
+			auto audio = SimpleAudioEngine::getInstance();
+			audio->playBackgroundMusic("res/Sound/Town.mp3", true);
 		}
 	});
 	auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
@@ -1064,10 +1067,12 @@ void BattleScene::EndBattle()
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You lose!");
+
 	}
 	else
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You win!");
+		this->getParent()->setTag(10);
 	}
 }

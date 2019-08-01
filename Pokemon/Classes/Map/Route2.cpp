@@ -7,6 +7,7 @@
 #include "Model.h"
 #include "Scene\BattleScene.h"
 #include "VictoryRoad.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 Size route2VisibleSize;
@@ -19,6 +20,8 @@ Layer *layer_UI_Route2;
 Camera *route2Camera, *cameraUIRoute2;
 PhysicsBody* route2Body, *route2GateWay, *raikoubody, *roadnpcbody;
 int Route2::previousScene = 0;
+bool route2_state = true;
+vector<Pokemon*> listPokemon;
 
 Scene* Route2::createScene()
 {
@@ -129,6 +132,34 @@ bool Route2::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(route2Camera->getPosition().x - popup->getContentSize().width / 2,
+				route2Camera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(route2Camera->getPosition().x - popup->getContentSize().width / 2,
+				route2Camera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Route2::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -225,18 +256,30 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		audio->playEffect("res/Sound/Beep.mp3", false);
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Rararaiiiii!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		Model::RAIKOU = false;
-		removeChild(m_raikou, true);
+		listPokemon = { new Raikou(15) };
+		auto listener = CallFunc::create([this]() {
+			if (route2_state == false)
+			{
+				Model::RAIKOU = false;
+				this->m_raikou->removeFromParent();
+				route2_state = true;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
+		//removeChild(m_raikou, true);
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROADNPC)
-		|| a->getCollisionBitmask() == Model::BITMASK_ROADNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROADNPC && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROADNPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -256,15 +299,27 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		audio->playEffect("res/Sound/Beep.mp3", false);
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		Model::ROADNPC = false;
-		removeChild(m_roadnpc, true);
+		listPokemon = this->m_roadnpc->GetListPokemon();
+		auto listener = CallFunc::create([this]() {
+			if (route2_state == false)
+			{
+				Model::ROADNPC = false;
+				this->m_roadnpc->GetSpriteFront()->removeFromParent();
+				route2_state = true;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
+		//removeChild(m_roadnpc, true);
 	}
 	return true;
 
@@ -367,15 +422,15 @@ void Route2::InitObject()
 		{
 			if (Model::ROADNPC == true)
 			{
-				m_roadnpc = ResourceManager::GetInstance()->GetSpriteById(129);
-				m_roadnpc->setPosition(Vec2(posX, posY));
-				roadnpcbody = PhysicsBody::createBox(m_roadnpc->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+				m_roadnpc = new RoadNPC();
+				m_roadnpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
+				roadnpcbody = PhysicsBody::createBox(m_roadnpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				roadnpcbody->setCollisionBitmask(Model::BITMASK_ROADNPC);
 				roadnpcbody->setContactTestBitmask(true);
 				roadnpcbody->setDynamic(false);
 				roadnpcbody->setGravityEnable(false);
-				m_roadnpc->setPhysicsBody(roadnpcbody);
-				this->addChild(m_roadnpc, 10);
+				m_roadnpc->GetSpriteFront()->setPhysicsBody(roadnpcbody);
+				this->addChild(m_roadnpc->GetSpriteFront(), 10);
 			}
 			else
 			{
@@ -430,10 +485,14 @@ void Route2::UpdateCamera() {
 
 void Route2::update(float dt)
 {
+	if (this->getTag() == 10)
+	{
+		route2_state = false;
+	}
 	UpdatePlayer(dt);
 	for (int i = 0; i < route2_point.size(); i++)
 	{
-		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(route2_point.at(i)) && Buttons::state != 0)
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(route2_point.at(i)) && Buttons::state != 0 && Bag::GetInstance()->GetCountPokemon() > 0)
 		{
 			route2_tick += dt;
 			break;
@@ -473,6 +532,7 @@ void Route2::update(float dt)
 		route2_tick = 0;
 	}
 	UpdateCamera();
+	this->setTag(0);
 }
 
 int route2Sum = 0;
@@ -521,16 +581,27 @@ bool Route2::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(Route2::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route2::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		auto layer = BattleScene::CreateLayer(listPokemon);
+		layer->setPosition(route2Camera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			route2Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		Buttons::GetIntance()->SetVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
 
 bool Route2::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
-	Buttons::GetIntance()->SetTouchEnable();
+	/*this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }

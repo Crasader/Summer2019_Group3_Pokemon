@@ -6,6 +6,7 @@
 #include "Route2.h"
 #include "Model.h"
 #include "ChampionLeague.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 Size roadVisibleSize;
@@ -90,6 +91,34 @@ bool Road::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(roadCamera->getPosition().x - popup->getContentSize().width / 2,
+				roadCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(roadCamera->getPosition().x - popup->getContentSize().width / 2,
+				roadCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Road::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);

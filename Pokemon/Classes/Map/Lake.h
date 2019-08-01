@@ -13,6 +13,7 @@ private:
 	Trainer * mPlayer;
 	TMXTiledMap* map;
 	Sprite * mGateWay;
+	EventListenerTouchOneByOne* touchListener;
 	Sprite * suicune;
 	Label* m_labelLog;
 	Sprite* m_messageBox;

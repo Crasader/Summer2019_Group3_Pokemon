@@ -10,6 +10,7 @@
 #include "Model.h"
 #include "Scene\BattleScene.h"
 #include <cstdlib>
+#include "Popup.h"
 
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -20,6 +21,8 @@ Layer *layer_UI_City;
 Camera *cityCamera, *cameraUICity;
 PhysicsBody* cityBody, *cityGateWay, *lakenpcbody, *cavenpcbody, *route2npcbody;
 int City::previousScene = 0;
+bool npc_state = true;
+
 
 
 Scene* City::createScene()
@@ -129,6 +132,34 @@ bool City::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(cityCamera->getPosition().x - popup->getContentSize().width / 2,
+				cityCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(cityCamera->getPosition().x - popup->getContentSize().width / 2,
+				cityCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(City::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -234,8 +265,8 @@ bool City::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_LAKENPC)
-		|| a->getCollisionBitmask() == Model::BITMASK_LAKENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_LAKENPC && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_LAKENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -256,18 +287,29 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		listNpcPokemon = this->m_lakenpc->GetListPokemon();
-		Model::LAKENPC = false;
+		auto listener = CallFunc::create([this]() {
+			if (npc_state == false)
+			{
+				Model::LAKENPC = false;
+				this->m_lakenpc->GetSpriteFront()->removeFromParent();
+				npc_state = true;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 		//removeChild(m_lakenpc, true);
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CAVENPC)
-		|| a->getCollisionBitmask() == Model::BITMASK_CAVENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_CAVENPC && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_CAVENPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -288,18 +330,29 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("ZzzzZzzzZZzz");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		listNpcPokemon = this->m_cavenpc->GetListPokemon();
-		Model::CAVENPC = false;
+		auto listener = CallFunc::create([this]() {
+			if (npc_state == false)
+			{
+				Model::CAVENPC = false;
+				this->m_cavenpc->GetSpriteFront()->removeFromParent();
+				npc_state = true;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 		//removeChild(m_cavenpc, true);
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC)
-		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE2NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -320,14 +373,25 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(City::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		listNpcPokemon = this->m_route2npc->GetListPokemon();
-		Model::ROUTE2NPC = false;
+		auto listener = CallFunc::create([this]() {
+			if (npc_state == false)
+			{
+				Model::ROUTE2NPC = false;
+				this->m_route2npc->GetSpriteFront()->removeFromParent();
+				npc_state = true;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 		//removeChild(m_route2npc, true);
 	}
 	return true;
@@ -607,6 +671,11 @@ bool City::onTouchEnd(Touch * t, Event * event)
 }
 
 void City::update(float dt) {
+	if (this->getTag() == 10)
+	{
+		npc_state = false;
+	}
 	UpdatePlayer(dt);
 	UpdateCamera();
+	this->setTag(0);
 }

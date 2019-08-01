@@ -1,7 +1,7 @@
 #include "Suicune.h"
 #define hp 100
 #define atk 75
-#define def 115
+#define def 90
 #define speed 85
 
 Suicune::Suicune()
@@ -14,6 +14,9 @@ Suicune::Suicune(int level) : Pokemon(level)
 	//
 	this->m_name = "Suicune";
 	this->m_type = MyObject::TYPE_WATER;
+	this->LearnSkill(new Bite());
+	this->LearnSkill(new WaterPulse());
+	this->LearnSkill(new Surf());
 	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack += atk;

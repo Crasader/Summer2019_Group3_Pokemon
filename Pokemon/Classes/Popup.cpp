@@ -9,8 +9,10 @@
 #include "Scene\BattleScene.h"
 #include "Pokemon.h"
 #include "Buttons.h"
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
 
+using namespace CocosDenshion;
 using namespace ui;
 
 namespace  {
@@ -971,6 +973,8 @@ namespace UICustom
 														string health = to_string(pokemon->GetCurrentHP()) + "/" + to_string(pokemon->GetMaxHP());
 														labelHealth->setString(health);
 														alert->setString("Restores succes");
+														auto audio = SimpleAudioEngine::getInstance();
+														audio->playEffect("res/Sound/UseItemRecoverHP.mp3", false);
 													}
 												}
 											}
@@ -1054,6 +1058,8 @@ namespace UICustom
 													string health = to_string(pokemon->GetCurrentHP()) + "/" + to_string(pokemon->GetMaxHP());
 													labelHealth->setString(health);
 													alert->setString("Revive succes");
+													auto audio = SimpleAudioEngine::getInstance();
+													audio->playEffect("res/Sound/UseItemRecoverHP.mp3", false);
 												}
 											}
 										});
@@ -1157,7 +1163,7 @@ namespace UICustom
 				Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
 			});
 			
-			Pokemon *charmander = new Charmander();
+			Pokemon *charmander = new Charmander(5);
 			Sprite *spriteCharmander = charmander->GetSpriteFront();
 			spriteCharmander->setScale(2);
 			spriteCharmander->setAnchorPoint(Vec2(0.5, 0));
@@ -1170,7 +1176,7 @@ namespace UICustom
 			labelCharmander->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height *5/6);
 			buttonCharmander->addChild(labelCharmander,102);
 			
-			Squirtle *squirtle = new Squirtle();
+			Squirtle *squirtle = new Squirtle(5);
 			Sprite *spriteSquirtle = squirtle->GetSpriteFront();
 			spriteSquirtle->setScale(2);
 			spriteSquirtle->setAnchorPoint(Vec2(0.5, 0));
@@ -1183,7 +1189,7 @@ namespace UICustom
 			labelSquirtle->setPosition(buttonCharmander->getContentSize().width / 2, buttonCharmander->getContentSize().height * 5 / 6);
 			buttonSquirtle->addChild(labelSquirtle, 102);
 			
-			Chikorita *chikorita = new Chikorita();
+			Chikorita *chikorita = new Chikorita(5);
 			Sprite *spriteChikorita = chikorita->GetSpriteFront();
 			spriteChikorita->setScale(2);
 			spriteChikorita->setAnchorPoint(Vec2(0.5, 0));
@@ -1379,7 +1385,10 @@ namespace UICustom
 				}
 			});
 
-			
+			Menu *menu = Menu::create(noButton, NULL);
+			node->addChild(menu, 2);
+			menu->setPosition(winSize.width / 2, winSize.height / 2 - buttonPotion->getContentSize().height / 1.1);
+			menu->alignItemsHorizontallyWithPadding(FONT::LABEL_OFFSET / 2);
 			CONFIRM_DIALOGUE_SIZE_OFFSET = Size(CONFIRM_DIALOGUE_SIZE_OFFSET.width, 180);
 			node->initBg(Size(buttonPotion->getContentSize().width * 3 + CONFIRM_DIALOGUE_SIZE_OFFSET.width,
 				buttonPotion->getContentSize().height + CONFIRM_DIALOGUE_SIZE_OFFSET.height), "Item Potion");

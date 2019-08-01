@@ -4,7 +4,8 @@
 #include "Buttons.h"
 #include "City.h"
 #include "Model.h"
-
+#include "Scene\BattleScene.h"
+#include "Popup.h"
 using namespace CocosDenshion;
 USING_NS_CC;
 
@@ -118,6 +119,35 @@ bool Cave::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(caveCamera->getPosition().x - popup->getContentSize().width / 2,
+				caveCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(caveCamera->getPosition().x - popup->getContentSize().width / 2,
+				caveCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Cave::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -181,8 +211,8 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 			break;
 		}
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ENTEI)
-		|| a->getCollisionBitmask() == Model::BITMASK_ENTEI && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ENTEI && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_ENTEI && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -203,13 +233,22 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Enteiiiiii!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Cave::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		Model::ENTEI = false;
+		auto listener = CallFunc::create([this]() {
+			if (this->getTag() == 10)
+			{
+				Model::ENTEI = false;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 	}
 	return true;
 }
@@ -333,9 +372,21 @@ bool Cave::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(Cave::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Cave::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		vector<Pokemon*> pokemons = { new Entei(15) };
+		auto layer = BattleScene::CreateLayer(pokemons);
+		layer->setPosition(caveCamera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			caveCamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		Buttons::GetIntance()->SetVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
@@ -370,14 +421,19 @@ void Cave::UpdatePlayer(float dt) {
 
 bool Cave::onTouchEnd(Touch * t, Event * event)
 {
-	removeChild(entei, true);
+	/*removeChild(entei, true);
 	this->m_messageBox->setVisible(false);
-	Buttons::GetIntance()->SetTouchEnable();
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }
 
 void Cave::update(float dt)
 {
+	if (Model::ENTEI == false)
+	{
+		entei->removeFromParent();
+	}
 	UpdatePlayer(dt);
 	UpdateCamera();
+	this->setTag(0);
 }

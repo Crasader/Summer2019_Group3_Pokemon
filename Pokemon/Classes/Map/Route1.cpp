@@ -7,6 +7,7 @@
 #include "City.h"
 #include "Model.h"
 #include "Scene\BattleScene.h"
+#include "Popup.h"
 //#include "Joystick.h"
 
 using namespace CocosDenshion;
@@ -103,6 +104,34 @@ bool Route1::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(route1Camera->getPosition().x - popup->getContentSize().width / 2,
+				route1Camera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(route1Camera->getPosition().x - popup->getContentSize().width / 2,
+				route1Camera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Route1::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -210,8 +239,8 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 	}
-	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC)
-		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && Bag::GetInstance()->GetCountPokemon() > 0)
+		|| a->getCollisionBitmask() == Model::BITMASK_ROUTE1NPC && b->getCollisionBitmask() == Model::BITMASK_PLAYER && Bag::GetInstance()->GetCountPokemon() > 0)
 	{
 		switch (Buttons::state)
 		{
@@ -239,7 +268,16 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		touchListener->onTouchBegan = CC_CALLBACK_2(Route1::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		//this->mPlayer->GetSpriteFront()->stopAllActions();
-		Model::ROUTE1NPC = false;
+		auto listener = CallFunc::create([this]() {
+			if (this->getTag() == 10)
+			{
+				Model::ROUTE1NPC = false;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 	}
 	return true;
 }
@@ -408,7 +446,6 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 			route1Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		m_route1npc->GetSpriteFront()->removeFromParent();
 		Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
@@ -450,9 +487,13 @@ bool Route1::onTouchEnd(Touch * t, Event * event)
 
 void Route1::update(float dt)
 {
+	if (Model::ROUTE1NPC == false)
+	{
+		this->m_route1npc->GetSpriteFront()->removeFromParent();
+	}
 	for (int i = 0; i < route1_point.size(); i++)
 	{
-		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(route1_point.at(i)) && Buttons::state != 0)
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(route1_point.at(i)) && Buttons::state != 0 && Bag::GetInstance()->GetCountPokemon() > 0)
 		{
 			route1_tick += dt;
 			break;
@@ -493,4 +534,5 @@ void Route1::update(float dt)
 	}
 	UpdateCamera();
 	UpdatePlayer(dt);
+	this->setTag(0);
 }

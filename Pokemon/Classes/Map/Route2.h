@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Pokemon.h"
 #include "Trainer.h"
+#include "NPC\RoadNPC.h"
 #include <math.h>
 using namespace cocos2d;
 using namespace std;
@@ -12,7 +13,8 @@ private:
 	TMXTiledMap* map;
 	Sprite * mGateWay;
 	Sprite * m_raikou;
-	Sprite * m_roadnpc;
+	EventListenerTouchOneByOne* touchListener;
+	RoadNPC * m_roadnpc;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;

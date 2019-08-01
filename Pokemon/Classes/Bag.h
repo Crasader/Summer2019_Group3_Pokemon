@@ -42,6 +42,8 @@ public:
 	int SizeOfListPokemon();
 	int SizeOfListPokemonOver();
 	void HealthPokemon(int index, Pokemon* pokemon);
+	bool GetlistAlive();
+
 private:
 	static Bag* m_instance;
 	vector<Pokemon*> m_pokemons = { new Squirtle(5), new Charmander(5), new Chikorita(5), nullptr, nullptr, nullptr };

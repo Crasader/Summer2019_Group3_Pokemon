@@ -5,6 +5,7 @@
 #include "City.h"
 #include "Scene\BattleScene.h"
 #include "Model.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 USING_NS_CC;
@@ -126,6 +127,34 @@ bool Lake::init()
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 	
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(lakecamera->getPosition().x - popup->getContentSize().width / 2,
+				lakecamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(lakecamera->getPosition().x - popup->getContentSize().width / 2,
+				lakecamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Lake::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -161,13 +190,13 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, City::createScene()));
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("ExitRoom.mp3", false);
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
 	{
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("WallBump.mp3", false);
+		audio->playEffect("res/Sound/WallBump.mp3", false);
 		switch (Buttons::state)
 		{
 		case 1:
@@ -211,18 +240,23 @@ bool Lake::onContactBegin(PhysicsContact& contact)
 			break;
 		}
 		auto audio = SimpleAudioEngine::getInstance();
-		audio->playEffect("Beep.mp3", false);
-		Buttons::GetIntance()->SetTouchDisable();
+		audio->playEffect("res/Sound/Beep.mp3", false);
+		//Buttons::GetIntance()->SetTouchDisable();
 		this->Log("Suisuiiiii!");
 		this->m_messageBox->setVisible(true);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchBegan, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
-		Model::SUICUNE = false;
-		if (Model::SUICUNE == false)
-		{
-			this->Log("really nigga");
-		}
+		auto listener = CallFunc::create([this]() {
+			if (this->getTag() == 10)
+			{
+				Model::SUICUNE = false;
+				this->stopActionByTag(100);
+			}
+		});
+		auto rp = RepeatForever::create(Spawn::create(listener, nullptr));
+		rp->setTag(100);
+		this->runAction(rp);
 	}
 	return true;
 
@@ -351,7 +385,7 @@ void Lake::UpdateCamera() {
 void Lake::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
-	audio->playEffect("Beep.mp3", false);
+	audio->playEffect("res/Sound/Beep.mp3", false);
 	this->m_labelLog->setString(logg);
 	this->LogSetOpacity(0);
 	this->m_labelLog->setOpacity(0);
@@ -365,9 +399,21 @@ bool Lake::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(Lake::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lake::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		vector<Pokemon*> pokemons = { new Suicune(15) };
+		auto layer = BattleScene::CreateLayer(pokemons);
+		layer->setPosition(lakecamera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			lakecamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		Buttons::GetIntance()->SetVisible(false);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
@@ -402,16 +448,20 @@ void Lake::UpdatePlayer(float dt) {
 
 bool Lake::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
+	/*this->m_messageBox->setVisible(false);
 	removeChild(suicune, true);
-	Buttons::GetIntance()->SetTouchEnable();
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }
 void Lake::update(float dt)
 {
+	if (Model::SUICUNE == false)
+	{
+		suicune->removeFromParent();
+	}
 	for (int i = 0; i < lake_point.size(); i++)
 	{
-		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(lake_point.at(i)) && Buttons::state != 0)
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(lake_point.at(i)) && Buttons::state != 0 && Bag::GetInstance()->GetCountPokemon() > 0)
 		{
 			lake_tick += dt;
 			break;
@@ -455,4 +505,5 @@ void Lake::update(float dt)
 	}
 	UpdatePlayer(dt);
 	UpdateCamera();
+	this->setTag(0);
 }

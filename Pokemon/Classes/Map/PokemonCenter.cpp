@@ -105,6 +105,21 @@ bool PokemonCenter::init()
 			this->addChild(popup, 101);
 		}
 	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(pccamera->getPosition().x - popup->getContentSize().width / 2,
+				pccamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -224,7 +239,7 @@ bool PokemonCenter::onContactBegin(PhysicsContact & contact)
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/recovery.wav", false);
 		Buttons::GetIntance()->SetVisible(false);
-		this->Log("pokemon cua ban da duoc phuc hoi");
+		this->Log("We've restored your pokemon to full health.");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(PokemonCenter::onTouchBegan, this);

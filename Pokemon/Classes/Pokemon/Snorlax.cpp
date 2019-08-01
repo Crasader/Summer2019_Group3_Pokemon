@@ -1,7 +1,7 @@
 #include "Snorlax.h"
-#define hp 160
+#define hp 90
 #define atk 80
-#define def 75
+#define def 70
 #define speed 30
 
 Snorlax::Snorlax()

@@ -7,16 +7,14 @@
 
 RoadNPC::RoadNPC()
 {
-	auto kirlia = new Kirlia();
-	kirlia->SetLevel(14);
+	this->Init();
+	auto kirlia = new Kirlia(14);
 	this->m_pokemons.push_back(kirlia);
 
-	auto snorlax = new Snorlax();
-	snorlax->SetLevel(14);
+	auto snorlax = new Snorlax(14);
 	this->m_pokemons.push_back(snorlax);
 
-	auto pidgeot = new Pidgeot();
-	pidgeot->SetLevel(15);
+	auto pidgeot = new Pidgeotto(14);
 	this->m_pokemons.push_back(pidgeot);
 }
 
@@ -24,6 +22,16 @@ RoadNPC::~RoadNPC()
 {
 }
 
+void RoadNPC::Init()
+{
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(129);
+}
+
 void RoadNPC::Update(float deltaTime)
 {
+}
+
+vector<Pokemon*> RoadNPC::GetListPokemon()
+{
+	return this->m_pokemons;
 }
