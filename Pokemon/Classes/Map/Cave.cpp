@@ -12,6 +12,9 @@ USING_NS_CC;
 Size caveVisibleSize;
 Size caveTileMapSize;
 
+vector<Vec2> cave_point;
+float cave_tick = 0;
+
 Layer *layer_UI_Cave;
 PhysicsBody* caveBody, *caveGateWay, *enteiBody;
 Camera *caveCamera, *cameraUICave;
@@ -75,7 +78,7 @@ bool Cave::init()
 	caveVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto map = TMXTiledMap::create("res/Map/Cave.tmx");
+	map = TMXTiledMap::create("res/Map/Cave.tmx");
 	caveTileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -233,7 +236,7 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Enteiiiiii!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -251,6 +254,24 @@ bool Cave::onContactBegin(PhysicsContact & contact)
 		this->runAction(rp);
 	}
 	return true;
+}
+
+void Cave::InitGrass()
+{
+	auto grass = map->getLayer("ground");
+	int width = grass->getLayerSize().width;
+	int height = grass->getLayerSize().height;
+	for (int i = 0; i < width; i++)
+	{
+		for (int j = 0; j < height; j++)
+		{
+			auto tilePokemon = grass->getTileAt(Vec2(i, j));
+			if (tilePokemon != NULL)
+			{
+				cave_point.push_back(tilePokemon->getPosition());
+			}
+		}
+	}
 }
 
 void Cave::InitObject()
@@ -385,7 +406,7 @@ bool Cave::onTouchBegan(Touch * touch, Event * e)
 			caveCamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		Buttons::GetIntance()->SetVisible(false);
+		//Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
@@ -432,6 +453,47 @@ void Cave::update(float dt)
 	if (Model::ENTEI == false)
 	{
 		entei->removeFromParent();
+	}
+	for (int i = 0; i < cave_point.size(); i++)
+	{
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(cave_point.at(i)) && Buttons::state != 0 && Bag::GetInstance()->GetCountPokemon() > 0)
+		{
+			cave_tick += dt;
+			break;
+		}
+	}
+	if (cave_tick >= 2.5)
+	{
+		vector<Pokemon*> wildPokemon;
+		int index = rand() % 5 + 1;
+		int level = rand() % 4 + 7;
+		switch (index)
+		{
+		case 1:
+			wildPokemon.push_back(new Voltorb(level));
+			break;
+		case 2:
+			wildPokemon.push_back(new Garchomp(level));
+			break;
+		case 3:
+			wildPokemon.push_back(new Manectric(level));
+			break;
+		case 4:
+			wildPokemon.push_back(new Ponyta(level));
+			break;
+		case 5:
+			wildPokemon.push_back(new Meowth(level));
+			break;
+		default:
+			break;
+		}
+		Buttons::GetIntance()->SetVisible(false);
+		auto layer = BattleScene::CreateLayer(wildPokemon);
+		layer->setPosition(caveCamera->getPosition().x - Director::getInstance()->getVisibleSize().width / 2,
+			caveCamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
+		this->addChild(layer, 1000);
+		this->unscheduleUpdate();
+		cave_tick = 0;
 	}
 	UpdatePlayer(dt);
 	UpdateCamera();

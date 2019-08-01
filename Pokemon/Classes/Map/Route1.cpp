@@ -261,7 +261,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -446,7 +446,7 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 			route1Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		Buttons::GetIntance()->SetVisible(false);
+		//Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;

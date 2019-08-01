@@ -10,6 +10,7 @@ class Cave : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
+	TMXTiledMap* map;
 	Sprite * mNpc;
 	Sprite * entei;
 	EventListenerTouchOneByOne* touchListener;
@@ -22,6 +23,7 @@ public:
 	void LogSetOpacity(GLubyte opacity);
 	virtual bool init();
 	bool onContactBegin(PhysicsContact & contact);
+	void InitGrass();
 	void InitObject();
 	void UpdateCamera();
 	void Log(string logg);

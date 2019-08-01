@@ -247,9 +247,6 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		auto touchListener = EventListenerTouchOneByOne::create();
-		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchBegan, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 		
 		if (Model::DOCTOR == true)
 		{
@@ -259,10 +256,13 @@ bool Lab::onContactBegin(PhysicsContact& contact)
 		}
 		else
 		{
-			removeChild(popup, true);
+			touchListener = EventListenerTouchOneByOne::create();
+			touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchBegan, this);
+			_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 			this->m_messageBox->setVisible(true);
 			this->Log("Let's start your journey");
-			Buttons::GetIntance()->SetTouchDisable();
+			//Buttons::GetIntance()->SetTouchDisable();
+			Buttons::GetIntance()->SetVisible(false);
 		}
 	}
 	return true;
@@ -362,6 +362,7 @@ void Lab::UpdateCamera() {
 		}
 	}
 }
+
 void Lab::Log(string logg)
 {
 	auto audio = SimpleAudioEngine::getInstance();
@@ -372,6 +373,7 @@ void Lab::Log(string logg)
 	writing = 0;
 	this->schedule(schedule_selector(Lab::TypeWriter), 0.05);
 }
+
 bool Lab::onTouchBegan(Touch * touch, Event * e)
 {
 	auto audio = SimpleAudioEngine::getInstance();
@@ -381,16 +383,23 @@ bool Lab::onTouchBegan(Touch * touch, Event * e)
 		this->unschedule(schedule_selector(Lab::TypeWriter));
 		this->LogSetOpacity(255);
 		this->m_labelLog->setOpacity(255);
-		auto touchListener = EventListenerTouchOneByOne::create();
+		/*auto touchListener = EventListenerTouchOneByOne::create();
 		touchListener->onTouchBegan = CC_CALLBACK_2(Lab::onTouchEnd, this);
-		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+		_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);*/
+	}
+	else
+	{
+		this->m_messageBox->setVisible(false);
+		Buttons::GetIntance()->SetVisible(true);
+		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;
 }
+
 bool Lab::onTouchEnd(Touch * t, Event * event)
 {
-	this->m_messageBox->setVisible(false);
-	Buttons::GetIntance()->SetTouchEnable();
+	/*this->m_messageBox->setVisible(false);
+	Buttons::GetIntance()->SetTouchEnable();*/
 	return true;
 }
 
@@ -421,6 +430,7 @@ void Lab::UpdatePlayer(float dt) {
 		labSum = 0;
 	}
 }
+
 void Lab::update(float dt) {
 	UpdatePlayer(dt);
 	UpdateCamera();

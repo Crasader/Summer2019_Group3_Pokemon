@@ -1122,7 +1122,7 @@ namespace UICustom
 											newButton->addTouchEventListener([listView, layout, labelHealth, item, listViewYI, alert, newListPokemon](Ref* ref, ui::Widget::TouchEventType type)
 											{
 												log("button pokemon click");
-
+												int index = listViewYI->getCurSelectedIndex();
 												auto pokemon = Bag::GetInstance()->GetListPokemon().at(newListPokemon->getCurSelectedIndex());
 												if (type == ui::Widget::TouchEventType::ENDED)
 												{

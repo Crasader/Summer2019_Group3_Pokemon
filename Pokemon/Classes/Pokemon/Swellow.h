@@ -6,6 +6,7 @@ class Swellow : public Pokemon
 {
 public:
 	Swellow();
+	Swellow(int level);
 	Swellow(Taillow* it);
 	~Swellow();
 };

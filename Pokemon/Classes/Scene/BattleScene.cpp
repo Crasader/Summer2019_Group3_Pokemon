@@ -65,6 +65,7 @@ void BattleScene::ReleaseChildren()
 {
 	this->m_tiledmap->removeFromParent();
 	this->m_player->RemoveFromParent();
+	this->m_opponent->RemoveFromParent();
 	auto listNode = this->getChildren();
 	auto size = this->getChildrenCount();
 	for (int i = 0; i < size; i++)
@@ -600,10 +601,25 @@ void BattleScene::InitUI()
 
 void BattleScene::InitObject()
 {
+	if (!Bag::GetInstance()->GetListPokemon().at(0)->IsAlive())
+	{
+		for (int i = 1; i < 6; i++)
+		{
+			if (Bag::GetInstance()->GetListPokemon().at(i) != nullptr)
+			{
+				if (Bag::GetInstance()->GetListPokemon().at(i)->IsAlive())
+				{
+					Bag::GetInstance()->ChangePokemon(i);
+					break;
+				}
+			}
+		}
+	}
 	this->m_player = Bag::GetInstance()->GetListPokemon().at(0);
 	this->m_player->RemoveFromParent();
 	this->m_player->SetScale(0);
 	this->m_opponent = listOpponentPokemon.at(0);
+	this->m_opponent->SetScale(2.5);
 	this->LoadOpponentPosition();
 	this->LoadOpponentHpBar();
 
@@ -907,7 +923,8 @@ void BattleScene::HasNextBattle()
 				}
 				else
 				{
-					delete this->m_opponent;
+					this->m_opponent->RemoveFromParent();
+					this->m_opponent->Restore();
 					listOpponentPokemon.erase(listOpponentPokemon.begin());
 				}
 				if (listOpponentPokemon.size() > 0)
@@ -1067,7 +1084,7 @@ void BattleScene::EndBattle()
 	{
 		Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
 		this->BattleMessage("You lose!");
-
+		this->m_opponent->Restore();
 	}
 	else
 	{

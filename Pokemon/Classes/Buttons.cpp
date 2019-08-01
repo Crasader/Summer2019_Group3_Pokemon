@@ -10,15 +10,16 @@ Buttons::Buttons()
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_up->setAnchorPoint(Vec2(0.5f, 0.5f));
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
-	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
+	m_tips = ResourceManager::GetInstance()->GetButtonById(22);
 
 	m_tips->setPosition(Vec2(30, 330));
 	m_up->setPosition(Vec2(100, 100));
 	m_bag->setPosition(Vec2(600,100));
 
-	m_up->setScale(0.8f);
+	m_up->setScale(1);
 	m_up->setOpacity(100);
 	m_tips->setScale(0.2f);
+	m_bag->setOpacity(150);
 }
 
 
@@ -248,13 +249,14 @@ void Buttons::Remove()
 	m_tips->release();
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
-	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
+	m_tips = ResourceManager::GetInstance()->GetButtonById(22);
 	m_up->setPosition(Vec2(100, 100));
 	m_bag->setPosition(Vec2(600, 100));
 	m_tips->setPosition(Vec2(30, 330));
-	m_up->setScale(0.8f);
+	m_up->setScale(1);
 	m_up->setOpacity(100);
 	m_tips->setScale(0.2f);
+	m_bag->setOpacity(150);
 }
 
 void Buttons::UpdateButton(float x, float y) {
