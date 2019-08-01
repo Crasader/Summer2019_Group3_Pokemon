@@ -6,13 +6,14 @@
 #include "Route2.h"
 #include "Model.h"
 #include "ChampionLeague.h"
+#include "Popup.h"
 
 using namespace CocosDenshion;
 Size roadVisibleSize;
 Size roadTileMapSize;
-
+Layer *layer_UI_Road;
 PhysicsBody* roadBody, *roadGateWay;
-Camera *roadCamera;
+Camera *roadCamera, *cameraUIRoad;
 
 Scene* Road::createScene()
 {
@@ -72,16 +73,52 @@ bool Road::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
+	Button *bag = Buttons::GetIntance()->GetButtonBag();
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_Road = Layer::create();
+	cameraUIRoad = Camera::create();
+	cameraUIRoad->setCameraMask(2);
+	cameraUIRoad->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	bag->setCameraMask(2);
+	tips->setCameraMask(2);
+	layer_UI_Road->addChild(cameraUIRoad, 2);
+	layer_UI_Road->addChild(up);
+	layer_UI_Road->addChild(bag);
+	layer_UI_Road->addChild(tips);
+	this->addChild(layer_UI_Road, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
 
+	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+			string str = "My bag - Gold: " + to_string(Bag::GetInstance()->GetGold()) + " $";
+			UICustom::Popup *popup = UICustom::Popup::createBag(str);
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(roadCamera->getPosition().x - popup->getContentSize().width / 2,
+				roadCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor", Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(roadCamera->getPosition().x - popup->getContentSize().width / 2,
+				roadCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(Road::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -102,6 +139,8 @@ bool Road::onContactBegin(PhysicsContact& contact)
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Route2::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
 	}
 	else if ((a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_ROAD_GATE_TO_LEAGUE)
 		|| a->getCollisionBitmask() == Model::BITMASK_ROAD_GATE_TO_LEAGUE && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
@@ -109,6 +148,35 @@ bool Road::onContactBegin(PhysicsContact& contact)
 		Buttons::GetIntance()->Remove();
 		Director::getInstance()->getRunningScene()->pause();
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, League::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("res/Sound/WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
+			break;
+		default:
+			break;
+		}
 	}
 	return true;
 
@@ -209,8 +277,36 @@ void Road::UpdateCamera() {
 	}
 }
 
-void Road::update(float dt) {
-	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(roadCamera->getPosition().x - 200, roadCamera->getPosition().y - 100);
+int roadSum = 0;
+
+void Road::UpdatePlayer(float dt) {
+	roadSum++;
+	if (roadSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		roadSum = 0;
+	}
 }
 
+
+void Road::update(float dt) {
+	UpdatePlayer(dt);
+	UpdateCamera();
+}

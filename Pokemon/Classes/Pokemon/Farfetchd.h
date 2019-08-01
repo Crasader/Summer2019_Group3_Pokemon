@@ -5,5 +5,6 @@ class Farfetchd : public Pokemon
 {
 public:
 	Farfetchd();
+	Farfetchd(int level);
 	~Farfetchd();
 };

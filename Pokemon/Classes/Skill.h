@@ -30,7 +30,7 @@ public:
 	void SetTypeName(string st);
 	int GetMaxPP();
 	int GetPower();
-	int GetPP();
+	int GetCurrentPP();
 	int GetIdType();
 	string GetName();
 	string GetType();

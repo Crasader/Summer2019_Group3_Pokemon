@@ -5,5 +5,6 @@ class Voltorb : public Pokemon
 {
 public:
 	Voltorb();
+	Voltorb(int level);
 	~Voltorb();
 };

@@ -1,24 +1,20 @@
 #include "Route2NPC.h"
 #include "Pokemon.h"
 #include "Pokemon\Skymin.h"
-#include "Pokemon\Flareon.h"
+#include "Pokemon\Ponyta.h"
 #include "Pokemon\Manectric.h"
 
 
 Route2NPC::Route2NPC()
 {
 	this->Init();
-	m_state = true;
-	auto skymin = new Skymin();
-	skymin->SetLevel(10);
+	auto skymin = new Skymin(10);
 	this->m_pokemons.push_back(skymin);
 
-	auto flareon = new Flareon();
-	flareon->SetLevel(10);
-	this->m_pokemons.push_back(flareon);
+	auto ponyta = new Ponyta(10);
+	this->m_pokemons.push_back(ponyta);
 
-	auto manectric = new Manectric();
-	manectric->SetLevel(11);
+	auto manectric = new Manectric(11);
 	this->m_pokemons.push_back(manectric);
 }
 
@@ -28,9 +24,14 @@ Route2NPC::~Route2NPC()
 
 void Route2NPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(128);
 }
 
 void Route2NPC::Update(float deltaTime)
 {
+}
+
+vector<Pokemon*> Route2NPC::GetListPokemon()
+{
+	return this->m_pokemons;
 }

@@ -1,6 +1,6 @@
 {
   "TILEDMAP": {
-    "size": 10,
+    "size": 11,
     "0": "res/Battle/battle-background-grass.tmx",
     "1": "res/Map/HouseMap.tmx",
     "2": "res/Map/TownMap.tmx",
@@ -10,10 +10,11 @@
     "6": "res/Map/Route1MapTree1.tmx",
     "7": "res/Map/Lab.tmx",
     "8": "res/Map/PokemonCenter.tmx",
-    "9": "res/Map/Lake.tmx"
+    "9": "res/Map/lake.tmx",
+    "10": "res/Map/route2.tmx"
   },
   "SPRITE": {
-    "size": 148,
+    "size": 152,
     "0": "res/Animation/Blastoise/front/0.png",
     "1": "res/Animation/Blastoise/back/0.png",
     "2": "res/Animation/Charizard/front/0.png",
@@ -141,12 +142,13 @@
 
     "122": "res/NPC/0.png",
     "123": "res/NPC/1.png",
-    "124": "res/NPC/3.png",
-    "125": "res/NPC/4.png",
-    "126": "res/NPC/6.png",
-    "127": "res/NPC/7.png",
-    "128": "res/NPC/9.png",
-    "129": "res/NPC/10.png",
+    "124": "res/NPC/2.png",
+    "125": "res/NPC/3.png",
+    "126": "res/NPC/4.png",
+    "127": "res/NPC/5.png",
+    "128": "res/NPC/6.png",
+    "129": "res/NPC/7.png",
+
 
     "130": "res/UI/Button/menu3.png",
     "131": "res/Battle/hp.png",
@@ -156,7 +158,7 @@
     "134": "res/Background/1.png",
     "135": "res/UI/LoadingBar/0.png",
     "136": "res/UI/LoadingBar/1.png",
-
+	
     "137": "res/Item/Potion.png",
     "138": "res/Item/SuperPotion.png",
     "139": "res/Item/MaxPotion.png",
@@ -167,10 +169,15 @@
     "144": "res/Item/LeafStone.png",
     "145": "res/Item/ThunderStone.png",
     "146": "res/Item/WaterStone.png",
-    "147": "res/Trainer/Pokeball/0.png"
+	
+    "147": "res/Trainer/Pokeball/0.png",
+    "148": "res/Battle/levelup.png",
+    "149": "res/NPC/8.png",
+    "150": "res/NPC/9.png",
+    "151": "res/NPC/10.png"
   },
   "BUTTON": {
-    "size": 13,
+    "size": 22,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -222,6 +229,42 @@
     "12": {
       "normal": "res/UI/Button/popUpBase.png",
       "pressed": "res/UI/Button/popUpBase_press.png"
+    },
+    "13": {
+      "normal": "res/UI/Button/your_pokemon_1.png",
+      "pressed": "res/UI/Button/your_pokemon_2.png"
+    },
+    "14": {
+      "normal": "res/UI/Button/pokemon_over_1.png",
+      "pressed": "res/UI/Button/pokemon_over_2.png"
+    },
+    "15": {
+      "normal": "res/UI/Button/your_item_1.png",
+      "pressed": "res/UI/Button/your_item_2.png"
+    },
+    "16": {
+      "normal": "res/UI/Button/-.png",
+      "pressed": "res/UI/Button/-.png"
+    },
+    "17": {
+      "normal": "res/UI/Button/+.png",
+      "pressed": "res/UI/Button/+.png"
+    },
+    "18": {
+      "normal": "res/UI/Button/buy.png",
+      "pressed": "res/UI/Button/buy.png"
+    },
+    "19": {
+      "normal": "res/UI/Button/move_1.png",
+      "pressed": "res/UI/Button/move_2.png"
+    },
+    "20": {
+      "normal": "res/UI/Button/release_1.png",
+      "pressed": "res/UI/Button/release_2.png"
+    },
+     "21": {
+      "normal": "res/UI/Button/use_1.png",
+      "pressed": "res/UI/Button/use_2.png"
     }
   },
   "FONT": {

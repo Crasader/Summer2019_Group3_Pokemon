@@ -4,6 +4,16 @@
 #include "Pokemon.h"
 #include "Item.h"
 #include "include_pokemon.h"
+#include "Item\Potion.h"
+#include "Item\MaxPotion.h"
+#include "Item\SuperPotion.h"
+#include "Item\Revive.h"
+#include "Item\MaxRevive.h"
+#include "Item\Ether.h"
+#include "Item\LeafStone.h"
+#include "Item\FireStone.h"
+#include "Item\ThunderStone.h"
+#include "Item\WaterStone.h"
 
 class Bag :public MyObject
 {
@@ -19,16 +29,25 @@ public:
 	void AddPokemon(Pokemon* pokemon);
 	int GetCountPokemon();
 	void ChangePokemon(int index);
+	void CheckPokemonEvolve();
 	void SetGold(int gold);
 	int GetGold();
 	void AddItem(Item* item);
-	void AddPokemonIntoMyList(int index);
-	void RemovePokemonFormMyListIntoListOver(int index);
+	void AddPokemonIntoMyList(Pokemon *pokemon,int index);
+	void ReleasePokemonOver(int index);
+	void ReleasePokemon(int index);
+	void RemovePokemonFormMyListToListOver(Pokemon *pokemon, int index);
+	void SortList();
 	void CreateListItem();
+	int SizeOfListPokemon();
+	int SizeOfListPokemonOver();
+	void HealthPokemon(int index, Pokemon* pokemon);
+	bool GetlistAlive();
+
 private:
 	static Bag* m_instance;
-	vector<Pokemon*> m_pokemons = { new Charmander(), new Squirtle(), new Chikorita(), nullptr, nullptr, nullptr };
-	vector<Pokemon*> m_pokemons_over;
+	vector<Pokemon*> m_pokemons = { new Squirtle(5), new Charmander(5), new Chikorita(5), nullptr, nullptr, nullptr };
+	vector<Pokemon*> m_pokemons_over = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 	vector<Item*> m_items;
 	int my_gold;
 };

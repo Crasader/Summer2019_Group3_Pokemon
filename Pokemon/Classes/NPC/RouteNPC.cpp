@@ -8,17 +8,14 @@
 RouteNPC::RouteNPC()
 {
 	this->Init();
-	m_state = true;
-	auto pidgey = new Pidgey();
-	pidgey->SetLevel(5);
+
+	auto pidgey = new Pidgey(5);
 	this->m_pokemons.push_back(pidgey);
 
-	auto ralts = new Ralts();
-	ralts->SetLevel(5);
+	auto ralts = new Ralts(5);
 	this->m_pokemons.push_back(ralts);
 
-	auto pikachu = new Pikachu();
-	pikachu->SetLevel(6);
+	auto pikachu = new Pikachu(6);
 	this->m_pokemons.push_back(pikachu);
 }
 
@@ -28,9 +25,14 @@ RouteNPC::~RouteNPC()
 
 void RouteNPC::Init()
 {
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(94);
+	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(123);
 }
 
 void RouteNPC::Update(float deltaTime)
 {
+}
+
+vector<Pokemon*> RouteNPC::GetListPokemon()
+{
+	return this->m_pokemons;
 }

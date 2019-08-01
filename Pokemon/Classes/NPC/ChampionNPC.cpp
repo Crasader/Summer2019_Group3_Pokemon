@@ -8,9 +8,6 @@
 #include "Pokemon\Blastoise.h"
 ChampionNPC::ChampionNPC()
 {
-	this->Init();
-	m_state = true;
-
 	auto blastoise = new Blastoise();
 	blastoise->SetLevel(20);
 	this->m_pokemons.push_back(blastoise);
@@ -38,11 +35,6 @@ ChampionNPC::ChampionNPC()
 
 ChampionNPC::~ChampionNPC()
 {
-}
-
-void ChampionNPC::Init()
-{
-	this->m_spriteFront = ResourceManager::GetInstance()->GetSpriteById(46);
 }
 
 void ChampionNPC::Update(float deltaTime)

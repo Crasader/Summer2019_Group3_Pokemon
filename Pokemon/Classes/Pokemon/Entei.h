@@ -5,5 +5,6 @@ class Entei : public Pokemon
 {
 public:
 	Entei();
+	Entei(int level);
 	~Entei();
 };

@@ -20,6 +20,7 @@ public:
 	void UpdateCamera();
 	//void CreateButon();
 	CREATE_FUNC(Road);
+	void UpdatePlayer(float dt);
 	//void createPhysics();
 	void update(float);
 };

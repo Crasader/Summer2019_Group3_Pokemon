@@ -10,6 +10,7 @@ class Town : public cocos2d::Layer
 private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
+	TMXTiledMap* map;
 public:
 	static cocos2d::Scene* createScene();
 	static int previousScene;
@@ -17,8 +18,10 @@ public:
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
+	void UpdatePlayer(float dt);
+	void InitGrass();
 	//void CreateButon();
 	CREATE_FUNC(Town);
 	//void createPhysics();
-	void update(float);
+	void update(float dt);
 };

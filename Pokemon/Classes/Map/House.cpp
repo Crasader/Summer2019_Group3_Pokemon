@@ -12,8 +12,10 @@ USING_NS_CC;
 Size houseVisibleSize;
 Size houseTileMapSize;
 
+Layer *layer_UI_House;
+
 PhysicsBody* houseBody, *houseGateWay;
-Camera *houseCamera;
+Camera *houseCamera, *cameraUIHouse;
 
 Scene * House::createScene()
 {
@@ -68,18 +70,24 @@ bool House::init()
 	InitObject();
 
 	Button *up = Buttons::GetIntance()->GetButtonUp();
-	Button *right = Buttons::GetIntance()->GetButtonRight();
-	Button *left = Buttons::GetIntance()->GetButtonLeft();
-	Button *down = Buttons::GetIntance()->GetButtonDown();
 	Button *bag = Buttons::GetIntance()->GetButtonBag();
-	addChild(up, 100);
-	addChild(right, 100);
-	addChild(left, 100);
-	addChild(down, 100);
-	addChild(bag, 100);
+	Button *tips = Buttons::GetIntance()->GetButtonTips();
+
+	layer_UI_House = Layer::create();
+	cameraUIHouse = Camera::create();
+	cameraUIHouse->setCameraMask(2);
+	cameraUIHouse->setCameraFlag(CameraFlag::USER1);
+	up->setCameraMask(2);
+	tips->setCameraMask(2);
+	bag->setCameraMask(2);
+	layer_UI_House->addChild(cameraUIHouse, 2);
+	layer_UI_House->addChild(up);
+	layer_UI_House->addChild(tips);
+	layer_UI_House->addChild(bag);
+	this->addChild(layer_UI_House, 100);
 
 	Buttons::GetIntance()->ButtonListener(this->mPlayer);
-	//Buttons::GetIntance()->ButtonBagListener(this, Housecamera);
+	
 	Buttons::GetIntance()->GetButtonBag()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 	{
 		if (type == Widget::TouchEventType::ENDED)
@@ -90,13 +98,37 @@ bool House::init()
 			popup->removeFromParent();
 			popup->setAnchorPoint(Vec2(0.5, 0.5));
 			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width/2,
-				houseCamera->getPosition().y - popup->getContentSize().height / 2);
+			houseCamera->getPosition().y - popup->getContentSize().height / 2);
 			this->addChild(popup,101);
 		}
 	});
+
+	Buttons::GetIntance()->GetButtonTips()->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+	{
+		if (type == Widget::TouchEventType::ENDED)
+		{
+			Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
+			UICustom::Popup *popup = UICustom::Popup::createAsMessage("Doctor",Model::GetTipsGame());
+			popup->removeFromParent();
+			popup->setAnchorPoint(Vec2(0.5, 0.5));
+			popup->setPosition(houseCamera->getPosition().x - popup->getContentSize().width / 2,
+			houseCamera->getPosition().y - popup->getContentSize().height / 2);
+			this->addChild(popup, 101);
+		}
+	});
+
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(House::onContactBegin, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+	auto ListYP = Bag::GetInstance()->GetListPokemon();
+	for (int i = 0; i < ListYP.size(); i++)
+	{
+		if (ListYP.at(i) != nullptr)
+		{
+			ListYP.at(i)->Restore();
+		}
+	}
 
 	scheduleUpdate();
 	return true;
@@ -114,6 +146,35 @@ bool House::onContactBegin(PhysicsContact & contact)
 		Director::getInstance()->getRunningScene()->pause();
 		Town::previousScene = Model::PRESCENE_HOUSE_TO_TOWN;
 		Director::getInstance()->replaceScene(TransitionFade::create(1.0f, Town::createScene()));
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("res/Sound/ExitRoom.mp3", false);
+	}
+	else if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
+		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
+	{
+		auto audio = SimpleAudioEngine::getInstance();
+		audio->playEffect("res/Sound/WallBump.mp3", false);
+		switch (Buttons::state)
+		{
+		case 1:
+			mPlayer->GetSpriteFront()->stopActionByTag(0);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() - 2);
+			break;
+		case 2:
+			mPlayer->GetSpriteFront()->stopActionByTag(6);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() - 2);
+			break;
+		case 3:
+			mPlayer->GetSpriteFront()->stopActionByTag(4);
+			mPlayer->GetSpriteFront()->setPositionX(mPlayer->GetSpriteFront()->getPositionX() + 2);
+			break;
+		case 4:
+			mPlayer->GetSpriteFront()->stopActionByTag(2);
+			mPlayer->GetSpriteFront()->setPositionY(mPlayer->GetSpriteFront()->getPositionY() + 2);
+			break;
+		default:
+			break;
+		}
 	}
 	if ((a->getCollisionBitmask() == Model::BITMASK_WORLD && b->getCollisionBitmask() == Model::BITMASK_PLAYER)
 		|| (a->getCollisionBitmask() == Model::BITMASK_PLAYER && b->getCollisionBitmask() == Model::BITMASK_WORLD))
@@ -224,9 +285,35 @@ void House::UpdateCamera() {
 		}
 	}
 }
+int houseSum = 0;
+void House::UpdatePlayer(float dt) {
+	houseSum ++;
+	if (houseSum >30) {
+		if (mPlayer->isMoveDown) {
+			mPlayer->StopWalkDown();
+			mPlayer->WalkDown();
+		}
+		else if (mPlayer->isMoveLeft) {
+			mPlayer->StopWalkLeft();
+			mPlayer->WalkLeft();
+		}
+		else if (mPlayer->isMoveUp) {
+			mPlayer->StopWalkUp();
+			mPlayer->WalkUp();
+		}
+		else if (mPlayer->isMoveRight) {
+			mPlayer->StopWalkRight();
+			mPlayer->WalkRight();
+		}
+		else
+		{
+		}
+		houseSum = 0;
+	}
+}
 
 void House::update(float dt)
 {
+	UpdatePlayer(dt);
 	UpdateCamera();
-	Buttons::GetIntance()->UpdateButton(houseCamera->getPosition().x - 200, houseCamera->getPosition().y - 100);
 }

@@ -1,22 +1,28 @@
 #include "Entei.h"
-#define hp 115
-#define atk 115
+#define hp 95
+#define atk 85
 #define def 85
 #define speed 100
 
 Entei::Entei()
 {
+}
+
+Entei::Entei(int level) : Pokemon(level)
+{
 	this->Init(16, 17);
 	//
 	this->m_name = "Entei";
-	this->m_level = 5;
-	this->m_maxHealth = hp + ((this->m_level - 1) * 10);
+	this->m_type = MyObject::TYPE_FIRE;
+	this->LearnSkill(new Bite());
+	this->LearnSkill(new FireBlast());
+	this->LearnSkill(new BlastBurn());
+	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
-	this->m_attack = atk + ((this->m_level - 1) * 2);
-	this->m_defense = def + ((this->m_level - 1) * 4);
-	this->m_attackSpeed = speed + ((this->m_level - 1) * 1);
-	this->m_currentExp = 0;
-	this->m_maxExp = 2 + ((this->m_level - 1) * 2);
+	this->m_attack += atk;
+	this->m_defense += def;
+	this->m_attackSpeed += speed;
+	this->m_maxExp += 2;
 }
 
 Entei::~Entei()

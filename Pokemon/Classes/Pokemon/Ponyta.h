@@ -5,5 +5,6 @@ class Ponyta : public Pokemon
 {
 public:
 	Ponyta();
+	Ponyta(int level);
 	~Ponyta();
 };

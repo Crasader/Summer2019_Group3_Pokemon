@@ -1,153 +1,205 @@
-#include "Buttons.h"
+﻿#include "Buttons.h"
 #include "ResourceManager.h"
 #include "Popup.h"
-
+#include <iostream>
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
 
 Buttons::Buttons()
 {
-	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
-	m_left = ResourceManager::GetInstance()->GetButtonById(2);
-	m_right = ResourceManager::GetInstance()->GetButtonById(3);
+	m_up->setAnchorPoint(Vec2(0.5f, 0.5f));
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
-	m_down->setPosition(Vec2(100, 70));
-	m_up->setPosition(Vec2(100, 130));
-	m_left->setPosition(Vec2(70, 100));
-	m_right->setPosition(Vec2(130, 100));
-	m_bag->setPosition(Vec2(500,100));
-	m_down->setScale(0.4f);
-	m_up->setScale(0.4f);
-	m_left->setScale(0.4f);
-	m_right->setScale(0.4f);
+	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
+
+	m_tips->setPosition(Vec2(30, 330));
+	m_up->setPosition(Vec2(100, 100));
+	m_bag->setPosition(Vec2(600,100));
+
+	m_up->setScale(0.8f);
+	m_up->setOpacity(100);
+	m_tips->setScale(0.2f);
 }
 
-void Buttons::ButtonBagListener(Layer *layer, Camera* camera)
-{
-	m_bag->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		if (type == Widget::TouchEventType::ENDED)
-		{
-			UICustom::Popup *popup = UICustom::Popup::createBagInBattle();
-			popup->removeFromParent();
-			popup->setAnchorPoint(Vec2(0.5, 0.5));
-			popup->setPosition(camera->getPosition().x - popup->getContentSize().width / 2,
-				camera->getPosition().y - popup->getContentSize().height / 2);
-			layer->addChild(popup, 101);
-		}
-	});
+
+int Buttons::IsContainUp(Vec2 t, Trainer *mPlayer) {
+	return (mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(t));
 }
 
-void Buttons ::ButtonListener(Trainer *&mPlayer)
+void Buttons::ButtonListener(Trainer *&mPlayer)
 {
+	Vec2 movelo;
+	Vec2 m_upPosition = m_up->getPosition();
 	m_up->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type) {
-
 		switch (type)
 		{
 		case ui::Widget::TouchEventType::BEGAN:
 		{
-			mPlayer->WalkUp();
-			state = 1;
-			break;
+			m_upPosition = m_up->getPosition();
+			movelo = m_up->getTouchBeganPosition();
+			float y = movelo.y -m_upPosition.y;
+			float x = movelo.x - m_upPosition.x;
+			float mAngle = atan2(y, x) * 180 / 3.14;
+			if (mAngle > -45 && mAngle <= 45) {
+				mPlayer->WalkRight();
+				state = 2;
+				break;
+			}
+			else if (mAngle > 45 && mAngle <= 135) {
+				mPlayer->WalkUp();
+				state = 1;
+				break;
+			}
+			else if (mAngle > -135 && mAngle <= -45) {
+				mPlayer->WalkDown();
+				state = 4;
+				break;
+			}
+			else {
+				mPlayer->WalkLeft();
+				state = 3;
+				break;
+			}
 		}
-		case ui::Widget::TouchEventType::ENDED:
+		case ui::Widget::TouchEventType::MOVED:
 		{
-			mPlayer->StopWalkUp();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
-			break;
-		}
-		default:
-		{
-			mPlayer->StopWalkUp();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
-			break;
-		}
-		}
-	});
+			m_upPosition = m_up->getPosition();
+			movelo = m_up->getTouchMovePosition();
+			if (m_up->getBoundingBox().containsPoint(movelo)) {
+				Vec2 m_upPosition = m_up->getPosition();
+				float y = movelo.y - m_upPosition.y;
+				float x = movelo.x - m_upPosition.x;
+				float mAngle = atan2(y, x) * 180 / 3.14;
+				if (mAngle > -45 && mAngle <= 45) {
+					if (state == 1) {
+						mPlayer->StopWalkUp();
+					}
+					if (state == 3) {
+						mPlayer->StopWalkLeft();
+					}
+					if (state == 4) {
+						mPlayer->StopWalkDown();
+					}
+					mPlayer->isMoveRight = 1;
+					mPlayer->isMoveUp = 0;
+					mPlayer->isMoveDown = 0;
+					mPlayer->isMoveLeft = 0;
+					state = 2;
+				}
+				else if (mAngle > 45 && mAngle <= 135) {
+					mPlayer->isMoveRight = 0;
+					mPlayer->isMoveUp = 1;
+					mPlayer->isMoveDown = 0;
+					mPlayer->isMoveLeft = 0;
+					if (state == 2) {
+						mPlayer->StopWalkRight();
+					}
+					if (state == 3) {
+						mPlayer->StopWalkLeft();
+					}
+					if (state == 4) {
+						mPlayer->StopWalkDown();
+					}
+					state = 1;
+				}
+				else if (mAngle > -135 && mAngle <= -45) {
+					mPlayer->isMoveRight = 0;
+					mPlayer->isMoveUp = 0;
+					mPlayer->isMoveDown = 1;
+					mPlayer->isMoveLeft = 0;
+					if (state == 1) {
+						mPlayer->StopWalkUp();
+					}
+					if (state == 3) {
+						mPlayer->StopWalkLeft();
+					}
+					if (state == 2) {
+						mPlayer->StopWalkRight();
+					}
+					state = 4;
+				}
+				else {
+					mPlayer->isMoveRight = 0;
+					mPlayer->isMoveUp = 0;
+					mPlayer->isMoveDown = 0;
+					mPlayer->isMoveLeft = 1;
+					mPlayer->isMoveRight = 1;
+					if (state == 1) {
+						mPlayer->StopWalkUp();
+					}
+					if (state == 2) {
+						mPlayer->StopWalkRight();
+					}
+					if (state == 4) {
+						mPlayer->StopWalkDown();
+					}
+					state = 3;
+				}
+			}
+			else {
+				mPlayer->isMoveRight = 0;
+				mPlayer->isMoveUp = 0;
+				mPlayer->isMoveLeft = 0;
+				mPlayer->isMoveDown = 0;
 
-	m_right->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			mPlayer->WalkRight();
-			state = 2;
-			break;
-		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			mPlayer->StopWalkRight();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+				if (state == 1) {
+					mPlayer->StopWalkUp();
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
+					state = 0;
+				}
+				else if (state == 2) {
+					mPlayer->StopWalkRight();
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+					state = 0;
+				}
+				else if (state == 3) {
+					mPlayer->StopWalkLeft();
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+					state = 0;
+				}
+				else if (state == 4) {
+					mPlayer->StopWalkDown();
+					mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+					state = 0;
+				}
+			}
 			break;
 		}
 		default:
 		{
-			mPlayer->StopWalkRight();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
-			break;
-		}
-		}
-	});
+			mPlayer->isMoveRight = 0;
+			mPlayer->isMoveUp = 0;
+			mPlayer->isMoveLeft = 0;
+			mPlayer->isMoveDown = 0;
 
-	m_left->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			mPlayer->WalkLeft();
-			state = 3;
-			break;
-		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			mPlayer->StopWalkLeft();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
-			break;
-		}
-		default:
-		{
-			mPlayer->StopWalkLeft();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+			if (state == 1) {
+				mPlayer->StopWalkUp();
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkup/1.png");
+				state = 0;
+			}
+			else if (state == 2) {
+				mPlayer->StopWalkRight();
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkright/1.png");
+				state = 0;
+			}
+			else if (state == 3) {
+				mPlayer->StopWalkLeft();
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkleft/1.png");
+				state = 0;
+			}
+			else if (state == 4) {
+				mPlayer->StopWalkDown();
+				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
+				state = 0;
+			}
 			break;
 		}
 		}
 	});
+}
 
-	m_down->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
-	{
-		switch (type)
-		{
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			mPlayer->WalkDown();
-			state = 4;
-			break;
-		}
-		case ui::Widget::TouchEventType::ENDED:
-		{
-			mPlayer->StopWalkDown();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
-			break;
-		}
-		default:
-		{
-			mPlayer->StopWalkDown();
-			state = 0;
-			mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
-			break;
-		}
-		}
-	});
+float Buttons::Cos(Vec2 a, Vec2 b) {
+	return Vec2::angle(a, b) * 180 / 3.14;
 }
 
 Buttons::~Buttons()
@@ -168,59 +220,59 @@ Button * Buttons::GetButtonUp()
 	return m_up;
 }
 
-Button * Buttons::GetButtonLeft()
-{
-	return m_left;
-}
-
-Button * Buttons::GetButtonRight()
-{
-	return m_right;
-}
-
-Button * Buttons::GetButtonDown()
-{
-	return m_down;
-}
 
 Button * Buttons::GetButtonBag()
 {
 	return m_bag;
 }
 
+Button * Buttons::GetButtonTips()
+{
+	return m_tips;
+}
+
+void Buttons::SetVisible(bool enable)
+{
+	this->m_up->setVisible(enable);
+	this->m_bag->setVisible(enable);
+	this->m_tips->setVisible(enable);
+}
+
 void Buttons::Remove()
 {
 	m_up->removeFromParentAndCleanup(true);
-	m_down->removeFromParentAndCleanup(true);
-	m_left->removeFromParentAndCleanup(true);
-	m_right->removeFromParentAndCleanup(true);
 	m_bag->removeFromParentAndCleanup(true);
+	m_tips->removeFromParentAndCleanup(true);
 	m_up->release();
-	m_down->release();
-	m_left->release();
-	m_right->release();
 	m_bag->release();
-	m_down = ResourceManager::GetInstance()->GetButtonById(1);//thay id khac
+	m_tips->release();
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
-	m_left = ResourceManager::GetInstance()->GetButtonById(2);
-	m_right = ResourceManager::GetInstance()->GetButtonById(3);
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
-	m_down->setPosition(Vec2(100, 70));
-	m_up->setPosition(Vec2(100, 130));
-	m_left->setPosition(Vec2(70, 100));
-	m_right->setPosition(Vec2(130, 100));
-	m_bag->setPosition(Vec2(100, 600));
-	m_down->setScale(0.4f);
-	m_up->setScale(0.4f);
-	m_left->setScale(0.4f);
-	m_right->setScale(0.4f);
-	//m_bag->setScale();
+	m_tips = ResourceManager::GetInstance()->GetButtonById(13);
+	m_up->setPosition(Vec2(100, 100));
+	m_bag->setPosition(Vec2(600, 100));
+	m_tips->setPosition(Vec2(30, 330));
+	m_up->setScale(0.8f);
+	m_up->setOpacity(100);
+	m_tips->setScale(0.2f);
 }
 
-void Buttons:: UpdateButton(float x, float y) {
-	m_left->setPosition(Vec2(x - 30, y));
-	m_right->setPosition(Vec2(x + 30, y));
-	m_up->setPosition(Vec2(x , y +30));
-	m_down->setPosition(Vec2(x , y -30));
+void Buttons::UpdateButton(float x, float y) {
+	m_up->setPosition(Vec2(x , y));
 	m_bag->setPosition(Vec2(x + 400, y));
+	m_tips->setPosition(Vec2(x +200 -330, y +100 +150));
+}
+
+void Buttons::SetTouchEnable()
+{
+	Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonUp()->setTouchEnabled(true);
+	Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(true);
+}
+
+void Buttons::SetTouchDisable()
+{
+	Buttons::GetIntance()->GetButtonBag()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonUp()->setTouchEnabled(false);
+	Buttons::GetIntance()->GetButtonTips()->setTouchEnabled(false);
 }

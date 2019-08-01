@@ -1,15 +1,5 @@
 #include "Bag.h"
 #include "Trainer.h"
-#include "Item\Potion.h"
-#include "Item\MaxPotion.h"
-#include "Item\SuperPotion.h"
-#include "Item\Revive.h"
-#include "Item\MaxRevive.h"
-#include "Item\Ether.h"
-#include "Item\LeafStone.h"
-#include "Item\FireStone.h"
-#include "Item\ThunderStone.h"
-#include "Item\WaterStone.h"
 
 Bag::Bag()
 {
@@ -59,13 +49,20 @@ vector<Item*> Bag::GetListItem()
 
 void Bag::AddPokemon(Pokemon* pokemon)
 {
-	if (this->m_pokemons.size() < 6)
+	if (this->GetCountPokemon() < 6)
 	{
-		this->m_pokemons.push_back(pokemon);
+		for (int i = 0; i < 6; i++)
+		{
+			if (this->m_pokemons.at(i) == nullptr)
+			{
+				this->m_pokemons.at(i) = pokemon;
+				break;
+			}
+		}
 	}
 	else
 	{
-		this->m_pokemons_over.push_back(pokemon);
+		this->m_pokemons_over.at(this->SizeOfListPokemonOver()) = pokemon;
 	}
 }
 
@@ -93,6 +90,21 @@ void Bag::ChangePokemon(int index)
 	this->m_pokemons.at(index) = temp;
 }
 
+void Bag::CheckPokemonEvolve()
+{
+	for (int i = 0; i < 6; i++)
+	{
+		if (this->m_pokemons.at(i) != nullptr)
+		{
+			auto evolve = this->m_pokemons.at(i)->Evolve();
+			if (evolve != nullptr)
+			{
+				this->m_pokemons.at(i) = evolve;
+			}
+		}
+	}
+}
+
 void Bag::SetGold(int gold)
 {
 	this->my_gold = gold;
@@ -108,29 +120,63 @@ void Bag::AddItem(Item * item)
 	this->m_items.push_back(item);
 }
 
-void Bag::AddPokemonIntoMyList(int index)
+void Bag::AddPokemonIntoMyList(Pokemon *pokemon,int index)
 {
-	if (this->m_pokemons.size() > 6)
+	for (int i = 0; i < 6; i++)
 	{
-		CCLOG("My list pokemon full 6 slot");
+		if (this->m_pokemons.at(i) == nullptr)
+		{
+			this->m_pokemons.at(i) = pokemon;
+			break;
+		}
 	}
-	else
-	{
-		this->m_pokemons.push_back(this->m_pokemons_over.at(index));
-		//this->m_pokemons_over.erase.at(index);
-	}
+	this->m_pokemons_over.at(index) = nullptr;
+	this->SortList();
 }
 
-void Bag::RemovePokemonFormMyListIntoListOver(int index)
+void Bag::ReleasePokemonOver(int index)
 {
-	if (this->m_pokemons.size() > 10)
+	this->m_pokemons_over.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::ReleasePokemon(int index)
+{
+	this->m_pokemons.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon,int index)
+{
+	for (int i = 0; i < 10; i++)
 	{
-		CCLOG("List pokemon over full 10 slot");
+		if (this->m_pokemons_over.at(i) == nullptr)
+		{
+			this->m_pokemons_over.at(i) = pokemon;
+			break;
+		}
 	}
-	else
+	this->m_pokemons.at(index) = nullptr;
+	this->SortList();
+}
+
+void Bag::SortList()
+{
+	for (int i=0; i < this->m_pokemons.size()-1; i++)
 	{
-		this->m_pokemons_over.push_back(this->m_pokemons.at(index));
-		//this->m_pokemons.erase.at(index);
+		if (this->m_pokemons.at(i) == nullptr)
+		{
+			this->m_pokemons.at(i) = this->m_pokemons.at(i + 1);
+			this->m_pokemons.at(i + 1) = nullptr;
+		}
+	}
+	for (int j = 0; j < this->m_pokemons_over.size() - 1; j++)
+	{
+		if (this->m_pokemons_over.at(j) == nullptr)
+		{
+			this->m_pokemons_over.at(j) = this->m_pokemons_over.at(j + 1);
+			this->m_pokemons_over.at(j + 1) = nullptr;
+		}
 	}
 }
 
@@ -156,4 +202,63 @@ void Bag::CreateListItem()
 	this->m_items.push_back(thunderStone);
 	WaterStone *waterStone = new WaterStone();
 	this->m_items.push_back(waterStone);
+}
+
+int Bag::SizeOfListPokemon()
+{
+	int cout=0;
+	for (int i = 0; i < this->m_pokemons.size(); i++)
+	{
+		if (this->m_pokemons.at(i) != nullptr)
+		{
+			cout++;
+		}
+	}
+	return cout;
+}
+int Bag::SizeOfListPokemonOver()
+{
+	int cout = 0;
+	for (int i = 0; i < this->m_pokemons_over.size(); i++)
+	{
+		if (this->m_pokemons_over.at(i) != nullptr)
+		{
+			cout++;
+		}
+	}
+	return cout;
+}
+
+void Bag::HealthPokemon(int index, Pokemon * pokemon)
+{
+	if (index == 0)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 50, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 1)
+	{
+		int min = std::min(pokemon->GetCurrentHP() + 100, pokemon->GetMaxHP());
+		pokemon->SetCurrentHP(min);
+	}
+	if (index == 2||index==5)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP());
+	}
+	if (index == 4)
+	{
+		pokemon->SetCurrentHP(pokemon->GetMaxHP() / 2);
+	}
+}
+
+bool Bag::GetlistAlive()
+{
+	for (int i = 0; i < this->m_pokemons.size(); i++)
+	{
+		if (this->m_pokemons.at(i)->IsAlive() == true)
+		{
+			return true;
+		}
+	}
+	return false;
 }

@@ -15,5 +15,6 @@ public:
 	~CaveNPC();
 	void Init() override;
 	void Update(float deltaTime) override;
+	vector<Pokemon*> GetListPokemon();
 };
 #pragma once

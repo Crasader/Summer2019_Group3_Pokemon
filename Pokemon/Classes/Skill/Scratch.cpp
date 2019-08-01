@@ -18,5 +18,5 @@ void Scratch::Init()
 	Skill::SetPower(60);
 	Skill::SetMaxPP(15);
 	Skill::SetIdType(MyObject::TYPE_NORMAL);
-	Skill::SetCurrentPP(10);
+	Skill::SetCurrentPP(15);
 }

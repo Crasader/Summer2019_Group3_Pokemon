@@ -5,5 +5,6 @@ class Raikou : public Pokemon
 {
 public:
 	Raikou();
+	Raikou(int level);
 	~Raikou();
 };

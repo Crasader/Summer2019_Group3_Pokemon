@@ -11,13 +11,26 @@ class PokemonCenter : public cocos2d::Layer
 private:
 	Trainer *mPlayer;
 	Sprite * mGateWay;
+	EventListenerTouchOneByOne* touchListener;
+	Sprite * m_nurse;
+	Sprite * m_shop;
+	Label* m_labelLog;
+	Sprite* m_messageBox;
+	int writing = 0;
 public:
     static cocos2d::Scene* createScene();
+	static int previousScene;
     virtual bool init();
+	void TypeWriter(float deltaTime);
+	void LogSetOpacity(GLubyte opacity);
 	bool onContactBegin(PhysicsContact & contact);
 	void InitObject();
 	void UpdateCamera();
+	void Log(string logg);
+	bool onTouchBegan(Touch* touch, Event* e);
+	bool onTouchEnd(Touch* t, Event* event);
     CREATE_FUNC(PokemonCenter);
+	void UpdatePlayer(float dt);
 	void update(float);
 };
 

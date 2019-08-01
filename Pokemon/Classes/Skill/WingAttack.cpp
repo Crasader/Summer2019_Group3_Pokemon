@@ -12,6 +12,7 @@ WingAttack::~WingAttack()
 void WingAttack::Init()
 {
 	this->AddAnimation(117);
+	this->GetAnimation()->setDelayPerUnit(0.1);
 	this->SetScale(0.8);
 	Skill::SetName("Wing Attack");
 	Skill::SetTypeName("Flying");

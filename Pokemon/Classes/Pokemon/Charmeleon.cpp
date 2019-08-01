@@ -7,10 +7,6 @@
 
 Charmeleon::Charmeleon()
 {
-	this->Init(6, 7);
-	//
-	this->m_id = 3;
-	this->m_name = "Charmeleon";
 }
 
 Charmeleon::Charmeleon(Charmander * it)
@@ -39,6 +35,7 @@ Pokemon * Charmeleon::Evolve()
 {
 	if (this->m_level >= 15)
 	{
+		this->LearnSkill(new BlastBurn());
 		this->m_evolved = true;
 		return new Charizard(this);
 	}

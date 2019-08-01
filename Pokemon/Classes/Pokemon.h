@@ -13,22 +13,22 @@ protected:
 	string m_name;
 	Animation* animationFront;
 	Animation* animationBack;
-	vector<Skill*> m_listSkill;
+	vector<Skill*> m_listSkill = { nullptr, nullptr, nullptr };
 	int m_type;
-	int m_maxHealth;
-	int m_currentHealth;
-	int m_level;
-	int m_attack;
-	int m_defense;
-	int m_attackSpeed;
-	int m_currentExp;
-	int m_maxExp;
-	int m_id;
+	int m_maxHealth = 0;
+	int m_currentHealth = 0;
+	int m_level = 1;
+	int m_attack = 0;
+	int m_defense = 0;
+	int m_attackSpeed = 0;
+	int m_currentExp = 0;
+	int m_maxExp = 0;
 	bool m_alive = true;
 	bool m_state = false;
 	bool m_evolved = false;
 public:
 	Pokemon();
+	Pokemon(int level);
 	~Pokemon();
 	void Init() override;
 	void Init(int id_front, int id_back) override;
@@ -36,7 +36,6 @@ public:
 
 	virtual Pokemon* Evolve();
 
-	int GetID();
 	void LevelUp();
 	string GetName();
 	void SetName(string name);
@@ -66,7 +65,9 @@ public:
 	void SetScale(float scale);
 	void RemoveFromParent();
 	Vec2 GetPosition();
+	void LearnSkill(Skill* skill);
 	Skill* GetSkillById(int id);
 	int GetCountSkills();
 	void Attack(Pokemon* target, Skill* skill);
+	void Restore();
 };
