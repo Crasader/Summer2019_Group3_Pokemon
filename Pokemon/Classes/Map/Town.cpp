@@ -249,6 +249,7 @@ void Town::InitObject()
 			int preScene = object.asValueMap().at("pre").asInt();
 			if (preScene == previousScene) {
 				mPlayer = new Trainer(this);
+				mPlayer->GetSpriteFront()->setScale(1.5);
 				mPlayer->GetSpriteFront()->setTexture("res/Trainer/walkdown/1.png");
 				mPlayer->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				townBody = PhysicsBody::createBox(mPlayer->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -399,7 +400,7 @@ void Town::update(float dt)
 	UpdatePlayer(dt);
 	for (int i = 0; i < point.size(); i++)
 	{
-		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(point.at(i)) && Buttons::state != 0)
+		if (this->mPlayer->GetSpriteFront()->getBoundingBox().containsPoint(point.at(i)) && Buttons::state != 0 && Bag::GetInstance()->GetCountPokemon())
 		{
 			tick += dt;
 			break;

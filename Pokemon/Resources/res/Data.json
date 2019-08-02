@@ -177,7 +177,7 @@
     "151": "res/NPC/10.png"
   },
   "BUTTON": {
-    "size": 22,
+    "size": 23,
     "0": {
       "normal": "res/UI/Button/button_a.png",
       "pressed": "res/UI/Button/button_a_press.png"
@@ -262,9 +262,13 @@
       "normal": "res/UI/Button/release_1.png",
       "pressed": "res/UI/Button/release_2.png"
     },
-     "21": {
+    "21": {
       "normal": "res/UI/Button/use_1.png",
       "pressed": "res/UI/Button/use_2.png"
+    },
+    "22": {
+      "normal": "res/UI/Button/TipNoMal.png",
+      "pressed": "res/UI/Button/TipPress.png"
     }
   },
   "FONT": {

@@ -26,7 +26,7 @@ vector<Pokemon*> listPokemon;
 Scene* Route2::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route2::create();
 	scene->addChild(layer);
 	route2Camera = scene->getDefaultCamera();
@@ -257,7 +257,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Rararaiiiii!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -300,7 +300,7 @@ bool Route2::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -401,9 +401,9 @@ void Route2::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_RAIKOU)
 		{
+			m_raikou = ResourceManager::GetInstance()->GetSpriteById(151);
 			if (Model::RAIKOU == true)
 			{
-				m_raikou = ResourceManager::GetInstance()->GetSpriteById(150);
 				m_raikou->setPosition(Vec2(posX, posY));
 				m_raikou->setScale(2);
 				raikoubody = PhysicsBody::createBox(m_raikou->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -420,9 +420,9 @@ void Route2::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROADNPC)
 		{
+			m_roadnpc = new RoadNPC();
 			if (Model::ROADNPC == true)
 			{
-				m_roadnpc = new RoadNPC();
 				m_roadnpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				roadnpcbody = PhysicsBody::createBox(m_roadnpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				roadnpcbody->setCollisionBitmask(Model::BITMASK_ROADNPC);
@@ -502,23 +502,23 @@ void Route2::update(float dt)
 	{
 		vector<Pokemon*> wildPokemon;
 		int index = rand() % 5 + 1;
-		int level = rand() % 3 + 3;
+		int level = rand() % 4 + 11;
 		switch (index)
 		{
 		case 1:
-			wildPokemon.push_back(new Electrike(level));
+			wildPokemon.push_back(new Swellow(level));
 			break;
 		case 2:
-			wildPokemon.push_back(new Voltorb(level));
+			wildPokemon.push_back(new Skymin(level));
 			break;
 		case 3:
-			wildPokemon.push_back(new Vulpix(level));
+			wildPokemon.push_back(new Greninja(level));
 			break;
 		case 4:
-			wildPokemon.push_back(new Ponyta(level));
+			wildPokemon.push_back(new Kirlia(level));
 			break;
 		case 5:
-			wildPokemon.push_back(new Beautifly(level));
+			wildPokemon.push_back(new Pikachu(level));
 			break;
 		default:
 			break;
@@ -593,7 +593,7 @@ bool Route2::onTouchBegan(Touch * touch, Event * e)
 			route2Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		Buttons::GetIntance()->SetVisible(false);
+		//Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;

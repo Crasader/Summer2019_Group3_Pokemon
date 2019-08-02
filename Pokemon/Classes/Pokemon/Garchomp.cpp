@@ -1,5 +1,5 @@
 #include "Garchomp.h"
-#define hp 100
+#define hp 94
 #define atk 89
 #define def 67
 #define speed 86
@@ -14,7 +14,7 @@ Garchomp::Garchomp(int level) : Pokemon(level)
 	//
 	this->m_name = "Garchomp";
 	this->m_type = MyObject::TYPE_DRAGON;
-	this->m_listSkill = { new DragonCut(), new DragonClaw(), nullptr };
+	this->m_listSkill = { new Bite(), new DragonCut(), new DragonClaw() };
 	this->m_maxHealth += hp;
 	this->m_currentHealth = this->m_maxHealth;
 	this->m_attack += atk;

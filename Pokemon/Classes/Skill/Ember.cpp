@@ -12,6 +12,7 @@ Ember::~Ember()
 void Ember::Init()
 {
 	this->AddAnimation(97);
+	this->GetAnimation()->setDelayPerUnit(0.1);
 	this->SetScale(3);
 	Skill::SetName("Ember");
 	Skill::SetTypeName("Fire");

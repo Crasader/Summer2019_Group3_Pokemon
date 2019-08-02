@@ -25,7 +25,7 @@ int Route1::previousScene = 0;
 Scene* Route1::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = Route1::create();
 	scene->addChild(layer);
 	route1Camera = scene->getDefaultCamera();
@@ -261,7 +261,7 @@ bool Route1::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -358,9 +358,9 @@ void Route1::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
+			m_route1npc = new RouteNPC();
 			if (Model::ROUTE1NPC == true)
 			{
-				m_route1npc = new RouteNPC();
 				m_route1npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_route1npc->GetSpriteFront()->setScale(0.8);
 				route1npcbody = PhysicsBody::createBox(m_route1npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -446,7 +446,7 @@ bool Route1::onTouchBegan(Touch * touch, Event * e)
 			route1Camera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		Buttons::GetIntance()->SetVisible(false);
+		//Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;

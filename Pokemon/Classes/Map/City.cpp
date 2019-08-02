@@ -28,7 +28,7 @@ bool npc_state = true;
 Scene* City::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	auto layer = City::create();
 	scene->addChild(layer);
 	cityCamera = scene->getDefaultCamera();
@@ -287,7 +287,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -330,7 +330,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("ZzzzZzzzZZzz");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -373,7 +373,7 @@ bool City::onContactBegin(PhysicsContact& contact)
 		}
 		auto audio = SimpleAudioEngine::getInstance();
 		audio->playEffect("res/Sound/Beep.mp3", false);
-		//Buttons::GetIntance()->SetTouchDisable();
+		Buttons::GetIntance()->SetVisible(false);
 		this->Log("Let's battle!");
 		this->m_messageBox->setVisible(true);
 		touchListener = EventListenerTouchOneByOne::create();
@@ -506,9 +506,9 @@ void City::InitObject()
 		}
 		else if(type == Model::MODLE_TYPE_LAKENPC)
 		{
+			m_lakenpc = new LakeNPC();
 			if (Model::LAKENPC == true)
 			{
-				m_lakenpc = new LakeNPC();
 				m_lakenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_lakenpc->GetSpriteFront()->setScale(0.8);
 				lakenpcbody = PhysicsBody::createBox(m_lakenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -522,9 +522,9 @@ void City::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_CAVENPC)
 		{
+			m_cavenpc = new CaveNPC();
 			if (Model::CAVENPC == true)
 			{
-				m_cavenpc = new CaveNPC();
 				m_cavenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_cavenpc->GetSpriteFront()->setScale(1.2);
 				cavenpcbody = PhysicsBody::createBox(m_cavenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -538,9 +538,9 @@ void City::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE2NPC)
 		{
-			if (Model::CAVENPC == true)
+			m_route2npc = new Route2NPC();
+			if (Model::ROUTE2NPC == true)
 			{
-				m_route2npc = new Route2NPC();
 				m_route2npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_route2npc->GetSpriteFront()->setScale(0.8);
 				route2npcbody = PhysicsBody::createBox(m_route2npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -657,7 +657,7 @@ bool City::onTouchBegan(Touch * touch, Event * e)
 			cityCamera->getPosition().y - Director::getInstance()->getVisibleSize().height / 2);
 		this->addChild(layer, 1000);
 		this->unscheduleUpdate();
-		Buttons::GetIntance()->SetVisible(false);
+		//Buttons::GetIntance()->SetVisible(false);
 		Director::getInstance()->getEventDispatcher()->removeEventListener(touchListener);
 	}
 	return true;

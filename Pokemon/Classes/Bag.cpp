@@ -4,7 +4,7 @@
 Bag::Bag()
 {
 	this->Init();
-	this->my_gold = 100;
+	this->my_gold = 8888;
 	this->CreateListItem();
 }
 
@@ -142,6 +142,7 @@ void Bag::ReleasePokemonOver(int index)
 
 void Bag::ReleasePokemon(int index)
 {
+	delete this->m_pokemons.at(index);
 	this->m_pokemons.at(index) = nullptr;
 	this->SortList();
 }
@@ -162,7 +163,7 @@ void Bag::RemovePokemonFormMyListToListOver(Pokemon *pokemon,int index)
 
 void Bag::SortList()
 {
-	for (int i=0; i < this->m_pokemons.size()-1; i++)
+	for (int i = 0; i < this->m_pokemons.size() - 1; i++)
 	{
 		if (this->m_pokemons.at(i) == nullptr)
 		{

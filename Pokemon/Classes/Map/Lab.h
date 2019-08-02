@@ -11,6 +11,7 @@ private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
 	Sprite * m_doctor;
+	EventListenerTouchOneByOne* touchListener;
 	Label* m_labelLog;
 	Sprite* m_messageBox;
 	int writing = 0;
