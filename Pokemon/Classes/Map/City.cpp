@@ -506,9 +506,9 @@ void City::InitObject()
 		}
 		else if(type == Model::MODLE_TYPE_LAKENPC)
 		{
+			m_lakenpc = new LakeNPC();
 			if (Model::LAKENPC == true)
 			{
-				m_lakenpc = new LakeNPC();
 				m_lakenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_lakenpc->GetSpriteFront()->setScale(0.8);
 				lakenpcbody = PhysicsBody::createBox(m_lakenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -522,9 +522,9 @@ void City::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_CAVENPC)
 		{
+			m_cavenpc = new CaveNPC();
 			if (Model::CAVENPC == true)
 			{
-				m_cavenpc = new CaveNPC();
 				m_cavenpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_cavenpc->GetSpriteFront()->setScale(1.2);
 				cavenpcbody = PhysicsBody::createBox(m_cavenpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -538,9 +538,9 @@ void City::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE2NPC)
 		{
+			m_route2npc = new Route2NPC();
 			if (Model::ROUTE2NPC == true)
 			{
-				m_route2npc = new Route2NPC();
 				m_route2npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_route2npc->GetSpriteFront()->setScale(0.8);
 				route2npcbody = PhysicsBody::createBox(m_route2npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);

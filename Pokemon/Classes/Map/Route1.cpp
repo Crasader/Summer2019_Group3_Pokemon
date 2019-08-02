@@ -358,9 +358,9 @@ void Route1::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROUTE1NPC)
 		{
+			m_route1npc = new RouteNPC();
 			if (Model::ROUTE1NPC == true)
 			{
-				m_route1npc = new RouteNPC();
 				m_route1npc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				m_route1npc->GetSpriteFront()->setScale(0.8);
 				route1npcbody = PhysicsBody::createBox(m_route1npc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);

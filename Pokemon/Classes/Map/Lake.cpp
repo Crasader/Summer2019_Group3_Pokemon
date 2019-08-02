@@ -300,9 +300,9 @@ void Lake::InitObject()
 		}
 		else
 		{
+			suicune = ResourceManager::GetInstance()->GetSpriteById(150);
 			if (Model::SUICUNE==true)
 			{
-				suicune = ResourceManager::GetInstance()->GetSpriteById(150);
 				suicune->setPosition(Vec2(posX, posY));
 				suicune->setScale(2);
 				suicuneBody = PhysicsBody::createBox(suicune->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);

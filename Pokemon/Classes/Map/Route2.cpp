@@ -401,9 +401,9 @@ void Route2::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_RAIKOU)
 		{
+			m_raikou = ResourceManager::GetInstance()->GetSpriteById(151);
 			if (Model::RAIKOU == true)
 			{
-				m_raikou = ResourceManager::GetInstance()->GetSpriteById(151);
 				m_raikou->setPosition(Vec2(posX, posY));
 				m_raikou->setScale(2);
 				raikoubody = PhysicsBody::createBox(m_raikou->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -420,9 +420,9 @@ void Route2::InitObject()
 		}
 		else if (type == Model::MODLE_TYPE_ROADNPC)
 		{
+			m_roadnpc = new RoadNPC();
 			if (Model::ROADNPC == true)
 			{
-				m_roadnpc = new RoadNPC();
 				m_roadnpc->GetSpriteFront()->setPosition(Vec2(posX, posY));
 				roadnpcbody = PhysicsBody::createBox(m_roadnpc->GetSpriteFront()->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 				roadnpcbody->setCollisionBitmask(Model::BITMASK_ROADNPC);

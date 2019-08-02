@@ -310,9 +310,9 @@ void Cave::InitObject()
 		}
 		else
 		{
+			entei = ResourceManager::GetInstance()->GetSpriteById(149);
 			if (Model::ENTEI==true)
 			{
-				entei = ResourceManager::GetInstance()->GetSpriteById(149);
 				entei->setPosition(Vec2(posX, posY));
 				entei->setScale(2);
 				enteiBody = PhysicsBody::createBox(entei->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
