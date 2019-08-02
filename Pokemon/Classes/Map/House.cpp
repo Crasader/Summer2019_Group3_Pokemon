@@ -44,7 +44,9 @@ bool House::init()
 	houseVisibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
-	auto map = ResourceManager::GetInstance()->GetTiledMapById(1);
+	map = ResourceManager::GetInstance()->GetTiledMapById(1);
+	map->setAnchorPoint(Vec2::ZERO);
+	map->setScale(houseVisibleSize.width / map->getContentSize().width, houseVisibleSize.height / map->getContentSize().height);
 	houseTileMapSize = map->getContentSize();
 	addChild(map);
 
@@ -74,6 +76,10 @@ bool House::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_House = Layer::create();
+	layer_UI_House->setScale(houseVisibleSize.width / layer_UI_House->getContentSize().width, houseVisibleSize.height / layer_UI_House->getContentSize().height);
+	up->setPosition(Vec2(houseVisibleSize.width / 7.2, houseVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(houseVisibleSize.width / 1.09, houseVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(houseVisibleSize.width / 20, houseVisibleSize.height / 1.09));
 	cameraUIHouse = Camera::create();
 	cameraUIHouse->setCameraMask(2);
 	cameraUIHouse->setCameraFlag(CameraFlag::USER1);

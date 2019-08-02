@@ -4,6 +4,7 @@
 #include <iostream>
 Buttons* Buttons::m_button = NULL;
 int Buttons::state = 0;
+auto visibleSize = Director::getInstance()->getVisibleSize();
 
 Buttons::Buttons()
 {
@@ -11,10 +12,6 @@ Buttons::Buttons()
 	m_up->setAnchorPoint(Vec2(0.5f, 0.5f));
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
 	m_tips = ResourceManager::GetInstance()->GetButtonById(22);
-
-	m_tips->setPosition(Vec2(30, 330));
-	m_up->setPosition(Vec2(100, 100));
-	m_bag->setPosition(Vec2(600,100));
 
 	m_up->setScale(1);
 	m_up->setOpacity(100);
@@ -250,9 +247,6 @@ void Buttons::Remove()
 	m_up = ResourceManager::GetInstance()->GetButtonById(4);
 	m_bag = ResourceManager::GetInstance()->GetButtonById(11);
 	m_tips = ResourceManager::GetInstance()->GetButtonById(22);
-	m_up->setPosition(Vec2(100, 100));
-	m_bag->setPosition(Vec2(600, 100));
-	m_tips->setPosition(Vec2(30, 330));
 	m_up->setScale(1);
 	m_up->setOpacity(100);
 	m_tips->setScale(0.2f);

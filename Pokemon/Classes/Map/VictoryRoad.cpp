@@ -77,6 +77,10 @@ bool Road::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_Road = Layer::create();
+	layer_UI_Road->setScale(roadVisibleSize.width / layer_UI_Road->getContentSize().width, roadVisibleSize.height / layer_UI_Road->getContentSize().height);
+	up->setPosition(Vec2(roadVisibleSize.width / 7.2, roadVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(roadVisibleSize.width / 1.09, roadVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(roadVisibleSize.width / 20, roadVisibleSize.height / 1.09));
 	cameraUIRoad = Camera::create();
 	cameraUIRoad->setCameraMask(2);
 	cameraUIRoad->setCameraFlag(CameraFlag::USER1);

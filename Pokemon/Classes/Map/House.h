@@ -11,6 +11,7 @@ private:
 	Trainer * mPlayer;
 	Sprite * mGateWay;
 	Sprite * mNpc;
+	TMXTiledMap* map;
 
 public:
 	static cocos2d::Scene* createScene();
