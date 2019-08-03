@@ -85,6 +85,10 @@ bool Lab::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 	
 	layer_UI_Lab = Layer::create();
+	layer_UI_Lab->setScale(labVisibleSize.width / layer_UI_Lab->getContentSize().width, labVisibleSize.height / layer_UI_Lab->getContentSize().height);
+	up->setPosition(Vec2(labVisibleSize.width / 7.2, labVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(labVisibleSize.width / 1.09, labVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(labVisibleSize.width / 20, labVisibleSize.height / 1.09));
 	cameraUILab = Camera::create();
 	cameraUILab->setCameraMask(2);
 	cameraUILab->setCameraFlag(CameraFlag::USER1);

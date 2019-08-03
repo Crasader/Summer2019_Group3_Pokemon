@@ -11,7 +11,7 @@
 
 using namespace CocosDenshion;
 USING_NS_CC;
-Size pcvisibleSize;
+Size pcVisibleSize;
 Size pctileMapSize;
 
 PhysicsBody* pcbody, *pcgateWay, *nursebody, *shopbody;
@@ -47,7 +47,7 @@ bool PokemonCenter::init()
         return false;
     }
 
-	pcvisibleSize = Director::getInstance()->getVisibleSize();
+	pcVisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
 	auto map = ResourceManager::GetInstance()->GetTiledMapById(8);
@@ -79,6 +79,10 @@ bool PokemonCenter::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_PC = Layer::create();
+	layer_UI_PC->setScale(pcVisibleSize.width / layer_UI_PC->getContentSize().width, pcVisibleSize.height / layer_UI_PC->getContentSize().height);
+	up->setPosition(Vec2(pcVisibleSize.width / 7.2, pcVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(pcVisibleSize.width / 1.09, pcVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(pcVisibleSize.width / 20, pcVisibleSize.height / 1.09));
 	cameraUIPC = Camera::create();
 	cameraUIPC->setCameraMask(2);
 	cameraUIPC->setCameraFlag(CameraFlag::USER1);
@@ -362,14 +366,14 @@ void PokemonCenter::InitObject()
 }
 
 void PokemonCenter::UpdateCamera() {
-	if (pcvisibleSize.width >= pctileMapSize.width) {
-		if (pcvisibleSize.height >= pctileMapSize.height) {
+	if (pcVisibleSize.width >= pctileMapSize.width) {
+		if (pcVisibleSize.height >= pctileMapSize.height) {
 			pccamera->setPosition(pctileMapSize / 2);
 		}
 		else
 		{
-			if (abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
-				pccamera->setPosition(pctileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcVisibleSize.height / 2)) {
+				pccamera->setPosition(pctileMapSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcVisibleSize.height / 2) : pcVisibleSize.height / 2);
 			}
 			else {
 				pccamera->setPosition(pctileMapSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
@@ -377,26 +381,26 @@ void PokemonCenter::UpdateCamera() {
 		}
 	}
 	else {
-		if (pcvisibleSize.height >= pctileMapSize.height) {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)) {
-				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, pctileMapSize.height / 2);
+		if (pcVisibleSize.height >= pctileMapSize.height) {
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcVisibleSize.width / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.width - pcVisibleSize.width / 2) : pcVisibleSize.width / 2, pctileMapSize.height / 2);
 			}
 			else {
 				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, pctileMapSize.height / 2);
 			}
 		}
 		else {
-			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
-				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
+			if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcVisibleSize.height / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcVisibleSize.width / 2) : pcVisibleSize.width / 2, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcVisibleSize.height / 2) : pcVisibleSize.height / 2);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)<abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
-				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcvisibleSize.width / 2) : pcvisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)>abs(pctileMapSize.width / 2 - pcVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)<abs(pctileMapSize.height / 2 - pcVisibleSize.height / 2)) {
+				pccamera->setPosition((mPlayer->GetSpriteFront()->getPosition().x >pccamera->getPosition().x) ? (pctileMapSize.width - pcVisibleSize.width / 2) : pcVisibleSize.width / 2, mPlayer->GetSpriteFront()->getPosition().y);
 			}
-			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)<abs(pctileMapSize.width / 2 - pcvisibleSize.width / 2)
-				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcvisibleSize.height / 2)) {
-				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcvisibleSize.height / 2) : pcvisibleSize.height / 2);
+			else if (abs(mPlayer->GetSpriteFront()->getPosition().x - pctileMapSize.width / 2)<abs(pctileMapSize.width / 2 - pcVisibleSize.width / 2)
+				&& abs(mPlayer->GetSpriteFront()->getPosition().y - pctileMapSize.height / 2)>abs(pctileMapSize.height / 2 - pcVisibleSize.height / 2)) {
+				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition().x, (mPlayer->GetSpriteFront()->getPosition().y >pccamera->getPosition().y) ? (pctileMapSize.height - pcVisibleSize.height / 2) : pcVisibleSize.height / 2);
 			}
 			else {
 				pccamera->setPosition(mPlayer->GetSpriteFront()->getPosition());

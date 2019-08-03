@@ -118,6 +118,10 @@ bool City::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_City = Layer::create();
+	layer_UI_City->setScale(cityVisibleSize.width / layer_UI_City->getContentSize().width, cityVisibleSize.height / layer_UI_City->getContentSize().height);
+	up->setPosition(Vec2(cityVisibleSize.width / 7.2, cityVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(cityVisibleSize.width / 1.09, cityVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(cityVisibleSize.width / 20, cityVisibleSize.height / 1.09));
 	cameraUICity = Camera::create();
 	cameraUICity->setCameraMask(2);
 	cameraUICity->setCameraFlag(CameraFlag::USER1);

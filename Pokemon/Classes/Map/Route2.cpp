@@ -118,6 +118,10 @@ bool Route2::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_Route2 = Layer::create();
+	layer_UI_Route2->setScale(route2VisibleSize.width / layer_UI_Route2->getContentSize().width, route2VisibleSize.height / layer_UI_Route2->getContentSize().height);
+	up->setPosition(Vec2(route2VisibleSize.width / 7.2, route2VisibleSize.height / 3.6));
+	bag->setPosition(Vec2(route2VisibleSize.width / 1.09, route2VisibleSize.height / 1.09));
+	tips->setPosition(Vec2(route2VisibleSize.width / 20, route2VisibleSize.height / 1.09));
 	cameraUIRoute2 = Camera::create();
 	cameraUIRoute2->setCameraMask(2);
 	cameraUIRoute2->setCameraFlag(CameraFlag::USER1);

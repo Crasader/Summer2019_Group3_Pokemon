@@ -108,6 +108,10 @@ bool Cave::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_Cave = Layer::create();
+	layer_UI_Cave->setScale(caveVisibleSize.width / layer_UI_Cave->getContentSize().width, caveVisibleSize.height / layer_UI_Cave->getContentSize().height);
+	up->setPosition(Vec2(caveVisibleSize.width / 7.2, caveVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(caveVisibleSize.width / 1.09, caveVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(caveVisibleSize.width / 20, caveVisibleSize.height / 1.09));
 	cameraUICave = Camera::create();
 	cameraUICave->setCameraMask(2);
 	cameraUICave->setCameraFlag(CameraFlag::USER1);

@@ -104,6 +104,10 @@ bool League::init()
 	Button *tips = Buttons::GetIntance()->GetButtonTips();
 
 	layer_UI_League = Layer::create();
+	layer_UI_League->setScale(leagueVisibleSize.width / layer_UI_League->getContentSize().width, leagueVisibleSize.height / layer_UI_League->getContentSize().height);
+	up->setPosition(Vec2(leagueVisibleSize.width / 7.2, leagueVisibleSize.height / 3.6));
+	bag->setPosition(Vec2(leagueVisibleSize.width / 1.09, leagueVisibleSize.height / 1.09));
+	tips->setPosition(Vec2(leagueVisibleSize.width / 20, leagueVisibleSize.height / 1.09));
 	cameraUILeague = Camera::create();
 	cameraUILeague->setCameraMask(2);
 	cameraUILeague->setCameraFlag(CameraFlag::USER1);
